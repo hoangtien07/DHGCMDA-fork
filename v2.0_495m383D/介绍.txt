@@ -1,0 +1,12 @@
+D-GSM: 疾病高斯相互作用谱核相似度
+D-SSM1: 疾病语义相似度1
+D-SSM2: 疾病语义相似度2
+M-FSM: miRNA功能相似度
+M-GSM： miRNA高斯相互作用谱核相似度
+disease name: 所有疾病名称和对应的数字
+miRNA name: 所有miran名称和对应的数字
+all-mirna-disease-pairs: 所有mirna-疾病关联列表（三列版）第一列是miRNA,第二列是疾病，第三列是关联类型（0或1）
+mirna-disease: 所有mirna-疾病关联列表（两列版）
+multi2-all-marna-disease-pairs: 所有mirna-疾病关联列表（三列版）第一列是miRNA,第二列是疾病，第三列是关联类型（0或1）
+multi-all-mirna-disease-pairs without-negative: 所有mirna-疾病关联类型列表，去掉无关联的（0），1代表循环类型，2代表表观遗传学类型，3代表靶标类型，4代表遗传学类型
+multi-all-mirna-disease-pairs without-negative-forecasestudy: 一般不用
