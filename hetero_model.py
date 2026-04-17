@@ -31,7 +31,14 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class InterViewContrastiveLoss(nn.Module):
-    """跨模态视图间对比学习损失 - miRNA vs Disease (修复版)"""
+    """跨模态视图间对比学习损失 - miRNA vs Disease (修复版)
+
+    [VN] Cross-modal contrastive loss giữa miRNA và disease embedding.
+    Mục tiêu: với cặp (miRNA i, disease j) CÓ association → kéo gần nhau
+    trong embedding space; cặp KHÔNG association → đẩy xa.
+    Kết hợp InfoNCE (SimCLR-style) + Margin ranking loss.
+    Chi tiết toán học: xem docs/NOTES_MODEL.md §5
+    """
 
     def __init__(self, temperature=0.5, margin=0.5):
         super(InterViewContrastiveLoss, self).__init__()
@@ -145,7 +152,17 @@ seed_torch()
 
 
 class HGNN_conv(nn.Module):
-    """优化的超图神经网络卷积层 - 设备兼容版本"""
+    """优化的超图神经网络卷积层 - 设备兼容版本
+
+    [VN] 1 layer hypergraph convolution.
+    Công thức: output = G · (x · W) + b
+      - x [N, F]: feature của N node
+      - W [F, F']: linear transform
+      - G [N, N]: hypergraph Laplacian, xây offline bằng KNN
+                  G = D_v^(-½) · H · W_e · D_e^(-1) · H^T · D_v^(-½)
+    Khác GCN: H là INCIDENCE matrix (1 hyperedge chứa K node),
+    cho phép capture high-order relation.
+    """
 
     def __init__(self, in_ft, out_ft, bias=True):
         super(HGNN_conv, self).__init__()
@@ -199,7 +216,15 @@ class HGCN(nn.Module):
 
 
 class CL_HGCN(nn.Module):
-    """优化的对比学习超图卷积网络 - 设备兼容版本"""
+    """优化的对比学习超图卷积网络 - 设备兼容版本
+
+    [VN] Dual-view contrastive hypergraph conv network.
+    Nhận 2 view (x1, adj1) và (x2, adj2) cùng 1 loại node (ví dụ miRNA).
+    Mỗi view qua 1 HGCN riêng → z1, z2.
+    Contrastive: kéo gần z1[i] và z2[i] (cùng node, khác view),
+    đẩy xa khỏi z1[j]/z2[j] (node khác).
+    Dùng SimCLR/NT-Xent loss với tau=0.5.
+    """
 
     def __init__(self, in_size, hid_list, num_proj_hidden, alpha=0.5):
         super(CL_HGCN, self).__init__()
@@ -255,7 +280,13 @@ class CL_HGCN(nn.Module):
 
 
 class HGCN_Attention_Mechanism(nn.Module):
-    """优化的注意力机制 - 设备兼容版本"""
+    """优化的注意力机制 - 设备兼容版本
+
+    [VN] CẢNH BÁO: tên class gây hiểu nhầm — KHÔNG phải softmax attention!
+    Thực chất chỉ là weighted sum với weights cố định 0.6/0.4.
+    Đơn giản hóa để stable hơn trên dynamic graph.
+    Muốn dùng attention thật → thay bằng multi-head attention module.
+    """
 
     def __init__(self):
         super(HGCN_Attention_Mechanism, self).__init__()
@@ -273,7 +304,8 @@ class HGCN_Attention_Mechanism(nn.Module):
         feature1 = input_list[0].to(target_device).float()
         feature2 = input_list[1].to(target_device).float()
 
-        # 使用简单的加权平均而不是复杂的注意力计算
+        # [VN] Weighted sum tĩnh. View 1 nhận weight cao hơn (0.6)
+        # vì code coi View 1 (sequence/gene) là "primary", View 2 là "auxiliary".
         weight1 = 0.6
         weight2 = 0.4
 
@@ -421,6 +453,13 @@ class SimplifiedTypePredictor(nn.Module):
 
     - score = miRNA^T @ diag(r_type) @ disease  (BilinearDiag风格)
     - 每个类型有独立的关系向量 (ComplEx风格)
+
+    [VN] Classifier cuối. Cho mỗi cặp (miRNA i, disease j) tính:
+      existence_score[i,j] = sigmoid(mi_feat[i] · diag(r_exist) · dis_feat[j]^T)
+      type_logit[i,j,t]    = mi_feat[i] · diag(r_type_t) · dis_feat[j]^T
+      type_prob[i,j]       = softmax(type_logit / T)  với T learnable
+    Output shape: [mi_num, dis_num, 1 + num_types] = [..., 5]
+    Type relation vectors được init ORTHOGONAL để tránh collapse.
     """
 
     def __init__(self, node_dim, hidden_dim, num_types=4, dropout=0.2):
@@ -516,6 +555,15 @@ class SimplifiedTypePredictor(nn.Module):
 
 
 class HeterogenousGraphCLAMIR(nn.Module):
+    """
+    [VN] Model chính của DHGCMDA.
+    Kiến trúc 3 khối:
+      1. Dual-view hypergraph encoder: CL_HGCN_mi + CL_HGCN_dis
+      2. Inter-view contrastive + similarity reconstruction decoders
+      3. HGT layers (nlayer=2) + SimplifiedTypePredictor
+
+    Sơ đồ đầy đủ: docs/ARCHITECTURE.md
+    """
 
     def __init__(self, mi_num, dis_num, hidden_list, num_proj_hidden, args):
         super(HeterogenousGraphCLAMIR, self).__init__()
@@ -620,7 +668,26 @@ class HeterogenousGraphCLAMIR(nn.Module):
         return association_matrix.to(target_device).float()
 
     def forward(self, concat_mi_tensor, concat_dis_tensor, G_mi_Kn, G_mi_Km, G_dis_Kn, G_dis_Km, hetero_data=None):
+        """
+        [VN] Forward pass chính — 5 giai đoạn:
+          Stage 1: HGCN 2 view cho miRNA + disease (intra-view CL)
+          Stage 2: Fusion weighted sum (0.6/0.4)
+          Stage 3: Inter-view CL (miRNA ↔ disease)
+          Stage 4: Similarity reconstruction (self-supervised)
+          Stage 5: HGT layers + bilinear classifier
 
+        Input shapes:
+          concat_mi_tensor  [495, 878] = cat(assoc_matrix, m_ss) — View 1 của miRNA
+          concat_dis_tensor [383, 878] = cat(assoc_matrix.T, d_gs) — View 1 của disease
+          G_mi_Kn, G_mi_Km  [495, 495] — 2 hypergraph Laplacian cho miRNA
+          G_dis_Kn, G_dis_Km [383, 383] — 2 hypergraph Laplacian cho disease
+
+        Output:
+          score [495, 383, 5] — [exist_prob, p_type1, p_type2, p_type3, p_type4]
+          mi_cl_loss, dis_cl_loss — scalar (intra + inter_view_weight·inter)
+          mi_sim_recon [495, 495], dis_sim_recon [383, 383]
+        Chi tiết: xem docs/NOTES_DATAFLOW.md §6 và docs/ARCHITECTURE.md
+        """
         # 确定目标设备
         target_device = next(self.parameters()).device
 

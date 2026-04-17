@@ -54,7 +54,22 @@ seed_torch()
 # ============================================================================
 
 class SimplifiedMultiTypeAssociationLoss(nn.Module):
-    """简化的多类型损失 - 简洁高效"""
+    """简化的多类型损失 - 简洁高效
+
+    [VN] Loss tổng hợp cho bài toán multi-type association prediction.
+    Tổng loss = 0.3 * existence_loss + 0.7 * type_loss
+
+    existence_loss: FOCAL LOSS xử lý class imbalance giữa có/không associaton.
+      pos: -(1-p)^gamma · log(p)  với gamma=2.0
+      neg: -p^gamma · log(1-p) · alpha  với alpha=0.5
+
+    type_loss: WEIGHTED CROSS-ENTROPY với label smoothing 0.1
+      class_weights computed bằng Effective Number formula (beta=0.99999)
+      → minority classes (Epigenetics: 157 samples) được weight cao hơn
+      → majority (Genetics: 681 samples) weight thấp hơn
+
+    Chi tiết: xem docs/NOTES_MODEL.md §10
+    """
 
     def __init__(self, args, model=None):
         super(SimplifiedMultiTypeAssociationLoss, self).__init__()
@@ -645,7 +660,21 @@ def check_gradients(model, epoch):
 
 # 训练和测试函数
 def train_epoch_optimized(model, train_data, optim, args):
-    """优化的训练函数 - 真正的双视图实现 + 详细调试"""
+    """优化的训练函数 - 真正的双视图实现 + 详细调试
+
+    [VN] Training loop cho 1 fold của CV:
+      1. Lấy 12-tuple từ train_data (xem docs/NOTES_DATAFLOW.md §3)
+      2. Negative sampling: chọn 10x số positive làm negative
+      3. Build 4 hypergraph Laplacian G từ 4 view khác nhau (KNN K=13)
+      4. Build heterogeneous graph (4 edge types)
+      5. Loop args.epoch lần:
+         - forward model → score [495,383,5] + losses
+         - compute total loss = recover + CL + 0.15·recon + 1e-4·reg
+         - backward + clip grad + step
+         - mỗi 50 epoch: check gradient + print progress
+         - mỗi 5 epoch (graph_update_frequency): rebuild edges nếu sim thay đổi >0.01
+      6. Sau training loop: chạy test_optimized để eval
+    """
     model.train()
     regression_crit = SimplifiedMultiTypeAssociationLoss(args, model)
 

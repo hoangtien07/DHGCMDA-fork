@@ -5,7 +5,7 @@ import math
 
 def Eu_dis(x):
     # 确保输入数据是float32类型
-    x = np.mat(x).astype(np.float32)
+    x = np.asmatrix(x).astype(np.float32)
 
     aa = np.sum(np.multiply(x, x), 1)
     ab = x * x.T
@@ -81,11 +81,11 @@ def _generate_G_from_H(H, variable_weight=False):
     DV = np.sum(H * W, axis=1)
     DE = np.sum(H, axis=0)
 
-    invDE = np.mat(np.diag(np.power(DE, -1)))
-    DV2 = np.mat(np.diag(np.power(DV, -0.5)))
+    invDE = np.asmatrix(np.diag(np.power(DE, -1)))
+    DV2 = np.asmatrix(np.diag(np.power(DV, -0.5)))
 
-    W = np.mat(np.diag(W))
-    H = np.mat(H)
+    W = np.asmatrix(np.diag(W))
+    H = np.asmatrix(H)
     HT = H.T
 
     if variable_weight:
