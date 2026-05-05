@@ -1,0 +1,19 @@
+Fig. 1 Overview of DHGCMDA.
+relationship has not yet been confirmed. Similarly, for association type prediction,
+Aij ∈ {0, 1, 2, . . . , C}, where C denotes the total number of distinct association types,
+and the value 0 retains the same connotation of unconfirmed association as defined in
+the binary prediction task.
+To obtain robust and comprehensive feature representations, dual complementary
+views are constructed for miRNAs and diseases based on heterogeneous similarity
+data. For miRNAs, Sseq
+m ∈ Rnm×nm represents sequence-based similarity and Sf unc
+m ∈
+Rnm×nm represents functional similarity. For diseases,Sgene
+d ∈ Rnd×nd represents gene-
+based similarity and Ssem
+d ∈ Rnd×nd represents semantic similarity.
+Besides, intra-modality similarity information and cross-modality association infor-
+mation are integrated to construct augmented feature matrices for each view via
+concatenation of similarity matrices and the association matrix,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

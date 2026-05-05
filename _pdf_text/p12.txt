@@ -1,0 +1,32 @@
+Efficient information propagation across the hypergraph is enabled by computing
+a normalized hypergraph Laplacian matrix G, which functions as the propagation
+operator. The normalized Laplacian is formulated as,
+G = D−1/2
+v HWD−1
+e HTD−1/2
+v (4)
+where Dv denotes the node degree matrix, De denotes the hyperedge degree matrix,
+and W denotes the diagonal hyperedge weight matrix (by default W = I for
+unweighted hypergraph). Intuitively, the information propagation defined by this nor-
+malized Laplacian can be understood as a two-phase process: in the first phase, node
+features are aggregated into their associated hyperedges (viaHT ), with D−1
+e normaliz-
+ing by hyperedge cardinality so that large hyperedges do not dominate the aggregation;
+in the second phase, the aggregated hyperedge representations are redistributed back
+to constituent nodes (via H), with D−1/2
+v applied symmetrically on both sides to
+ensure that high-degree nodes neither dominate the message passing nor receive dis-
+proportionately amplified signals. Through this two-phase mechanism, the formulation
+effectively generalizes the symmetric normalization of standard graph Laplacians to
+the hypergraph setting, thereby preserving inherent multi-way connectivity while
+ensuring numerically stable feature propagation.
+2.4 Contrastive Learning Hypergraph Convolutional Network
+Contrastive learning has emerged as a powerful paradigm for enhancing graph
+embedding quality in supervised learning scenarios. By optimizing contrastive objec-
+tives designed to discriminate between positive and negative sample pairs, highly
+discriminative and robust graph feature representations are learned. Hence, a hyper-
+graph contrastive learning method is proposed herein, which capitalizes on both
+intra-modality consistency across complementary views and cross-modality alignment
+between miRNAs and diseases.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

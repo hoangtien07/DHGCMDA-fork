@@ -1,0 +1,25 @@
+EM = {(mi, mj)|bSM,ij > θ ∧ i ̸= j} (30)
+ED = {(di, dj)|bSD,ij > θ ∧ i ̸= j} (31)
+where θ denotes the similarity threshold, set to 0.5. The reconstructed similarity scores
+are normalized to [0 , 1], and 0.5 serves as a natural midpoint that partitions node
+pairs into higher- and lower-similarity groups, balancing noise filtering and structural
+connectivity preservation, consistent with common thresholding practices in biological
+network construction. Moreover, since the dynamic update mechanism regenerates
+edges every five epochs using progressively refined similarity matrices, the resulting
+graph topology evolves as embedding quality improves, reducing the dependence on
+the precise choice of this threshold.
+The updated edge sets replace the original similarity edges, whereas the association
+edges are kept unchanged to preserve ground-truth supervisory signals critical for
+model training. Additionally, hypergraphsH are reconstructed using the KNN strategy
+based on the updated reconstructed similarity matrices.
+2.9 Unified Training Objective
+The unified training objective integrates multiple loss components to jointly optimize
+representation learning, contrastive alignment, similarity preservation, and miRNA-
+disease association type prediction,
+Ltotal = Ltype + λ1Lintra + λ2Linter + λ3Lrecon (32)
+where λ1, λ2, λ3 are trade-off hyperparameters that balance contributions of different
+loss components, and Ltype denotes the weighted cross-entropy loss for association
+type prediction, which incorporates effective number weighting to handle imbalanced
+type distribution,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

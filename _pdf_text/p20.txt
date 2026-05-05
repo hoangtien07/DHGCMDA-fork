@@ -1,0 +1,41 @@
+x′
+i =
+X
+r∈R
+X
+j∈T r
+i
+αr
+ij(Wr
+msgVτ (j)
+j ) (28)
+where R denotes the set of all edge types, T r
+i represents the subset of neighbors
+of node i connected through relation type r. Residual connections, dropout, and
+layer normalization are further incorporated to enhance model stability and alleviate
+overfitting,
+x(l+1)
+i = LayerNorm(x(l)
+i + Dropout(x′
+i)) (29)
+where x(l)
+i denotes the representation of node i at the l-th HGT layer.
+With two stacked HGT layers and four attention heads per layer, through multi-
+layer type-aware message passing, DHGCMDA progressively refines node embeddings
+by integrating multi-hop heterogeneous neighborhood information across distinct bio-
+logical entity types. The refined final embeddings of miRNA and disease nodes are
+subsequently fed into a bilinear predictor, which enables simultaneous prediction of
+two critical tasks: the existence of miRNA-disease associations and the corresponding
+functional types underlying these associations.
+2.8 Dynamic Hypergraph Update Strategy
+To enable co-evolution of graph structure and learned representations, a dynamic
+hypergraph update strategy is introduced. Initially, the graph is constructed using raw
+similarity matrices retrieved from biological databases, which inevitably contain mea-
+surement noise. As training proceeds and node embeddings are progressively refined,
+the reconstructed similarity matrices bSM and bSD can better characterize the true
+underlying biological relationships.
+Every five training epochs, the within-type similarity edges in the heterogeneous
+graph G are regenerated. The reconstructed similarity matrices are subjected to
+thresholding to construct binary edge sets,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

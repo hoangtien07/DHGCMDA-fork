@@ -1,0 +1,37 @@
+where the normalization term Φ i is written as,
+Φi = exp(θ(ui, vi)/t) +
+X
+k̸=i
+exp(θ(ui, uk)/t) +
+X
+k̸=i
+exp(θ(ui, vk)/t) (7)
+where t denotes a temperature parameter that regulates the concentration of similarity
+distributions. The similarity function θ(u, v) is formulated as,
+θ(u, v) = s(g(u), g(v)) (8)
+where s(·, ·) represents the cosine similarity and g(·) denotes a nonlinear projection
+head, serving to enhance the discriminative power of the similarity evaluation. To
+ensure symmetric contrastive learning across both views, the final bidirectional intra-
+modality contrastive loss is constructed as,
+Lintra = α
+nX
+i=1
+ℓCL(ui, vi) + (1 − α)
+nX
+i=1
+ℓCL(vi, ui) (9)
+where n denotes the total number of nodes within a single modality (miRNAs or
+diseases), and α is assigned to a default value of 0.5 to enforce balanced contributions
+from the two view directions.
+This intra-modality contrastive learning operates on single-modal data, by lever-
+aging complementary view pairs to guide the model to filter out view-specific noise
+and retain the inherent biological identities of individual entities. The resulting
+view-invariant representations are robust and discriminative, laying a solid founda-
+tion for subsequent cross-modality alignment between miRNAs and diseases, thereby
+facilitating the prediction of their associations.
+2.4.2 Cross-Modality Contrastive Learning
+Beyond enforcing consistency within each modality, cross-modality contrastive learn-
+ing is introduced to explicitly model associations between miRNAs and diseases via
+aligning their respective embedding spaces.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

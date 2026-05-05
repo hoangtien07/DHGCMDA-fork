@@ -1,0 +1,39 @@
+limitations: excessive reliance on association-derived similarity metrics gives
+rise to quantification bias, traditional pairwise graph architectures inadequately
+capture high-order biological interactions, and existing representation learning
+strategies fail to generate consistent embeddings across heterogeneous views and
+modalities.
+Results: To address these issues, this study presents DHGCMDA, a dual-view
+heterogeneous graph contrastive learning framework for miRNA-disease associ-
+ation type prediction. Specifically, dual-view hypergraphs are first constructed
+based on heterogeneous similarity data to avoid excessive reliance on association-
+derived similarity metrics. A hypergraph convolutional network is then employed
+to capture high-order topological relationships between miRNAs and diseases,
+with its convolution cooperatively integrated with contrastive learning, intra-
+modality for cross-view consistency and cross-modality for embedding space
+alignment, to enhance feature representation quality. Finally, an attention-guided
+adaptive view fusion strategy dynamically weights and integrates distinct view
+representations, and type-aware message passing via heterogeneous graph Trans-
+former simultaneously enables prediction of association presence and functional
+types. 5-fold cross-validation on HMDD v2.0 and v3.2 datasets demonstrates
+that DHGCMDA outperforms several state-of-the-art methods. Furthermore,
+case studies on breast neoplasms and hepatocellular carcinoma reveal that
+most predicted association types are corroborated by published literature,
+thereby validating the efficacy of DHGCMDA in miRNA-disease association type
+prediction.
+Conclusions: DHGCMDA exhibits robust discriminative power and generaliza-
+tion capability, providing a reliable computational alternative for miRNA-disease
+association type prediction. The source code is publicly available at https:
+//github.com/CDMBlab/DHGCMDA.
+Keywords: association type prediction, dual-view hypergraphs, heterogeneous graph
+transformer, contrastive learning, hypergraph convolutional network
+1 Introduction
+MicroRNAs (miRNAs) are a class of endogenous small non-coding RNAs [1] that
+act as pivotal regulators in diverse biological processes. Consequently, dysregulation
+of miRNAs is closely correlated with the development and progression of various
+human diseases [2]. Prediction of disease-associated miRNAs is regarded as a cru-
+cial step for elucidating pathogenic mechanisms and advancing targeted therapeutic
+strategies. Although conventional biological experiments remain valuable for validation
+purposes, these methods are typically characterized by time-consuming procedures,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

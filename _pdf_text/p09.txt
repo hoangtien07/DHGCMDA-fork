@@ -1,0 +1,27 @@
+• An attention-guided adaptive view fusion strategy is employed to dynamically
+weight and integrate distinct view representations, while type-aware message pass-
+ing via a heterogeneous graph Transformer (HGT) enables simultaneous prediction
+of miRNA-disease association presence and functional types.
+2 Methods
+2.1 Overview of DHGCMDA
+The overview of DHGCMDA is illustrated in Fig. 1. First, dual-view hypergraphs
+corresponding to miRNAs and diseases are constructed based on heterogeneous
+similarity data. Second, a HGCN is employed to capture high-order topological rela-
+tionships between miRNAs and diseases, with hypergraph convolution integrated with
+contrastive learning, where intra-modality contrastive learning ensures cross-view con-
+sistency and cross-modality contrastive learning aligns embedding spaces, to enhance
+feature representation quality. Finally, an attention-guided adaptive view fusion strat-
+egy is utilized to dynamically weight and integrate distinct view representations, while
+type-aware message passing implemented via a HGT enables simultaneous prediction
+of association presence and functional types.
+2.2 Problem Formulation and Data Representation
+The prediction of miRNA-disease associations is formulated as a link prediction prob-
+lem in a heterogeneous biological network. Let M = {m1, m2, . . . , mnm} denote the
+set of nm miRNAs, and D = {d1, d2, . . . , dnd} denote the set of nd diseases. Their
+association relationships are encoded in a matrix A ∈ Rnm×nd, where each entry Aij
+quantifies the association between miRNA mi and disease dj. For binary association
+prediction, Aij takes a binary value of either 1 or 0, where 1 indicates a confirmed
+association between mi and dj. It should be noted that Aij = 0 does not imply
+the absence of an association between mi and dj, but rather indicates that such a
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,29 @@
+• w/o CL: Both intra-modality and cross-modality contrastive learning modules were
+removed.
+• w/o HGCN: The HGCN was replaced with a standard GCN.
+• w/o AVF: The attention-guided adaptive view fusion was substituted with simple
+feature concatenation.
+• w/o HGT: The HGT was eliminated, and fused embeddings were directly adopted
+for prediction.
+• w/o DV : Only a single-view hypergraph was employed instead of the dual-view
+construction.
+The prediction performance of all variants is presented in Fig. 4. Among these vari-
+ants, w/o DV exhibits the most dramatic performance degradation, which highlights
+that integrating multi-source biological similarity data is indispensable for compre-
+hensively capturing the characteristics of miRNAs and diseases. This result can be
+attributed to the strong complementarity between the two biologically heterogeneous
+similarity views: the sequence-based view captures structural and evolutionary prop-
+erties of miRNAs, while the functional view encodes their regulatory roles in biological
+pathways. Similarly, the gene-based and semantic views of diseases provide orthogo-
+nal characterizations from molecular and phenotypic perspectives, respectively. When
+only a single view is retained, the model loses access to these complementary signals,
+leading to embeddings that are biased toward one aspect of biological similarity and
+thus insufficient for distinguishing among diverse association types. The dual-view
+design, combined with contrastive learning, enables the model to distill view-invariant
+features that are robust to view-specific noise, which is particularly critical for fine-
+grained type prediction where subtle differences in biological mechanisms must be
+captured. Likewise, w/o HGT leads to substantial performance declines, indicating
+that the type-aware message passing mechanism effectively models the complex inter-
+actions between miRNAs and diseases. The w/o HGCN variant also performs markedly
+ARTICLE IN PRESS
+ARTICLE IN PRESS

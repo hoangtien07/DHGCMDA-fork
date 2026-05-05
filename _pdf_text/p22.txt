@@ -1,0 +1,35 @@
+Ltype = −
+X
+(i,j)∈F
+CX
+k=1
+wkyk
+ij log(bpk
+ij) (33)
+where i and j denote the miRNA node and disease node respectively, F represents
+the set of all miRNA-disease association pairs, yk
+ij ∈ {0, 1} is the binary ground-truth
+label (1 indicates that the i-th miRNA and j-th disease are associated with the k-th
+type, and 0 otherwise), bpk
+ij is the predicted probability of the i-th miRNA and j-th
+disease having the k-th association type, wk are class weights computed via,
+wk = 1 − β
+1 − βnk
+(34)
+where nk denotes the number of samples belonging to the k-th association type, and
+β is selected to be sufficiently close to 1 for effective minority class weighting.
+DHGCMDA is optimized using the Adam optimizer, coupled with suitable learning
+rate scheduling and early stopping criteria determined by validation set performance.
+Furthermore, dropout regularization is incorporated during the training phase to
+enhance the generalization capability and mitigate overfitting.
+3 Results and Discussion
+3.1 Dataset
+The Human MicroRNA Disease Database (HMDD) serves as a widely adopted bench-
+mark resource for miRNA-disease association prediction [17]. HMDD v2.0 has been
+extensively leveraged as a foundational data source in computational studies dedicated
+to this task, in which curated associations are classified into four distinct types based
+on evidence from genetics, epigenetics, circulation, and miRNA-target interactions.
+Building on this classification framework, HMDD v3.2 delivers substantial expansions
+in dataset coverage, with more miRNAs, diseases, and validated associations included.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

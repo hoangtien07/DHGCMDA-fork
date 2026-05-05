@@ -1,0 +1,29 @@
+cell proliferation (PMID: 23471579); hsa-mir-26b, whose genetics type association was
+established via the identification of a functional polymorphism in its promoter region
+linked to increased hepatocellular carcinoma risk (PMID: 26891666).
+Notably, two breast neoplasms associated and three hepatocellular carcinoma asso-
+ciated miRNAs were labeled as “Unconfirmed”. This designation does not indicate
+flaws in the model predictions; instead, it reflects the absence of direct evidence sup-
+porting these specific functional types in published literature. In fact, all these miRNAs
+have been confirmed to be associated with their corresponding cancers, except that
+their actual association types are inconsistent with the model predictions. This phe-
+nomenon suggests that these unconfirmed associations may represent potential novel
+miRNA-disease-type triplets, which need further targeted experimental validation.
+Specifically, these predictions could constitute biologically plausible novel discoveries
+that merit prioritized wet-lab validation, such as qRT-PCR verification of circulating
+miRNA levels or functional assays to confirm the predicted mechanism types. Alter-
+natively, a proportion of these cases may reflect model uncertainty in distinguishing
+closely related association types, particularly when the biological boundaries between
+mechanisms are ambiguous. Nevertheless, the small proportion of unconfirmed cases
+(5 out of 30 total predictions, 16.7%) suggests that the overall prediction reliability of
+DHGCMDA remains high.
+To explore the biological underpinnings of the predicted miRNA-disease associa-
+tion types, enrichment analysis was performed on target genes of breast neoplasms
+associated miRNAs using miRTarBase [4] and Metascape [35], with results summa-
+rized in Fig. 5. Specifically, Fig. 5(a) shows DisGeNET disease association analysis,
+which revealed marked enrichment in breast carcinoma stage IV, and thus directly
+confirmed the functional relevance of predicted miRNAs to breast cancer progression.
+Fig. 5(b) displays protein-protein interaction network analysis combined with MCODE
+clustering, which identified functionally coherent modules encompassing growth factor
+ARTICLE IN PRESS
+ARTICLE IN PRESS

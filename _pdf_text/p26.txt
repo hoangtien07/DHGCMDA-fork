@@ -1,0 +1,16 @@
+Fig. 2 Hyperparameter analysis of DHGCMDA on the HMDD v2.0 dataset: (a) sensitivity to t and
+λ2; (b) comparison of class weighting strategies.
+Fig. 3 Hyperparameter analysis of DHGCMDA on the HMDD v2.0 dataset: (a) binary classification
+metrics vs K; (b) Top-1 metrics vs K.
+biological datasets, we treated the intra-modality contrastive loss and the similarity
+reconstruction loss as equally weighted auxiliary objectives alongside the primary clas-
+sification loss. Consequently, we focused our sensitivity analysis on λ2, which directly
+governs the inter-modality alignment and exerts a more decisive influence on the final
+association type prediction performance. Furthermore, we evaluated the sensitivity of
+the model to the neighborhood size K used for hypergraph construction. As illus-
+trated in Fig. 3, binary classification metrics (AUC, AUPR, and F1) remain stable
+across K ∈ { 1, 3, 5, 7, 9, 11, 13, 15}, whereas Top-1 metrics exhibit an overall upward
+trend and reach their maximum at K = 13, followed by a slight decline at K = 15.
+Consequently, K = 13 is adopted for all subsequent experiments.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,28 @@
+computational overhead and can be readily deployed on consumer-grade hardware
+without requiring high-end computing resources.
+3.3 Hyperparameter analysis
+The sensitivity of DHGCMDA performance to hyperparameters is investigated based
+on the HMDD v2.0 dataset under the CVtype evaluation setting. Key hyperparameters,
+including the temperature parameter t (Eq. 6), the cross-modality contrastive loss
+weight λ2 (Eq. 32), and the class weights wk (Eq. 34), are analyzed in detail.
+Grid search was performed over t and λ2 with wk fixed to uniform weighting.
+Specifically, the search range of λ2 was set to {0.1, 0.3, 0.5 } and that of t to {0.5,
+1.0, 3.0}. As shown in Fig. 2(a), all Top-1 metrics of DHGCMDA reached maximum
+values when t and λ2 were set to 0.5 and 0.3, respectively. Furthermore, larger values
+of λ2 led to performance degradation. This phenomenon may indicate that excessive
+emphasis on cross-modality alignment could overshadow discriminative information
+captured within individual modalities. The temperature parameter exhibited remark-
+able stability across all tested values, demonstrating that the dual-view hypergraph
+construction and attention-guided fusion mechanisms provide sufficient discriminative
+capacity, thus reducing sensitivity of DHGCMDA to temperature variations.
+Using the optimal hyperparameters of t and λ2, three class weighting strate-
+gies were further compared: inverse proportional weighting, uniform weighting, and
+square-root inverse weighting. As shown in Fig. 2(b), the inverse proportional strategy
+exhibited superior performance over the other two strategies, suggesting that appro-
+priate emphasis on minority association types facilitates the ability of DHGCMDA to
+capture diverse biological mechanisms underlying miRNA-disease associations.
+Regarding the additional trade-off hyperparameters λ1 and λ3 in the unified train-
+ing objective (Eq. 32), both were set to 1.0 in this study. To prevent the introduction
+of excessive tunable parameters and mitigate the risk of overfitting on relatively small
+ARTICLE IN PRESS
+ARTICLE IN PRESS

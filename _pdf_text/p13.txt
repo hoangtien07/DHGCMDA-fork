@@ -1,0 +1,32 @@
+Based on each constructed hypergraph structure, HGCN with spectral convolution
+is employed to encode intrinsic high-order relations. A hyperedge convolution layer of
+HGCN is formulated as,
+X(l+1) = σ
+
+GX(l)Θ(l)
+
+(5)
+where X(l) is the aggregated information of hypergraph at layer l, with the initial
+augmented feature matrix X(0) = X, Θ (l) is the learnable filter matrix of the l-th
+layer, and σ(·) denotes the nonlinear activation function.
+The contrastive learning HGCN architecture consists of two parallel HGCN
+branches. These branches are tasked with processing augmented features and hyper-
+graph structures from distinct complementary views, thereby yielding view-specific
+node representations Z1 and Z2. Furthermore, a projection head is incorporated to
+project these embeddings into a normalized feature space, which facilitates more
+effective contrastive optimization.
+2.4.1 Intra-modality Contrastive Learning
+For any node vi, its embedding generated from one view, denoted as ui, is designated
+as the anchor. The counterpart embedding of node vi derived from the other view is
+represented as vi. Specifically, the embedding pair ui and vi of the same node across
+two views constitutes a positive sample pair. In contrast, ui and vi are treated as
+negative samples when paired with all other embeddingsuk and vk (k ̸= i) from either
+of the two views. Notably, the embedding uk of other nodes within the same view as
+the anchor ui forms intra-view negative pairs with ui, whereas the embedding vk of
+other nodes from the opposite view forms inter-view negative pairs with ui.
+The pairwise training objective for each positive pair (ui, vi) is formally defined as,
+ℓCL(ui, vi) = − log exp(θ(ui, vi)/t)
+Φi
+(6)
+ARTICLE IN PRESS
+ARTICLE IN PRESS

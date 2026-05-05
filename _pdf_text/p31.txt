@@ -1,0 +1,29 @@
+3.6 Case Study
+To further evaluate the capability of DHGCMDA in predicting novel miRNA-disease
+association types, case studies were conducted on breast neoplasms and hepatocellular
+carcinoma. DHGCMDA, trained on the HMDD v2.0 dataset, was employed to predict
+miRNA-disease-type triplets. For each disease, miRNA-type pairs were ranked by their
+prediction scores, with the top 15 ones selected as candidates. Supporting evidence
+for these candidates was retrieved and verified via extensive literature searches in the
+PubMed database, and validation results are summarized in Table 5 and Table 6,
+corresponding to breast neoplasms and hepatocellular carcinoma, respectively.
+For breast neoplasms, 13 out of 15 predicted miRNA-disease association types
+(86.7% validation rate) were successfully confirmed by published studies. For instance,
+hsa-mir-148a, whose epigenetics type association was validated by evidence that it reg-
+ulates estrogen receptor-α expression through DNMT1-mediated DNA methylation in
+breast cancer cells (PMID: 24257477); hsa-mir-195, identified as a reliable circulation
+biomarker with significantly elevated levels in the plasma of breast cancer patients
+compared with healthy controls (PMID: 25103018); hsa-mir-125b, whose genetics type
+association was established via the discovery of a risk variant in the BMPR1B 3’UTR
+binding site that disrupts miRNA binding and increases cancer susceptibility (PMID:
+19738052); and hsa-mir-1290, confirmed as a target type miRNA that directly tar-
+gets NAT1 and exhibits subtype-specific downregulation in ER-positive breast tumors
+(PMID: 23183268).
+For hepatocellular carcinoma, 12 out of 15 predicted miRNA-disease association
+types (80% validation rate) were successfully validated by published studies. Typical
+examples include, hsa-mir-196a, whose epigenetics type association was confirmed by
+evidence showing that it modulates tumor suppressor gene expression through his-
+tone modification in hepatocellular carcinoma cells (PMID: 24377574); hsa-mir-217,
+a target type miRNA that directly targets the oncogene STAT3 and inhibits cancer
+ARTICLE IN PRESS
+ARTICLE IN PRESS

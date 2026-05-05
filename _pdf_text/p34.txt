@@ -1,0 +1,42 @@
+T able 5 Top 15 breast neoplasms related miRNAs.
+miRNA Association Type PMID
+hsa-mir-148a epigenetics 24257477
+hsa-mir-1290 target 23183268
+hsa-mir-449b genetics unconfirmed
+hsa-mir-195 circulation 25103018
+hsa-mir-130a target 25755726
+hsa-mir-632 target 22710984
+hsa-mir-148b circulation 24194846
+hsa-mir-335 epigenetics 21289068
+hsa-mir-4521 target 24517586
+hsa-mir-30c target 24519092
+hsa-mir-593 epigenetics unconfirmed
+hsa-mir-125b genetics 19738052
+hsa-mir-488 genetics 16754881
+hsa-mir-1323 circulation 22242178
+hsa-mir-24 genetics 24966325
+T able 6 Top 15 hepatocellular carcinoma related
+miRNAs.
+miRNA Association Type PMID
+hsa-mir-196a epigenetics 24377574
+hsa-mir-217 target 23471579
+hsa-mir-429 epigenetics 24572141
+hsa-mir-26b genetics 26891666
+hsa-mir-411 target 25776495
+hsa-mir-1469 circulation unconfirmed
+hsa-mir-30d genetics 27333771
+hsa-mir-204 target 24833879
+hsa-mir-487b circulation unconfirmed
+hsa-mir-766 target 30130435
+hsa-mir-153 genetics 25714700
+hsa-mir-657 target 23175432
+hsa-mir-19b genetics unconfirmed
+hsa-mir-133a target 26156803
+hsa-let-7d target 20347499
+graph contrastive learning framework that integrates dual-view hypergraph convolu-
+tion and heterogeneous graph Transformer, is proposed for miRNA-disease association
+type prediction. Specifically, dual-view hypergraphs are first constructed based on het-
+erogeneous similarity data to avoid excessive reliance on association-derived similarity
+metrics. The HGCN is then employed to capture high-order topological relationships
+ARTICLE IN PRESS
+ARTICLE IN PRESS

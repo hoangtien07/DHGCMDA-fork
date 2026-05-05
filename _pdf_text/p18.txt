@@ -1,0 +1,26 @@
+Lrecon = ∥SM −bSM ∥2
+F + ∥SD −bSD∥2
+F (21)
+This reconstruction objective serves multiple purposes: it acts as a regularizer to
+mitigate overfitting, provides a quantitative means to validate the quality of learned
+representations, and critically, the reconstructed similarity matrices are leveraged to
+dynamically update the heterogeneous graph structure during training, a strategy that
+implements graph regularization, enabling DHGCMDA to refine its structural assump-
+tions as the quality of representations improves while imposing structural consistency
+constraints between the embedding space and graph space.
+2.7 Heterogeneous Graph Transformer
+After dual-view feature extraction and fusion, a heterogeneous graph G = ( V, E, R)
+is constructed to explicitly model relationships among miRNAs, diseases, and their
+associations. The node set V = M∪D consists of miRNA nodes and disease nodes, with
+each node assigned the corresponding fused embeddingsZM and ZD, respectively. The
+edge set E encompasses four distinct types, namely, miRNA-miRNA similarity edges
+weighted by bSM, disease-disease similarity edges weighted by bSD, miRNA-disease
+association edges, and disease-miRNA association edges.
+To enable type-aware message passing across this heterogeneous structure, a HGT
+architecture is employed. Unlike homogeneous GNNs, HGT incorporates type-specific
+parameter settings to capture distinct semantic roles of different biological entities.
+Before feeding into HGT layers, type-specific linear projections are applied as,
+XmiRN A = WmiRN AZM (22)
+Xdisease = WdiseaseZD (23)
+ARTICLE IN PRESS
+ARTICLE IN PRESS

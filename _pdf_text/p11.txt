@@ -1,0 +1,32 @@
+X(v)
+m = [S(v)
+m , A] ∈ Rnm×(nm+nd) (1)
+X(v)
+d = [S(v)
+d , AT ] ∈ Rnd×(nd+nm) (2)
+where v denotes the view type. This augmentation ensures that feature representa-
+tion of each node encodes both intrinsic biological properties through intra-modality
+similarity and functional interaction patterns through cross-modality associations.
+2.3 Dual-View Hypergraph Construction
+Traditional pairwise graph structures exhibit inherent limitations in capturing the
+complex multi-way dependencies prevalent in biological systems. By contrast, hyper-
+graphs enable more expressive representations via hyperedges that connect arbitrary
+node subsets, thus facilitating the modeling of higher-order relationships. For each
+of these four augmented views, a hypergraph H = ( V, E, W) is constructed, where
+V denotes the node set, E represents the hyperedge set, and W assigns importance
+weights to individual hyperedges.
+Specifically, a K-nearest neighbors (KNN) strategy is adopted to generate locality-
+preserving hyperedges from augmented feature matrices. For each node vi, its K
+nearest neighbors are identified based on cosine similarity in the augmented feature
+space, and a hyperedge ei = {vi} ∪ KN N(vi, K) is constructed accordingly. The
+hypergraph structure is formally encoded using an incidence matrix H ∈ {0, 1}n×|E|,
+Hij =
+
+
+
+1, if node vi ∈ hyperedge ej
+0, otherwise
+(3)
+where n denotes the number of nodes and |E| denotes the number of hyperedges.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

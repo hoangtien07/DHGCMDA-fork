@@ -1,0 +1,27 @@
+signaling molecules (EGFR, ERBB2, ERBB3) and SMAD pathway members (SMAD1,
+SMAD4, SMAD5). Importantly, ERBB2 is highly expressed in approximately 15–20%
+of breast cancers [36] and represents a well established clinical therapeutic target,
+whereas the TGF β/SMAD pathway acts as a key regulator of breast cancer metas-
+tasis [37]. Fig. 5(c) presents GO and KEGG pathway enrichment analysis, in which
+significant enrichment was observed in cell cycle related pathways (WP179 Cell cycle),
+consistent with the hallmark of uncontrolled cancer cell proliferation [38], as well as
+TGFβ/SMAD and EGFR/ERBB signaling pathways that are closely linked to breast
+cancer metastasis and clinical therapeutic relevance. Collectively, these results demon-
+strate that DHGCMDA can reliably predict biologically meaningful miRNA disease
+association types with specific functional mechanisms. From a biological perspective,
+the identified pathway modules provide actionable insights into the regulatory roles
+of predicted miRNAs. The enrichment of ERBB2-related signaling modules suggests
+that predicted target-type miRNAs (e.g., hsa-mir-125b and hsa-mir-130a) may exert
+their regulatory effects by modulating receptor tyrosine kinase cascades central to
+breast cancer cell proliferation and survival. Similarly, the TGF β/SMAD pathway
+enrichment aligns with predicted epigenetics-type associations (e.g., hsa-mir-148a and
+hsa-mir-335), as this pathway is known to be regulated by epigenetic modifications
+including DNA methylation and histone acetylation. These pathway-level findings not
+only corroborate the predicted association types but also suggest potential mechanistic
+hypotheses that could guide future experimental validation.
+4 Conclusion
+MiRNA-disease association type prediction provides a critical computational tool for
+dissecting the molecular pathogenic mechanisms underlying human diseases driven by
+aberrant miRNA expression. In this study, DHGCMDA, a dual-view heterogeneous
+ARTICLE IN PRESS
+ARTICLE IN PRESS

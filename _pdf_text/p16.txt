@@ -1,0 +1,25 @@
+where λ is a weighting coefficient that balances contributions of these two loss
+components.
+2.5 Attention-Guided Adaptive View Fusion
+Different similarity views exhibit heterogeneous contributions to association type pre-
+diction, with their relative importance varying across distinct biological contexts. To
+address this issue, an attention-guided adaptive view fusion is applied to dynamically
+weight the contribution of each view.
+For each modality, given two view-specific embeddings Z1 and Z2 obtained from
+the contrastive learning HGCN, an attention mechanism is employed to adaptively
+integrate these embeddings. Specifically, for the v-th view where v ∈ {1, 2}, a global
+representation is first derived via global average pooling, and the attention weight αv
+is subsequently computed using a two-layer fully connected network. This process is
+formulated as,
+αv = σ(W2ReLU(W1GAP(Zv))) (16)
+where W1 and W2 are learnable weight matrices corresponding to the two linear lay-
+ers, GAP(·) denotes the global average pooling function, ReLU(·) represents the ReLU
+activation function, and σ denotes the sigmoid activation function used to constrain
+αv ∈ [0, 1].
+The attention weight αv is applied in an element-wise manner to modulate the
+embeddings of each view, defined as,
+eZv = ReLU(αvZv) (17)
+and the final fused representation is obtained through a learnable weighted
+combination, formulated as,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

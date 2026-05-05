@@ -1,0 +1,10 @@
+Fig. 4 Ablation results under CV type and CVtriplet on the HMDD v2.0 and HMDD v3.2.
+worse than DHGCMDA, demonstrating that HGCN surpasses standard GCN in cap-
+turing high-order relationships within biological networks. Additionally, the decreased
+performance of w/o CL confirms that contrastive learning enhances the discriminative
+power of the learned feature representations. Collectively, these results demonstrate
+that all five components play critical roles in ensuring the optimal performance of
+DHGCMDA, and their synergistic effects are essential for achieving superior predictive
+performance in miRNA-disease association type prediction.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

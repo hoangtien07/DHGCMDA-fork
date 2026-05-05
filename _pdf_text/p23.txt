@@ -1,0 +1,26 @@
+T able 1 Statistics of benchmark datasets.
+Datasets miRNAs Diseases Associations Types
+HMDD v2.0 495 383 1,679 4
+HMDD v3.2 411 271 11,748 5
+T able 2 Distribution of association types in benchmark datasets.
+Datasets Genetics Epigenetics Circulation Target Tissue
+HMDD v2.0 681 (40.56%) 199 (11.85%) 443 (26.38%) 356 (21.20%) –
+HMDD v3.2 1,155 (9.83%) 403 (3.43%) 2,293 (19.52%) 3,997 (34.02%) 3,900 (33.20%)
+This updated version further introduces an additional association type (tissue) and
+adopts more refined and accurate criteria for evidence classification.
+In this study, an identical standardized preprocessing pipeline is implemented for
+both HMDD v2.0 and HMDD v3.2 to ensure data density and reliability. Specifically,
+miRNAs and diseases with fewer than two experimentally verified associations are
+excluded, and the remaining data subsets are utilized for experiments, with detailed
+statistics summarized in Table 1 and Table 2. As shown in Table 2, the distribution
+of association types exhibits notable imbalance in both datasets. In HMDD v2.0,
+genetics accounts for the largest proportion (40.56%), whereas epigenetics represents
+only 11.85%. In HMDD v3.2, the imbalance is even more pronounced, with epigenetics
+constituting merely 3.43% of all associations compared to 34.02% for target type. This
+substantial class imbalance motivates the adoption of class-weighted cross-entropy loss
+(Eq. 34) to prevent the model from being biased toward majority types.
+3.2 Evaluation settings
+Two types of 5-fold cross-validation were employed to comprehensively evaluate
+method performance in predicting miRNA-disease association types.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,27 @@
+accordingly. Second, traditional pairwise graph structures can only model binary rela-
+tionships between nodes, failing to capture either the complex multi-way dependencies
+prevalent in biological systems or the diverse high-order biological interactions. Third,
+existing representation learning strategies fail to generate consistent embeddings across
+heterogeneous views and modalities, thereby impairing their ability to integrate corre-
+sponding biological information. Although Zhu et al. [31] proposed SMCLMDA, which
+introduces self-supervised multi-channel contrastive learning to construct contrastive
+objectives across different data channels for learning noise-robust miRNA-disease rep-
+resentations, cross-view and cross-modality consistency in the context of multi-type
+association prediction remains insufficiently explored.
+To address these challenges, this study presents a dual-view heterogeneous graph
+contrastive learning framework, abbreviated as DHGCMDA, for the prediction of
+miRNA-disease association types. Accordingly, the main contributions of DHGCMDA
+are fourfold:
+• Dual-view hypergraphs are constructed based on heterogeneous similarity data, thus
+avoiding excessive reliance on association-derived similarity metrics and enabling
+robust prediction for novel miRNAs without prior disease annotations.
+• A hypergraph convolutional network (HGCN) is employed to capture high-order
+topological relationships between miRNAs and diseases, beyond traditional pairwise
+connections, by leveraging hyperedges to model multi-way dependencies in biological
+systems.
+• Hypergraph convolution is integrated with contrastive learning to enhance repre-
+sentation learning, where intra-modality contrastive learning enforces consistency
+across complementary views of the same entity and cross-modality contrastive
+learning aligns embedding spaces of miRNAs and diseases.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

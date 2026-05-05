@@ -1,0 +1,29 @@
+More recently, graph neural network (GNN) methods have demonstrated superior per-
+formance by explicitly modeling the topological relationships among biological entities
+through message passing mechanisms, and have been widely applied to miRNA-disease
+association prediction. Lu et al. [12] proposed a hypergraph learning method HGT-
+MDA that integrates an improved graph convolutional network (GCN)-Transformer
+encoder with a restart random walk strategy for predicting miRNA-disease associ-
+ations. Liu et al. [13] developed GCNPCA, which combines GCN with attention
+mechanisms for topological feature extraction and fuses node attributes derived from
+principal component analysis (PCA) to support miRNA-disease association prediction.
+Ma et al. [14] introduced a self-feature-based graph autoencoder SFGAE designed to
+address excessive smoothing in deep graph models while enabling miRNA-disease asso-
+ciation prediction. Li et al. [15] proposed an ensemble model GCSENet that integrates
+GCN, convolutional neural networks, and squeeze-and-excitation networks to achieve
+feature aggregation from heterogeneous networks for miRNA-disease association pre-
+diction. Ning et al. [16] developed HHAWMD, which employs hierarchical hypergraph
+learning in association-weighted heterogeneous networks to capture high-order depen-
+dencies among biological entities for miRNA-disease association identification. These
+methods, despite their demonstrated efficacy in binary association prediction, predom-
+inantly frame miRNA-disease relationships as simple presence-absence links, thereby
+overlooking the diverse biological mechanisms that underpin such associations. Accu-
+mulating evidence indicates that miRNA dysregulation drives disease pathogenesis via
+diverse underlying molecular mechanisms [17]. For instance, miR-146a exhibits dual
+roles in gastric cancer, promoting cancer progression via direct targeting of the SMAD4
+gene to modulate cell proliferation and apoptosis [18], while its ectopic expression
+exerts tumor-suppressive effects by suppressing gastric cancer cell motility and reduc-
+ing both EGFR and IRAK1 expression [19]. This mechanistic heterogeneity highlights
+that accurate prediction of miRNA-disease association types is critical for a deeper
+ARTICLE IN PRESS
+ARTICLE IN PRESS

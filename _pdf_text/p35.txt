@@ -1,0 +1,17 @@
+Fig. 5 Enrichment analysis of target genes from predicted breast neoplasms associated miRNAs.
+between miRNAs and diseases, with its convolution cooperatively integrated with
+contrastive learning, intra-modality for cross-view consistency and cross-modality for
+embedding space alignment, to enhance feature representation quality. Finally, an
+attention-guided adaptive view fusion strategy dynamically weights and integrates dis-
+tinct view representations, and type-aware message passing via HGT simultaneously
+enables prediction of association presence and functional types. The experimental
+results demonstrate that DHGCMDA achieves superior prediction performance com-
+pared to six state-of-the-art models under CV type and CVtriplet on both HMDD v2.0
+and HMDD v3.2 datasets. In addition, the ablation experiments further demonstrate
+the effectiveness of different components, particularly showing that dual-view hyper-
+graph construction and HGT are critical for optimal performance. Moreover, the
+results of case studies show that DHGCMDA can accurately predict miRNA-disease
+association types and the predicted associations have biological significance, which
+further validate the effectiveness and feasibility of DHGCMDA.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

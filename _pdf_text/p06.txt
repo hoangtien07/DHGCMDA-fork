@@ -1,0 +1,29 @@
+understanding of the molecular mechanisms driving disease initiation and progression.
+Therefore, the prediction of association types represents a cutting-edge advancement
+in research on miRNA-disease association prediction.
+In fact, several methods have been proposed for miRNA-disease association type
+prediction. Chen et al. proposed RBMMMDA [20], which constructs a restricted Boltz-
+mann model for predicting association types between miRNAs and diseases. However,
+it only utilizes known miRNA-disease association information, without incorporat-
+ing miRNA and disease similarity data to assist prediction. Zhang et al. developed
+NLPMMDA [21], which constructs a heterogeneous network and applies label prop-
+agation to predict miRNA-disease association types. Yet, this method treats the
+prediction of each type as an independent task, ignoring correlations among different
+types. Huang et al. proposed TDRC [22], which models miRNA-disease associa-
+tion type data as a tensor, incorporates miRNA and disease similarity matrices as
+constraint terms, and predicts novel miRNA-disease association types via canonical
+polyadic decomposition. Ouyang et al. developed two tensor factorization methods,
+WeightTDAIGN [23] and SPLDHyperAWNTF [24], to identify potential miRNA-
+disease association types. The former incorporates graph Laplacian regularization,
+L2,1-norm constraints on projection matrices, and multi-similarity network integration
+to enhance predictive capability. The latter combines self-learning with nonnegative
+tensor factorization, adopts hypergraph regularization, and introduces an adaptive
+weight tensor to mitigate the impact of false-negative samples. Yu et al. proposed
+TFLP [25], which obtains low-rank association tensors based on tensor robust PCA
+and employs label propagation to predict potential miRNA-disease association types.
+Nevertheless, false negatives, high time complexity, and data sparsity represent com-
+mon challenges faced by tensor factorization based miRNA-disease association type
+prediction methods. Research on the prediction of miRNA-disease association types
+based on GNNs has just emerged, but encouraging results have already been achieved.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

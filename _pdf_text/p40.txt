@@ -1,0 +1,25 @@
+[19] Kogo R, Mimori K, Tanaka F, Komune S, Mori M. Clinical significance of miR-
+146a in gastric cancer cases. Clin Cancer Res. 2011; 17(13):4277-4284.
+[20] Chen X, Yan CC, Zhang X, Li Z, Deng L, Zhang Y, et al. RBMMMDA: predicting
+multiple types of disease-microRNA associations. Sci Rep. 2015; 5:13877.
+[21] Zhang X, Yin J, Zhang X. A Semi-Supervised Learning Algorithm for Pre-
+dicting Four Types MiRNA-Disease Associations by Mutual Information in a
+Heterogeneous Network. Genes (Basel). 2018; 9(3):139.
+[22] Huang F, Yue X, Xiong Z, Yu Z, Liu S, Zhang W. Tensor decomposition with rela-
+tional constraints for predicting multiple types of microRNA-disease associations.
+Brief Bioinform. 2021; 22(3):bbaa140.
+[23] Ouyang D, Miao R, Wang J, Liu X, Xie S, Ai N, et al. Predicting Multiple Types
+of Associations Between miRNAs and Diseases Based on Graph Regularized
+Weighted Tensor Decomposition. Front Bioeng Biotechnol. 2022; 10:911769.
+[24] Ouyang D, Liang Y, Wang J, Liu X, Xie S, Miao R, et al. Predicting multiple
+types of miRNA-disease associations using adaptive weighted nonnegative ten-
+sor factorization with self-paced learning and hypergraph regularization. Brief
+Bioinform. 2022; 23(6):bbac390.
+[25] Yu N, Liu ZP, Gao R. Predicting multiple types of MicroRNA-disease associations
+based on tensor factorization and label propagation. Comput Biol Med. 2022;
+146:105558.
+[26] Yan C, Duan G, Li N, Zhang L, Wu FX, Wang J. PDMDA: predicting deep-level
+miRNA-disease associations with graph neural networks and sequence features.
+Bioinformatics. 2022; 38(8):2226-2234.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,32 @@
+Zf used =
+2X
+v=1
+βveZv (18)
+where β refers to the set of learnable fusion coefficients optimized in an end-to-end
+fashion. This two-stage gating mechanism offers enhanced flexibility: attention weights
+capture instance-specific view importance, while fusion coefficients encode global view
+reliability. Identical fusion procedures are implemented independently for miRNA and
+disease views, yielding the miRNA fused representation ZM ∈ Rnm×d and the disease
+fused representation ZD ∈ Rnd×d.
+2.6 Similarity Reconstruction and Graph Regularization
+To ensure that learned embeddings retain topological structures inherent to the origi-
+nal similarity networks, a similarity reconstruction module is designed, which projects
+fused node representations back to the similarity space, enforcing a one-to-one cor-
+respondence between geometrically proximate nodes in the embedding space and
+functionally similar biological entities.
+The reconstruction process employs a two-layer feedforward network, formulated
+as,
+Zproj = W2
+projReLU(W1
+projZf used) (19)
+where W1
+proj ∈ Rd×(d/2) and W2
+proj ∈ R(d/2)×d denote the learnable weight matrices
+of two linear layers in the feedforward network. Pairwise similarities are then computed
+as,
+bS = ZprojZT
+proj (20)
+The reconstruction loss is derived by comparing the reconstructed similarity
+matrices with the original counterparts using the Frobenius norm, given by,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

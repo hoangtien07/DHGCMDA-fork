@@ -1,0 +1,33 @@
+T able 3 Performance comparison under CV type on the HMDD v3.2 and HMDD v2.0.
+Method HMDD v3.2 HMDD v2.0
+Top-1 PrecisionTop-1 RecallTop-1 F1-scoreTop-1 PrecisionTop-1 RecallTop-1 F1-score
+MRFGMDA 0.6229 0.6481 0.6335 0.5860 0.6152 0.5979
+NMCMDA 0.6199 0.4609 0.5287 0.6061 0.5409 0.5716
+SPLDHyperAWNTF 0.6219 0.4624 0.5304 0.5050 0.4506 0.4762
+TFLP 0.4812 0.3553 0.4076 0.6358 0.5673 0.5996
+KBLTDARD 0.6301 0.4685 0.5147 0.6122 0.5464 0.5683
+TDRC 0.4926 0.3671 0.4207 0.5090 0.4542 0.4801
+DHGCMDA 0.7915 0.9421 0.8600 0.5842 0.6341 0.5970
+T able 4 Performance comparison under CV triplet on the HMDD v3.2 and HMDD v2.0.
+Method HMDD v3.2 HMDD v2.0
+AUPR AUC F1-score AUPR AUC F1-score
+MRFGMDA 0.8845 0.8845 0.8694 0.9004 0.8893 0.8421
+NMCMDA 0.8885 0.8681 0.8352 0.9280 0.9329 0.8765
+SPLDHyperAWNTF 0.9126 0.9102 0.8395 0.9253 0.9091 0.8584
+TFLP 0.8217 0.7229 0.7831 0.9461 0.9395 0.8843
+KBLTDARD 0.9247 0.9263 0.8541 0.9530 0.9460 0.8927
+TDRC 0.9059 0.8962 0.8309 0.9085 0.8973 0.8578
+DHGCMDA 0.9271 0.9181 0.8674 0.9738 0.9669 0.9278
+evaluating method performance on imbalanced biological data, so the superior perfor-
+mance of DHGCMDA in these two metrics indicates robust ability to identify minority
+miRNA-disease association types. These results verify that the attention-guided fusion
+mechanism in DHGCMDA can effectively integrate multi-view feature representations,
+thereby boosting the accuracy of miRNA-disease triple link prediction.
+3.5 Ablation Study
+To further validate the effectiveness of each component in DHGCMDA, ablation exper-
+iments were conducted on the HMDD v2.0 and HMDD v3.2 datasets under the CVtype
+and CV triplet evaluation settings. Five variant models were constructed by removing
+or replacing core components to dissect their individual contributions to the overall
+performance:
+ARTICLE IN PRESS
+ARTICLE IN PRESS

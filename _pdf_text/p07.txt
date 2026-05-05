@@ -1,0 +1,28 @@
+Yan et al. proposed PDMDA [26], which extracts miRNA feature representations via
+fully connected networks, leverages GNNs to capture disease feature representations,
+and designs a multi-layer structured classifier to predict miRNA-disease association
+types. Zhang et al. regarded miRNA-disease associations as signed bipartite networks,
+and proposed a signed GNN method SGNNMD [27] for predicting the upregulated/-
+downregulated expression types of miRNAs in diseases. SGNNMD extracts subgraphs
+surrounding known miRNA-disease associations, learns the structural features of these
+subgraphs through node feature extraction and GNNs, and integrates such structural
+features with biological features to construct a prediction model. Wang et al. devel-
+oped NMCMDA [28], which applies relational GCNs to miRNA-disease heterogeneous
+networks for learning the latent space embeddings of miRNAs and diseases respec-
+tively, and utilizes a neural multi-relational decoder to calculate predictive scores for
+miRNA-disease association types. Yu et al. designed mDLinker [29], which adopts
+the node2vec graph representation learning to extract node features from disease and
+miRNA similarity networks, captures topological information and multi-type nonlinear
+relationships between miRNAs and diseases based on the GATNE heterogeneous graph
+multi-relational model, and trains a random forest classifier to predict miRNA-disease
+association types. Liu et al. [30] proposed deepMDpred, which combines GCN with a
+multichannel attention mechanism to extract disease features from heterogeneous simi-
+larity and gene interaction networks, and fuses the learned miRNA sequence-structural
+features with disease representations via a nonlinear fully connected layer for multi-
+type miRNA-disease association prediction. However, most GNN-based methods are
+constrained by three limitations. First, calculating miRNA similarity based on known
+miRNA-disease associations leads to excessive reliance on existing association data,
+which not only creates circular dependencies that render the method ineffective for
+novel miRNAs lacking prior disease annotations but also induces quantification bias
+ARTICLE IN PRESS
+ARTICLE IN PRESS

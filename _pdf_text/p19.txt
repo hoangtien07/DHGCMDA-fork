@@ -1,0 +1,44 @@
+where WmiRN A and Wdisease represent type-specific learnable projection matrices,
+XmiRN A and Xdisease are the projected feature representations tailored for subsequent
+HGT processing. For each node i with type τ(i), the HGT layer computes type-aware
+query, key, and value representations,
+Qτ (i)
+i = Wτ (i)
+Q xi (24)
+Kτ (i)
+i = Wτ (i)
+K xi (25)
+Vτ (i)
+i = Wτ (i)
+V xi (26)
+where Wτ (i)
+Q , Wτ (i)
+K , Wτ (i)
+V represent type-specific projection matrices, and xi denotes
+the projected feature representation of node i. These type-aware query, key, and value
+representations lay the foundation for type-specific message passing, where messages
+between nodes are adaptively weighted based on their entity types and edge relations.
+The attention coefficient between source node j and target node i connected by
+edge type r is computed via multi-head attention with edge-type-specific transforma-
+tions,
+αr
+ij = softmaxj∈T (i)
+ 
+(Wr
+attQτ (i)
+i )T (Wr
+msgKτ (j)
+j )√dk
+!
+(27)
+where Wr
+att and Wr
+msg denote edge-type-specific transformation matrices for rela-
+tion type r, T (i) denotes the neighborhood set of target node i, and dk refers to
+the dimension of the query/key vectors in the attention mechanism. The scaled dot-
+product attention with 1 /√dk scaling mitigates the gradient vanishing issue during
+model training.
+Node representations are updated via aggregation of attention-weighted value
+projections,
+ARTICLE IN PRESS
+ARTICLE IN PRESS

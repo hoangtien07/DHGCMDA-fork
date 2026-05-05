@@ -1,0 +1,24 @@
+Declarations
+Funding. This work was supported by the National Natural Science Foundation of
+China (62472250, 62473179).
+Conflict of interest. The authors declare no conflicts of interest.
+Ethics approval and consent to participate. Not applicable.
+Consent for publication. Not applicable.
+Availability of data and materials. The dataset supporting the conclusions
+of this article is available in the HMDD repository, https://www.cuilab.cn/hmdd.
+The implementation code of DHGCMDA is publicly available at https://github.com/
+CDMBlab/DHGCMDA.
+Authors’ contributions. Yan Sun: Methodology and Writing - original draft.
+Fanyu Zhang: Formal analysis and Writing - review and editing. Shijia Yan: Visual-
+ization. Xiaotong Kong: Investigation. Hanxiang Wang: Validation. Junliang Shang:
+Funding acquisition and Writing - review and editing. Jin-Xing Liu: Supervision and
+Funding acquisition.
+References
+[1] Hussen BM, Hidayat HJ, Salihi A, Sabir DK, Taheri M, Ghafouri-Fard S.
+MicroRNA: A signature for cancer progression. Biomed Pharmacother. 2021;
+138:111528.
+[2] Katsu M, Hama Y, Utsumi J, Takashina K, Yasumatsu H, Mori F, et al.
+MicroRNA expression profiles of neuron-derived extracellular vesicles in plasma
+from patients with amyotrophic lateral sclerosis. Neurosci Lett. 2019; 708:134176.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

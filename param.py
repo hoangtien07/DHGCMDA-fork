@@ -188,6 +188,13 @@ def parameter_parser():
                         default=True,
                         help='Print detailed information.')
 
+    # Ablation mode for paper Fig. 4 reproduction (additive — default 'none' preserves original behavior)
+    parser.add_argument('--ablation',
+                        type=str,
+                        default='none',
+                        choices=['none', 'no_cl', 'no_hgcn', 'no_avf', 'no_hgt', 'no_dv'],
+                        help='Ablation variant: no_cl|no_hgcn|no_avf|no_hgt|no_dv (Fig.4 paper).')
+
     # Save paths
     parser.add_argument('--save_dir',
                         type=str,

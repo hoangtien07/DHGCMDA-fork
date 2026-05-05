@@ -1,0 +1,28 @@
+intensive labor requirements, and limited throughput, which render large-scale sys-
+tematic screening of miRNA-disease associations impractical. Rapid advances in
+high-throughput sequencing technologies have facilitated the development of multiple
+specialized databases dedicated to miRNA and disease studies. Notable among these
+resources, DIANA-TarBase [3], miRTarBase [4], and miRWalk [5] provide comprehen-
+sive miRNA-gene interaction data; MiRBase [6] supplies curated annotated miRNA
+sequences; MiREDiBase [7] focuses on miRNA editing site information; and the Com-
+parative Toxicogenomics Database (CTD) [8] integrates a broad array of biological
+entities, including diseases, genes, phenotypes, and chemicals, together with the corre-
+sponding interaction networks among these entities. These databases have significantly
+enriched the current understanding of miRNA functionality and regulatory mecha-
+nisms, while also laying an essential foundation for the development of computational
+methods for the prediction of miRNA-disease associations. In parallel, the rapid evo-
+lution of representation learning paradigms, from traditional machine learning to deep
+graph models and multi-modal fusion, has further accelerated progress in biomedical
+data analysis [9].
+Computational methods developed for miRNA-disease association prediction have
+undergone successive stages of evolution. Similarity-based methods [10, 11] were pred-
+icated on the assumption that functionally similar miRNAs tend to correlate with
+phenotypically similar diseases, and vice versa, yet such methods are inherently con-
+strained by two critical limitations: an excessive reliance on similarity metrics and
+a fundamental inability to capture the intricate nonlinear relationships embedded in
+biological systems. Traditional machine learning methods, for instance, support vector
+machines and matrix factorization, achieved enhanced prediction accuracy; however,
+they typically processed miRNAs and diseases in an isolated manner and failed to
+explicitly model the intricate network architectures inherent to biological systems.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,29 @@
+DHGCMDA: A Dual-view Heterogeneous Graph
+Contrastive Learning Framework for
+miRNA-Disease Association Type Prediction
+Yan Sun1, Fanyu Zhang 2, Shijia Yan 2, Xiaotong Kong 2,
+Hanxiang Wang2, Junliang Shang 2,3,4*, Jin-Xing Liu 5*
+1College of Engineering, Qufu Normal University, Rizhao, 276826,
+Shandong, China.
+2School of Computer Science, Qufu Normal University, Rizhao, 276826,
+Shandong, China.
+3Rizhao-Qufu Normal University Joint Technology Transfer Center,
+Qufu Normal University, Rizhao, 276826, China.
+4Shandong Key Laboratory of Wetland Ecology and Biodiversity
+Conservation in the Lower Yellow River, Qufu, 273165, China.
+5School of Health and Life Sciences, University of Health and
+Rehabilitation Sciences, Qingdao, 266113, Shandong, China.
+*Corresponding author(s). E-mail(s): shangjunliang110@163.com;
+sdcavell@126.com;
+Contributing authors: sunyan225@126.com; 19819518872@163.com;
+yanshijia37@163.com; kongxt19@163.com; hanxiang@qfnu.edu.cn;
+Abstract
+Background: Accumulating evidence demonstrates that microRNA (miRNA)
+dysregulation drives the pathogenesis of diverse human diseases via intricate,
+context-dependent molecular mechanisms. Hence, prediction of miRNA-disease
+association types is a critical prerequisite for dissecting functional roles of miR-
+NAs in disease initiation and progression. Although computational methods
+offer cost-effective, time-efficient alternatives to wet-lab experiments for miRNA-
+disease association type prediction, most of them are hampered by three key
+ARTICLE IN PRESS
+ARTICLE IN PRESS

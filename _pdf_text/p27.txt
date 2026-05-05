@@ -1,0 +1,28 @@
+3.4 Comparison with other methods
+To evaluate the performance of DHGCMDA, comparative experiments were conducted
+against six state-of-the-art methods for miRNA-disease association type prediction,
+namely TDRC [22], SPLDHyperAWNTF [24], TFLP [25], NMCMDA [28], MRFG-
+MDA [33], and KBLTDARD [34]. The experiments were carried out on the HMDD
+v3.2 and HMDD v2.0 datasets under the CV type and CV triplet evaluation settings.
+The comparative results are presented in Table 3 and Table 4, respectively.
+As shown in Table 3, DHGCMDA significantly outperforms all methods on HMDD
+v3.2 and achieves competitive performance on HMDD v2.0 under the CV type. Specif-
+ically, on HMDD v3.2, DHGCMDA delivers a Top-1 precision of 0.7915, recall of
+0.9421 and F1-score of 0.8600, with respective gains of 25.61%, 45.36% and 35.75%
+over the suboptimal values of each metric derived from different comparison methods.
+On HMDD v2.0, DHGCMDA achieves the highest Top-1 recall among all methods.
+While its precision lags behind that of several comparison methods, DHGCMDA still
+maintains a top-tier F1-score. These remarkable gains on HMDD v3.2 stem from dual-
+view hypergraph and contrastive learning modules that effectively capture high-order
+biological relationships, advantages single-graph or linear methods lack when handling
+complex data distributions. The moderate precision on HMDD v2.0 is a deliberate
+trade-off via class weighting, which prioritizes true association recall to ensure optimal
+F1-score balance for biomedical prediction tasks.
+As shown in Table 4, DHGCMDA achieves dominant performance across both
+datasets under the CV triplet. Specifically, on HMDD v2.0, DHGCMDA ranks first in
+AUPR, AUC and F1-score, with respective gains of 2.18%, 2.21% and 3.93% over
+KBLTDARD, the second-best method. On HMDD v3.2, DHGCMDA still outperforms
+all comparison methods in AUPR and F1-score, a result that demonstrates stable
+performance across different datasets. AUPR and AUC act as critical metrics for
+ARTICLE IN PRESS
+ARTICLE IN PRESS

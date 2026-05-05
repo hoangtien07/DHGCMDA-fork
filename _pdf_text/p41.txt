@@ -1,0 +1,25 @@
+[27] Zhang G, Li M, Deng H, Xu X, Liu X, Zhang W. SGNNMD: signed graph neural
+network for predicting deregulation types of miRNA-disease associations. Brief
+Bioinform. 2022; 23(1):bbab464.
+[28] Wang J, Li J, Yue K, Wang L, Ma Y, Li Q. NMCMDA: neural multicategory
+MiRNA-disease association prediction. Brief Bioinform. 2021; 22(5):bbab074.
+[29] Yu DL, Yu ZG, Han GS, Li J, Anh V. Heterogeneous Types of miRNA-Disease
+Associations Stratified by Multi-Layer Network Embedding and Prediction.
+Biomedicines. 2021; 9(9):1152.
+[30] Liu YF, et al. Graph Convolution and Attention-Combined Learning for Multi-
+Type Prediction of miRNA-Disease Associations. Curr Bioinform. 2025.
+[31] Zhu Y, Fan Y, Sun G, Li X. SMCLMDA: Statistical Meta-Paths Con-
+trastive Learning for Predicting miRNA-Disease Multidimensional Relationships.
+bioRxiv. 2025; doi:10.1101/2025.02.11.637780.
+[32] van den Oord A, Li Y, Vinyals O. Representation learning with contrastive
+predictive coding. arXiv preprint arXiv:1807.03748. 2018.
+[33] Yu S, Wang H, Li J, Zhao J, Liang C, Sun Y. A Multi-Relational Graph
+Encoder Network for Fine-Grained Prediction of MiRNA-Disease Associations.
+IEEE/ACM Trans Comput Biol Bioinform. 2024; 21(1):45-56.
+[34] Ma Y, Ma Y. Kernel Bayesian logistic tensor decomposition with automatic rank
+determination for predicting multiple types of miRNA-disease associations. PLoS
+Comput Biol. 2024; 20(7):e1012287.
+[35] Zhou Y, Zhou B, Pache L, Chang M, Khodabakhshi AH, Tanaseichuk O, et al.
+Metascape provides a biologist-oriented resource for the analysis of systems-level
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -1,0 +1,41 @@
+Based on the fused miRNA and disease representations, denoted as ZM ∈ Rnm×d
+and ZD ∈ Rnd×d, which are obtained by the attention-guided adaptive view fusion
+strategy, the detailed description of which can be found in Section 2.5, the cross-modal
+similarity is defined as,
+Scross =
+bZMbZT
+D
+t (10)
+where bZM and bZD are normalized embeddings, formulated as,
+bZM = ZM
+∥ZM ∥2
+(11)
+bZD = ZD
+∥ZD∥2
+(12)
+The cross-modality contrastive loss is formulated as a synergistic combination of
+the InfoNCE [32] loss and a margin-based ranking loss. For each miRNA i and its
+corresponding associated diseases (positive samples), the InfoNCE loss is defined as,
+LInf oN CE
+inter = −
+X
+i
+X
+j∈Pi
+log exp(Scross,ij)
+exp(Scross,ij) +P
+k∈Ni
+exp(Scross,ik) (13)
+where Pi = {j|Aij = 1 } denotes the set of diseases associated with miRNA i, and
+Ni denotes the set of sampled negative pairs for miRNA i. To further improve the
+separability between positive and negative sample representations and mitigate the
+issue of sample imbalance, the margin-based ranking loss is incorporated,
+LM argin
+inter = max(0, m − ( ¯SP − ¯SN )) (14)
+where ¯SP = mean(Scross[P]), ¯SN = mean(Scross[N ]), and m is a predefined margin
+hyperparameter. Hence, the cross-modality contrastive loss can be written as,
+Linter = LInf oN CE
+inter + λ · LM argin
+inter (15)
+ARTICLE IN PRESS
+ARTICLE IN PRESS

@@ -589,6 +589,11 @@ class HeterogenousGraphCLAMIR(nn.Module):
         self.graph_update_frequency = 5
         self.current_epoch = 0
 
+        # [Ablation] paper Fig. 4 reproduction switch — default 'none' preserves original behavior
+        self.ablation_mode = getattr(args, 'ablation', 'none')
+        if self.ablation_mode != 'none':
+            print(f"[ABLATION] Running with mode = {self.ablation_mode}")
+
         print(f"优化模型初始化: miRNA数量 = {mi_num}, 疾病数量 = {dis_num}")
 
         # 核心网络组件
@@ -699,15 +704,32 @@ class HeterogenousGraphCLAMIR(nn.Module):
         G_dis_Kn = G_dis_Kn.to(target_device).float()
         G_dis_Km = G_dis_Km.to(target_device).float()
 
+        # [Ablation] no_dv: dùng cùng 1 hypergraph cho cả 2 view → mất tính dual-view
+        if self.ablation_mode == 'no_dv':
+            G_mi_Km = G_mi_Kn
+            G_dis_Km = G_dis_Kn
+
+        # [Ablation] no_hgcn: thay G (hypergraph Laplacian) bằng identity → degenerate HGCN thành MLP
+        if self.ablation_mode == 'no_hgcn':
+            G_mi_Kn = torch.eye(self.mi_num, device=target_device, dtype=torch.float32)
+            G_mi_Km = torch.eye(self.mi_num, device=target_device, dtype=torch.float32)
+            G_dis_Kn = torch.eye(self.dis_num, device=target_device, dtype=torch.float32)
+            G_dis_Km = torch.eye(self.dis_num, device=target_device, dtype=torch.float32)
+
         try:
             # 阶段1: 超图特征提取（视图内对比学习）
             mi_feature1, mi_feature2, mi_intra_loss = self.CL_HGCN_mi(
                 concat_mi_tensor, G_mi_Kn, concat_mi_tensor, G_mi_Km)
-            mi_feature_fused = self.AM_mi([mi_feature1, mi_feature2])
-
             dis_feature1, dis_feature2, dis_intra_loss = self.CL_HGCN_dis(
                 concat_dis_tensor, G_dis_Kn, concat_dis_tensor, G_dis_Km)
-            dis_feature_fused = self.AM_dis([dis_feature1, dis_feature2])
+
+            # [Ablation] no_avf: thay attention-guided view fusion bằng simple average
+            if self.ablation_mode == 'no_avf':
+                mi_feature_fused = (mi_feature1 + mi_feature2) / 2.0
+                dis_feature_fused = (dis_feature1 + dis_feature2) / 2.0
+            else:
+                mi_feature_fused = self.AM_mi([mi_feature1, mi_feature2])
+                dis_feature_fused = self.AM_dis([dis_feature1, dis_feature2])
 
             # 🆕 跨模态视图间对比学习（miRNA vs Disease）
             inter_view_loss = torch.tensor(0.0, device=target_device)
@@ -734,6 +756,11 @@ class HeterogenousGraphCLAMIR(nn.Module):
             mi_cl_loss = mi_intra_loss + self.inter_view_weight * inter_view_loss
             dis_cl_loss = dis_intra_loss + self.inter_view_weight * inter_view_loss
 
+            # [Ablation] no_cl: zero-out cả intra + inter contrastive losses
+            if self.ablation_mode == 'no_cl':
+                mi_cl_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+                dis_cl_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+
             # 阶段2: 相似性重构（仅在训练时）
             if self.training:
                 mi_sim_reconstructed = self.miRNA_decoder(mi_feature_fused)
@@ -751,16 +778,28 @@ class HeterogenousGraphCLAMIR(nn.Module):
                     'disease': self.node_transformers['disease'](dis_feature_fused)
                 }
 
-                # 获取边索引并确保设备一致
-                edge_index_dict = self._get_edge_index_dict_device_safe(hetero_data, target_device)
+                # [Ablation] no_hgt: skip HGT layers, dùng node_transformers output trực tiếp
+                if self.ablation_mode == 'no_hgt':
+                    mi_embeddings = x_dict['miRNA']
+                    dis_embeddings = x_dict['disease']
+                    # Project to out_channels nếu shape khác (cho safe khi hidden_dim != out_channels)
+                    expected_dim = self.association_predictor.node_dim if hasattr(
+                        self.association_predictor, 'node_dim') else mi_embeddings.shape[-1]
+                    if mi_embeddings.shape[-1] != expected_dim:
+                        proj = nn.Linear(mi_embeddings.shape[-1], expected_dim).to(target_device)
+                        mi_embeddings = proj(mi_embeddings)
+                        dis_embeddings = proj(dis_embeddings)
+                else:
+                    # 获取边索引并确保设备一致
+                    edge_index_dict = self._get_edge_index_dict_device_safe(hetero_data, target_device)
 
-                # 通过HGT层处理
-                for layer in self.hgt_layers:
-                    x_dict = layer(x_dict, edge_index_dict)
+                    # 通过HGT层处理
+                    for layer in self.hgt_layers:
+                        x_dict = layer(x_dict, edge_index_dict)
 
-                # 获取最终节点嵌入
-                mi_embeddings = x_dict['miRNA']
-                dis_embeddings = x_dict['disease']
+                    # 获取最终节点嵌入
+                    mi_embeddings = x_dict['miRNA']
+                    dis_embeddings = x_dict['disease']
 
                 # 阶段4: 关联预测
                 score = self.association_predictor(mi_embeddings, dis_embeddings)

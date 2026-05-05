@@ -1,0 +1,29 @@
+Despite the promising results, DHGCMDA has several limitations that warrant
+discussion. First, the current framework relies on the availability of multiple similarity
+measures for both miRNAs and diseases; for novel miRNAs or rare diseases where such
+data are extremely sparse, the dual-view construction may degrade to a near-single-
+view setting, potentially limiting performance gains. Second, the computational cost
+of DHGCMDA scales with the number of nodes and hyperedges, and applying it to
+significantly larger biological networks may require architectural optimizations such
+as mini-batch hypergraph sampling or more efficient attention mechanisms. Third,
+while DHGCMDA learns expressive node embeddings, the interpretability of these
+embeddings remains limited; future efforts could incorporate attention visualization
+or gradient-based attribution methods to provide mechanistic insights into predicted
+association types. Fourth, the dynamic hypergraph update strategy currently employs
+a fixed threshold θ and update interval, which may not be optimal across all training
+stages; adaptive thresholding strategies could further improve structural refinement.
+Since DHGCMDA is a general framework for multi-relational link prediction in
+heterogeneous biological networks, it can be readily extended to other tasks such as
+drug-drug interaction type prediction and lncRNA-disease association type prediction.
+In future work, efforts will be directed toward addressing the limitations identified
+above: integrating additional biomedical information sources such as miRNA-gene
+interactions to mitigate data sparsity, adopting positive-unlabeled learning strategies
+to better handle uncertainty in negative samples, and exploring adaptive graph updat-
+ing mechanisms and model interpretability techniques to enhance both structural
+refinement and biological insight.
+Acknowledgements. The authors would like to thank the reviewers for their
+insightful comments and suggestions that helped improve the quality of this
+manuscript. This research was supported in part by computational resources provided
+by the School of Computer Science, Qufu Normal University.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

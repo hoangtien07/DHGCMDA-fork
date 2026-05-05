@@ -1,0 +1,31 @@
+ARTICLE IN PRESS
+Article in Press
+DHGCMDA: a dual-view heterogeneous graph 
+contrastive learning framework for miRNA-
+disease association type prediction
+BMC Bioinformatics
+Received: 5 February 2026
+Accepted: 24 March 2026
+Cite this article as: Sun Y ., Zhang F., 
+Yan S. et al. DHGCMDA: a dual-view 
+heterogeneous graph contrastive 
+learning framework for miRNA-disease 
+association type prediction. BMC 
+Bioinformatics (2026). https://doi.
+org/10.1186/s12859-026-06436-w
+Yan Sun, Fanyu Zhang, Shijia Yan, Xiaotong Kong, Hanxiang Wang, Junliang Shang & 
+Jin-Xing Liu
+We are providing an unedited version of this manuscript to give early access to its 
+findings. Before final publication, the manuscript will undergo further editing. Please 
+note there may be errors present which affect the content, and all legal disclaimers 
+apply.
+If this paper is publishing under a Transparent Peer Review model then Peer 
+Review reports will publish with the final article.
+https://doi.org/10.1186/s12859-026-06436-w
+© The Author(s) 2026. Open Access This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International 
+License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you give appropriate credit 
+to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the licensed material. You do 
+not have permission under this licence to share adapted material derived from this article or parts of it. The images or other third party material in this 
+article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the 
+article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain 
+permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.

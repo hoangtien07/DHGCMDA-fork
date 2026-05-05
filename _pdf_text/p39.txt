@@ -1,0 +1,24 @@
+Trans Comput Biol Bioinform. 2018; 15(6):1774-1782.
+[12] Lu D, Li J, Zheng C, Liu J, Zhang Q. HGTMDA: A Hypergraph Learn-
+ing Approach with Improved GCN-Transformer for miRNA-Disease Association
+Prediction. Bioengineering (Basel). 2024; 11(7):680.
+[13] Liu J, Kuang Z, Deng L. GCNPCA: miRNA-Disease Associations Prediction
+Algorithm Based on Graph Convolutional Neural Networks. IEEE/ACM Trans
+Comput Biol Bioinform. 2023; 20(2):1041-1052.
+[14] Ma M, Na S, Zhang X, Chen C, Xu J. SFGAE: a self-feature-based graph autoen-
+coder model for miRNA-disease associations prediction. Brief Bioinform. 2022;
+23(5):bbac340.
+[15] Li Z, Jiang K, Qin S, Zhong Y, Elofsson A. GCSENet: A GCN, CNN and SENet
+ensemble model for microRNA-disease association prediction. PLoS Comput Biol.
+2021; 17(6):e1009048.
+[16] Ning Q, Zhao Y, Gao J, Chen C, Yin M. Hierarchical Hypergraph Learning
+in Association-Weighted Heterogeneous Network for miRNA-Disease Association
+Identification. IEEE/ACM Trans Comput Biol Bioinform. 2024; 21(6):2531-2542.
+[17] Huang Z, Shi J, Gao Y, Cui C, Zhang S, Li J, et al. HMDD v3.0: a database for
+experimentally supported human microRNA-disease associations. Nucleic Acids
+Res. 2019; 47(D1):D1013-D1017.
+[18] Xiao B, Zhu ED, Li N, Lu DS, Li W, Li BS, et al. Increased miR-146a in gastric
+cancer directly targets SMAD4 and is involved in modulating cell proliferation
+and apoptosis. Oncol Rep. 2012; 27(2):559-566.
+ARTICLE IN PRESS
+ARTICLE IN PRESS

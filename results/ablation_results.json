@@ -1,0 +1,112 @@
+﻿{
+    "no_cl":  {
+                  "AUC":  0.9764,
+                  "AUPR":  0.9691,
+                  "F1":  0.9334,
+                  "Accuracy":  0.9316,
+                  "Recall":  0.9569,
+                  "Specificity":  0.9063,
+                  "Precision":  0.9116,
+                  "top1_precision":  0.6164,
+                  "top1_recall":  0.6617,
+                  "top1_f1":  0.6381,
+                  "fold_times_sec":  [
+                                         341.24,
+                                         336.3,
+                                         335.74,
+                                         339.55,
+                                         337.97
+                                     ],
+                  "avg_fold_time_sec":  338.16,
+                  "total_execution_sec":  1691.18,
+                  "_source":  "logs\\ablation_no_cl.log"
+              },
+    "no_hgcn":  {
+                    "AUC":  0.9758,
+                    "AUPR":  0.9705,
+                    "F1":  0.9293,
+                    "Accuracy":  0.9274,
+                    "Recall":  0.9534,
+                    "Specificity":  0.9013,
+                    "Precision":  0.9072,
+                    "top1_precision":  0.591,
+                    "top1_recall":  0.649,
+                    "top1_f1":  0.6185,
+                    "fold_times_sec":  [
+                                           517.99,
+                                           524.27,
+                                           528.38,
+                                           531.14,
+                                           530.18
+                                       ],
+                    "avg_fold_time_sec":  526.392,
+                    "total_execution_sec":  2632.36,
+                    "_source":  "logs\\ablation_no_hgcn.log"
+                },
+    "no_avf":  {
+                   "AUC":  0.9733,
+                   "AUPR":  0.9674,
+                   "F1":  0.929,
+                   "Accuracy":  0.9262,
+                   "Recall":  0.9639,
+                   "Specificity":  0.8885,
+                   "Precision":  0.8975,
+                   "top1_precision":  0.5097,
+                   "top1_recall":  0.6095,
+                   "top1_f1":  0.5549,
+                   "fold_times_sec":  [
+                                          541.81,
+                                          552.43,
+                                          554.74,
+                                          554.11,
+                                          555.77
+                                      ],
+                   "avg_fold_time_sec":  551.7719999999999,
+                   "total_execution_sec":  2759.25,
+                   "_source":  "logs\\ablation_no_avf.log"
+               },
+    "no_hgt":  {
+                   "AUC":  0.9703,
+                   "AUPR":  0.9687,
+                   "F1":  0.9195,
+                   "Accuracy":  0.9187,
+                   "Recall":  0.9281,
+                   "Specificity":  0.9094,
+                   "Precision":  0.9116,
+                   "top1_precision":  0.6127,
+                   "top1_recall":  0.6711,
+                   "top1_f1":  0.6405,
+                   "fold_times_sec":  [
+                                          380.71,
+                                          379.38,
+                                          379.49,
+                                          377.42,
+                                          392.77
+                                      ],
+                   "avg_fold_time_sec":  381.954,
+                   "total_execution_sec":  1910.15,
+                   "_source":  "logs\\ablation_no_hgt.log"
+               },
+    "no_dv":  {
+                  "AUC":  0.9736,
+                  "AUPR":  0.9684,
+                  "F1":  0.9265,
+                  "Accuracy":  0.9243,
+                  "Recall":  0.9534,
+                  "Specificity":  0.8952,
+                  "Precision":  0.9016,
+                  "top1_precision":  0.5403,
+                  "top1_recall":  0.605,
+                  "top1_f1":  0.5705,
+                  "fold_times_sec":  [
+                                         553.31,
+                                         570.71,
+                                         570.76,
+                                         589.62,
+                                         569.96
+                                     ],
+                  "avg_fold_time_sec":  570.8720000000001,
+                  "total_execution_sec":  2854.77,
+                  "_source":  "logs\\ablation_no_dv.log"
+              }
+}
