@@ -32,7 +32,7 @@ def parameter_parser():
 
     parser.add_argument('--n_head',
                         type=int,
-                        default=8,
+                        default=4,
                         help='Number of attention heads in HGT.')
 
     # Loss function parameters
@@ -157,7 +157,7 @@ def parameter_parser():
     # Dynamic hypergraph update
     parser.add_argument('--update_graph_frequency',
                         type=int,
-                        default=50,
+                        default=5,
                         help='Frequency of hypergraph updates (in epochs).')
 
     parser.add_argument('--similarity_threshold',

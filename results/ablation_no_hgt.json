@@ -1,22 +1,22 @@
 {
-  "AUC": 0.9703,
-  "AUPR": 0.9687,
-  "F1": 0.9195,
+  "AUC": 0.9697,
+  "AUPR": 0.9693,
+  "F1": 0.9194,
   "Accuracy": 0.9187,
-  "Recall": 0.9281,
-  "Specificity": 0.9094,
-  "Precision": 0.9116,
-  "top1_precision": 0.6127,
-  "top1_recall": 0.6711,
-  "top1_f1": 0.6405,
+  "Recall": 0.9273,
+  "Specificity": 0.91,
+  "Precision": 0.9123,
+  "top1_precision": 0.6134,
+  "top1_recall": 0.6728,
+  "top1_f1": 0.6415,
   "fold_times_sec": [
-    380.71,
-    379.38,
-    379.49,
-    377.42,
-    392.77
+    666.21,
+    659.3,
+    643.83,
+    624.83,
+    630.38
   ],
-  "avg_fold_time_sec": 381.954,
-  "total_execution_sec": 1910.15,
+  "avg_fold_time_sec": 644.9100000000001,
+  "total_execution_sec": 3224.95,
   "_source": "logs\\ablation_no_hgt.log"
 }

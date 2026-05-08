@@ -1,22 +1,22 @@
 {
-  "AUC": 0.9736,
-  "AUPR": 0.9684,
-  "F1": 0.9265,
+  "AUC": 0.9739,
+  "AUPR": 0.9681,
+  "F1": 0.9268,
   "Accuracy": 0.9243,
-  "Recall": 0.9534,
-  "Specificity": 0.8952,
-  "Precision": 0.9016,
-  "top1_precision": 0.5403,
-  "top1_recall": 0.605,
-  "top1_f1": 0.5705,
+  "Recall": 0.9582,
+  "Specificity": 0.8903,
+  "Precision": 0.898,
+  "top1_precision": 0.5246,
+  "top1_recall": 0.6032,
+  "top1_f1": 0.5608,
   "fold_times_sec": [
-    553.31,
-    570.71,
-    570.76,
-    589.62,
-    569.96
+    813.24,
+    811.94,
+    821.31,
+    596.37,
+    470.31
   ],
-  "avg_fold_time_sec": 570.8720000000001,
-  "total_execution_sec": 2854.77,
+  "avg_fold_time_sec": 702.634,
+  "total_execution_sec": 3513.58,
   "_source": "logs\\ablation_no_dv.log"
 }

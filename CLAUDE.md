@@ -55,18 +55,41 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - [requirements.txt](requirements.txt) — pinned deps.
 - [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md) — trạng thái thí nghiệm cuối + cách tiếp tục.
 
-## 5. Code-paper discrepancies đã ghi nhận (KHÔNG sửa, scope đã chốt)
+## 5. Code-paper discrepancies — STATUS sau Plan B (2026-05-08)
 
-| Điểm | Paper | Code | Severity |
+| Điểm | Paper | Code (sau fix) | Trạng thái |
 |---|---|---|---|
-| HGT attention heads | 4 | 8 ([param.py:35](param.py#L35)) | Cao |
-| Dynamic graph update | mỗi 5 epoch | param=50 nhưng dùng MSE-threshold không match ([main_experiments_hetero1.py:813-831](main_experiments_hetero1.py#L813-L831)) | Cao |
-| Reconstruction loss λ₃ | 1.0 | hardcode 0.15 ([main_experiments_hetero1.py:871](main_experiments_hetero1.py#L871)) | Cao |
-| `num_association_types` | flexible | hardcode 4 ([hetero_model.py:643](hetero_model.py#L643)) | Trung bình |
+| HGT attention heads | 4 | **4** ([param.py:35](param.py#L35)) | ✅ Đã fix |
+| Dynamic graph update | mỗi 5 epoch | **mỗi 5 epoch** (epoch-modulo, [main_experiments_hetero1.py:793-810](main_experiments_hetero1.py#L793-L810)) | ✅ Đã fix |
+| Reconstruction loss λ₃ | 1.0 | **1.0** ([main_experiments_hetero1.py:871](main_experiments_hetero1.py#L871)) | ✅ Đã fix |
+| `num_association_types` | flexible | hardcode 4 ([hetero_model.py:643](hetero_model.py#L643)) | ⏸ Skip (chỉ ảnh hưởng v3.2, không reproduce) |
 
-## 6. Phát hiện thực nghiệm bất thường (đáng note)
+## 6. Phát hiện thực nghiệm bất thường — VERIFIED LẦN 2 (Plan B)
 
-Reproduce CV-triplet **rất gần paper** (AUC 0.9738 vs 0.9669, AUPR 0.9671 vs 0.9738, F1 0.9295 vs 0.9278). Nhưng ablation Top-1 F1 cho thấy 3/4 module bị "remove" lại CẢI THIỆN performance (no_cl +16%, no_hgcn +13%, no_hgt +14%). Trái ngược paper Fig. 4. Khả năng do code-paper discrepancies (đặc biệt λ₃=0.15 và CL weight=1.0). Cần investigate sâu nếu muốn match paper claims — hiện đã ghi nhận trong báo cáo Phần 2.4.
+**Sửa 3/4 discrepancies KHÔNG fix pattern Fig. 4 paper.** Cụ thể:
+- Phase A (code gốc): Top-1 F1 baseline = 0.5485, ablation w/o CL = 0.6381 (+16.3%), w/o HGT = 0.6405 (+16.8%).
+- Phase B-C (sau fix): Top-1 F1 baseline = 0.5521 (+0.7%), ablation w/o CL = 0.6206 (+12.4%), w/o HGT = 0.6415 (+16.2%).
+
+→ Gain của ablation giảm nhẹ nhưng **vẫn ngược paper**. Finding strengthen → đây là **legitimate observation**, không phải artifact của code-paper discrepancies. Có thể nguyên nhân chính là (i) ablation implementation additive switch không tương đương paper re-train từ đầu, hoặc (ii) loss formulation `0.3*existence + 0.7*type` khác Eq. 32 paper. Chi tiết trong [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
+
+## 7. Plan B status — đang dở
+
+**HOÀN THÀNH:** Phase B-A (3 fixes) + B-B (smoke) + B-C (rerun 6 runs, ~2.5h CPU).
+
+**CÒN LẠI** (lần sau cần làm):
+- ⏸ Phase B-D: chạy [case_study.py](case_study.py) (~50 phút) → sinh `results/case_study_*.csv`.
+- ⏸ Phase B-E: update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → regenerate báo cáo.
+
+Lệnh tiếp tục:
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+$env:PYTHONUTF8 = 1
+python case_study.py *>&1 | Tee-Object logs\case_study.log    # Phase B-D
+# Sau đó manual edit generate_report.py + .\compile_final.ps1   # Phase B-E
+```
+
+Chi tiết kết quả Phase B-C, options tiếp theo, danh sách files đã modify: xem [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
 
 ## 7. Output đã có
 

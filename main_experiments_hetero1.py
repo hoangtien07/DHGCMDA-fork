@@ -790,11 +790,6 @@ def train_epoch_optimized(model, train_data, optim, args):
     train_data_list = [dis_sem_data, mi_fun_data, None, None, association_matrix]
     hetero_data = create_hetero_data_optimized(train_data_list)
 
-    # 相似性变化追踪
-    last_mi_sim_recon = None
-    last_dis_sim_recon = None
-    similarity_change_threshold = 0.01
-
     # 训练循环
     start_time = time.time()
     for epoch in range(1, args.epoch + 1):
@@ -805,30 +800,16 @@ def train_epoch_optimized(model, train_data, optim, args):
             hetero_data
         )
 
-#         # 🔍 每50轮详细分析
-#         if epoch % 50 == 0 or epoch == 1:
-#             with torch.no_grad():
-#                 analyze_predictions_detailed(score, association_matrix, epoch)
-
         # 确保重构结果在正确设备上
         mi_sim_recon = mi_sim_recon.to(device)
         dis_sim_recon = dis_sim_recon.to(device)
 
-        # 智能异构图更新(只在相似性显著变化时更新)
-        update_graph = False
-        if epoch > 1:
-            if last_mi_sim_recon is None or last_dis_sim_recon is None:
-                update_graph = True
-            else:
-                mi_diff = F.mse_loss(mi_sim_recon, last_mi_sim_recon)
-                dis_diff = F.mse_loss(dis_sim_recon, last_dis_sim_recon)
-                if mi_diff > similarity_change_threshold or dis_diff > similarity_change_threshold:
-                    update_graph = True
-
-            if update_graph:
-                hetero_data = create_hetero_data_optimized(train_data_list, mi_sim_recon, dis_sim_recon)
-                last_mi_sim_recon = mi_sim_recon.clone()
-                last_dis_sim_recon = dis_sim_recon.clone()
+        # Dynamic hypergraph update — every args.update_graph_frequency epochs (paper: 5)
+        update_graph = (epoch > 0 and epoch % args.update_graph_frequency == 0)
+        if update_graph:
+            hetero_data = create_hetero_data_optimized(train_data_list, mi_sim_recon, dis_sim_recon)
+            if epoch <= 50 or epoch % 50 == 0:
+                print(f"[INFO] Hypergraph updated at epoch {epoch}")
 
         # 损失计算
         # 使用原始相似性数据作为重构目标
@@ -868,7 +849,7 @@ def train_epoch_optimized(model, train_data, optim, args):
         # 🔥 SimplifiedTypePredictor不需要额外的类别分离损失
         # 类型关系向量已经通过正交初始化确保了分离性
 
-        tol_loss = recover_loss + mi_cl_loss + dis_cl_loss + 0.15 * (
+        tol_loss = recover_loss + mi_cl_loss + dis_cl_loss + 1.0 * (
                 mi_recon_loss + dis_recon_loss) + 0.0001 * reg_loss
 
         # 🔧 检查是否有nan(在反向传播之前)
