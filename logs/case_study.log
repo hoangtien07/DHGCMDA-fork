@@ -1,0 +1,121 @@
+Using device: cpu
+[WARNING] CUDA not available. Switching to CPU.
+[INFO] Auto-computed BALANCED class weights (to prevent class collapse):
+  Circulation  (367 samples): 0.780
+  Epigenetics  (157 samples): 1.823
+  Target       (293 samples): 0.977
+  Genetics     (681 samples): 0.420
+  [NOTE] Higher weights for minority classes to prevent model from only predicting majority class
+[INFO] Using v2.0_495m383D dataset:
+  miRNAs: 495
+  Diseases: 383
+  Expected associations: ~1498
+  Types: 4 (Circulation, Epigenetics, Target, Genetics)
+
+================================================================================
+Configuration Summary
+================================================================================
+Dataset: v2.0_495m383D
+Data Path: ./
+Model: HeterogenousGraphCLAMIR
+  - HGT Layers: 2
+  - Attention Heads: 4
+  - Association Types: 4
+  - Inter-view CL: Enabled
+    - Weight: 0.3
+    - Temperature: 0.5
+    - Margin: 0.5
+
+Training:
+  - Epochs: 650
+  - Learning Rate: 0.0001
+  - Dropout: 0.3
+  - Weight Decay: 5e-05
+  - Focal Loss: Enabled
+
+Evaluation:
+  - Cross-Validation Folds: 5
+  - Primary Metric: AUPR
+
+Device: cpu
+Random Seed: 1234
+================================================================================
+
+[case_study] device=cpu, epoch=650, n_head=4, update_freq=5
+[case_study] Loading data...
+Starting dual-view data preparation with new file format...
+Loading all similarity and feature files from v2.0_495m383D...
+✅ Loaded disease semantic similarity from D_SSM1.txt: (383, 383)
+✅ Loaded miRNA functional similarity from M_FSM.txt: (495, 495)
+✅ Loaded multi-type association pairs from ./v2.0_495m383D\multi_all_mirna_disease_pairs_without_negative.csv: (1679, 3)
+✅ Created multi-type association matrix: (495, 383)
+📊 Multi-type Association Statistics:
+   无关联 (No association): 188087 pairs (99.21%)
+   循环类型 (Circulation): 367 pairs (0.19%)
+   表观遗传学 (Epigenetics): 157 pairs (0.08%)
+   靶标类型 (Target): 293 pairs (0.15%)
+   遗传学类型 (Genetics): 681 pairs (0.36%)
+✅ Created association matrix from CSV: (495, 383)
+✅ Loaded disease-gene features from D_SSM2.txt: torch.Size([383, 383])
+✅ Loaded miRNA-sequence features from M_GSM.txt: torch.Size([495, 495])
+Processing integrated similarity matrices...
+Loaded similarity matrices from cache
+Processing indices...
+Loaded indices from cache
+✅ Dual-view data preparation completed in 0.36 seconds
+
+============================================================
+🎯 DUAL-VIEW CONFIGURATION SUMMARY (v2.0_495m383D)
+============================================================
+miRNA Dual Views:
+  📊 View 1 (Sequence): M_GSM.txt torch.Size([495, 495])
+  📊 View 2 (Function): M_FSM.txt torch.Size([495, 495])
+
+Disease Dual Views:
+  📊 View 1 (Gene): D_SSM2.txt torch.Size([383, 383])
+  📊 View 2 (Semantic): D_SSM1.txt torch.Size([383, 383])
+
+Association Matrix: torch.Size([495, 383])
+Data source: v2.0_495m383D (495 miRNAs × 383 Diseases)
+============================================================
+[case_study] Total nonzero associations: 1498
+[case_study] Sampled negative: 14980
+[case_study] Building hypergraphs (KNN K=[13])...
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+[case_study] Training 650 epochs on full data...
+  Epoch 1: loss=20.2447, recover=1.1293, recon=1.5196, t=0.7s
+  Epoch 50: loss=17.2394, recover=1.0120, recon=0.1666, t=97.5s
+  Epoch 100: loss=16.2430, recover=1.0036, recon=0.0349, t=134.4s
+  Epoch 150: loss=15.6964, recover=0.9877, recon=0.0309, t=167.1s
+  Epoch 200: loss=15.2892, recover=0.9669, recon=0.0307, t=199.3s
+  Epoch 250: loss=14.8916, recover=0.9289, recon=0.0298, t=232.1s
+  Epoch 300: loss=14.6243, recover=0.8978, recon=0.0299, t=263.8s
+  Epoch 350: loss=14.4285, recover=0.8730, recon=0.0280, t=295.9s
+  Epoch 400: loss=14.2712, recover=0.8644, recon=0.0287, t=328.2s
+  Epoch 450: loss=14.1165, recover=0.8508, recon=0.0274, t=360.3s
+  Epoch 500: loss=14.0487, recover=0.8427, recon=0.0271, t=392.5s
+  Epoch 550: loss=13.9694, recover=0.8354, recon=0.0269, t=425.4s
+  Epoch 600: loss=13.9104, recover=0.8333, recon=0.0263, t=457.4s
+  Epoch 650: loss=13.8571, recover=0.8300, recon=0.0270, t=489.2s
+[case_study] Training done in 489.2s
+[case_study] Cached score to results\case_study_score.npy
+[case_study] Score tensor shape: (495, 383, 5)
+[case_study] Loading name mappings...
+  miRNAs: 495
+  Diseases: 383
+  Breast: idx=49, name='breast neoplasms'
+  HCC:    idx=58, name='carcinoma hepatocellular'
+
+[case_study] Saved: results\case_study_breast.csv
+[case_study] Saved: results\case_study_hcc.csv
+
+=== SUMMARY ===
+Breast neoplasms: 1/15 miRNA trùng paper, 0/15 type cũng khớp
+HCC:              0/15 miRNA trùng paper, 0/15 type cũng khớp
+[case_study] Saved: results/case_study_summary.json

@@ -3,28 +3,22 @@
 > File này ghi lại trạng thái thực nghiệm. Cập nhật mỗi khi run xong một experiment.
 
 ## Lần cập nhật cuối
-**2026-05-08, sau khi hoàn thành Phase B-C (rerun với 3 discrepancies đã fix).**
+**2026-05-09, hoàn thành toàn bộ Plan B (5/5 phase).**
 
 ---
 
-## ⏸ TRẠNG THÁI HIỆN TẠI: Đang dở Plan B (2/5 phase còn lại)
+## ✅ TRẠNG THÁI: HOÀN THÀNH PLAN B (mọi phase done)
 
-### Đã hoàn thành
-- ✅ **Phase A (initial reproduce)**: baseline + 5 ablation chạy với code gốc → kết quả lưu ở [BaoCao_DHGCMDA_v1_before_fix.docx](BaoCao_DHGCMDA_v1_before_fix.docx) (snapshot báo cáo cũ).
-- ✅ **Phase B-A**: Đã sửa 3 code-paper discrepancies trong [param.py](param.py) + [main_experiments_hetero1.py](main_experiments_hetero1.py):
+- ✅ **Phase A (initial reproduce)**: baseline + 5 ablation với code gốc → snapshot báo cáo ở [BaoCao_DHGCMDA_v1_before_fix.docx](BaoCao_DHGCMDA_v1_before_fix.docx).
+- ✅ **Phase B-A**: Đã sửa 3 code-paper discrepancies:
   1. `n_head` default: 8 → **4** (param.py:35)
   2. `update_graph_frequency` default: 50 → **5** (param.py:160)
   3. `λ₃_recon` weight: 0.15 → **1.0** (main_experiments_hetero1.py:871)
-  4. Block dynamic graph update: thay MSE-threshold → epoch-modulo (main_experiments_hetero1.py:793-810). Đã add `print("[INFO] Hypergraph updated at epoch X")`.
-- ✅ **Phase B-B**: Smoke test 12 epochs × 2 fold pass — không NaN, hypergraph update đúng kì.
-- ✅ **Phase B-C**: Rerun baseline + 5 ablation parallel 2 jobs (~2.5h wall trên Xeon E5-2680 v4 CPU).
-
-### CÒN LẠI (cần làm khi mở máy lại)
-- ⏸ **Phase B-D**: Chạy [case_study.py](case_study.py) (đã viết sẵn, ~150 lines). Train DHGCMDA trên 100% data (1498 associations), predict top-15 miRNA cho **breast neoplasms** + **hepatocellular carcinoma**, cross-check với paper Table 5/6. Output: `results/case_study_breast.csv`, `results/case_study_hcc.csv`, `results/case_study_summary.json`.
-  - Lệnh: `cd d:\Tien\DHGCMDA-fork; .\venv\Scripts\Activate.ps1; $env:PYTHONUTF8=1; python case_study.py`
-  - Thời gian dự kiến: ~50 phút CPU.
-- ⏸ **Phase B-E**: Update [generate_report.py](generate_report.py) — thêm Section 3.5 (Case study) + 3.6 (Updated reproduce summary). Sửa Section 3.2 (đánh dấu 3/4 discrepancies "Đã fix"). Sửa Section 3.4.4 (kết luận: discrepancies KHÔNG fix pattern Fig. 4 → finding strengthen). Sau đó chạy `.\compile_final.ps1` để regenerate `BaoCao_DHGCMDA.docx`.
-  - Thời gian dự kiến: ~30 phút edit + 2 phút regenerate.
+  4. Block dynamic graph update: MSE-threshold → epoch-modulo (main_experiments_hetero1.py:793-810).
+- ✅ **Phase B-B**: Smoke test pass (không NaN, hypergraph update đúng kì).
+- ✅ **Phase B-C**: Rerun baseline + 5 ablation parallel (~2.5h wall, Xeon E5-2680 v4 CPU).
+- ✅ **Phase B-D**: Case study trained on 100% data (~9 min CPU), predict top-15 cho breast neoplasms + HCC. Score tensor cached tại [results/case_study_score.npy](results/case_study_score.npy).
+- ✅ **Phase B-E**: Updated `generate_report.py` Section 3.2/3.4/3.5/3.6, regenerated `BaoCao_DHGCMDA.docx` (308 paragraphs, 11 tables).
 
 ---
 
@@ -66,43 +60,78 @@
 
 ---
 
-## Cách tiếp tục lần sau
+## Kết quả Phase B-D (Case study)
 
-### Option 1 — Hoàn thành Plan B (recommend)
+### Setup
+- Train DHGCMDA trên TOÀN BỘ 1498 associations (không CV split), 650 epochs (~8 phút CPU sau Plan B fixes).
+- Predict tensor [495, 383, 5] (existence + 4 types).
+- Rank top-15 miRNAs theo `max(P(type_k))` cho 2 disease.
+- Cross-check với paper Table 5 (breast top-15) + Table 6 (HCC top-15).
+
+### Kết quả
+
+| Disease | Trùng paper | Type khớp | Paper báo confirmed |
+|---|---:|---:|---:|
+| Breast neoplasms (idx=49) | **1/15** | 0/15 | 13/15 (PMID) |
+| Hepatocellular carcinoma (idx=58) | **0/15** | 0/15 | 12/15 (PMID) |
+
+### Phát hiện CHÍNH (case study)
+
+**Model collapse vào 1 type/disease**: 
+- Top-15 cho breast: **TẤT CẢ 15 đều predict type = "target"** (score 0.989-0.996)
+- Top-15 cho HCC: **TẤT CẢ 15 đều predict type = "epigenetics"** (score 0.994-0.996)
+
+→ Confirm pattern class collapse — model không phân biệt type giữa các miRNAs cho cùng 1 disease, chỉ đổi type giữa các disease. Đây là evidence thêm cho thấy multi-type prediction head có vấn đề (ngoài pattern Fig. 4 đã note).
+
+**Diễn giải khả dĩ**:
+- Per-disease, 1 type chiếm đa số associations → model học "default type" cho mỗi disease, ranking tất cả miRNAs cùng kiểu.
+- Class weighting (focal_gamma=2.5 + Effective Number) có thể đẩy về majority type per disease.
+- Ranking criteria `max prob across types` thiên về type prediction strong nhất, mất đi distinction giữa miRNAs.
+
+---
+
+## Files output cuối Plan B
+
+- [BaoCao_DHGCMDA.docx](BaoCao_DHGCMDA.docx) — báo cáo cuối cùng (~245 KB, 308 paragraphs, 11 bảng)
+- [BaoCao_DHGCMDA_v1_before_fix.docx](BaoCao_DHGCMDA_v1_before_fix.docx) — snapshot trước Plan B
+- [results/baseline_v2.0_metrics.json](results/baseline_v2.0_metrics.json) + [results/ablation_*.json](results/) (×5) — metrics Plan B
+- [results/case_study_breast.csv](results/case_study_breast.csv), [results/case_study_hcc.csv](results/case_study_hcc.csv), [results/case_study_summary.json](results/case_study_summary.json), [results/case_study_score.npy](results/case_study_score.npy) — case study outputs
+- [logs/](logs/) — tất cả training + case study logs (UTF-16 từ PowerShell Tee, parse_metrics auto-handle)
+- [CLAUDE.md](CLAUDE.md), [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md) — context cho Claude session sau
+
+---
+
+## Cách tiếp tục lần sau (nếu muốn extend)
+
+### Option 1 — Investigate thêm class collapse (recommend nếu muốn extend)
+
+Phát hiện top-15 collapse vào 1 type/disease là evidence mạnh nhất hiện tại. Để verify:
 
 ```powershell
-cd d:\Tien\DHGCMDA-fork
-.\venv\Scripts\Activate.ps1
-$env:PYTHONUTF8 = 1
-
-# Phase B-D: Case study (~50 phút)
-python case_study.py *>&1 | Tee-Object logs\case_study.log
-
-# Phase B-E: Update report
-# (Manual edit generate_report.py để thêm Section 3.5, 3.6 — xem chi tiết bên dưới)
-.\compile_final.ps1
+# Re-run case study với threshold khác (vd: log_softmax thay max raw prob)
+# Hoặc multi-seed để đo variance
+python case_study.py *>&1 | Tee-Object logs\case_study_seed42.log  # cần edit seed
 ```
 
-**Phase B-E cụ thể** (sửa [generate_report.py](generate_report.py)):
+Cần edit `case_study.py:269` thêm `args.seed = 42` (hoặc command line arg) để chạy seed khác.
 
-1. **Section 3.2 (Code-paper discrepancies)**: thêm cột "Trạng thái fix" vào bảng — 3/4 đã fix, Q4 (num_types) skip.
-2. **Section 3.4 (Ablation)**: thay số mới (xem bảng Phase B-C ở trên). Subsection 3.4.4 update kết luận: "Sửa 3 discrepancies KHÔNG fix pattern Fig. 4. Finding bất thường được strengthen như legitimate observation."
-3. **Section 3.5 (NEW — Case study)**: load `results/case_study_summary.json`, render 2 bảng top-15 (breast, HCC) với cột `in_paper_top15`, summary "X/15 miRNAs khớp paper Table 5/6, Y/15 type cũng khớp".
-4. **Section 3.6 (NEW — Updated reproduce summary)**: bảng "% reproduce" tổng kết (xem bảng so sánh ở trên).
+### Option 2 — Implement ablation theo CHUẨN paper (re-train kiến trúc rút gọn)
 
-### Option 2 — Bỏ B-D, chỉ làm B-E
+Hiện tại `no_hgcn = identity G` chỉ là approximation. Để tương đương paper:
+- `no_hgcn`: replace HGCN module bằng GCNConv thực thay vì identity → cần edit [hetero_model.py](hetero_model.py).
+- `no_hgt`: bỏ luôn `node_transformers` (không chỉ skip hgt_layers) → re-init forward sequence.
 
-Nếu không muốn tốn 50 phút thêm cho case study:
-- Skip Phase B-D.
-- Trong Phase B-E, ghi rõ Section 3.5 = "Skipped — không có case study reproduction".
-- Vẫn update 3.2, 3.4, 3.6 với data mới đã có.
+Với cách này, có thể pattern Fig. 4 sẽ được tái lập.
 
-### Option 3 — Investigate sâu hơn (sau khi xong B-D, B-E)
+### Option 3 — Multi-seed cho statistical significance
 
-Để lý giải tại sao gap Top-1 F1 vẫn -7.5% sau khi fix:
-- Multi-seed evaluation (3 seeds × baseline) — đo variance.
-- Sửa Q4 (num_types flexible) → train lại baseline.
-- Profile training loss components để xem có loss nào collapsed không.
+```powershell
+foreach ($seed in 42, 100, 2024) {
+  python main_experiments_hetero1.py --device cpu --seed $seed *>&1 | Tee-Object "logs\baseline_seed$seed.log"
+}
+```
+
+Sau đó tổng kết mean ± std. Effort: ~1.5h cho 3 seeds × baseline.
 
 ---
 

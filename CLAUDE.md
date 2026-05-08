@@ -72,24 +72,24 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 → Gain của ablation giảm nhẹ nhưng **vẫn ngược paper**. Finding strengthen → đây là **legitimate observation**, không phải artifact của code-paper discrepancies. Có thể nguyên nhân chính là (i) ablation implementation additive switch không tương đương paper re-train từ đầu, hoặc (ii) loss formulation `0.3*existence + 0.7*type` khác Eq. 32 paper. Chi tiết trong [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
 
-## 7. Plan B status — đang dở
+## 7. Plan B status — HOÀN THÀNH 5/5 phase
 
-**HOÀN THÀNH:** Phase B-A (3 fixes) + B-B (smoke) + B-C (rerun 6 runs, ~2.5h CPU).
+**Tất cả phase Plan B đã xong:**
+- ✅ B-A: Sửa 3 discrepancies (n_head=4, λ₃=1.0, dynamic update mỗi 5 epoch)
+- ✅ B-B: Smoke test pass
+- ✅ B-C: Rerun baseline + 5 ablation parallel (~2.5h CPU)
+- ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
+- ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
-**CÒN LẠI** (lần sau cần làm):
-- ⏸ Phase B-D: chạy [case_study.py](case_study.py) (~50 phút) → sinh `results/case_study_*.csv`.
-- ⏸ Phase B-E: update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → regenerate báo cáo.
+## 8. Phát hiện thêm từ case study (legitimate observation)
 
-Lệnh tiếp tục:
-```powershell
-cd d:\Tien\DHGCMDA-fork
-.\venv\Scripts\Activate.ps1
-$env:PYTHONUTF8 = 1
-python case_study.py *>&1 | Tee-Object logs\case_study.log    # Phase B-D
-# Sau đó manual edit generate_report.py + .\compile_final.ps1   # Phase B-E
-```
+Case study ranking top-15 miRNA cho 2 disease cho thấy **model collapse về 1 type/disease**:
+- Breast neoplasms: 15/15 top miRNAs predict type = "target", chỉ 1/15 trùng paper Table 5.
+- HCC: 15/15 top miRNAs predict "epigenetics", 0/15 trùng paper Table 6.
 
-Chi tiết kết quả Phase B-C, options tiếp theo, danh sách files đã modify: xem [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
+Score raw cao đều >0.99 nhưng all cùng type → confirm class collapse. Đây là dấu hiệu thêm cho thấy implementation có vấn đề về multi-type prediction (ngoài pattern Fig. 4 đã note).
+
+Chi tiết kết quả + analysis: xem [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
 
 ## 7. Output đã có
 

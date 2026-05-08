@@ -84,17 +84,17 @@ def load_name_mappings():
     mi_df = pd.read_excel(mi_path, header=None, engine='xlrd')
     dis_df = pd.read_excel(dis_path, header=None, engine='xlrd')
 
-    # Build idx (0-based) → name dict
+    # File format: col 0 = idx (1-based int), col 1 = name (string)
     mi_idx2name = {}
     for _, row in mi_df.iterrows():
-        name = str(row[0]).strip().lower()  # hsa-mir-XXX
-        idx = int(row[1]) - 1
+        idx = int(row[0]) - 1  # 1-based → 0-based
+        name = str(row[1]).strip().lower()
         mi_idx2name[idx] = name
 
     dis_idx2name = {}
     for _, row in dis_df.iterrows():
-        name = str(row[0]).strip().lower()
-        idx = int(row[1]) - 1
+        idx = int(row[0]) - 1
+        name = str(row[1]).strip().lower()
         dis_idx2name[idx] = name
 
     return mi_idx2name, dis_idx2name
@@ -161,10 +161,20 @@ def train_full_data(args):
     train_data_list = [dis_sem_data, mi_fun_data, None, None, association_matrix]
     hetero_data = create_hetero_data_optimized(train_data_list)
 
-    # Init model
-    model = HeterogenousGraphCLAMIR(args).to(device)
+    # Init model — match signature từ main_experiments_hetero1.py:1376
+    args.mi_num = association_matrix.shape[0]
+    args.dis_num = association_matrix.shape[1]
+    hidden_list = [256, 256]
+    num_proj_hidden = 64
+    if args.n_head > 0:
+        hidden_list = [dim - (dim % args.n_head) for dim in hidden_list]
+        if hidden_list[0] == 0:
+            hidden_list = [args.n_head * 5, args.n_head * 5]
+    model = HeterogenousGraphCLAMIR(args.mi_num, args.dis_num, hidden_list, num_proj_hidden, args).to(device)
+    for p in model.parameters():
+        p.data = p.data.float()
     model.train()
-    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
+    optimizer = optim.AdamW(model.parameters(), lr=0.0001, weight_decay=1e-5)
     regression_crit = SimplifiedMultiTypeAssociationLoss(args, model)
 
     print(f"[case_study] Training {args.epoch} epochs on full data...")
@@ -256,12 +266,21 @@ def rank_top15_for_disease(score, disease_idx, mi_idx2name, paper_top15_dict):
 def main():
     args = parameter_parser()
     args.epoch = 650
-    args.validation = 1  # not used, but set for safety
+    # validation = 5 default (giữ nguyên — prepareData cần ≥2 folds để chạy preprocess
+    # các indices, nhưng case_study sẽ override one_index/zero_index dùng TẤT CẢ data).
     print(f"[case_study] device={device}, epoch={args.epoch}, n_head={args.n_head}, "
           f"update_freq={args.update_graph_frequency}")
 
-    # Step 1: train trên full data
-    score = train_full_data(args)
+    # Step 1: train trên full data (cache score tensor để skip retrain nếu đã có)
+    score_cache_path = os.path.join(RESULTS_DIR, 'case_study_score.npy')
+    if os.path.exists(score_cache_path):
+        print(f"[case_study] Loading cached score from {score_cache_path}")
+        score = np.load(score_cache_path)
+    else:
+        score = train_full_data(args)
+        os.makedirs(RESULTS_DIR, exist_ok=True)
+        np.save(score_cache_path, score)
+        print(f"[case_study] Cached score to {score_cache_path}")
     print(f"[case_study] Score tensor shape: {score.shape}")
 
     # Step 2: load mapping files
@@ -272,7 +291,7 @@ def main():
 
     # Step 3: tìm disease indices
     breast_idx, breast_name = find_disease_idx(dis_idx2name, 'breast neoplasms')
-    hcc_idx, hcc_name = find_disease_idx(dis_idx2name, 'carcinoma, hepatocellular')
+    hcc_idx, hcc_name = find_disease_idx(dis_idx2name, 'hepatocellular')
     print(f"  Breast: idx={breast_idx}, name='{breast_name}'")
     print(f"  HCC:    idx={hcc_idx}, name='{hcc_name}'")
 

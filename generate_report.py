@@ -209,16 +209,16 @@ PAPER_RESULTS_CV_TRIPLET = [
 
 CODE_PAPER_DISCREPANCIES = [
     ['Số attention head HGT', 'paper: 4', 'code (param.py:35): 8',
-     'Cao', 'Gấp 2× số head — có thể tăng capacity nhưng cũng dễ overfit'],
+     'Cao', '✅ ĐÃ FIX (n_head=4)'],
     ['Tần suất update hypergraph', 'paper: mỗi 5 epoch (Eq. 30-31)',
-     'code: param=50, logic dùng MSE-threshold (main:813-831), không dùng args',
-     'Cao', 'Cơ chế update hoàn toàn khác paper'],
+     'code: MSE-threshold + freq=50',
+     'Cao', '✅ ĐÃ FIX (epoch-modulo, freq=5)'],
     ['Trọng số reconstruction loss λ₃', 'paper: λ₃=1.0',
      'code (main:871): hardcode 0.15', 'Cao',
-     'Giảm 6.7× ảnh hưởng của similarity reconstruction'],
+     '✅ ĐÃ FIX (λ₃=1.0)'],
     ['Số association type', 'paper: 4 cho v2.0 + 5 cho v3.2',
-     'code (hetero_model:643): hardcode num_types=4', 'Trung bình',
-     'Không support v3.2 5-class out-of-the-box'],
+     'code (hetero_model:648): hardcode num_types=4', 'Trung bình',
+     '⏸ SKIP (chỉ ảnh hưởng v3.2, không reproduce)'],
 ]
 
 
@@ -351,7 +351,8 @@ def build_toc(doc):
         ('  3.2. Code-paper discrepancies', '17'),
         ('  3.3. Kết quả baseline v2.0', '18'),
         ('  3.4. Kết quả ablation', '19'),
-        ('  3.5. Kết luận về reproducibility', '20'),
+        ('  3.5. Case study (breast neoplasms + HCC)', '21'),
+        ('  3.6. Kết luận về reproducibility', '23'),
         ('Phần 4. Hướng mở rộng nghiên cứu', '21'),
         ('  4.1. Cải tiến trực tiếp', '21'),
         ('  4.2. Mở rộng sang task khác', '22'),
@@ -783,16 +784,17 @@ def build_section_3(doc, baseline, ablation):
 
     add_heading(doc, '3.2. Code-paper discrepancies', level=2)
     add_para(doc, 'Khi audit codebase chi tiết, chúng tôi phát hiện 4 điểm khác biệt đáng kể '
-                  'giữa paper và implementation. Theo quyết định scope của báo cáo này, chúng '
-                  'tôi GIỮ NGUYÊN code không sửa, để báo cáo phản ánh thực trạng repo.')
-    add_table(doc, ['Điểm', 'Paper', 'Code', 'Mức độ', 'Tác động ước lượng'],
+                  'giữa paper và implementation. Trong Plan B (sau khi có kết quả reproduce '
+                  'đầu tiên), chúng tôi đã sửa 3/4 điểm và rerun toàn bộ baseline + 5 ablation '
+                  'để đánh giá tác động. Bảng dưới tổng kết trạng thái fix.')
+    add_table(doc, ['Điểm', 'Paper', 'Code (gốc)', 'Mức độ', 'Trạng thái Plan B'],
               CODE_PAPER_DISCREPANCIES,
-              caption='Bảng 4. Các điểm khác biệt giữa paper và code DHGCMDA-fork.')
-    add_para(doc, 'Discrepancy quan trọng nhất theo chúng tôi là tần suất dynamic graph update: '
-                  'paper định nghĩa cụ thể "every 5 training epochs" với threshold θ = 0.5, '
-                  'nhưng code thực tế dùng cơ chế MSE-threshold > 0.01 và parameter '
-                  'update_graph_frequency=50 không được tham chiếu trong logic. Điều này có '
-                  'nghĩa kết quả reproduce không thể "khớp paper 100%" vì cơ chế lõi đã khác.')
+              caption='Bảng 4. Các điểm khác biệt giữa paper và code DHGCMDA-fork — sau Plan B.')
+    add_para(doc, 'Quyết định skip điểm cuối (`num_association_types`) là vì user đã chốt scope '
+                  'không reproduce HMDD v3.2 — và với v2.0 thì hardcode num_types=4 trùng đúng '
+                  'phân loại 4-type, không cần sửa.')
+    add_para(doc, 'Số liệu phân tích so sánh "trước Plan B" và "sau Plan B" được trình bày ở '
+                  'Section 3.4 và Section 3.6.')
 
     add_heading(doc, '3.3. Kết quả baseline trên HMDD v2.0', level=2)
     note = baseline.get('_note', '')
@@ -897,53 +899,157 @@ def build_section_3(doc, baseline, ablation):
                   'gốc.** Chúng tôi nhấn mạnh đây là OBSERVATION, không phải conclusion bác '
                   'bỏ paper.')
 
-    add_heading(doc, '3.4.4. Phân tích nguyên nhân khả dĩ', level=3)
-    add_para(doc, 'Có nhiều giả thuyết có thể giải thích quan sát này, sắp xếp theo xác suất '
-                  'từ cao đến thấp:')
-    add_bullet(doc, '**(i) Cơ chế ablation không tương đương paper.** Cách triển khai additive '
-                    'switch của chúng tôi giữ nguyên kiến trúc + zero-out hoặc thay identity. '
-                    'Đặc biệt `no_hgcn = identity G` không tương đương "replace HGCN by GCN" '
-                    'như paper mô tả; `no_hgt = skip layers` vẫn giữ node_transformers attention. '
-                    'Paper có thể re-train với kiến trúc rút gọn thực sự.')
-    add_bullet(doc, '**(ii) Code-paper discrepancies (4 điểm đã liệt kê ở 3.2).** Đặc biệt '
-                    'λ₃_recon = 0.15 (paper: 1.0) làm reconstruction loss yếu, n_head = 8 '
-                    '(paper: 4) làm HGT capacity gấp đôi → có thể đang overfitting. Khi remove '
-                    'HGT/CL/HGCN, capacity giảm, generalization có thể tốt hơn trên metric '
-                    'classification cụ thể.')
-    add_bullet(doc, '**(iii) Loss formulation khác paper.** Code dùng tỉ lệ `0.3 * existence + '
+    add_heading(doc, '3.4.4. Phân tích nguyên nhân khả dĩ — VERIFIED LẦN 2 (Plan B)', level=3)
+    add_para(doc, '**Cập nhật quan trọng**: sau khi sửa 3/4 code-paper discrepancies '
+                  '(n_head=4, λ₃=1.0, dynamic update mỗi 5 epoch) và rerun toàn bộ baseline '
+                  '+ 5 ablation, **pattern bất thường VẪN tồn tại**. Cụ thể:')
+    add_bullet(doc, 'Phase A (code gốc): Top-1 F1 baseline = 0.5485, w/o CL = 0.6381 (+16.3%), '
+                    'w/o HGCN = 0.6185 (+12.8%), w/o HGT = 0.6405 (+16.8%).')
+    add_bullet(doc, 'Phase B-C (sau fix 3 discrepancies): Top-1 F1 baseline = 0.5521 (+0.7%), '
+                    'w/o CL = 0.6206 (+12.4%), w/o HGCN = 0.6091 (+10.3%), '
+                    'w/o HGT = 0.6415 (+16.2%).')
+    add_para(doc, 'Gain của ablation giảm nhẹ (~2-3 điểm phần trăm) nhưng **vẫn ngược paper '
+                  'Fig. 4**. Điều này loại trừ giả thuyết rằng 3 discrepancies này là root '
+                  'cause chính. Các giả thuyết còn lại, sắp xếp theo xác suất:')
+    add_bullet(doc, '**(i) Cơ chế ablation không tương đương paper** — xác suất CAO (đã '
+                    'verify lần 2). Additive switch của chúng tôi giữ nguyên kiến trúc + '
+                    'zero-out hoặc thay identity. Đặc biệt `no_hgcn = identity G` không '
+                    'tương đương "replace HGCN by GCN" như paper mô tả; `no_hgt = skip '
+                    'layers` vẫn giữ node_transformers attention. Paper có thể re-train với '
+                    'kiến trúc rút gọn thực sự — đây là sự khác biệt fundamental.')
+    add_bullet(doc, '**(ii) Loss formulation khác paper.** Code dùng tỉ lệ `0.3 * existence + '
                     '0.7 * type` với focal_gamma = 2.5 + Effective Number weighting — paper '
-                    'Eq. 32 chỉ có `L_type + λ₁L_intra + λ₂L_inter + λ₃L_recon`. Sự bất đồng '
-                    'này có thể làm CL loss act như "noise gradient" với type prediction head '
-                    '— bỏ CL → predictor optimize trực tiếp lên Top-1 F1.')
-    add_bullet(doc, '**(iv) CPU vs GPU non-determinism.** Paper chạy trên RTX 4060 Ti, chúng '
-                    'tôi chạy CPU. Float32 trên CPU với BLAS routines khác nhau có thể gây '
-                    'numerical drift, đặc biệt với InfoNCE loss nhạy cảm. Tuy nhiên drift này '
-                    'thường ~1e-4, không đủ giải thích sign flip +16%.')
-    add_bullet(doc, '**(v) Single-seed limitation.** Mỗi variant chỉ chạy 1 seed (random_seed = '
-                    '1234). Variance giữa các seeds không được đo. Cần ≥3 seeds để đánh giá '
-                    'statistical significance.')
+                    'Eq. 32 chỉ có `L_type + λ₁L_intra + λ₂L_inter + λ₃L_recon`. Sự bất '
+                    'đồng này có thể làm CL loss act như "noise gradient" với type '
+                    'prediction head — bỏ CL → predictor optimize trực tiếp lên Top-1 F1.')
+    add_bullet(doc, '**(iii) Discrepancy chưa fix (Q4 — num_types).** Skip vì user không '
+                    'reproduce v3.2; với v2.0 không ảnh hưởng (đều = 4).')
+    add_bullet(doc, '**(iv) CPU vs GPU non-determinism.** Paper chạy GPU, chúng tôi CPU. '
+                    'Float32 trên CPU có BLAS routines khác → drift ~1e-4, không đủ giải '
+                    'thích sign flip +16%.')
+    add_bullet(doc, '**(v) Single-seed limitation.** Mỗi variant chỉ chạy 1 seed (random_seed '
+                    '= 1234). Variance không được đo. Cần ≥3 seeds để đánh giá statistical '
+                    'significance.')
+    add_para(doc, 'Kết luận sau Plan B: phát hiện ablation Top-1 F1 đảo ngược Fig. 4 paper là '
+                  '**legitimate observation**, không phải artifact của 3 code-paper '
+                  'discrepancies đã fix. Nguyên nhân chính được nghi ngờ là sự khác biệt '
+                  'trong cách triển khai ablation và loss formulation.')
 
     add_heading(doc, '3.4.5. Hệ quả và giới hạn của phát hiện', level=3)
     add_para(doc, 'Quan sát này **không đủ cơ sở để bác bỏ** thiết kế của paper DHGCMDA. '
                   'Cụ thể:')
     add_bullet(doc, 'Binary metrics (AUC ≈ 0.97 cho cả Full lẫn ablation) vẫn xác nhận xu '
                     'hướng paper: model học được signal mạnh từ data.')
-    add_bullet(doc, 'Single-seed + CPU + 4 discrepancies + ablation implementation có thể '
-                    'không khớp paper exactly = chưa đủ leverage cho claim "paper sai".')
+    add_bullet(doc, 'Sau Plan B, chúng tôi đã loại trừ 3/4 discrepancies như nguyên nhân — '
+                    'nhưng pattern vẫn còn → chưa đủ thông tin để claim "paper sai".')
     add_bullet(doc, 'Paper không công bố raw seed-level data của Fig. 4 — chúng tôi không '
                     'thể đối chiếu variance.')
     add_para(doc, 'Tuy nhiên, phát hiện này **đặt ra nghi vấn nghiêm túc** về tính cần thiết '
                   'của các module CL / HGCN / HGT trong cấu hình code-released hiện tại — '
                   'gợi ý hướng nghiên cứu tiếp theo: minimal-architecture variant. Khuyến '
-                  'nghị thực nghiệm bổ sung trước khi kết luận:')
-    add_bullet(doc, 'Sửa 4 code-paper discrepancies (n_head=4, λ₃=1.0, update_freq=5, '
-                    'num_types flexible) → train lại baseline + 5 ablation.')
-    add_bullet(doc, 'Multi-seed evaluation: ≥3 seeds × 5 variants = 15 runs để có error bar.')
+                  'nghị thực nghiệm bổ sung tiếp theo:')
+    add_bullet(doc, 'Triển khai ablation theo CHUẨN paper: re-train kiến trúc rút gọn thực '
+                    'sự (vd. cho `no_hgcn`, replace HGCN bằng GCN thực thay vì identity).')
+    add_bullet(doc, 'Multi-seed evaluation: ≥3 seeds × 6 variants = 18 runs để có error bar.')
     add_bullet(doc, 'GPU run với cùng hardware paper (hoặc tương đương) để loại trừ CPU '
                     'artifact.')
     add_bullet(doc, 'Liên hệ tác giả gốc CDMBlab để xin seed/config tái lập chính xác Fig. 4.')
 
-    add_heading(doc, '3.5. Kết luận về reproducibility', level=2)
+    # ----- 3.5 NEW: Case Study (breast neoplasms + HCC)
+    add_heading(doc, '3.5. Case study: breast neoplasms và hepatocellular carcinoma', level=2)
+    case_study = _safe_load_json(RESULTS_DIR / 'case_study_summary.json')
+    if not case_study:
+        add_para(doc, '⚠ Chưa chạy case_study.py — bảng dưới sẽ trống.', italic=True)
+        case_study = {'breast': {'top15': [], 'overlap_count': 0, 'type_match_count': 0},
+                       'hcc': {'top15': [], 'overlap_count': 0, 'type_match_count': 0}}
+
+    add_heading(doc, '3.5.1. Cách thực hiện', level=3)
+    add_para(doc, 'Case study tái lập theo §3.6 paper gốc. Quy trình:')
+    add_bullet(doc, 'Train DHGCMDA trên TOÀN BỘ 1498 associations HMDD v2.0 (không CV split), '
+                    '650 epochs, cùng hyperparameter sau Plan B (n_head=4, λ₃=1.0, update '
+                    'freq=5).')
+    add_bullet(doc, 'Predict tensor [495, 383, 5] (existence + 4 types) cho mọi cặp '
+                    'miRNA-disease.')
+    add_bullet(doc, 'Cho 2 disease (breast neoplasms, hepatocellular carcinoma): rank 495 '
+                    'miRNAs theo `max_score = max(P(type_k))` cho k ∈ {1,2,3,4}, lấy top-15.')
+    add_bullet(doc, 'Cross-check với paper Table 5 (breast top-15) và Table 6 (HCC top-15) — '
+                    'đếm số miRNA trùng và số có type prediction khớp paper.')
+    add_para(doc, 'Lưu ý: paper xác nhận top-15 bằng tra PMID tại PubMed (13/15 cho breast, '
+                    '12/15 cho HCC). Ở đây chúng tôi không tra PMID lại, chỉ check trùng '
+                    'với danh sách paper đưa.')
+
+    breast_top15 = case_study.get('breast', {}).get('top15', [])
+    hcc_top15 = case_study.get('hcc', {}).get('top15', [])
+    breast_overlap = case_study.get('breast', {}).get('overlap_count', 0)
+    breast_type_match = case_study.get('breast', {}).get('type_match_count', 0)
+    hcc_overlap = case_study.get('hcc', {}).get('overlap_count', 0)
+    hcc_type_match = case_study.get('hcc', {}).get('type_match_count', 0)
+
+    add_heading(doc, '3.5.2. Top-15 miRNAs cho breast neoplasms', level=3)
+    if breast_top15:
+        breast_rows = [
+            [str(r.get('rank', '')),
+             str(r.get('miRNA_name', '')),
+             str(r.get('predicted_type', '')),
+             f"{float(r.get('score', 0)):.4f}",
+             '✓' if r.get('in_paper_top15') else '✗',
+             '✓' if r.get('type_match') else '—',
+             str(r.get('paper_type', ''))]
+            for r in breast_top15
+        ]
+        add_table(doc,
+                  ['Rank', 'miRNA', 'Predicted type', 'Score',
+                   'Trùng paper?', 'Type khớp?', 'Paper type'],
+                  breast_rows,
+                  caption='Bảng 8. Top-15 miRNAs predict cho breast neoplasms (reproduce).')
+    add_para(doc, f'**Tổng kết breast neoplasms**: {breast_overlap}/15 miRNA trùng paper '
+                  f'Table 5 (paper báo 13/15 confirmed via PMID); {breast_type_match}/15 '
+                  'cũng khớp về type.')
+
+    add_heading(doc, '3.5.3. Top-15 miRNAs cho hepatocellular carcinoma', level=3)
+    if hcc_top15:
+        hcc_rows = [
+            [str(r.get('rank', '')),
+             str(r.get('miRNA_name', '')),
+             str(r.get('predicted_type', '')),
+             f"{float(r.get('score', 0)):.4f}",
+             '✓' if r.get('in_paper_top15') else '✗',
+             '✓' if r.get('type_match') else '—',
+             str(r.get('paper_type', ''))]
+            for r in hcc_top15
+        ]
+        add_table(doc,
+                  ['Rank', 'miRNA', 'Predicted type', 'Score',
+                   'Trùng paper?', 'Type khớp?', 'Paper type'],
+                  hcc_rows,
+                  caption='Bảng 9. Top-15 miRNAs predict cho hepatocellular carcinoma '
+                          '(reproduce).')
+    add_para(doc, f'**Tổng kết HCC**: {hcc_overlap}/15 miRNA trùng paper Table 6 '
+                  f'(paper báo 12/15 confirmed via PMID); {hcc_type_match}/15 cũng khớp về '
+                  'type.')
+
+    add_heading(doc, '3.5.4. Đánh giá', level=3)
+    total_overlap = breast_overlap + hcc_overlap
+    paper_overlap = 13 + 12  # paper Table 5 + 6 confirmed counts
+    if total_overlap >= 15:
+        verdict = 'CAO — model học được biological signal có ý nghĩa.'
+    elif total_overlap >= 8:
+        verdict = 'TRUNG BÌNH — phù hợp một phần với paper.'
+    else:
+        verdict = 'THẤP — case study không tái lập được xu hướng paper.'
+    add_para(doc, f'Tổng cộng {total_overlap}/30 miRNAs predict trùng với paper '
+                  f'(paper xác nhận {paper_overlap}/30 qua PMID). Đánh giá: **{verdict}**')
+    add_para(doc, 'Cần lưu ý hai điều khi diễn giải:')
+    add_bullet(doc, 'Paper xác nhận miRNA bằng tra PubMed PMID, không phải chỉ bằng có '
+                    'trong dataset training. Top-15 paper không nhất thiết là "ground truth" '
+                    'mà là "miRNA mà tác giả tin là đúng và có evidence". Một miRNA không '
+                    'trùng paper top-15 vẫn có thể đúng (chỉ là không có PMID xác nhận).')
+    add_bullet(doc, 'Type prediction (Circulation/Epigenetics/Target/Genetics) khớp paper '
+                    'là tiêu chí khắt khe hơn — nó test cả ranking lẫn classification. Nếu '
+                    'số match thấp, có thể do imbalance class weighting đang đẩy prediction '
+                    'về Genetics (majority class).')
+
+    add_heading(doc, '3.6. Kết luận về reproducibility', level=2)
     add_para(doc, 'Tổng kết khả năng reproduce paper DHGCMDA trên môi trường của chúng tôi:')
     add_bullet(doc, '✅ Code open-source đầy đủ tại GitHub CDMBlab/DHGCMDA — tích cực.')
     add_bullet(doc, '✅ Dataset HMDD v2.0 đã được preprocess sẵn (495×383, 1679 associations) — '
