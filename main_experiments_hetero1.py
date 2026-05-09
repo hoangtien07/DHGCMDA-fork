@@ -1,10 +1,18 @@
+import os
+# CPU thread tuning — phải set trước torch/numpy import để MKL/OpenMP nhận ra
+# Xeon E5-2680 v4: 14 physical cores; HyperThreading thường ko giúp compute-bound
+_N_THREADS = os.environ.get('DHGCMDA_N_THREADS', '14')
+os.environ.setdefault('OMP_NUM_THREADS', _N_THREADS)
+os.environ.setdefault('MKL_NUM_THREADS', _N_THREADS)
+os.environ.setdefault('OPENBLAS_NUM_THREADS', _N_THREADS)
+os.environ.setdefault('NUMEXPR_NUM_THREADS', _N_THREADS)
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
 from torch.nn.parameter import Parameter
 import random
-import os
 import numpy as np
 import torch.optim as optim
 from torch.utils.data import DataLoader
@@ -18,6 +26,15 @@ from torch_geometric.data import HeteroData
 import hypergraph_construct_KNN
 import hypergraph_construct_kmeans
 from hetero_model import TORCH_GEOMETRIC_AVAILABLE, HeterogenousGraphCLAMIR
+
+# Runtime intra-/inter-op threads (override PyTorch default heuristic)
+try:
+    torch.set_num_threads(int(_N_THREADS))
+    torch.set_num_interop_threads(min(4, int(_N_THREADS)))
+    print(f"[CPU] torch.set_num_threads({_N_THREADS}), interop=min(4, {_N_THREADS})")
+except RuntimeError as _e:
+    # set_num_interop_threads chỉ gọi được 1 lần per process
+    print(f"[CPU] thread tuning skipped: {_e}")
 
 # 启用JIT编译以加速
 torch._C._jit_set_profiling_executor(False)
@@ -88,9 +105,11 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
                              torch.tensor(normalized_weights, device=self.device))
 
         self.focal_gamma = 2.0
+        # Eq. 32 alignment sweep: exist_weight ∈ {0.0, 0.05, 0.1, 0.3} via CLI
         self.label_smoothing = 0.1
-        self.exist_weight = 0.3  # 存在性30%
-        self.type_weight = 0.7  # 类型70%
+        self.exist_weight = float(getattr(args, 'exist_weight', 0.3))
+        self.type_weight = 1.0 - self.exist_weight if self.exist_weight < 1.0 else 0.0
+        print(f"   exist_weight={self.exist_weight:.3f}, type_weight={self.type_weight:.3f}")
 
         print(f"\n✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)")
         print(f"   类别权重 (beta=0.99999): {[f'{w:.3f}' for w in normalized_weights]}")

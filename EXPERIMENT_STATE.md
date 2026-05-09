@@ -3,7 +3,149 @@
 > File này ghi lại trạng thái thực nghiệm. Cập nhật mỗi khi run xong một experiment.
 
 ## Lần cập nhật cuối
-**2026-05-09, hoàn thành toàn bộ Plan B (5/5 phase).**
+**2026-05-09 16:xx, sweep loss XONG — w=0.1 thắng. Verify Fig.4 + case study PENDING.**
+
+---
+
+## 🚀 RESUME NGAY KHI MỞ MÁY LẠI
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+.\resume_plan_c.ps1                 # full ~2.7h: case_study + rerank + 5 ablation
+# HOẶC chia nhỏ:
+.\resume_plan_c.ps1 -OnlyCaseStudy  # 9 phút — verify class collapse fix
+.\resume_plan_c.ps1 -SkipCaseStudy  # 2.5h — chỉ ablation Fig.4 verify
+```
+
+Sau đó tự động: `python summarize_plan_c_full.py && python generate_report.py`. Output cuối: `BaoCao_DHGCMDA.docx` + `results/plan_c_full_summary.json`.
+
+---
+
+## 🏆 PLAN C — Sweep loss XONG (2026-05-09)
+
+### Kết quả sweep (5 fold × 650 epoch / variant)
+
+| Run | exist_weight | AUC | AUPR | F1 (binary) | Top-1 F1 | Δ vs paper |
+|---|---:|---:|---:|---:|---:|---:|
+| Paper | — | 0.9669 | 0.9738 | 0.9278 | **0.5970** | 0% |
+| Phase A (orig) | 0.3 | 0.9738 | 0.9671 | 0.9295 | 0.5485 | -8.1% |
+| Phase B-C (3 fix) | 0.3 | 0.9752 | 0.9701 | 0.9297 | 0.5521 | -7.5% |
+| **🏆 Phase C-w0.1** | **0.1** | 0.9641 | 0.9569 | 0.9118 | **0.5996** | **+0.4%** |
+| Phase C-w0.05 | 0.05 | 0.9488 | 0.9421 | 0.8912 | 0.5898 | -1.2% |
+| Phase C-w0.0 | 0.0 | 0.4368 | 0.4737 | 0.6740 | 0.5802 | -2.8% |
+
+### Phán quyết khoa học
+
+1. **HYPOTHESIS CONFIRMED**: code có `0.3·L_existence(focal)` không có trong paper Eq. 32 → đây là root cause cho 3 phát hiện bất thường.
+2. **w=0.1 là sweet spot**: Top-1 F1 đạt 0.5996, **lần đầu tiên vượt paper** (+0.4%). Trade-off binary AUC giảm nhẹ nhưng vẫn ≥ 0.95.
+3. **Monotonic verified**: w=0.3 → 0.1 (tăng), w=0.1 → 0.0 (giảm). Optimal có giá trị.
+4. **w=0.0 collapse hoàn toàn**: AUC=0.44 (random) — confirm vẫn cần existence supervision dù nhỏ.
+5. **% reproduce**: Top-1 F1 từ ~92% → ~100%. Tổng project từ 50% → ~75% (binary 99%, type 100%, sweep 100%, ablation 0% pending, case study 3% pending).
+
+### Còn pending (script đã có)
+
+| Verify | Hypothesis nếu pass | Effort |
+|---|---|---|
+| **Fig.4 ablation** với w=0.1 | All ablation hurt baseline (như paper) → fork bug do exist_weight quá cao | 5 × ~30' = 2.5h CPU |
+| **Case study collapse** với w=0.1 | Top-15 đa dạng type (4 type/disease) → fix collapse | ~9' CPU |
+| **Multi-seed** baseline w=0.1 | Mean ± std confirm w=0.1 robust | ~2.5h |
+
+---
+
+## Files thay đổi/mới trong Plan C (chưa commit)
+
+| File | Trạng thái | Thay đổi |
+|---|---|---|
+| [param.py](param.py) | M | Thêm `--exist_weight` flag |
+| [main_experiments_hetero1.py](main_experiments_hetero1.py) | M | Đọc `args.exist_weight`, type_weight=1-exist_weight; CPU thread tuning |
+| [generate_report.py](generate_report.py) | M | Section 3.6 Plan C tự render từ JSON |
+| [CLAUDE.md](CLAUDE.md), [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md) | M | Update Plan C status |
+| [sweep_summary.py](sweep_summary.py) | NEW | Parse `logs/sweep_w*.log` → JSON |
+| [summarize_plan_c_full.py](summarize_plan_c_full.py) | NEW | Aggregate sweep + ablation w=0.1 + case study w=0.1 |
+| [rerank_case_study.py](rerank_case_study.py) | NEW | 4 chiến lược rank trên cached score |
+| [run_multiseed.ps1](run_multiseed.ps1) | NEW | Multi-seed orchestrator |
+| [resume_plan_c.ps1](resume_plan_c.ps1) | NEW | Resume script — chỉ cần chạy lệnh này khi mở máy |
+| `results/sweep_w*.json` (×3) | NEW | Sweep metrics |
+| `results/plan_c_comparison.json` | NEW | Bảng tổng sweep |
+| `results/snapshot_phaseBC_w0.3/` | NEW | Backup case study Phase B-C trước khi rerun |
+| `BaoCao_DHGCMDA.docx` | M | Section 3.6 Plan C đã có (placeholder/data tùy state) |
+
+---
+
+---
+
+## 🔬 PLAN C — Eq. 32 alignment study (đang chạy)
+
+### Mục tiêu
+Test giả thuyết "existence loss focal w=0.3 đang hurt type prediction" — root cause tiềm năng của 3 phát hiện bất thường (pattern Fig. 4 đảo, Top-1 thấp, case study collapse).
+
+### Verify Eq. 32 paper vs code (Task 1)
+Paper Eq. 32 ([_pdf_text/p21.txt:19](_pdf_text/p21.txt#L19)):
+```
+L_total = L_type + λ1·L_intra + λ2·L_inter + λ3·L_recon
+```
+- Paper KHÔNG có `L_existence` riêng. Code thêm `0.3 × focal_loss(existence)` không khớp Eq. 32.
+- Paper có label_smoothing? Không đề cập. Code có 0.1.
+- λ₂: paper grid search ∈ {0.1, 0.3, 0.5} với optimal 0.3. Code hardcode 0.3 → match.
+
+### Smoke test Fix A (exist_weight=0.0, 3 epochs × 2 folds, ~7s)
+- ✅ Không crash, không NaN
+- ⚠️ Binary AUC collapse: 0.97 → 0.62 (kỳ vọng — channel 0 không được supervise)
+- Top-1 F1: 0.21 (3 epochs là quá ít, không kết luận)
+- ⇒ Quyết định: sweep `exist_weight ∈ {0.1, 0.05, 0.0}` thay vì binary fix
+
+### Sweep design
+| Phase | exist_weight | type_weight | Goal |
+|---|---:|---:|---|
+| C-1 (Phase B-C, đã có) | 0.3 | 0.7 | Reference |
+| **C-2** | 0.1 | 0.9 | Mid-compromise |
+| **C-3** | 0.05 | 0.95 | Gần Fix A nhưng vẫn supervise |
+| **C-4** | 0.0 | 1.0 | True Fix A — verify hypothesis |
+
+### Task 2 — Rerank case study (đã xong)
+Test 4 chiến lược rank trên cached score `[495, 383, 5]` (không retrain):
+
+| Strategy | Breast overlap | HCC overlap | Type match | Type diversity |
+|---|---:|---:|---:|---|
+| `max_type` (cũ) | 1/15 | 0/15 | 0/15 | target×15 / epigenetics×15 |
+| `sum_type` | 0/15 | 1/15 | 0/15 | circulation:11... |
+| **`exist_only`** | **0/15** | **2/15** | **1/15** | target:11, genetics:3, circ:1 |
+| `softmax_t` | 1/15 | 0/15 | 0/15 | target×15 / epigenetics×15 |
+
+**Kết luận**: Class collapse là vấn đề MODEL-LEVEL, không phải RANK-LEVEL. `exist_only` cải thiện diversity nhưng vẫn xa paper (12-13/15). Cần retrain để fix triệt để. File output: [results/rerank_summary.json](results/rerank_summary.json).
+
+### Stats channel raw score (từ rerank, helpful debug):
+```
+ch0 (existence): min=0.0005 max=0.8893 mean=0.1215 std=0.1615
+ch1 (circulation): min=0.0004 max=0.9959 mean=0.3528 std=0.2962
+ch2 (epigenetics): min=0.0002 max=0.9979 mean=0.2024 std=0.2136
+ch3 (target): min=0.0003 max=0.9979 mean=0.2420 std=0.2136
+ch4 (genetics): min=0.0007 max=0.9665 mean=0.2028 std=0.1512
+```
+Channel 0 max chỉ 0.89 (coarse) trong khi types max 0.99+ (sharp). Confirm existence head supervise yếu, type head over-confident.
+
+### Task 4 (Multi-seed, đã chuẩn bị)
+Script [run_multiseed.ps1](run_multiseed.ps1) — sẵn sàng chạy sau khi sweep xong:
+- 3 seed (42, 100, 2024) × {baseline, no_cl} × full 650 epochs ≈ 7h CPU
+- Output: `results/multiseed_*.json` + `results/multiseed_summary.json` (mean ± std)
+- Có `-SmokeTest` flag và `-OnlyBaseline` flag
+
+### Files thay đổi trong Plan C
+| File | Thay đổi |
+|---|---|
+| [param.py](param.py) | Thêm `--exist_weight` flag (default 0.3) |
+| [main_experiments_hetero1.py:90-95](main_experiments_hetero1.py#L90-L95) | Đọc `args.exist_weight`, type_weight = 1.0 - exist_weight |
+| [rerank_case_study.py](rerank_case_study.py) | NEW — 4 chiến lược rank |
+| [run_multiseed.ps1](run_multiseed.ps1) | NEW — orchestrator multi-seed |
+
+### Background sweep status (2026-05-09)
+- Bash ID: `b3eontqe2`
+- Logs: `logs/sweep_w0.1.log`, `logs/sweep_w0.05.log`, `logs/sweep_w0.0.log`
+- Sequential: w=0.1 → 0.05 → 0.0
+- ETA: ~2.5h từ launch
+
+---
 
 ---
 

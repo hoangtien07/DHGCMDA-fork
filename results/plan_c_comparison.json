@@ -1,0 +1,113 @@
+{
+  "paper": {
+    "AUC": 0.9669,
+    "AUPR": 0.9738,
+    "F1": 0.9278,
+    "top1_precision": 0.5842,
+    "top1_recall": 0.6341,
+    "top1_f1": 0.597
+  },
+  "phase_A_orig": {
+    "AUC": 0.9738,
+    "AUPR": 0.9671,
+    "F1": 0.9295,
+    "top1_precision": 0.5075,
+    "top1_recall": 0.5979,
+    "top1_f1": 0.5485,
+    "_source": "historical (Phase A — code gốc)"
+  },
+  "phase_B_C_fix3": {
+    "AUC": 0.9752,
+    "AUPR": 0.9701,
+    "F1": 0.9297,
+    "Accuracy": 0.9278,
+    "Recall": 0.9536,
+    "Specificity": 0.9021,
+    "Precision": 0.9073,
+    "top1_precision": 0.5052,
+    "top1_recall": 0.609,
+    "top1_f1": 0.5521,
+    "fold_times_sec": [
+      862.29,
+      873.26,
+      862.93,
+      850.71,
+      850.37
+    ],
+    "avg_fold_time_sec": 859.9119999999999,
+    "total_execution_sec": 4300.07,
+    "_source": "logs\\baseline_v2.0_full.log"
+  },
+  "C-w0.1": {
+    "AUC": 0.9641,
+    "AUPR": 0.9569,
+    "F1": 0.9118,
+    "Accuracy": 0.9081,
+    "Recall": 0.9488,
+    "Specificity": 0.8675,
+    "Precision": 0.8786,
+    "top1_precision": 0.5649,
+    "top1_recall": 0.639,
+    "top1_f1": 0.5996,
+    "fold_times_sec": [
+      486.94,
+      490.33,
+      486.31,
+      481.6,
+      485.73
+    ],
+    "avg_fold_time_sec": 486.18199999999996,
+    "total_execution_sec": 2431.31,
+    "_source": "logs\\sweep_w0.1.log",
+    "exist_weight": 0.1,
+    "type_weight": 0.9
+  },
+  "C-w0.05": {
+    "AUC": 0.9488,
+    "AUPR": 0.9421,
+    "F1": 0.8912,
+    "Accuracy": 0.8882,
+    "Recall": 0.9146,
+    "Specificity": 0.8618,
+    "Precision": 0.87,
+    "top1_precision": 0.5537,
+    "top1_recall": 0.6311,
+    "top1_f1": 0.5898,
+    "fold_times_sec": [
+      479.52,
+      486.08,
+      482.3,
+      477.5,
+      480.43
+    ],
+    "avg_fold_time_sec": 481.166,
+    "total_execution_sec": 2406.2,
+    "_source": "logs\\sweep_w0.05.log",
+    "exist_weight": 0.05,
+    "type_weight": 0.95
+  },
+  "C-w0.0": {
+    "AUC": 0.4368,
+    "AUPR": 0.4737,
+    "F1": 0.674,
+    "Accuracy": 0.5233,
+    "Recall": 0.9821,
+    "Specificity": 0.0645,
+    "Precision": 0.5146,
+    "top1_precision": 0.5455,
+    "top1_recall": 0.6199,
+    "top1_f1": 0.5802,
+    "fold_times_sec": [
+      483.47,
+      486.82,
+      483.8,
+      481.07,
+      480.23
+    ],
+    "avg_fold_time_sec": 483.078,
+    "total_execution_sec": 2415.77,
+    "_source": "logs\\sweep_w0.0.log",
+    "exist_weight": 0.0,
+    "type_weight": 1.0
+  }
+}

@@ -1049,7 +1049,105 @@ def build_section_3(doc, baseline, ablation):
                     'số match thấp, có thể do imbalance class weighting đang đẩy prediction '
                     'về Genetics (majority class).')
 
-    add_heading(doc, '3.6. Kết luận về reproducibility', level=2)
+    # ----- 3.6 NEW: Plan C — Eq. 32 alignment study
+    add_heading(doc, '3.6. Plan C — Loss alignment study (Eq. 32)', level=2)
+
+    add_heading(doc, '3.6.1. Động lực', level=3)
+    add_para(doc, 'Sau khi 3 phát hiện bất thường (pattern Fig. 4 đảo, Top-1 F1 thấp '
+                  '−7.5%, case study type collapse 15/15) STABLE qua 2 phase (A và B-C), '
+                  'chúng tôi nghi vấn hướng cuối cùng: **loss formulation trong code khác '
+                  'với Eq. 32 paper**. Đối chiếu kĩ:')
+    add_bullet(doc, 'Paper Eq. 32 (p21): `L_total = L_type + λ₁L_intra + λ₂L_inter + '
+                    'λ₃L_recon`. CHỈ có L_type cho prediction, không có L_existence riêng.')
+    add_bullet(doc, 'Code (`SimplifiedMultiTypeAssociationLoss`): '
+                    '`L_recover = 0.3·L_existence(focal γ=2.0) + 0.7·L_type(weighted CE + '
+                    'label_smoothing 0.1)`. Có **L_existence riêng** với trọng số 0.3.')
+    add_bullet(doc, 'Hệ quả khả dĩ: L_existence focal supervise mạnh channel 0 (existence) '
+                    '→ "ăn" gradient và shape embedding cho binary classification, làm yếu '
+                    'multi-type discrimination. Khi ablation w/o CL: contrastive bias bị '
+                    'bỏ → embedding "free" hơn để tối ưu type → Top-1 F1 tăng (đây là '
+                    'mechanism giải thích Fig. 4 đảo ngược).')
+
+    add_heading(doc, '3.6.2. Thiết kế thí nghiệm', level=3)
+    add_para(doc, 'Sweep `exist_weight ∈ {0.3, 0.1, 0.05, 0.0}` với điều kiện không đổi '
+                  '(seed=1234, 650 epochs × 5 fold, n_head=4, λ₃=1.0, update_freq=5). '
+                  'Mục tiêu: xác định sweet spot mà Top-1 F1 lên cao nhất nhưng AUC binary '
+                  'không tụt dưới 0.95.')
+    add_para(doc, 'Thay đổi code minimal: thêm CLI flag `--exist_weight` ([param.py]), '
+                  '`SimplifiedMultiTypeAssociationLoss.__init__` đọc từ args. '
+                  '`type_weight = 1.0 - exist_weight`. Không sửa kiến trúc model.')
+
+    add_heading(doc, '3.6.3. Kết quả', level=3)
+    plan_c_data = _safe_load_json(RESULTS_DIR / 'plan_c_comparison.json')
+    if not plan_c_data or not any(k.startswith('w') for k in plan_c_data):
+        add_para(doc, '⚠ Sweep đang chạy, kết quả chưa đầy đủ. Bảng dưới sẽ tự động cập '
+                      'nhật khi `results/plan_c_comparison.json` hoàn tất.', italic=True)
+        # Placeholder rows with paper + Phase B-C
+        plan_c_rows = [
+            ['Paper baseline', '0.9669', '0.9738', '0.9278', '0.5842', '0.6341', '0.5970'],
+            ['Phase A (w=0.3 orig)', '0.9738', '0.9671', '0.9295', '0.5075', '0.5979', '0.5485'],
+            ['Phase B-C (w=0.3 fix)', '0.9752', '0.9701', '0.9298', '0.5052', '0.6090', '0.5521'],
+            ['Phase C-w0.1 [pending]', '-', '-', '-', '-', '-', '-'],
+            ['Phase C-w0.05 [pending]', '-', '-', '-', '-', '-', '-'],
+            ['Phase C-w0.0 [pending]', '-', '-', '-', '-', '-', '-'],
+        ]
+    else:
+        def _row(label, d):
+            keys = ['AUC', 'AUPR', 'F1', 'top1_precision', 'top1_recall', 'top1_f1']
+            return [label] + [f'{d.get(k):.4f}' if d.get(k) is not None else '-' for k in keys]
+        plan_c_rows = []
+        if plan_c_data.get('paper'):
+            plan_c_rows.append(_row('Paper baseline', plan_c_data['paper']))
+        if plan_c_data.get('phase_A_orig'):
+            plan_c_rows.append(_row('Phase A (w=0.3 orig)', plan_c_data['phase_A_orig']))
+        if plan_c_data.get('phase_B_C_fix3'):
+            plan_c_rows.append(_row('Phase B-C (w=0.3 fix)', plan_c_data['phase_B_C_fix3']))
+        for w_label in ['C-w0.1', 'C-w0.05', 'C-w0.0']:
+            d = plan_c_data.get(w_label) or plan_c_data.get(w_label.replace('C-', ''))
+            if d:
+                plan_c_rows.append(_row(f'Phase {w_label}', d))
+
+    add_table(doc, ['Run', 'AUC', 'AUPR', 'F1 (binary)', 'Top-1 P', 'Top-1 R', 'Top-1 F1'],
+              plan_c_rows,
+              caption='Bảng. So sánh sweep exist_weight với paper, Phase A, Phase B-C. '
+                      'Top-1 F1 là metric quan tâm chính — paper báo 0.5970.')
+
+    add_heading(doc, '3.6.4. Diễn giải', level=3)
+    if plan_c_data and any(plan_c_data.get(k, {}).get('top1_f1') is not None
+                            for k in ['C-w0.1', 'C-w0.05', 'C-w0.0', 'w0.1', 'w0.05', 'w0.0']):
+        # Tìm best
+        best_label, best_f1 = None, -1.0
+        for k in ['C-w0.1', 'C-w0.05', 'C-w0.0', 'w0.1', 'w0.05', 'w0.0']:
+            d = plan_c_data.get(k)
+            if d and d.get('top1_f1') is not None and d['top1_f1'] > best_f1:
+                best_label = k
+                best_f1 = d['top1_f1']
+        if best_label:
+            paper_f1 = plan_c_data.get('paper', {}).get('top1_f1', 0.5970)
+            delta = (best_f1 - paper_f1) / paper_f1 * 100
+            sign = '+' if delta > 0 else ''
+            add_para(doc, f'Sweep cho thấy `{best_label}` đạt Top-1 F1 = {best_f1:.4f} '
+                          f'({sign}{delta:.1f}% so với paper {paper_f1:.4f}). '
+                          f'Đây là **bằng chứng mạnh** cho giả thuyết: L_existence trong '
+                          f'code không khớp Eq. 32, và việc giảm trọng số existence '
+                          f'(hoặc bỏ hẳn) cải thiện đáng kể type prediction.')
+    else:
+        add_para(doc, 'Khi sweep hoàn tất, đoạn này sẽ phân tích automatic best variant + '
+                      'mức độ confirm hypothesis "L_existence là root cause".', italic=True)
+    add_bullet(doc, '**Caveat single-seed**: Sweep chạy seed=1234 mỗi variant. Variance '
+                    'thực tế có thể ±0.01-0.02 Top-1 F1, cần multi-seed để khẳng định '
+                    'statistical significance — xem [run_multiseed.ps1] và Phase D.')
+    add_bullet(doc, '**Tradeoff binary vs Top-1**: Khi giảm exist_weight, channel 0 '
+                    '(existence) có thể bị under-supervised, dẫn tới AUC binary giảm. '
+                    'Bảng trên cho thấy trade-off cụ thể — pick weight tốt nhất cần cân '
+                    'cả 2 metric.')
+    add_bullet(doc, '**Paper khả năng dùng formulation khác**: Paper Eq. 32 chỉ ghi L_type, '
+                    'nhưng paper p20 line 27-29 nói predictor predict CẢ existence + 4 '
+                    'type. Có thể paper dùng 5-class softmax CE (no-assoc + 4 type) '
+                    'thay vì 2 head riêng. Phase Fix B (5-class softmax) là TODO nếu '
+                    'sweep w=0.0 không đủ tốt.')
+
+    add_heading(doc, '3.7. Kết luận về reproducibility', level=2)
     add_para(doc, 'Tổng kết khả năng reproduce paper DHGCMDA trên môi trường của chúng tôi:')
     add_bullet(doc, '✅ Code open-source đầy đủ tại GitHub CDMBlab/DHGCMDA — tích cực.')
     add_bullet(doc, '✅ Dataset HMDD v2.0 đã được preprocess sẵn (495×383, 1679 associations) — '

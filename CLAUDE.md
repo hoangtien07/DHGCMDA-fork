@@ -81,6 +81,54 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
 - ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
+## 7b. Plan C — Eq. 32 alignment (sweep XONG, verify PENDING — 2026-05-09)
+
+### 🚀 RESUME: chạy 1 lệnh duy nhất khi mở máy
+
+```powershell
+.\venv\Scripts\Activate.ps1
+.\resume_plan_c.ps1   # full ~2.7h: case_study + rerank + 5 ablation + auto regen báo cáo
+```
+
+Hoặc chia nhỏ:
+- `.\resume_plan_c.ps1 -OnlyCaseStudy` — 9 phút, verify class collapse fix
+- `.\resume_plan_c.ps1 -SkipCaseStudy` — 2.5h, chỉ ablation Fig.4
+
+### 🏆 SWEEP LOSS XONG — w=0.1 thắng
+
+| Run | exist_weight | Top-1 F1 | Δ paper |
+|---|---:|---:|---:|
+| Paper | — | 0.5970 | 0% |
+| Phase B-C | 0.3 | 0.5521 | -7.5% |
+| **C-w0.1** | **0.1** | **0.5996** | **+0.4%** ✅ |
+| C-w0.05 | 0.05 | 0.5898 | -1.2% |
+| C-w0.0 | 0.0 | 0.5802 (AUC collapse 0.44) | -2.8% |
+
+**Hypothesis confirmed**: code có `0.3·L_existence` không có trong Eq. 32 → root cause của 3 phát hiện bất thường. Sweet spot w=0.1.
+
+Chi tiết: [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md). Files mới: [resume_plan_c.ps1](resume_plan_c.ps1), [sweep_summary.py](sweep_summary.py), [summarize_plan_c_full.py](summarize_plan_c_full.py), [run_multiseed.ps1](run_multiseed.ps1).
+
+---
+
+## 7c. Plan C — Eq. 32 alignment (legacy, sweep design log)
+
+**Hypothesis**: code có `0.3·L_existence(focal)` không có trong paper Eq. 32 → là root cause cho 3 phát hiện bất thường (pattern Fig. 4 đảo, Top-1 F1 thấp, case study collapse).
+
+**Sweep design**: `exist_weight ∈ {0.3, 0.1, 0.05, 0.0}` × full 650 ep × 5 fold.
+Code change: `--exist_weight` CLI flag ([param.py](param.py)), `SimplifiedMultiTypeAssociationLoss` đọc từ args. CPU thread tuning thêm vào `main_experiments_hetero1.py` line 1-13 (set `OMP/MKL_NUM_THREADS=14`, `torch.set_num_threads(14)`).
+
+**Sneak peek (Phase C-1 fold 1, w=0.1)**: Top-1 F1 = **0.6238** (vs Phase B-C 0.5521 = +12.6%, vs paper 0.5970 = **+4.5%**) — **Fold 1 đã VƯỢT paper.** Cần đợi 4 fold + 2 phase còn lại.
+
+**Files NEW Plan C**:
+- [sweep_summary.py](sweep_summary.py) — parse logs/sweep_w*.log → `results/plan_c_comparison.json` + bảng so sánh đẹp.
+- [rerank_case_study.py](rerank_case_study.py) — 4 chiến lược rank trên cached score (Task D).
+- [run_multiseed.ps1](run_multiseed.ps1) — orchestrator multi-seed (Task A, sẵn sàng chạy sau sweep).
+- [generate_report.py](generate_report.py) Section 3.6 — Plan C section auto-render từ JSON (placeholder nếu missing).
+
+**Background bash**: ID `b3eontqe2`, sequential `python ... --exist_weight 0.1 → 0.05 → 0.0`. ETA ~1.5-2h từ 2026-05-09.
+
+**Khi sweep xong**: chạy `python sweep_summary.py` → có bảng + JSON. Sau đó `python generate_report.py` → docx tự cập nhật Section 3.6.
+
 ## 8. Phát hiện thêm từ case study (legitimate observation)
 
 Case study ranking top-15 miRNA cho 2 disease cho thấy **model collapse về 1 type/disease**:

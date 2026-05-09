@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9488,
+  "AUPR": 0.9421,
+  "F1": 0.8912,
+  "Accuracy": 0.8882,
+  "Recall": 0.9146,
+  "Specificity": 0.8618,
+  "Precision": 0.87,
+  "top1_precision": 0.5537,
+  "top1_recall": 0.6311,
+  "top1_f1": 0.5898,
+  "fold_times_sec": [
+    479.52,
+    486.08,
+    482.3,
+    477.5,
+    480.43
+  ],
+  "avg_fold_time_sec": 481.166,
+  "total_execution_sec": 2406.2,
+  "_source": "logs\\sweep_w0.05.log",
+  "exist_weight": 0.05,
+  "type_weight": 0.95
+}

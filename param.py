@@ -182,6 +182,12 @@ def parameter_parser():
                         default=None,
                         help='Class weights for loss function (4 values for 4 association types).')
 
+    # Loss weights sweep (Eq. 32 alignment study)
+    parser.add_argument('--exist_weight',
+                        type=float,
+                        default=0.3,
+                        help='Weight of existence (focal) loss term. Paper Eq. 32 uses 0.0 (no existence loss). Sweep {0.0, 0.05, 0.1, 0.3}.')
+
     # Verbose output
     parser.add_argument('--verbose',
                         type=bool,
