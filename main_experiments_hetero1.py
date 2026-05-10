@@ -1559,6 +1559,12 @@ if __name__ == '__main__':
 
     args = parameter_parser()
 
+    # 🐛 FIX BUG (2026-05-11): seed_torch() ở line 65 dùng default 1234, KHÔNG đọc args.seed.
+    # Multi-seed experiment broken trước khi fix này — mọi run dùng cùng seed.
+    # Re-seed RNG state với args.seed sau khi parse args.
+    seed_torch(args.seed)
+    print(f"[SEED] Re-seeded với args.seed = {args.seed}")
+
     # 启用性能分析
     start_time = time.time()
 
