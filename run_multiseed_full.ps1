@@ -1,20 +1,15 @@
-# Multi-seed full — 3 seed × 3 baseline = 9 runs (~7.5h CPU).
+# Multi-seed full - 3 seeds x 3 baseline variants for MLRC paper.
 #
-# Phuc vu MLRC paper: cap nhat error bar cho 3 chinh claims:
-#  - Plan C-w0.1 baseline (loss tweak, two_head)
-#  - Plan D baseline (full Eq.32 alignment, softmax_5class)
-#  - Plan E baseline (no_cl_rebuild — best Plan E variant)
+# Bug fixed (2026-05-11): seed_torch + prepareData seed propagation.
+# All previous Plan A/B/C/D/E results used seed=0 data split (bugged).
+# Multi-seed v3 reruns 3 seeds fresh (1234, 42, 7).
 #
-# Seed 1234 da co tu Plan A/B/C/D/E. Script nay re-chay seed 42 va 7
-# cho ca 3 variant + parse ket qua → mean ± std.
-#
-# Cach dung:
-#     .\run_multiseed_full.ps1                # full ~5h (skip 1234)
-#     .\run_multiseed_full.ps1 -AllSeeds      # rerun ca 1234 ~7.5h
-#     .\run_multiseed_full.ps1 -OnlyVariant plan_d   # 1 variant × 3 seed
+# Usage:
+#     .\run_multiseed_full.ps1                  # full ~7.5h: 9 runs
+#     .\run_multiseed_full.ps1 -OnlyVariant plan_d  # 3 runs ~2.5h
 #
 param(
-    [switch]$AllSeeds = $false,
+    [switch]$AllSeeds = $true,
     [string]$OnlyVariant = ''
 )
 
@@ -26,23 +21,15 @@ if (-not (Test-Path "results")) { New-Item -ItemType Directory results | Out-Nul
 
 $py = ".\venv\Scripts\python.exe"
 
-# Variants: (label, extra_args list)
+# Variants: hashtable - args list
 $variants = @{
-    'plan_c_w01' = @('--exist_weight', '0.1')                                          # Plan C-w0.1, two_head implicit
-    'plan_d'     = @('--loss_mode', 'softmax_5class')                                  # Plan D baseline
-    'plan_e'     = @('--loss_mode', 'softmax_5class', '--ablation', 'no_cl_rebuild')   # Plan E best variant
+    'plan_c_w01' = @('--exist_weight', '0.1')
+    'plan_d'     = @('--loss_mode', 'softmax_5class')
+    'plan_e'     = @('--loss_mode', 'softmax_5class', '--ablation', 'no_cl_rebuild')
 }
 
-# Seeds
-if ($AllSeeds) {
-    $seeds = @(1234, 42, 7)
-    Write-Host "[INFO] AllSeeds mode — chay 3 seeds fresh (1234, 42, 7)" -ForegroundColor Cyan
-} else {
-    # Default sau bug fix: chay 3 seeds fresh vi pre-existing seed=1234 results
-    # da generated voi bugged seed=0 data split — KHONG re-use duoc.
-    $seeds = @(1234, 42, 7)
-    Write-Host "[INFO] Default mode — 3 seeds fresh (1234, 42, 7) sau bug fix" -ForegroundColor Cyan
-}
+# 3 seeds fresh after bug fix
+$seeds = @(1234, 42, 7)
 
 # Filter variants
 if ($OnlyVariant -ne '') {
@@ -55,9 +42,10 @@ if ($OnlyVariant -ne '') {
     $selected_variants = $variants
 }
 
-$total = $seeds.Count * $selected_variants.Count
+$total_runs = $seeds.Count * $selected_variants.Count
 Write-Host "================================================================"
-Write-Host " MULTI-SEED FULL ($total runs, ~50 phut/run)"
+Write-Host " MULTI-SEED FULL"
+Write-Host " Total runs: $total_runs (50 min each)"
 Write-Host " Seeds: $($seeds -join ', ')"
 Write-Host " Variants: $($selected_variants.Keys -join ', ')"
 Write-Host "================================================================"
@@ -68,13 +56,11 @@ foreach ($seed in $seeds) {
         $run_idx++
         $args_list = $selected_variants[$vname]
         Write-Host ""
-        Write-Host "[$run_idx/$total] $vname seed=$seed"
+        Write-Host "[$run_idx/$total_runs] $vname seed=$seed"
         Write-Host "----------------------------------------------------------------"
 
         $log_path = "logs\multiseed_${vname}_seed${seed}.log"
-        & $py main_experiments_hetero1.py `
-            --device cpu --seed $seed @args_list `
-            *>&1 | Tee-Object $log_path
+        & $py main_experiments_hetero1.py --device cpu --seed $seed @args_list *>&1 | Tee-Object $log_path
         if ($LASTEXITCODE -ne 0) {
             Write-Host "[WARN] $vname seed=$seed exited with $LASTEXITCODE" -ForegroundColor Red
         }
@@ -88,4 +74,4 @@ Write-Host " AGGREGATE MULTI-SEED FULL"
 Write-Host "================================================================"
 & $py summarize_multiseed.py
 Write-Host ""
-Write-Host "DONE Multi-seed. Xem results\multiseed_full_summary.json" -ForegroundColor Green
+Write-Host "DONE Multi-seed. See results\multiseed_full_summary.json" -ForegroundColor Green
