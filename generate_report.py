@@ -780,9 +780,16 @@ def build_section_3(doc, baseline, ablation):
                     '+ loss thành 5-class softmax CE (class 0 = no_assoc, classes 1-4 = 4 '
                     'types). Loại bỏ hoàn toàn L_existence riêng. **Top-1 F1 = 0.6222, vượt '
                     'paper +4.2% — bước nhảy lớn nhất từ đầu project**. Tuy nhiên Fig.4 = '
-                    '1/5 match (TỆ HƠN Plan C), case study vẫn collapse. → **Phán quyết: '
-                    'Fig.4 + case study độc lập với loss formulation**, cần Plan E (true '
-                    'ablation rebuild) để fix — out of scope.')
+                    '1/5 match (TỆ HƠN Plan C), case study vẫn collapse.')
+    add_bullet(doc, '**Phase E (Plan E Fix C — true ablation rebuild)**: rebuild 3 ablation '
+                    'đảo (CL, HGCN, HGT) bằng kiến trúc rút gọn thực sự — HGCN plain (no '
+                    'contrastive), GCNConv thay HGNN_conv, skip transformers+HGT hoàn toàn. '
+                    '**Kết quả: 0/3 rebuild match paper Fig.4** (giống Phase D additive). Bỏ '
+                    'CẢ 3 component đều CẢI THIỆN Top-1 F1 (no_cl_rebuild +9.7%, no_hgcn_rebuild '
+                    '+4.5%, no_hgt_rebuild +8.4%). → **STRONG NEGATIVE REPLICATION: paper Fig.4 '
+                    'claim "all components are critical" KHÔNG đúng cho HMDD v2.0**. Hypothesis '
+                    '"ablation impl khác paper" REJECTED — root cause là DHGCMDA '
+                    'over-parameterized cho v2.0 (1498 assoc / 189K cells).')
     add_para(doc, '**Trạng thái reproduce hiện tại** (theo scope user — HMDD v2.0 + 5 '
                   'ablation + case study):')
     summary_rows = [
@@ -790,13 +797,16 @@ def build_section_3(doc, baseline, ablation):
          '✅ Phase D vượt paper (AUC +0.77%, F1 binary +0.89%)'],
         ['HMDD v2.0 Top-1 metrics (P/R/F1)', '100%+',
          '✅ Phase D Top-1 F1 = 0.6222 vượt paper +4.2% (Plan C-w0.1: +0.4%)'],
-        ['Ablation Fig. 4 (5 variants)', '20%',
-         '❌ Phase D 1/5 match (Plan C-w0.1 = 2/5). Loss alignment KHÔNG fix Fig.4'],
+        ['Ablation Fig. 4 (5 variants additive)', '20%',
+         '❌ Phase D 1/5 match. Plan C-w0.1 = 2/5'],
+        ['Plan E ablation rebuild (3 modes Fix C)', '0%',
+         '❌ STRONG NEGATIVE: 0/3 rebuild hurt baseline. Hypothesis "ablation impl khác paper" REJECTED'],
         ['Case study Bảng 5/6 (breast + HCC)', '3%',
-         '❌ Class collapse PERSIST cả ở Phase D + Plan C: breast 15/15 target, HCC 15/15 epigenetics'],
+         '❌ Class collapse PERSIST: breast 15/15 target, HCC 15/15 epigenetics'],
         ['Loss formulation alignment (Eq. 32)', '100%',
          '✅ Plan D Fix A++ — single 5-class softmax CE, khớp Eq. 32 hoàn toàn'],
-        ['Kiến trúc cài đặt (HGCN+HGT+CL+AVF+...)', '100%', '✅ All modules working'],
+        ['Ablation rebuild Plan E (Fix C)', '100%',
+         '✅ 3 mode rebuild (no_cl/no_hgcn/no_hgt) implemented + verified'],
     ]
     add_table(doc,
               ['Thành phần paper', '% reproduce', 'Ghi chú'],

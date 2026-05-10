@@ -81,6 +81,45 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
 - ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
+## 7a. Plan E — True ablation rebuild (Fix C) — XONG 2026-05-10
+
+### 🚨 STRONG NEGATIVE REPLICATION
+
+| Variant | AUC | Top-1 F1 | Δ Full (Phase D 0.6222) | Match paper? |
+|---|---:|---:|---:|:---:|
+| **Phase D Full** | 0.9743 | 0.6222 | — | — |
+| no_cl_rebuild | 0.9770 | **0.6824** | +9.7% | ❌ |
+| no_hgcn_rebuild | 0.9709 | 0.6499 | +4.5% | ❌ |
+| no_hgt_rebuild | 0.9712 | 0.6745 | +8.4% | ❌ |
+
+**0/3 rebuild hurt baseline** — bỏ CẢ 3 component đều CẢI THIỆN Top-1 F1.
+
+### Phán quyết khoa học (final)
+
+Hypothesis "ablation impl additive khác paper" → **REJECTED** sau khi rebuild đúng kiến trúc rút gọn vẫn cho cùng pattern.
+
+→ Root cause thực sự: **DHGCMDA over-parameterized cho HMDD v2.0** (1498 assoc / 189K cells). Components CL/HGCN/HGT là noise cho v2.0 — paper claim "all components are critical" chỉ đúng cho v3.2 (lớn hơn) hoặc dataset khác.
+
+### MLRC angle update
+
+Title mới: **"DHGCMDA Revisited: Strong Negative Replication of Ablation Claims, with Loss Alignment Yielding +4.2% Top-1 F1"**
+
+3 đóng góp:
+1. Loss alignment (Plan C/D): code thừa `0.3·L_existence` → fix → +4.2% Top-1 F1
+2. Ablation rebuild test (Plan E): paper Fig.4 KHÔNG reproduce ở 2 cách triển khai
+3. Recommendation: paper nên cung cấp ablation rebuild code public + multi-seed Fig.4
+
+### Code mới Plan E
+
+| File | Thay đổi |
+|---|---|
+| [param.py](param.py) | Extend `--ablation` với no_cl_rebuild|no_hgcn_rebuild|no_hgt_rebuild |
+| [hetero_model.py](hetero_model.py) | Init rebuild modules (HGCN_plain, GCNConv, skip_proj); helper `_g_to_edge_index`; forward branches |
+| [run_phase_e.ps1](run_phase_e.ps1) | Phase E orchestrator |
+| [summarize_phase_e.py](summarize_phase_e.py) | Verdict 4 scenarios + so sánh additive vs rebuild |
+
+---
+
 ## 7b1. Plan D — Fix A++ (5-class softmax CE) — XONG 2026-05-10
 
 ### 🏆 Top-1 F1 vượt paper +4.2% (lớn nhất từ đầu project)

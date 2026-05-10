@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9709,
+  "AUPR": 0.9682,
+  "F1": 0.9315,
+  "Accuracy": 0.9297,
+  "Recall": 0.9555,
+  "Specificity": 0.9039,
+  "Precision": 0.9091,
+  "top1_precision": 0.6336,
+  "top1_recall": 0.6672,
+  "top1_f1": 0.6499,
+  "fold_times_sec": [
+    462.88,
+    470.41,
+    496.01,
+    500.41,
+    498.0
+  ],
+  "avg_fold_time_sec": 485.54200000000003,
+  "total_execution_sec": 2428.09,
+  "_source": "logs\\phase_e_no_hgcn_rebuild.log",
+  "loss_mode": "softmax_5class",
+  "ablation": "no_hgcn_rebuild"
+}
