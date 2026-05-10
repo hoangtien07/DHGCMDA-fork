@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9651,
+  "AUPR": 0.9586,
+  "F1": 0.9143,
+  "Accuracy": 0.9115,
+  "Recall": 0.9421,
+  "Specificity": 0.8809,
+  "Precision": 0.889,
+  "top1_precision": 0.6052,
+  "top1_recall": 0.6541,
+  "top1_f1": 0.6286,
+  "fold_times_sec": [
+    295.12,
+    295.89,
+    290.93,
+    286.06,
+    289.93
+  ],
+  "avg_fold_time_sec": 291.586,
+  "total_execution_sec": 1458.33,
+  "_source": "logs\\abl_w0.1_no_cl.log",
+  "ablation": "no_cl",
+  "exist_weight": 0.1
+}

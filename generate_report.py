@@ -780,12 +780,12 @@ def build_section_3(doc, baseline, ablation):
                   'ablation + case study):')
     summary_rows = [
         ['HMDD v2.0 binary metrics (AUC/AUPR/F1)', '100%', '✅ Vượt paper'],
-        ['HMDD v2.0 Top-1 metrics (P/R/F1)', '100%', '✅ Phase C-w0.1 vượt paper'],
-        ['Ablation Fig. 4 (5 variants)', '0% (verified)',
-         '⏸ Pending verify ở w=0.1 (script: resume_plan_c.ps1)'],
-        ['Case study Bảng 5/6 (breast + HCC)', '3% (Phase B-C)',
-         '⏸ Pending verify ở w=0.1'],
-        ['Loss formulation alignment (Eq. 32)', '100%', '✅ Plan C confirmed'],
+        ['HMDD v2.0 Top-1 metrics (P/R/F1)', '100%', '✅ Phase C-w0.1 vượt paper (+0.4%)'],
+        ['Ablation Fig. 4 (5 variants)', '40%',
+         '🟡 PARTIAL: 2/5 (no_avf + no_dv) match; 3/5 (no_cl, no_hgcn, no_hgt) vẫn đảo'],
+        ['Case study Bảng 5/6 (breast + HCC)', '3%',
+         '❌ Class collapse PERSIST tại w=0.1: breast 15/15 target, HCC 15/15 epigenetics'],
+        ['Loss formulation alignment (Eq. 32)', '100%', '✅ Plan C verified (sweep w)'],
         ['Kiến trúc cài đặt (HGCN+HGT+CL+AVF+...)', '100%', '✅ All modules working'],
     ]
     add_table(doc,
@@ -793,10 +793,15 @@ def build_section_3(doc, baseline, ablation):
               summary_rows,
               caption='Bảng. Tóm tắt % reproduce theo từng thành phần paper (loại '
                       'HMDD v3.2 + 9 baseline comparisons — out of scope user đã chốt).')
-    add_para(doc, '**Kết luận tổng**: hiện tại reproduce ~50-57% verified, kỳ vọng lên '
-                  '75-90% sau khi chạy `resume_plan_c.ps1` để verify Fig.4 + case study '
-                  'ở w=0.1. Phần còn lại (HMDD v3.2, baseline comparisons) yêu cầu thêm '
-                  '1-2 ngày làm việc + dataset bổ sung.')
+    add_para(doc, '**Kết luận tổng (ĐÃ VERIFY 2026-05-10)**: Reproduce ~54% total / ~68% '
+                  'user scope. Plan C w=0.1 fix global Top-1 F1 metric nhưng **KHÔNG '
+                  'fix** Fig.4 pattern (3/5 ablation vẫn cải thiện sau khi bỏ component) '
+                  'và **KHÔNG fix** case study collapse. Hai vấn đề này độc lập với loss '
+                  'formulation — nghi vấn root cause là (i) ablation implementation '
+                  'không tương đương paper (additive switch vs rebuild) và (ii) class '
+                  'collapse là vấn đề per-disease ranking riêng biệt. Để đẩy lên 85%+ '
+                  'cần Fix A++ (5-class softmax) hoặc Fix C (true ablation rebuild) — '
+                  'là hướng follow-up.')
     add_para(doc, '**Đóng góp chính cho thesis** (vượt mục tiêu reproduce thuần):')
     add_bullet(doc, 'Phát hiện root cause của 3 bất thường — code public DHGCMDA-fork '
                     'không khớp 100% paper Eq. 32 (thừa term L_existence). Đây là contribution '
@@ -1226,12 +1231,12 @@ def build_section_3(doc, baseline, ablation):
 
     add_heading(doc, '3.7.1. Tỉ lệ reproduce định lượng', level=3)
     repro_rows = [
-        ['Hard verified (data đã có)', '~57%',
-         'Binary + Top-1 + Eq. 32 + kiến trúc'],
-        ['Mechanism confirmed (rerun w=0.1 dự kiến pass)', '~75-90%',
-         'Cộng thêm Fig. 4 + case study'],
-        ['Toàn bộ paper (gồm out-of-scope)', '~48%',
-         'Loại trừ v3.2 (10%) + 9 baselines (10%) + paper hyperparam sweep (7%)'],
+        ['Hard verified (đã rerun đầy đủ w=0.1)', '~54%',
+         'Binary 100% + Top-1 100% + Fig.4 40% + case study 3% + Eq.32 100% + kiến trúc 100%'],
+        ['User scope (loại v3.2 + 9 baselines)', '~68%',
+         'Cùng số trên, scaled lên 80% addressable'],
+        ['Toàn bộ paper (gồm out-of-scope)', '~54%',
+         'v3.2 (10%) + 9 baselines (10%) + paper hyperparam sweep (7%) = 27% out of scope'],
     ]
     add_table(doc, ['Cách đếm', '% reproduce', 'Diễn giải'], repro_rows,
               caption='Bảng. 3 cách đếm tỉ lệ reproduce — supervisor đọc Hard verified.')

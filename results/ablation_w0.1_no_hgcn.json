@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9638,
+  "AUPR": 0.9556,
+  "F1": 0.9158,
+  "Accuracy": 0.9129,
+  "Recall": 0.9458,
+  "Specificity": 0.88,
+  "Precision": 0.888,
+  "top1_precision": 0.5754,
+  "top1_recall": 0.6355,
+  "top1_f1": 0.6037,
+  "fold_times_sec": [
+    465.17,
+    465.94,
+    465.05,
+    455.59,
+    465.44
+  ],
+  "avg_fold_time_sec": 463.438,
+  "total_execution_sec": 2317.6,
+  "_source": "logs\\abl_w0.1_no_hgcn.log",
+  "ablation": "no_hgcn",
+  "exist_weight": 0.1
+}

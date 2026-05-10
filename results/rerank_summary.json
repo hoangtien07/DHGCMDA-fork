@@ -6,7 +6,7 @@
           "rank": 1,
           "miRNA_name": "hsa-mir-499a",
           "predicted_type": "target",
-          "score": 0.9964063763618469,
+          "score": 0.9971253275871277,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -15,124 +15,124 @@
           "rank": 2,
           "miRNA_name": "hsa-mir-196a",
           "predicted_type": "target",
-          "score": 0.9960479140281677,
+          "score": 0.9966744184494019,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 3,
-          "miRNA_name": "hsa-mir-488",
+          "miRNA_name": "hsa-mir-107",
           "predicted_type": "target",
-          "score": 0.9944104552268982,
-          "in_paper_top15": true,
-          "paper_type": "genetics",
+          "score": 0.99470454454422,
+          "in_paper_top15": false,
+          "paper_type": "",
           "type_match": false
         },
         {
           "rank": 4,
-          "miRNA_name": "hsa-mir-296",
+          "miRNA_name": "hsa-mir-18a",
           "predicted_type": "target",
-          "score": 0.9923991560935974,
+          "score": 0.9939141869544983,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 5,
-          "miRNA_name": "hsa-mir-367",
+          "miRNA_name": "hsa-mir-146a",
           "predicted_type": "target",
-          "score": 0.9915896058082581,
+          "score": 0.9938374161720276,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 6,
-          "miRNA_name": "hsa-mir-146a",
+          "miRNA_name": "hsa-mir-19a",
           "predicted_type": "target",
-          "score": 0.9914591312408447,
+          "score": 0.9936262369155884,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-107",
+          "miRNA_name": "hsa-mir-19b",
           "predicted_type": "target",
-          "score": 0.9908879995346069,
+          "score": 0.9935569167137146,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-194",
+          "miRNA_name": "hsa-mir-488",
           "predicted_type": "target",
-          "score": 0.9906534552574158,
-          "in_paper_top15": false,
-          "paper_type": "",
+          "score": 0.9934511184692383,
+          "in_paper_top15": true,
+          "paper_type": "genetics",
           "type_match": false
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-339",
+          "miRNA_name": "hsa-mir-219",
           "predicted_type": "target",
-          "score": 0.9903646111488342,
+          "score": 0.9928930401802063,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-448",
+          "miRNA_name": "hsa-mir-214",
           "predicted_type": "target",
-          "score": 0.990300178527832,
+          "score": 0.992552638053894,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-103a",
+          "miRNA_name": "hsa-mir-199b",
           "predicted_type": "target",
-          "score": 0.9894486665725708,
+          "score": 0.9921327233314514,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-3151",
+          "miRNA_name": "hsa-mir-1827",
           "predicted_type": "target",
-          "score": 0.9894249439239502,
+          "score": 0.9920710921287537,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-153",
+          "miRNA_name": "hsa-mir-302a",
           "predicted_type": "target",
-          "score": 0.9891954660415649,
+          "score": 0.991586446762085,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 14,
-          "miRNA_name": "hsa-mir-219",
+          "miRNA_name": "hsa-mir-339",
           "predicted_type": "target",
-          "score": 0.9888972640037537,
+          "score": 0.9915477633476257,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 15,
-          "miRNA_name": "hsa-mir-214",
+          "miRNA_name": "hsa-mir-92a",
           "predicted_type": "target",
-          "score": 0.9887908697128296,
+          "score": 0.991486132144928,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -151,135 +151,135 @@
       "top15": [
         {
           "rank": 1,
-          "miRNA_name": "hsa-mir-34c",
+          "miRNA_name": "hsa-mir-34b",
           "predicted_type": "epigenetics",
-          "score": 0.9959598183631897,
+          "score": 0.9986295700073242,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 2,
-          "miRNA_name": "hsa-mir-34b",
+          "miRNA_name": "hsa-mir-34c",
           "predicted_type": "epigenetics",
-          "score": 0.9958558678627014,
+          "score": 0.9985679388046265,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 3,
-          "miRNA_name": "hsa-mir-152",
+          "miRNA_name": "hsa-mir-1280",
           "predicted_type": "epigenetics",
-          "score": 0.9955680966377258,
+          "score": 0.9983744621276855,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 4,
-          "miRNA_name": "hsa-mir-18b",
+          "miRNA_name": "hsa-mir-1227",
           "predicted_type": "epigenetics",
-          "score": 0.9951683282852173,
+          "score": 0.9982056617736816,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 5,
-          "miRNA_name": "hsa-mir-369",
+          "miRNA_name": "hsa-mir-1229",
           "predicted_type": "epigenetics",
-          "score": 0.9951506853103638,
+          "score": 0.9981669187545776,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 6,
-          "miRNA_name": "hsa-mir-129",
+          "miRNA_name": "hsa-mir-410",
           "predicted_type": "epigenetics",
-          "score": 0.9946860074996948,
+          "score": 0.9981416463851929,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-24",
+          "miRNA_name": "hsa-mir-615",
           "predicted_type": "epigenetics",
-          "score": 0.994629979133606,
+          "score": 0.9980921149253845,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-124",
+          "miRNA_name": "hsa-mir-663a",
           "predicted_type": "epigenetics",
-          "score": 0.9945480227470398,
+          "score": 0.9980033040046692,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-203",
+          "miRNA_name": "hsa-mir-369",
           "predicted_type": "epigenetics",
-          "score": 0.9944843649864197,
+          "score": 0.9979912042617798,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-193a",
+          "miRNA_name": "hsa-mir-124",
           "predicted_type": "epigenetics",
-          "score": 0.9944374561309814,
+          "score": 0.9976956248283386,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-139",
+          "miRNA_name": "hsa-mir-203",
           "predicted_type": "epigenetics",
-          "score": 0.994317352771759,
+          "score": 0.9975366592407227,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-410",
+          "miRNA_name": "hsa-mir-129",
           "predicted_type": "epigenetics",
-          "score": 0.9940260648727417,
+          "score": 0.997424840927124,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-1229",
+          "miRNA_name": "hsa-mir-1290",
           "predicted_type": "epigenetics",
-          "score": 0.9940173625946045,
+          "score": 0.9973791837692261,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 14,
-          "miRNA_name": "hsa-mir-212",
+          "miRNA_name": "hsa-mir-95",
           "predicted_type": "epigenetics",
-          "score": 0.994009256362915,
+          "score": 0.9972238540649414,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 15,
-          "miRNA_name": "hsa-mir-1227",
+          "miRNA_name": "hsa-mir-100",
           "predicted_type": "epigenetics",
-          "score": 0.993960976600647,
+          "score": 0.9972019195556641,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -300,24 +300,6 @@
       "top15": [
         {
           "rank": 1,
-          "miRNA_name": "hsa-mir-200",
-          "predicted_type": "circulation",
-          "score": 1.000000238418579,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 2,
-          "miRNA_name": "hsa-mir-125a",
-          "predicted_type": "target",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 3,
           "miRNA_name": "hsa-mir-518a",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
@@ -326,9 +308,27 @@
           "type_match": false
         },
         {
+          "rank": 2,
+          "miRNA_name": "hsa-mir-944",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 3,
+          "miRNA_name": "hsa-mir-1229",
+          "predicted_type": "epigenetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
           "rank": 4,
-          "miRNA_name": "hsa-mir-196a",
-          "predicted_type": "target",
+          "miRNA_name": "hsa-mir-938",
+          "predicted_type": "circulation",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
           "paper_type": "",
@@ -354,7 +354,7 @@
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-193b",
+          "miRNA_name": "hsa-mir-191",
           "predicted_type": "target",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
@@ -363,8 +363,8 @@
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-198",
-          "predicted_type": "genetics",
+          "miRNA_name": "hsa-mir-614",
+          "predicted_type": "circulation",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
           "paper_type": "",
@@ -372,7 +372,7 @@
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-599",
+          "miRNA_name": "hsa-mir-648",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
@@ -381,7 +381,7 @@
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-671",
+          "miRNA_name": "hsa-mir-1299",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
@@ -390,8 +390,8 @@
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-1296",
-          "predicted_type": "circulation",
+          "miRNA_name": "hsa-mir-603",
+          "predicted_type": "target",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
           "paper_type": "",
@@ -399,8 +399,8 @@
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-3148",
-          "predicted_type": "circulation",
+          "miRNA_name": "hsa-mir-564",
+          "predicted_type": "target",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
           "paper_type": "",
@@ -408,8 +408,8 @@
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-600",
-          "predicted_type": "circulation",
+          "miRNA_name": "hsa-mir-3151",
+          "predicted_type": "target",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
           "paper_type": "",
@@ -417,6 +417,99 @@
         },
         {
           "rank": 14,
+          "miRNA_name": "hsa-mir-668",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 15,
+          "miRNA_name": "hsa-mir-545",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        }
+      ],
+      "type_dist": {
+        "circulation": 10,
+        "epigenetics": 1,
+        "target": 4,
+        "genetics": 0
+      },
+      "overlap": 0,
+      "type_match": 0
+    },
+    "hcc": {
+      "top15": [
+        {
+          "rank": 1,
+          "miRNA_name": "hsa-mir-200a",
+          "predicted_type": "epigenetics",
+          "score": 1.000000238418579,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 2,
+          "miRNA_name": "hsa-mir-152",
+          "predicted_type": "epigenetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 3,
+          "miRNA_name": "hsa-mir-933",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 4,
+          "miRNA_name": "hsa-mir-518e",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 5,
+          "miRNA_name": "hsa-mir-642a",
+          "predicted_type": "epigenetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 6,
+          "miRNA_name": "hsa-mir-545",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 7,
+          "miRNA_name": "hsa-mir-300",
+          "predicted_type": "circulation",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 8,
           "miRNA_name": "hsa-mir-601",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
@@ -425,47 +518,8 @@
           "type_match": false
         },
         {
-          "rank": 15,
-          "miRNA_name": "hsa-mir-769",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        }
-      ],
-      "type_dist": {
-        "circulation": 11,
-        "epigenetics": 0,
-        "target": 3,
-        "genetics": 1
-      },
-      "overlap": 0,
-      "type_match": 0
-    },
-    "hcc": {
-      "top15": [
-        {
-          "rank": 1,
-          "miRNA_name": "hsa-mir-610",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 2,
-          "miRNA_name": "hsa-mir-605",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 3,
-          "miRNA_name": "hsa-mir-188",
+          "rank": 9,
+          "miRNA_name": "hsa-mir-760",
           "predicted_type": "target",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
@@ -473,88 +527,7 @@
           "type_match": false
         },
         {
-          "rank": 4,
-          "miRNA_name": "hsa-mir-190b",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 5,
-          "miRNA_name": "hsa-mir-548a",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 6,
-          "miRNA_name": "hsa-mir-641",
-          "predicted_type": "epigenetics",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 7,
-          "miRNA_name": "hsa-mir-4792",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 8,
-          "miRNA_name": "hsa-mir-136",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 9,
-          "miRNA_name": "hsa-mir-663",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
           "rank": 10,
-          "miRNA_name": "hsa-mir-323a",
-          "predicted_type": "epigenetics",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 11,
-          "miRNA_name": "hsa-mir-1280",
-          "predicted_type": "epigenetics",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 12,
-          "miRNA_name": "hsa-mir-624",
-          "predicted_type": "circulation",
-          "score": 1.0000001192092896,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 13,
           "miRNA_name": "hsa-mir-151",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
@@ -563,8 +536,8 @@
           "type_match": false
         },
         {
-          "rank": 14,
-          "miRNA_name": "hsa-mir-636",
+          "rank": 11,
+          "miRNA_name": "hsa-mir-494",
           "predicted_type": "circulation",
           "score": 1.0000001192092896,
           "in_paper_top15": false,
@@ -572,22 +545,49 @@
           "type_match": false
         },
         {
-          "rank": 15,
-          "miRNA_name": "hsa-mir-657",
-          "predicted_type": "circulation",
+          "rank": 12,
+          "miRNA_name": "hsa-mir-552",
+          "predicted_type": "epigenetics",
           "score": 1.0000001192092896,
-          "in_paper_top15": true,
-          "paper_type": "target",
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 13,
+          "miRNA_name": "hsa-mir-630",
+          "predicted_type": "epigenetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 14,
+          "miRNA_name": "hsa-mir-527",
+          "predicted_type": "genetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 15,
+          "miRNA_name": "hsa-mir-208a",
+          "predicted_type": "epigenetics",
+          "score": 1.0000001192092896,
+          "in_paper_top15": false,
+          "paper_type": "",
           "type_match": false
         }
       ],
       "type_dist": {
-        "circulation": 11,
-        "epigenetics": 3,
+        "circulation": 7,
+        "epigenetics": 6,
         "target": 1,
-        "genetics": 0
+        "genetics": 1
       },
-      "overlap": 1,
+      "overlap": 0,
       "type_match": 0
     }
   },
@@ -596,282 +596,135 @@
       "top15": [
         {
           "rank": 1,
-          "miRNA_name": "hsa-mir-151a",
+          "miRNA_name": "hsa-let-7b",
           "predicted_type": "target",
-          "score": 0.8608435392379761,
+          "score": 0.7909665107727051,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 2,
-          "miRNA_name": "hsa-let-7a",
+          "miRNA_name": "hsa-let-7g",
           "predicted_type": "target",
-          "score": 0.8423371315002441,
+          "score": 0.7881395220756531,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 3,
-          "miRNA_name": "hsa-mir-206",
-          "predicted_type": "genetics",
-          "score": 0.8387461304664612,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 4,
-          "miRNA_name": "hsa-mir-191",
-          "predicted_type": "target",
-          "score": 0.83809894323349,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 5,
-          "miRNA_name": "hsa-let-7e",
-          "predicted_type": "target",
-          "score": 0.8377294540405273,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 6,
-          "miRNA_name": "hsa-let-7f",
-          "predicted_type": "target",
-          "score": 0.8358029127120972,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 7,
-          "miRNA_name": "hsa-mir-19b",
-          "predicted_type": "target",
-          "score": 0.8349353671073914,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 8,
-          "miRNA_name": "hsa-mir-17",
-          "predicted_type": "target",
-          "score": 0.8333697319030762,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 9,
-          "miRNA_name": "hsa-let-7c",
-          "predicted_type": "target",
-          "score": 0.8323122262954712,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 10,
-          "miRNA_name": "hsa-mir-205",
-          "predicted_type": "genetics",
-          "score": 0.8297600150108337,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 11,
-          "miRNA_name": "hsa-mir-92a",
-          "predicted_type": "target",
-          "score": 0.8282160758972168,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 12,
           "miRNA_name": "hsa-let-7i",
           "predicted_type": "target",
-          "score": 0.8273696303367615,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 13,
-          "miRNA_name": "hsa-mir-19a",
-          "predicted_type": "target",
-          "score": 0.8272776007652283,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 14,
-          "miRNA_name": "hsa-mir-138",
-          "predicted_type": "genetics",
-          "score": 0.8268289566040039,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 15,
-          "miRNA_name": "hsa-mir-126",
-          "predicted_type": "circulation",
-          "score": 0.8266671895980835,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        }
-      ],
-      "type_dist": {
-        "circulation": 1,
-        "epigenetics": 0,
-        "target": 11,
-        "genetics": 3
-      },
-      "overlap": 0,
-      "type_match": 0
-    },
-    "hcc": {
-      "top15": [
-        {
-          "rank": 1,
-          "miRNA_name": "hsa-mir-27a",
-          "predicted_type": "epigenetics",
-          "score": 0.8885120749473572,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 2,
-          "miRNA_name": "hsa-mir-200a",
-          "predicted_type": "epigenetics",
-          "score": 0.8553340435028076,
-          "in_paper_top15": false,
-          "paper_type": "",
-          "type_match": false
-        },
-        {
-          "rank": 3,
-          "miRNA_name": "hsa-mir-200b",
-          "predicted_type": "epigenetics",
-          "score": 0.8428978323936462,
+          "score": 0.7830584645271301,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 4,
-          "miRNA_name": "hsa-mir-191",
-          "predicted_type": "epigenetics",
-          "score": 0.8415036201477051,
+          "miRNA_name": "hsa-let-7d",
+          "predicted_type": "target",
+          "score": 0.7767734527587891,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 5,
-          "miRNA_name": "hsa-mir-200c",
-          "predicted_type": "epigenetics",
-          "score": 0.8318401575088501,
+          "miRNA_name": "hsa-let-7f",
+          "predicted_type": "target",
+          "score": 0.7482252717018127,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 6,
-          "miRNA_name": "hsa-mir-9",
-          "predicted_type": "epigenetics",
-          "score": 0.8316657543182373,
+          "miRNA_name": "hsa-let-7c",
+          "predicted_type": "target",
+          "score": 0.7468088269233704,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-335",
-          "predicted_type": "epigenetics",
-          "score": 0.8270077705383301,
+          "miRNA_name": "hsa-let-7e",
+          "predicted_type": "target",
+          "score": 0.742591917514801,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-204",
-          "predicted_type": "epigenetics",
-          "score": 0.8246025443077087,
-          "in_paper_top15": true,
-          "paper_type": "target",
+          "miRNA_name": "hsa-mir-200b",
+          "predicted_type": "target",
+          "score": 0.7282477021217346,
+          "in_paper_top15": false,
+          "paper_type": "",
           "type_match": false
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-429",
-          "predicted_type": "epigenetics",
-          "score": 0.8226087689399719,
-          "in_paper_top15": true,
-          "paper_type": "epigenetics",
-          "type_match": true
+          "miRNA_name": "hsa-let-7a",
+          "predicted_type": "target",
+          "score": 0.728217601776123,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-18a",
-          "predicted_type": "epigenetics",
-          "score": 0.8219094276428223,
+          "miRNA_name": "hsa-mir-182",
+          "predicted_type": "target",
+          "score": 0.727257490158081,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-137",
-          "predicted_type": "epigenetics",
-          "score": 0.820516049861908,
+          "miRNA_name": "hsa-mir-145",
+          "predicted_type": "genetics",
+          "score": 0.7236324548721313,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-1",
-          "predicted_type": "epigenetics",
-          "score": 0.8151107430458069,
+          "miRNA_name": "hsa-mir-135a",
+          "predicted_type": "genetics",
+          "score": 0.7203249335289001,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-199b",
-          "predicted_type": "epigenetics",
-          "score": 0.8142751455307007,
+          "miRNA_name": "hsa-mir-204",
+          "predicted_type": "target",
+          "score": 0.719453752040863,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 14,
-          "miRNA_name": "hsa-mir-127",
-          "predicted_type": "epigenetics",
-          "score": 0.8136977553367615,
-          "in_paper_top15": false,
-          "paper_type": "",
+          "miRNA_name": "hsa-mir-125b",
+          "predicted_type": "target",
+          "score": 0.719254195690155,
+          "in_paper_top15": true,
+          "paper_type": "genetics",
           "type_match": false
         },
         {
           "rank": 15,
-          "miRNA_name": "hsa-mir-19a",
-          "predicted_type": "epigenetics",
-          "score": 0.8130399584770203,
+          "miRNA_name": "hsa-mir-23b",
+          "predicted_type": "genetics",
+          "score": 0.7184817790985107,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -879,12 +732,159 @@
       ],
       "type_dist": {
         "circulation": 0,
-        "epigenetics": 15,
-        "target": 0,
-        "genetics": 0
+        "epigenetics": 0,
+        "target": 12,
+        "genetics": 3
       },
-      "overlap": 2,
-      "type_match": 1
+      "overlap": 1,
+      "type_match": 0
+    },
+    "hcc": {
+      "top15": [
+        {
+          "rank": 1,
+          "miRNA_name": "hsa-mir-373",
+          "predicted_type": "epigenetics",
+          "score": 0.7427086234092712,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 2,
+          "miRNA_name": "hsa-mir-143",
+          "predicted_type": "epigenetics",
+          "score": 0.7377825379371643,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 3,
+          "miRNA_name": "hsa-mir-126",
+          "predicted_type": "genetics",
+          "score": 0.7328733205795288,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 4,
+          "miRNA_name": "hsa-mir-1",
+          "predicted_type": "epigenetics",
+          "score": 0.7307670712471008,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 5,
+          "miRNA_name": "hsa-mir-34a",
+          "predicted_type": "epigenetics",
+          "score": 0.723622739315033,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 6,
+          "miRNA_name": "hsa-mir-152",
+          "predicted_type": "epigenetics",
+          "score": 0.7220626473426819,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 7,
+          "miRNA_name": "hsa-mir-200a",
+          "predicted_type": "epigenetics",
+          "score": 0.7191232442855835,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 8,
+          "miRNA_name": "hsa-mir-29a",
+          "predicted_type": "epigenetics",
+          "score": 0.7186568975448608,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 9,
+          "miRNA_name": "hsa-mir-195",
+          "predicted_type": "epigenetics",
+          "score": 0.7180097103118896,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 10,
+          "miRNA_name": "hsa-mir-139",
+          "predicted_type": "epigenetics",
+          "score": 0.7144424319267273,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 11,
+          "miRNA_name": "hsa-mir-181b",
+          "predicted_type": "epigenetics",
+          "score": 0.7142897844314575,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 12,
+          "miRNA_name": "hsa-mir-141",
+          "predicted_type": "epigenetics",
+          "score": 0.711817741394043,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 13,
+          "miRNA_name": "hsa-mir-193a",
+          "predicted_type": "epigenetics",
+          "score": 0.7107707858085632,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 14,
+          "miRNA_name": "hsa-mir-29b",
+          "predicted_type": "epigenetics",
+          "score": 0.7088421583175659,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        },
+        {
+          "rank": 15,
+          "miRNA_name": "hsa-mir-181c",
+          "predicted_type": "epigenetics",
+          "score": 0.7055608034133911,
+          "in_paper_top15": false,
+          "paper_type": "",
+          "type_match": false
+        }
+      ],
+      "type_dist": {
+        "circulation": 0,
+        "epigenetics": 14,
+        "target": 0,
+        "genetics": 1
+      },
+      "overlap": 0,
+      "type_match": 0
     }
   },
   "softmax_t": {
@@ -894,7 +894,7 @@
           "rank": 1,
           "miRNA_name": "hsa-mir-499a",
           "predicted_type": "target",
-          "score": 0.47417208552360535,
+          "score": 0.47441110014915466,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -903,124 +903,124 @@
           "rank": 2,
           "miRNA_name": "hsa-mir-196a",
           "predicted_type": "target",
-          "score": 0.4740528464317322,
+          "score": 0.47426119446754456,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 3,
-          "miRNA_name": "hsa-mir-488",
+          "miRNA_name": "hsa-mir-107",
           "predicted_type": "target",
-          "score": 0.4735085368156433,
-          "in_paper_top15": true,
-          "paper_type": "genetics",
+          "score": 0.47360631823539734,
+          "in_paper_top15": false,
+          "paper_type": "",
           "type_match": false
         },
         {
           "rank": 4,
-          "miRNA_name": "hsa-mir-296",
+          "miRNA_name": "hsa-mir-18a",
           "predicted_type": "target",
-          "score": 0.4728398323059082,
+          "score": 0.4733436107635498,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 5,
-          "miRNA_name": "hsa-mir-367",
+          "miRNA_name": "hsa-mir-146a",
           "predicted_type": "target",
-          "score": 0.4725707471370697,
+          "score": 0.47331809997558594,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 6,
-          "miRNA_name": "hsa-mir-146a",
+          "miRNA_name": "hsa-mir-19a",
           "predicted_type": "target",
-          "score": 0.47252750396728516,
+          "score": 0.4732479155063629,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-107",
+          "miRNA_name": "hsa-mir-19b",
           "predicted_type": "target",
-          "score": 0.4723374843597412,
+          "score": 0.47322484850883484,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-194",
+          "miRNA_name": "hsa-mir-488",
           "predicted_type": "target",
-          "score": 0.4722597897052765,
-          "in_paper_top15": false,
-          "paper_type": "",
+          "score": 0.4731896221637726,
+          "in_paper_top15": true,
+          "paper_type": "genetics",
           "type_match": false
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-339",
+          "miRNA_name": "hsa-mir-219",
           "predicted_type": "target",
-          "score": 0.4721638262271881,
+          "score": 0.47300419211387634,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-448",
+          "miRNA_name": "hsa-mir-214",
           "predicted_type": "target",
-          "score": 0.47214239835739136,
+          "score": 0.4728910028934479,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-103a",
+          "miRNA_name": "hsa-mir-199b",
           "predicted_type": "target",
-          "score": 0.4718593955039978,
+          "score": 0.47275152802467346,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-3151",
+          "miRNA_name": "hsa-mir-1827",
           "predicted_type": "target",
-          "score": 0.4718512296676636,
+          "score": 0.4727310240268707,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-153",
+          "miRNA_name": "hsa-mir-302a",
           "predicted_type": "target",
-          "score": 0.4717752933502197,
+          "score": 0.47256985306739807,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 14,
-          "miRNA_name": "hsa-mir-219",
+          "miRNA_name": "hsa-mir-339",
           "predicted_type": "target",
-          "score": 0.47167617082595825,
+          "score": 0.47255706787109375,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 15,
-          "miRNA_name": "hsa-mir-214",
+          "miRNA_name": "hsa-mir-92a",
           "predicted_type": "target",
-          "score": 0.4716406464576721,
+          "score": 0.4725366234779358,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
@@ -1039,135 +1039,135 @@
       "top15": [
         {
           "rank": 1,
-          "miRNA_name": "hsa-mir-34c",
+          "miRNA_name": "hsa-mir-34b",
           "predicted_type": "epigenetics",
-          "score": 0.4740235507488251,
+          "score": 0.47491124272346497,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 2,
-          "miRNA_name": "hsa-mir-34b",
+          "miRNA_name": "hsa-mir-34c",
           "predicted_type": "epigenetics",
-          "score": 0.4739890396595001,
+          "score": 0.4748907685279846,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 3,
-          "miRNA_name": "hsa-mir-152",
+          "miRNA_name": "hsa-mir-1280",
           "predicted_type": "epigenetics",
-          "score": 0.473893404006958,
+          "score": 0.4748263955116272,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 4,
-          "miRNA_name": "hsa-mir-18b",
+          "miRNA_name": "hsa-mir-1227",
           "predicted_type": "epigenetics",
-          "score": 0.4737604856491089,
+          "score": 0.47477027773857117,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 5,
-          "miRNA_name": "hsa-mir-369",
+          "miRNA_name": "hsa-mir-1229",
           "predicted_type": "epigenetics",
-          "score": 0.4737546145915985,
+          "score": 0.4747574031352997,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 6,
-          "miRNA_name": "hsa-mir-129",
+          "miRNA_name": "hsa-mir-410",
           "predicted_type": "epigenetics",
-          "score": 0.4736001789569855,
+          "score": 0.47474899888038635,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 7,
-          "miRNA_name": "hsa-mir-24",
+          "miRNA_name": "hsa-mir-615",
           "predicted_type": "epigenetics",
-          "score": 0.473581463098526,
+          "score": 0.47473251819610596,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 8,
-          "miRNA_name": "hsa-mir-124",
+          "miRNA_name": "hsa-mir-663a",
           "predicted_type": "epigenetics",
-          "score": 0.4735541343688965,
+          "score": 0.47470301389694214,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 9,
-          "miRNA_name": "hsa-mir-203",
+          "miRNA_name": "hsa-mir-369",
           "predicted_type": "epigenetics",
-          "score": 0.4735329747200012,
+          "score": 0.474698930978775,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 10,
-          "miRNA_name": "hsa-mir-193a",
+          "miRNA_name": "hsa-mir-124",
           "predicted_type": "epigenetics",
-          "score": 0.473517507314682,
+          "score": 0.4746006429195404,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 11,
-          "miRNA_name": "hsa-mir-139",
+          "miRNA_name": "hsa-mir-203",
           "predicted_type": "epigenetics",
-          "score": 0.47347763180732727,
+          "score": 0.474547803401947,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 12,
-          "miRNA_name": "hsa-mir-410",
+          "miRNA_name": "hsa-mir-129",
           "predicted_type": "epigenetics",
-          "score": 0.4733806848526001,
+          "score": 0.47451063990592957,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 13,
-          "miRNA_name": "hsa-mir-1229",
+          "miRNA_name": "hsa-mir-1290",
           "predicted_type": "epigenetics",
-          "score": 0.47337791323661804,
+          "score": 0.47449544072151184,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 14,
-          "miRNA_name": "hsa-mir-212",
+          "miRNA_name": "hsa-mir-95",
           "predicted_type": "epigenetics",
-          "score": 0.473375141620636,
+          "score": 0.4744437634944916,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
         },
         {
           "rank": 15,
-          "miRNA_name": "hsa-mir-1227",
+          "miRNA_name": "hsa-mir-100",
           "predicted_type": "epigenetics",
-          "score": 0.4733591675758362,
+          "score": 0.47443652153015137,
           "in_paper_top15": false,
           "paper_type": "",
           "type_match": false
