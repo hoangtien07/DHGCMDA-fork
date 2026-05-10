@@ -23,23 +23,14 @@ LOGS_DIR = Path('logs')
 VARIANTS = ['plan_c_w01', 'plan_d', 'plan_e']
 SEEDS = [1234, 42, 7]
 
-# Map variant → existing seed=1234 file (đã có từ trước)
-SEED_1234_MAP = {
-    'plan_c_w01': RESULTS_DIR / 'sweep_w0.1.json',
-    'plan_d': RESULTS_DIR / 'phase_d_baseline.json',
-    'plan_e': RESULTS_DIR / 'phase_e_no_cl_rebuild.json',
-}
+# NOTE (2026-05-11): Pre-existing seed=1234 JSONs (sweep_w0.1, phase_d_baseline,
+# phase_e_no_cl_rebuild) were generated BEFORE the seed bug fix — actual data split
+# was seed=0 (hardcoded in prepareData.py:271). Multi-seed v3 reruns ALL 3 seeds
+# fresh (1234, 42, 7) so cache miss force recompute with proper seed-aware split.
 
 
 def load_metrics(variant, seed):
-    """Load metrics cho variant+seed. Seed 1234 dùng file pre-existing."""
-    if seed == 1234 and variant in SEED_1234_MAP:
-        path = SEED_1234_MAP[variant]
-        if path.exists():
-            with open(path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        return None
-    # New seeds: parse log
+    """Load metrics cho variant+seed (chỉ parse log mới, không reuse pre-bug-fix JSONs)."""
     log_path = LOGS_DIR / f'multiseed_{variant}_seed{seed}.log'
     if not log_path.exists():
         return None

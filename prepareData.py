@@ -229,16 +229,21 @@ class OptimizedDataPreprocessor:
         print(f"Similarity matrices computed in {elapsed_time:.2f} seconds")
         return result
 
-    def preprocess_indices(self, association_matrix, validation):
-        """索引预处理"""
-        cache_key = f"indices_{self._compute_hash(association_matrix)}_{validation}"
+    def preprocess_indices(self, association_matrix, validation, seed=0):
+        """索引预处理.
+
+        🐛 FIX (2026-05-11): Trước đây `np.random.seed(0)` hardcoded → train/test split
+        FIXED across mọi --seed. Giờ accept `seed` parameter và include vào cache_key
+        để multi-seed thực sự cho different splits.
+        """
+        cache_key = f"indices_{self._compute_hash(association_matrix)}_{validation}_seed{seed}"
 
         cached_result = self._load_from_cache(cache_key)
         if cached_result is not None:
-            print("Loaded indices from cache")
+            print(f"Loaded indices from cache (seed={seed})")
             return cached_result
 
-        print("Computing indices...")
+        print(f"Computing indices (seed={seed})...")
         start_time = time.time()
 
         type_indices = {
@@ -268,7 +273,8 @@ class OptimizedDataPreprocessor:
         for i, j in zip(zero_indices_i, zero_indices_j):
             type_indices['zero'].append([i, j])
 
-        np.random.seed(0)
+        # FIX: dùng `seed` parameter thay vì hardcoded 0 → multi-seed get different splits
+        np.random.seed(seed)
         for key in type_indices:
             np.random.shuffle(type_indices[key])
             type_indices[key] = t.LongTensor(type_indices[key])
@@ -398,10 +404,11 @@ def prepare_data_optimized(opt):
     dataset['ID'] = similarity_results['ID']  # 整合的疾病相似性
     dataset['IM'] = similarity_results['IM']  # 整合的miRNA相似性
 
-    # 预处理索引
+    # 预处理索引 — truyền seed để multi-seed thực sự cho different train/test split
     print("Processing indices...")
+    seed = getattr(opt, 'seed', 0)
     index_results = preprocessor.preprocess_indices(
-        association_matrix, opt.validation)
+        association_matrix, opt.validation, seed=seed)
 
     dataset['md'] = index_results['cv_data']
     dataset['independent'] = index_results['independent']

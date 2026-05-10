@@ -36,9 +36,12 @@ $variants = @{
 # Seeds
 if ($AllSeeds) {
     $seeds = @(1234, 42, 7)
+    Write-Host "[INFO] AllSeeds mode — chay 3 seeds fresh (1234, 42, 7)" -ForegroundColor Cyan
 } else {
-    $seeds = @(42, 7)
-    Write-Host "[INFO] Skip seed 1234 (da co tu Plan A/B/C/D/E)" -ForegroundColor Yellow
+    # Default sau bug fix: chay 3 seeds fresh vi pre-existing seed=1234 results
+    # da generated voi bugged seed=0 data split — KHONG re-use duoc.
+    $seeds = @(1234, 42, 7)
+    Write-Host "[INFO] Default mode — 3 seeds fresh (1234, 42, 7) sau bug fix" -ForegroundColor Cyan
 }
 
 # Filter variants
