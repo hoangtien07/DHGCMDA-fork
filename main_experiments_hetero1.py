@@ -814,8 +814,8 @@ def train_epoch_optimized(model, train_data, optim, args):
         print(f"  📊 miRNA View 1 (Sequence): {concat_mi_tensor_view1.shape}")
         print(f"  📊 miRNA View 2 (Function): {concat_mi_tensor_view2.shape}")
 
-        G_mi_view1 = constructHW_knn(concat_mi_tensor_view1.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
-        G_mi_view2 = constructHW_knn(concat_mi_tensor_view2.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
+        G_mi_view1 = constructHW_knn(concat_mi_tensor_view1.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
+        G_mi_view2 = constructHW_knn(concat_mi_tensor_view2.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
 
         # 🦠 构建Disease的真正双视图
         # Disease View 1: 关联矩阵转置 + 基因特征 (来自d_gs.xlsx)
@@ -830,8 +830,8 @@ def train_epoch_optimized(model, train_data, optim, args):
         print(f"  📊 Disease View 1 (Gene): {concat_dis_tensor_view1.shape}")
         print(f"  📊 Disease View 2 (Semantic): {concat_dis_tensor_view2.shape}")
 
-        G_dis_view1 = constructHW_knn(concat_dis_tensor_view1.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
-        G_dis_view2 = constructHW_knn(concat_dis_tensor_view2.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
+        G_dis_view1 = constructHW_knn(concat_dis_tensor_view1.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
+        G_dis_view2 = constructHW_knn(concat_dis_tensor_view2.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
 
         print("✅ Successfully built TRUE DUAL VIEWS:")
         print("   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)")
@@ -854,14 +854,14 @@ def train_epoch_optimized(model, train_data, optim, args):
         concat_mi_tensor_view1 = concat_miRNA.to(device).float()
         concat_mi_tensor_view2 = concat_mi_tensor_view1
 
-        G_mi_view1 = constructHW_knn(concat_mi_tensor_view1.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
+        G_mi_view1 = constructHW_knn(concat_mi_tensor_view1.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
         G_mi_view2 = constructHW_kmean(concat_mi_tensor_view1.detach().cpu().numpy(), clusters=[9])
 
         concat_dis = torch.cat([association_matrix.t(), dis_sim_integrate_tensor], dim=1)
         concat_dis_tensor_view1 = concat_dis.to(device).float()
         concat_dis_tensor_view2 = concat_dis_tensor_view1
 
-        G_dis_view1 = constructHW_knn(concat_dis_tensor_view1.detach().cpu().numpy(), K_neigs=[13], is_probH=False)
+        G_dis_view1 = constructHW_knn(concat_dis_tensor_view1.detach().cpu().numpy(), K_neigs=args.K_neigs, is_probH=False)
         G_dis_view2 = constructHW_kmean(concat_dis_tensor_view1.detach().cpu().numpy(), clusters=[9])
 
     # 确保所有超图在正确设备上
