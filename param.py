@@ -204,12 +204,19 @@ def parameter_parser():
                         default=True,
                         help='Print detailed information.')
 
-    # Ablation mode for paper Fig. 4 reproduction (additive — default 'none' preserves original behavior)
+    # Ablation mode for paper Fig. 4 reproduction
+    # Legacy modes (additive switch — Plan A/B/C/D era): no_cl, no_hgcn, no_avf, no_hgt, no_dv
+    # Plan E true rebuild modes (Fix C): no_cl_rebuild, no_hgcn_rebuild, no_hgt_rebuild
+    #   - no_cl_rebuild: replace CL_HGCN dual-view với HGCN plain single-view (no contrastive)
+    #   - no_hgcn_rebuild: replace HGNN_conv (G matrix) với GCNConv (edge_index)
+    #   - no_hgt_rebuild: skip CẢ node_transformers và hgt_layers (true skip)
     parser.add_argument('--ablation',
                         type=str,
                         default='none',
-                        choices=['none', 'no_cl', 'no_hgcn', 'no_avf', 'no_hgt', 'no_dv'],
-                        help='Ablation variant: no_cl|no_hgcn|no_avf|no_hgt|no_dv (Fig.4 paper).')
+                        choices=['none', 'no_cl', 'no_hgcn', 'no_avf', 'no_hgt', 'no_dv',
+                                 'no_cl_rebuild', 'no_hgcn_rebuild', 'no_hgt_rebuild'],
+                        help='Ablation variant. Legacy: no_cl|no_hgcn|no_avf|no_hgt|no_dv. '
+                             'Plan E rebuild: no_cl_rebuild|no_hgcn_rebuild|no_hgt_rebuild.')
 
     # Save paths
     parser.add_argument('--save_dir',

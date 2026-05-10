@@ -670,6 +670,31 @@ class HeterogenousGraphCLAMIR(nn.Module):
             )
             self.hgt_layers.append(layer)
 
+        # ============================================================
+        # Plan E: True ablation rebuild modules (Fix C, backwards-compat)
+        # ============================================================
+        # no_cl_rebuild: HGCN plain single-view (no dual + no contrastive)
+        if self.ablation_mode == 'no_cl_rebuild':
+            self.HGCN_mi_plain = HGCN(mi_num + dis_num, hidden_list)
+            self.HGCN_dis_plain = HGCN(dis_num + mi_num, hidden_list)
+            print(f"[ABLATION REBUILD] no_cl_rebuild — HGCN plain single-view, no contrastive")
+
+        # no_hgcn_rebuild: GCNConv thay HGNN_conv (edge_index thay G matrix)
+        if self.ablation_mode == 'no_hgcn_rebuild':
+            self.gcn_mi_v1 = GCNConv(mi_num + dis_num, hidden_list[0])
+            self.gcn_mi_v2 = GCNConv(mi_num + dis_num, hidden_list[0])
+            self.gcn_dis_v1 = GCNConv(dis_num + mi_num, hidden_list[0])
+            self.gcn_dis_v2 = GCNConv(dis_num + mi_num, hidden_list[0])
+            self._ei_cache = None  # Lazy init trong forward (build từ G matrix lần đầu)
+            print(f"[ABLATION REBUILD] no_hgcn_rebuild — GCNConv với edge_index (threshold G > 0.1)")
+
+        # no_hgt_rebuild: skip node_transformers + hgt_layers HOÀN TOÀN
+        # Permanent projection layer (tránh per-step nn.Linear allocation bug ở line 819)
+        if self.ablation_mode == 'no_hgt_rebuild':
+            self.skip_proj_mi = nn.Linear(hidden_list[0], out_channels)
+            self.skip_proj_dis = nn.Linear(hidden_list[0], out_channels)
+            print(f"[ABLATION REBUILD] no_hgt_rebuild — skip transformers + HGT, projection trực tiếp")
+
         # 优化的关联预测器
         self.association_predictor = SimplifiedTypePredictor(
             node_dim=out_channels,
@@ -684,6 +709,21 @@ class HeterogenousGraphCLAMIR(nn.Module):
         self.register_buffer('type_distribution',
                              torch.tensor([0.219, 0.094, 0.175, 0.407]))
         self.update_type_counts = True
+
+    def _g_to_edge_index(self, G, threshold=0.1):
+        """Plan E (no_hgcn_rebuild): convert hypergraph Laplacian G [N, N] → edge_index [2, E].
+
+        Threshold để giảm số edges (tránh OOM). G được tính từ KNN nên đã sparse rồi —
+        threshold=0.1 chỉ giữ edges có weight đáng kể. GCNConv tự thêm self-loops nên
+        ta loại bỏ diagonal.
+        """
+        n = G.shape[0]
+        edge_mask = (G.abs() > threshold)
+        # Remove self-loops (GCNConv add_self_loops=True by default)
+        diag_mask = ~torch.eye(n, dtype=torch.bool, device=G.device)
+        edge_mask = edge_mask & diag_mask
+        edge_index = torch.nonzero(edge_mask, as_tuple=False).t().contiguous()
+        return edge_index.long()
 
     def _get_association_matrix(self, concat_mi_tensor, concat_dis_tensor):
         """
@@ -748,10 +788,40 @@ class HeterogenousGraphCLAMIR(nn.Module):
 
         try:
             # 阶段1: 超图特征提取（视图内对比学习）
-            mi_feature1, mi_feature2, mi_intra_loss = self.CL_HGCN_mi(
-                concat_mi_tensor, G_mi_Kn, concat_mi_tensor, G_mi_Km)
-            dis_feature1, dis_feature2, dis_intra_loss = self.CL_HGCN_dis(
-                concat_dis_tensor, G_dis_Kn, concat_dis_tensor, G_dis_Km)
+            # Plan E rebuild branches:
+            if self.ablation_mode == 'no_cl_rebuild':
+                # HGCN plain single-view, no dual + no contrastive
+                mi_feature1 = self.HGCN_mi_plain(concat_mi_tensor, G_mi_Kn)
+                mi_feature2 = mi_feature1
+                mi_intra_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+                dis_feature1 = self.HGCN_dis_plain(concat_dis_tensor, G_dis_Kn)
+                dis_feature2 = dis_feature1
+                dis_intra_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+            elif self.ablation_mode == 'no_hgcn_rebuild':
+                # GCNConv với edge_index thay HGNN_conv (G matrix). Lazy-init edge_index cache.
+                if self._ei_cache is None:
+                    self._ei_cache = {
+                        'mi_v1': self._g_to_edge_index(G_mi_Kn, threshold=0.1),
+                        'mi_v2': self._g_to_edge_index(G_mi_Km, threshold=0.1),
+                        'dis_v1': self._g_to_edge_index(G_dis_Kn, threshold=0.1),
+                        'dis_v2': self._g_to_edge_index(G_dis_Km, threshold=0.1),
+                    }
+                    print(f"[no_hgcn_rebuild] edge counts: mi_v1={self._ei_cache['mi_v1'].shape[1]}, "
+                          f"mi_v2={self._ei_cache['mi_v2'].shape[1]}, "
+                          f"dis_v1={self._ei_cache['dis_v1'].shape[1]}, "
+                          f"dis_v2={self._ei_cache['dis_v2'].shape[1]}")
+                mi_feature1 = F.leaky_relu(self.gcn_mi_v1(concat_mi_tensor, self._ei_cache['mi_v1']), 0.25)
+                mi_feature2 = F.leaky_relu(self.gcn_mi_v2(concat_mi_tensor, self._ei_cache['mi_v2']), 0.25)
+                mi_intra_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+                dis_feature1 = F.leaky_relu(self.gcn_dis_v1(concat_dis_tensor, self._ei_cache['dis_v1']), 0.25)
+                dis_feature2 = F.leaky_relu(self.gcn_dis_v2(concat_dis_tensor, self._ei_cache['dis_v2']), 0.25)
+                dis_intra_loss = torch.tensor(0.0, device=target_device, requires_grad=True)
+            else:
+                # Original CL_HGCN dual-view + contrastive (default + no_hgt_rebuild + legacy ablations)
+                mi_feature1, mi_feature2, mi_intra_loss = self.CL_HGCN_mi(
+                    concat_mi_tensor, G_mi_Kn, concat_mi_tensor, G_mi_Km)
+                dis_feature1, dis_feature2, dis_intra_loss = self.CL_HGCN_dis(
+                    concat_dis_tensor, G_dis_Kn, concat_dis_tensor, G_dis_Km)
 
             # [Ablation] no_avf: thay attention-guided view fusion bằng simple average
             if self.ablation_mode == 'no_avf':
@@ -762,8 +832,9 @@ class HeterogenousGraphCLAMIR(nn.Module):
                 dis_feature_fused = self.AM_dis([dis_feature1, dis_feature2])
 
             # 🆕 跨模态视图间对比学习（miRNA vs Disease）
+            # Plan E: disable inter-view CL khi no_cl_rebuild để full bypass contrastive
             inter_view_loss = torch.tensor(0.0, device=target_device)
-            if self.enable_inter_view_cl and self.training:
+            if self.enable_inter_view_cl and self.training and self.ablation_mode != 'no_cl_rebuild':
                 # 直接从concat_mi_tensor的前dis_num列提取关联矩阵
                 # 但要确保数值在合理范围内（0或正数）
                 association_matrix_extracted = concat_mi_tensor[:, :self.dis_num].clone()
@@ -801,6 +872,17 @@ class HeterogenousGraphCLAMIR(nn.Module):
                 dis_sim_reconstructed = torch.eye(self.dis_num, device=target_device, dtype=torch.float32)
 
             # 阶段3: 异构图处理
+            # Plan E no_hgt_rebuild: bypass node_transformers + hgt_layers HOÀN TOÀN
+            if self.ablation_mode == 'no_hgt_rebuild':
+                # Project fused features trực tiếp về out_channels (skip transformers + HGT)
+                mi_embeddings = self.skip_proj_mi(mi_feature_fused)
+                dis_embeddings = self.skip_proj_dis(dis_feature_fused)
+                # Predictor needs to be called outside this branch — fall through bằng cách set hetero_data=None tạm
+                # và đi vào fallback branch dưới? Không — đặt flag riêng.
+                _no_hgt_rebuild_path = True
+                score = self.association_predictor(mi_embeddings, dis_embeddings)
+                return score, mi_cl_loss, dis_cl_loss, mi_sim_reconstructed, dis_sim_reconstructed
+
             if hetero_data is not None:
                 # 变换节点特征
                 x_dict = {
