@@ -462,11 +462,12 @@ class SimplifiedTypePredictor(nn.Module):
     Type relation vectors được init ORTHOGONAL để tránh collapse.
     """
 
-    def __init__(self, node_dim, hidden_dim, num_types=4, dropout=0.2):
+    def __init__(self, node_dim, hidden_dim, num_types=4, dropout=0.2, loss_mode='two_head'):
         super(SimplifiedTypePredictor, self).__init__()
         self.node_dim = node_dim
         self.hidden_dim = hidden_dim
         self.num_types = num_types
+        self.loss_mode = loss_mode
 
         # 节点投影层
         self.mi_projector = nn.Sequential(
@@ -481,11 +482,16 @@ class SimplifiedTypePredictor(nn.Module):
             nn.Dropout(dropout)
         )
 
-        # 存在性预测的关系向量
+        # 存在性预测的关系向量 (two_head mode dùng để compute exist_score riêng)
         self.exist_relation = nn.Parameter(torch.randn(hidden_dim) * 0.01)
 
         # 类型特定的关系向量 (核心创新)
         self.type_relations = nn.Parameter(torch.randn(num_types, hidden_dim) * 0.01)
+
+        # Plan D Fix A++: r_no_assoc cho softmax_5class mode (class 0 = no association).
+        # Chỉ dùng khi loss_mode='softmax_5class'; với two_head thì parameter này vẫn tồn tại
+        # nhưng không xuất hiện trong loss path → gradient = 0, không ảnh hưởng.
+        self.r_no_assoc = nn.Parameter(torch.randn(hidden_dim) * 0.01)
 
         # 🔥 新增: 可学习的temperature (提高多分类准确性)
         self.temperature = nn.Parameter(torch.tensor(2.0))
@@ -495,6 +501,7 @@ class SimplifiedTypePredictor(nn.Module):
         print(f"   节点维度: {node_dim} → {hidden_dim}")
         print(f"   类型数量: {num_types}")
         print(f"   Temperature: 2.0 (可学习)")
+        print(f"   Loss mode: {loss_mode}")
 
     def _initialize_parameters(self):
         """正交初始化类型关系向量"""
@@ -505,6 +512,9 @@ class SimplifiedTypePredictor(nn.Module):
             scale = math.sqrt(2.0 / self.hidden_dim)
             self.type_relations.data = orthogonal * scale
             self.exist_relation.data = torch.randn(self.hidden_dim) * scale
+            # Plan D: r_no_assoc init với cùng scale, KHÔNG orthogonal với type_relations
+            # (no_assoc là class anti-correlated với types, không cần orthogonal)
+            self.r_no_assoc.data = torch.randn(self.hidden_dim) * scale
 
     def forward(self, mi_embeddings, dis_embeddings):
         """
@@ -524,8 +534,28 @@ class SimplifiedTypePredictor(nn.Module):
         mi_feat = self.mi_projector(mi_embeddings)  # [mi_num, hidden_dim]
         dis_feat = self.dis_projector(dis_embeddings)  # [dis_num, hidden_dim]
 
+        temperature = torch.clamp(self.temperature, min=0.5, max=5.0)
 
+        if self.loss_mode == 'softmax_5class':
+            # Plan D Fix A++: 5-class softmax CE (Eq. 32 aligned).
+            # Class 0 = no association, classes 1-4 = 4 types.
+            # Trả về RAW LOGITS (không apply softmax) — F.cross_entropy tự handle.
+            # Downstream code (Calculate_Metrics, case_study) detect bằng shape + dùng softmax derive.
+            no_assoc_logit = torch.mm(mi_feat * self.r_no_assoc, dis_feat.t())  # [mi, dis]
+            type_logits_list = []
+            for type_idx in range(self.num_types):
+                r_type = self.type_relations[type_idx]
+                type_logits_list.append(torch.mm(mi_feat * r_type, dis_feat.t()))
+            type_logits = torch.stack(type_logits_list, dim=2)  # [mi, dis, 4]
+            # Concat no_assoc làm channel 0
+            scores = torch.cat([
+                no_assoc_logit.unsqueeze(-1),  # [mi, dis, 1] = no_assoc logit
+                type_logits  # [mi, dis, 4] = type logits
+            ], dim=-1) / temperature
+            # scores shape [mi, dis, 5] — RAW LOGITS, downstream phải softmax
+            return scores
 
+        # two_head mode (Plan A/B/C path) — giữ nguyên behavior
         # 存在性预测: score = mi^T @ diag(r_exist) @ dis
         exist_scores = torch.sigmoid(
             torch.mm(mi_feat * self.exist_relation, dis_feat.t())
@@ -542,7 +572,6 @@ class SimplifiedTypePredictor(nn.Module):
 
         # 🔥 关键修改: 使用temperature scaling (提高多分类准确性)
         # 避免所有类型概率都接近0.25
-        temperature = torch.clamp(self.temperature, min=0.5, max=5.0)
         type_probs = F.softmax(type_logits / temperature, dim=2)
 
         # 组合结果
@@ -645,7 +674,8 @@ class HeterogenousGraphCLAMIR(nn.Module):
         self.association_predictor = SimplifiedTypePredictor(
             node_dim=out_channels,
             hidden_dim=128,
-            num_types=4
+            num_types=4,
+            loss_mode=getattr(args, 'loss_mode', 'two_head')
         )
 
         self.dropout = nn.Dropout(args.dropout)

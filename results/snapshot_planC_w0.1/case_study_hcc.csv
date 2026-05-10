@@ -1,0 +1,16 @@
+rank,miRNA_name,predicted_type,score,in_paper_top15,paper_type,type_match
+1,hsa-mir-34b,epigenetics,0.9986295700073242,False,,False
+2,hsa-mir-34c,epigenetics,0.9985679388046265,False,,False
+3,hsa-mir-1280,epigenetics,0.9983744621276855,False,,False
+4,hsa-mir-1227,epigenetics,0.9982056617736816,False,,False
+5,hsa-mir-1229,epigenetics,0.9981669187545776,False,,False
+6,hsa-mir-410,epigenetics,0.9981416463851929,False,,False
+7,hsa-mir-615,epigenetics,0.9980921149253845,False,,False
+8,hsa-mir-663a,epigenetics,0.9980033040046692,False,,False
+9,hsa-mir-369,epigenetics,0.9979912042617798,False,,False
+10,hsa-mir-124,epigenetics,0.9976956248283386,False,,False
+11,hsa-mir-203,epigenetics,0.9975366592407227,False,,False
+12,hsa-mir-129,epigenetics,0.997424840927124,False,,False
+13,hsa-mir-1290,epigenetics,0.9973791837692261,False,,False
+14,hsa-mir-95,epigenetics,0.9972238540649414,False,,False
+15,hsa-mir-100,epigenetics,0.9972019195556641,False,,False

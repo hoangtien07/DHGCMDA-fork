@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9736,
+  "AUPR": 0.9678,
+  "F1": 0.9333,
+  "Accuracy": 0.9309,
+  "Recall": 0.9657,
+  "Specificity": 0.8961,
+  "Precision": 0.9037,
+  "top1_precision": 0.6179,
+  "top1_recall": 0.6668,
+  "top1_f1": 0.6413,
+  "fold_times_sec": [
+    495.6,
+    505.87,
+    512.92,
+    505.49,
+    497.58
+  ],
+  "avg_fold_time_sec": 503.492,
+  "total_execution_sec": 2517.85,
+  "_source": "logs\\phase_d_no_dv.log",
+  "loss_mode": "softmax_5class",
+  "ablation": "no_dv"
+}

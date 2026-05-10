@@ -1,0 +1,16 @@
+rank,miRNA_name,predicted_type,score,in_paper_top15,paper_type,type_match
+1,hsa-mir-499a,target,0.9971253275871277,False,,False
+2,hsa-mir-196a,target,0.9966744184494019,False,,False
+3,hsa-mir-107,target,0.99470454454422,False,,False
+4,hsa-mir-18a,target,0.9939141869544983,False,,False
+5,hsa-mir-146a,target,0.9938374161720276,False,,False
+6,hsa-mir-19a,target,0.9936262369155884,False,,False
+7,hsa-mir-19b,target,0.9935569167137146,False,,False
+8,hsa-mir-488,target,0.9934511184692383,True,genetics,False
+9,hsa-mir-219,target,0.9928930401802063,False,,False
+10,hsa-mir-214,target,0.992552638053894,False,,False
+11,hsa-mir-199b,target,0.9921327233314514,False,,False
+12,hsa-mir-1827,target,0.9920710921287537,False,,False
+13,hsa-mir-302a,target,0.991586446762085,False,,False
+14,hsa-mir-339,target,0.9915477633476257,False,,False
+15,hsa-mir-92a,target,0.991486132144928,False,,False

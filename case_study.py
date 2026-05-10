@@ -219,6 +219,17 @@ def train_full_data(args):
             G_mi_view1, G_mi_view2, G_dis_view1, G_dis_view2, hetero_data
         )
 
+    # Plan D Fix A++: nếu loss_mode='softmax_5class', score là raw logits → softmax
+    # và transform về consistent format [exist, type1..type4] cho rerank script
+    predictor_loss_mode = getattr(model.association_predictor, 'loss_mode', 'two_head')
+    if predictor_loss_mode == 'softmax_5class' and len(score.shape) == 3 and score.shape[2] == 5:
+        probs = F.softmax(score, dim=-1)
+        existence = 1.0 - probs[..., 0:1]  # P(any association) = 1 - P(no_assoc)
+        # Re-normalize type probs trên 4 type channels (loại bỏ no_assoc mass)
+        type_probs_renorm = probs[..., 1:5] / (probs[..., 1:5].sum(dim=-1, keepdim=True) + 1e-12)
+        score = torch.cat([existence, type_probs_renorm], dim=-1)
+        print(f"[case_study] Applied softmax + renormalize (loss_mode=softmax_5class)")
+
     return score.detach().cpu().numpy()
 
 

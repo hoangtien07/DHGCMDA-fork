@@ -81,7 +81,43 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
 - ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
-## 7b. Plan C — Eq. 32 alignment (sweep XONG, verify PENDING — 2026-05-09)
+## 7b1. Plan D — Fix A++ (5-class softmax CE) — XONG 2026-05-10
+
+### 🏆 Top-1 F1 vượt paper +4.2% (lớn nhất từ đầu project)
+
+| Run | AUC | F1 binary | Top-1 F1 | Δ vs paper |
+|---|---:|---:|---:|---:|
+| Paper | 0.9669 | 0.9278 | 0.5970 | 0% |
+| Plan C-w0.1 | 0.9641 | 0.9118 | 0.5996 | +0.4% |
+| **Phase D Fix A++** | **0.9743** | **0.9361** | **0.6222** | **+4.2%** |
+
+### ❌ Nhưng Fig.4 + case study KHÔNG cải thiện
+
+- Fig.4 ablation match: 1/5 (giảm từ Plan C-w0.1 = 2/5)
+- Case study collapse: 15/15 cùng type per disease (y nguyên)
+
+### Phán quyết khoa học
+
+**Loss formulation KHÔNG phải root cause của Fig.4 + case study.** 2 vấn đề này độc lập với loss — cần Plan E (Fix C — true ablation rebuild với GCN thực thay identity) để fix Fig.4. Class collapse case study cần thí nghiệm riêng.
+
+### Code mới Plan D
+
+| File | Thay đổi |
+|---|---|
+| [param.py](param.py) | `--loss_mode {two_head, softmax_5class}` flag |
+| [hetero_model.py](hetero_model.py) | `SimplifiedTypePredictor` thêm `r_no_assoc` + branch softmax_5class |
+| [main_experiments_hetero1.py](main_experiments_hetero1.py) | `SimplifiedMultiTypeAssociationLoss._compute_softmax5_loss`; `test_optimized` softmax transform |
+| [case_study.py](case_study.py) | softmax + renormalize cho softmax_5class mode |
+| [run_phase_d.ps1](run_phase_d.ps1) | Phase D orchestrator |
+| [summarize_phase_d.py](summarize_phase_d.py) | Aggregate Phase D vs Plan C-w0.1 vs Paper |
+
+### Backwards compat
+
+`--loss_mode two_head` mặc định → mọi lệnh Plan A/B/C cũ vẫn chạy được.
+
+---
+
+## 7b2. Plan C — Eq. 32 alignment (sweep XONG, verify PARTIAL — 2026-05-09)
 
 ### 🚀 RESUME: chạy 1 lệnh duy nhất khi mở máy
 

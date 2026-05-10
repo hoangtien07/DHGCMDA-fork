@@ -92,6 +92,7 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         super(SimplifiedMultiTypeAssociationLoss, self).__init__()
         self.alpha = args.alpha
         self.device = device
+        self.loss_mode = getattr(args, 'loss_mode', 'two_head')
 
         # 🔥 Effective Number 类别权重 (更激进的平衡)
         counts = [367, 157, 293, 681]  # 循环, 表观, 靶标, 遗传
@@ -104,12 +105,28 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.register_buffer('class_weights',
                              torch.tensor(normalized_weights, device=self.device))
 
+        # Plan D: 5-class weights cho softmax_5class mode.
+        # neg_count xấp xỉ 10× positive (alpha=10 ratio sampling typical).
+        # Tổng positive ~1498, neg sampled ~14980. neg weight nhỏ hơn types để minority types không bị neg ăn hết signal.
+        neg_count = sum(counts) * 10  # ratio sampling mặc định
+        counts_5 = [neg_count] + counts  # [neg, circ, epi, target, genetic]
+        effective_nums_5 = [(1 - beta ** n) / (1 - beta) for n in counts_5]
+        raw_weights_5 = [1.0 / en for en in effective_nums_5]
+        sum_weights_5 = sum(raw_weights_5)
+        normalized_weights_5 = [w * len(counts_5) / sum_weights_5 for w in raw_weights_5]
+        self.register_buffer('class_weights_5',
+                             torch.tensor(normalized_weights_5, device=self.device))
+
         self.focal_gamma = 2.0
         # Eq. 32 alignment sweep: exist_weight ∈ {0.0, 0.05, 0.1, 0.3} via CLI
         self.label_smoothing = 0.1
         self.exist_weight = float(getattr(args, 'exist_weight', 0.3))
         self.type_weight = 1.0 - self.exist_weight if self.exist_weight < 1.0 else 0.0
-        print(f"   exist_weight={self.exist_weight:.3f}, type_weight={self.type_weight:.3f}")
+        print(f"   loss_mode={self.loss_mode}")
+        if self.loss_mode == 'two_head':
+            print(f"   exist_weight={self.exist_weight:.3f}, type_weight={self.type_weight:.3f}")
+        else:
+            print(f"   class_weights_5 (neg+4types): {[f'{w:.3f}' for w in normalized_weights_5]}")
 
         print(f"\n✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)")
         print(f"   类别权重 (beta=0.99999): {[f'{w:.3f}' for w in normalized_weights]}")
@@ -118,6 +135,11 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         predictions = predictions.to(self.device).float()
         targets = targets.to(self.device).float()
 
+        # Plan D Fix A++: 5-class softmax CE branch
+        if self.loss_mode == 'softmax_5class':
+            return self._compute_softmax5_loss(one_index, zero_index, predictions, targets)
+
+        # two_head mode (Plan A/B/C path) — giữ nguyên
         # 兼容2D和3D输入
         if len(predictions.shape) == 2:
             # 2D输入 [mi_num, dis_num] - 只有存在性预测
@@ -145,6 +167,49 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         else:
             # 只有存在性损失
             return exist_loss
+
+    def _compute_softmax5_loss(self, one_index, zero_index, logits, targets):
+        """Plan D Fix A++: single 5-class CrossEntropy.
+
+        logits: [mi_num, dis_num, 5] RAW LOGITS từ predictor (channel 0=no_assoc, 1-4=types)
+        targets: [mi_num, dis_num] giá trị ∈ {0=no_assoc, 1..4=types}
+
+        Build target classes 0..4 cho cả positive (one_index) + sampled negative (zero_index).
+        F.cross_entropy với class_weights_5 + label_smoothing → đơn loss thay 2-head fight.
+        """
+        if len(logits.shape) != 3 or logits.shape[2] != 5:
+            raise ValueError(f"softmax_5class expects logits shape [mi, dis, 5], got {logits.shape}")
+
+        pos_indices = self._process_indices(one_index, logits.shape[0], logits.shape[1])
+        neg_indices = self._process_indices(zero_index, logits.shape[0], logits.shape[1])
+
+        if len(pos_indices) == 0 and len(neg_indices) == 0:
+            return torch.tensor(0.0, device=self.device, requires_grad=True)
+
+        # Combine positive + negative indices
+        if len(pos_indices) > 0 and len(neg_indices) > 0:
+            combined_idx = torch.cat([pos_indices, neg_indices], dim=0)
+        elif len(pos_indices) > 0:
+            combined_idx = pos_indices
+        else:
+            combined_idx = neg_indices
+
+        # Extract logits for combined indices: [N, 5]
+        combined_logits = logits[combined_idx[:, 0], combined_idx[:, 1], :]
+
+        # Build target classes from `targets` matrix (đã có values 0..4)
+        # targets[i,j] = 0 cho no_assoc, 1..4 cho 4 types — match class indices của 5-class softmax
+        combined_targets = targets[combined_idx[:, 0], combined_idx[:, 1]].long()
+
+        # Clip để đảm bảo target trong [0, 4] (defensive)
+        combined_targets = torch.clamp(combined_targets, 0, 4)
+
+        return F.cross_entropy(
+            combined_logits, combined_targets,
+            weight=self.class_weights_5,
+            label_smoothing=self.label_smoothing,
+            reduction='mean'
+        )
 
     def _compute_existence_loss(self, one_index, zero_index, exist_pred, targets):
         pos_indices = self._process_indices(one_index, exist_pred.shape[0], exist_pred.shape[1])
@@ -957,6 +1022,18 @@ def test_optimized(model, data, concat_mi_tensor, concat_dis_tensor,
             G_mi_Kn, G_mi_Km, G_dis_Kn, G_dis_Km,
             hetero_data
         )
+
+    # Plan D: nếu loss_mode='softmax_5class', score là raw logits → softmax + transform
+    # về 5-channel format [exist_score, type1_prob, type2_prob, type3_prob, type4_prob]
+    # để downstream evaluation code không phải đổi
+    predictor_loss_mode = getattr(model.association_predictor, 'loss_mode', 'two_head')
+    if predictor_loss_mode == 'softmax_5class' and len(score.shape) == 3 and score.shape[2] == 5:
+        probs = F.softmax(score, dim=-1)  # [mi, dis, 5] probabilities
+        # exist = 1 - P(no_assoc), type_probs = P(class=k|k>0) RE-NORMALIZED qua type-only softmax
+        # Để top-1 ranking giữa types không bị nhiễu bởi "no_assoc" mass.
+        existence = 1.0 - probs[..., 0:1]  # [mi, dis, 1]
+        type_probs_renorm = probs[..., 1:5] / (probs[..., 1:5].sum(dim=-1, keepdim=True) + 1e-12)
+        score = torch.cat([existence, type_probs_renorm], dim=-1)  # [mi, dis, 5]
 
     # 批量处理测试索引
     test_one_index = data[3][0]

@@ -188,6 +188,16 @@ def parameter_parser():
                         default=0.3,
                         help='Weight of existence (focal) loss term. Paper Eq. 32 uses 0.0 (no existence loss). Sweep {0.0, 0.05, 0.1, 0.3}.')
 
+    # Plan D — Fix A++: 5-class softmax CE (Eq. 32 fully aligned)
+    parser.add_argument('--loss_mode',
+                        type=str,
+                        default='two_head',
+                        choices=['two_head', 'softmax_5class'],
+                        help='Loss formulation. two_head=Plan C path (existence head + type head); '
+                             'softmax_5class=Fix A++ path (single 5-class softmax CE: class 0 = no '
+                             'association, classes 1-4 = 4 types). softmax_5class khớp Eq. 32 paper '
+                             'và force per-(m,d) competition giữa positive types và negative class.')
+
     # Verbose output
     parser.add_argument('--verbose',
                         type=bool,
