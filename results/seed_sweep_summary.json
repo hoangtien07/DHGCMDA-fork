@@ -1,0 +1,107 @@
+{
+  "paper": {
+    "AUC": 0.9669,
+    "AUPR": 0.9738,
+    "F1": 0.9278,
+    "top1_precision": 0.5842,
+    "top1_recall": 0.6341,
+    "top1_f1": 0.597
+  },
+  "results": {
+    "0": {
+      "AUC": 0.9738,
+      "AUPR": 0.9666,
+      "F1": 0.9303,
+      "Accuracy": 0.9281,
+      "Recall": 0.9587,
+      "Specificity": 0.8975,
+      "Precision": 0.9044,
+      "top1_precision": 0.5007,
+      "top1_recall": 0.6005,
+      "top1_f1": 0.5454,
+      "fold_times_sec": [
+        516.07,
+        506.48,
+        505.03,
+        511.01,
+        504.35
+      ],
+      "avg_fold_time_sec": 508.588,
+      "total_execution_sec": 2543.88,
+      "seed": 0
+    },
+    "1": {
+      "AUC": 0.973,
+      "AUPR": 0.9671,
+      "F1": 0.9292,
+      "Accuracy": 0.9266,
+      "Recall": 0.9625,
+      "Specificity": 0.8907,
+      "Precision": 0.8985,
+      "top1_precision": 0.5373,
+      "top1_recall": 0.5969,
+      "top1_f1": 0.5655,
+      "fold_times_sec": [
+        509.43,
+        511.85,
+        514.86,
+        516.75,
+        531.73
+      ],
+      "avg_fold_time_sec": 516.924,
+      "total_execution_sec": 2585.54,
+      "seed": 1
+    },
+    "42": {
+      "AUC": 0.974,
+      "AUPR": 0.9682,
+      "F1": 0.9329,
+      "Accuracy": 0.9303,
+      "Recall": 0.9669,
+      "Specificity": 0.8937,
+      "Precision": 0.9016,
+      "top1_precision": 0.5,
+      "top1_recall": 0.5891,
+      "top1_f1": 0.5393,
+      "fold_times_sec": [
+        519.27,
+        519.18,
+        520.78,
+        520.61,
+        517.39
+      ],
+      "avg_fold_time_sec": 519.446,
+      "total_execution_sec": 2598.14,
+      "seed": 42
+    },
+    "1234": {
+      "AUC": 0.9776,
+      "AUPR": 0.9724,
+      "F1": 0.9362,
+      "Accuracy": 0.9339,
+      "Recall": 0.9691,
+      "Specificity": 0.8987,
+      "Precision": 0.9059,
+      "top1_precision": 0.5172,
+      "top1_recall": 0.5967,
+      "top1_f1": 0.5535,
+      "fold_times_sec": [
+        505.2,
+        511.92,
+        517.04,
+        507.79,
+        509.6
+      ],
+      "avg_fold_time_sec": 510.31000000000006,
+      "total_execution_sec": 2551.95,
+      "seed": 1234
+    }
+  },
+  "distances_to_paper": {
+    "0": 0.07167086818605405,
+    "1": 0.046115996498498374,
+    "42": 0.0766678739362257,
+    "1234": 0.06075571977628814
+  },
+  "best_seed": 1
+}

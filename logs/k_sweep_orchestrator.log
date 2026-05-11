@@ -1,0 +1,9 @@
+================================================================
+ K_neigs SWEEP - paper Fig.3 reproduce
+ Seed: 1 (best calibration from seed sweep)
+ K values: 7, 9, 11, 13, 15
+ Config: DEFAULT (--exist_weight 0.3, two_head, no ablation)
+================================================================
+
+[1/5] K_neigs=7 (seed=1)
+----------------------------------------------------------------
