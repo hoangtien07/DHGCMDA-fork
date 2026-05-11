@@ -81,6 +81,73 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
 - ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
+## 7z. REFOCUS REPRODUCE (2026-05-11, đang chạy)
+
+### 🚀 RESUME 1 LỆNH KHI MỞ MÁY LẠI
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+.\run_k_sweep.ps1 -Seed 1    # K sweep 5 values × ~50' = ~4h CPU
+```
+
+Sau khi xong (auto-aggregate vào `results/k_sweep_seed1_summary.json`):
+- Nếu K cho gap < 3% paper → verify Fig.4 ablation với (seed=1, K=best)
+- Nếu vẫn > 5% gap → try λ₂ sweep hoặc HMDD v3.2
+
+### Status hiện tại
+
+**User feedback (2026-05-11)**: Plan B2 (MLRC pivot) là scope drift khỏi goal ban đầu "chạy code → ra số như paper". REFOCUS về reproduce.
+
+**Cleanup đã làm**:
+- ❌ Deleted: `mlp_baseline.py`, `paper_section_7_4_outline.md` (MLRC-only)
+- ✅ Kept: All bug fixes (3 critical), paper alignment (n_head=4, λ₃=1.0, update_freq=5), backwards-compat flags (defaults match original code)
+- ✅ Fixed: `K_neigs=[13]` hardcoded → `args.K_neigs` (6 nơi trong main_experiments_hetero1.py)
+
+### Seed sweep XONG (~3.5h CPU)
+
+Sweep 4 seeds {0, 1, 42, 1234} × DEFAULT config (--exist_weight 0.3, two_head):
+
+| Seed | AUC | Top-1 F1 | L2 dist |
+|---|---:|---:|---:|
+| PAPER | 0.9669 | 0.5970 | --- |
+| 0 | 0.9738 | 0.5454 | 0.0717 |
+| **1** 🏆 | **0.9730** | **0.5655** | **0.0461** |
+| 42 | 0.9740 | 0.5393 | 0.0767 |
+| 1234 | 0.9776 | 0.5535 | 0.0608 |
+
+→ Best seed=1, gap Top-1 F1 = **-5.3%** vs paper. Binary metrics VƯỢT paper ở mọi seed.
+
+### K sweep ĐÃ CHUẨN BỊ, CHƯA CHẠY
+
+`run_k_sweep.ps1` + `summarize_k_sweep.py` sẵn sàng. Stopped ngày 2026-05-11 trước khi K=7 hoàn thành fold 1. Cần rerun từ đầu.
+
+### Pipeline reproduce còn lại
+
+```
+[NEXT] K sweep (~4h)
+  └─ run_k_sweep.ps1 -Seed 1
+     └─ K ∈ {7, 9, 11, 13, 15} × seed=1
+        ↓ Find best K
+[VERIFY] Fig.4 ablation rerun (~4h)
+  └─ 5 ablation × best (seed, K)
+     └─ Pattern match paper Fig.4?
+        ↓
+[FALLBACK if gap > 5%]
+  - λ₂ sweep ∈ {0.1, 0.3, 0.5} (~2.5h)
+  - Class weighting 3 strategies (~2.5h)
+  - HMDD v3.2 (~12h preprocess + 3h train)
+  - Contact tác giả CDMBlab
+```
+
+### Files mới Plan refocus
+
+- [run_seed_sweep.ps1](run_seed_sweep.ps1), [summarize_seed_sweep.py](summarize_seed_sweep.py) — Seed sweep (XONG)
+- [run_k_sweep.ps1](run_k_sweep.ps1), [summarize_k_sweep.py](summarize_k_sweep.py) — K sweep (CHƯA CHẠY)
+- `results/seed_sweep_*.json` (4 files) + `seed_sweep_summary.json` — seed sweep results
+
+---
+
 ## 7a. Plan E — True ablation rebuild (Fix C) — XONG 2026-05-10
 
 ### 🚨 STRONG NEGATIVE REPLICATION

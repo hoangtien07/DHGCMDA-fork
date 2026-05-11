@@ -3,7 +3,62 @@
 > File này ghi lại trạng thái thực nghiệm. Cập nhật mỗi khi run xong một experiment.
 
 ## Lần cập nhật cuối
-**2026-05-09 16:xx, sweep loss XONG — w=0.1 thắng. Verify Fig.4 + case study PENDING.**
+**2026-05-11, REFOCUS REPRODUCE: Plan B2 (MLRC pivot) stopped. Seed sweep XONG (seed=1 best, gap -5.3% paper). K sweep CHƯA CHẠY — resume bằng `.\run_k_sweep.ps1 -Seed 1` khi mở máy.**
+
+---
+
+## 🚀 RESUME NGAY KHI MỞ MÁY LẠI (2026-05-11)
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+.\run_k_sweep.ps1 -Seed 1   # ~4h CPU, 5 K values
+```
+
+Output: `results/k_sweep_seed1_summary.json` + bảng so sánh với paper Fig.3.
+
+### Tổng quan trạng thái (2026-05-11)
+
+| Phase | Status | Verdict |
+|---|---|---|
+| Plan A→E (Plan B2 MLRC pivot) | ❌ STOPPED | User feedback: scope drift khỏi goal reproduce. Refocused. |
+| Bug fixes (3 critical seed) | ✅ DONE | Code chính xác hơn original |
+| Paper alignment (n_head, λ₃, update_freq) | ✅ DONE | Khớp paper |
+| K_neigs hardcoded fix | ✅ DONE | Unblock paper Fig.3 sweep |
+| Seed sweep (4 seeds × default) | ✅ DONE | seed=1 best, gap -5.3% Top-1 F1 |
+| **K sweep (5 K × seed=1)** | ⏸ **PENDING** | **Resume bằng run_k_sweep.ps1** |
+| Fig.4 ablation verify với best (seed, K) | ⏸ Pending | Sau K sweep |
+| HMDD v3.2 / contact authors | ⏸ Fallback | Nếu K sweep + λ₂ sweep không đủ |
+
+### Seed sweep results (đã commit)
+
+| Seed | AUC | AUPR | F1 | T1-P | T1-R | T1-F1 | L2 dist paper |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **PAPER** | **0.9669** | **0.9738** | **0.9278** | **0.5842** | **0.6341** | **0.5970** | --- |
+| 0 | 0.9738 | 0.9666 | 0.9303 | 0.5007 | 0.6005 | 0.5454 | 0.0717 |
+| **1** 🏆 | 0.9730 | 0.9671 | 0.9292 | 0.5373 | 0.5969 | **0.5655** | **0.0461** |
+| 42 | 0.9740 | 0.9682 | 0.9329 | 0.5000 | 0.5891 | 0.5393 | 0.0767 |
+| 1234 | 0.9776 | 0.9724 | 0.9362 | 0.5172 | 0.5967 | 0.5535 | 0.0608 |
+
+**Insights**:
+- Binary metrics (AUC/AUPR/F1) VƯỢT paper ở mọi seed → binary task solid
+- Top-1 F1 NẰM GIỮA default config (-5.3% seed=1) và Plan D softmax_5class (+4.2%)
+- Paper config có thể là biến thể chưa explore
+
+### Code state (commits)
+
+```
+181b2c0 Seed sweep XONG: seed=1 best (Top-1 F1 = 0.5655, gap -5.3% paper)
+7396f6c Seed sweep orchestrator + summarizer
+15b6aab Refocus: REPRODUCE paper exactly (stop MLRC pivot)
+10c8c67 Fix PowerShell encoding issue in run_multiseed_full.ps1 (em-dash)
+9024bc9 FIX BUG #2 + #3: prepareData seed propagation for multi-seed correctness
+3969311 FIX: seed_torch(args.seed) was never called — multi-seed broken
+e7be314 Plan D Fix A++: 5-class softmax CE — Top-1 F1 vượt paper +4.2%
+...
+```
+
+---
 
 ---
 
