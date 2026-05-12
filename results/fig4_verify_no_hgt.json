@@ -1,0 +1,24 @@
+{
+  "AUC": 0.9729,
+  "AUPR": 0.9735,
+  "F1": 0.9283,
+  "Accuracy": 0.9281,
+  "Recall": 0.9321,
+  "Specificity": 0.9242,
+  "Precision": 0.9255,
+  "top1_precision": 0.6276,
+  "top1_recall": 0.6668,
+  "top1_f1": 0.6466,
+  "fold_times_sec": [
+    396.46,
+    396.93,
+    396.4,
+    397.99,
+    397.17
+  ],
+  "avg_fold_time_sec": 396.99,
+  "total_execution_sec": 1985.39,
+  "ablation": "no_hgt",
+  "seed": 1,
+  "K_neigs": 7
+}
