@@ -21,7 +21,7 @@ PAPER = {
     'top1_precision': 0.5842, 'top1_recall': 0.6341, 'top1_f1': 0.5970,
 }
 
-K_VALUES = [7, 9, 11, 13, 15]
+K_VALUES = [3, 5, 7, 9, 11, 13, 15]  # paper Fig.3 tests K=1,3,5,7,9,11,13,15
 
 
 def parse_k(K, seed):
