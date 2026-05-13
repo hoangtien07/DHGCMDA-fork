@@ -1,0 +1,83 @@
+{
+  "paper": {
+    "AUC": 0.9669,
+    "AUPR": 0.9738,
+    "F1": 0.9278,
+    "top1_precision": 0.5842,
+    "top1_recall": 0.6341,
+    "top1_f1": 0.597
+  },
+  "config": "seed=1, K=7, default loss",
+  "results": {
+    "0.3": {
+      "AUC": 0.9745,
+      "AUPR": 0.9691,
+      "F1": 0.9307,
+      "Accuracy": 0.9286,
+      "Recall": 0.9603,
+      "Specificity": 0.8969,
+      "Precision": 0.9033,
+      "top1_precision": 0.5627,
+      "top1_recall": 0.6224,
+      "top1_f1": 0.5909,
+      "fold_times_sec": [
+        498.18,
+        487.12,
+        489.1,
+        489.31,
+        501.09
+      ],
+      "avg_fold_time_sec": 492.96000000000004,
+      "total_execution_sec": 2465.6,
+      "K_neigs": 7,
+      "seed": 1,
+      "lambda2": 0.3
+    },
+    "0.1": {
+      "AUC": 0.9747,
+      "AUPR": 0.9692,
+      "F1": 0.9308,
+      "Accuracy": 0.9284,
+      "Recall": 0.9622,
+      "Specificity": 0.8945,
+      "Precision": 0.9019,
+      "top1_precision": 0.5567,
+      "top1_recall": 0.621,
+      "top1_f1": 0.5869,
+      "fold_times_sec": [
+        534.22,
+        522.24,
+        527.42,
+        526.27,
+        535.69
+      ],
+      "avg_fold_time_sec": 529.168,
+      "total_execution_sec": 2646.3,
+      "lambda2": 0.1
+    },
+    "0.5": {
+      "AUC": 0.975,
+      "AUPR": 0.968,
+      "F1": 0.9311,
+      "Accuracy": 0.929,
+      "Recall": 0.9588,
+      "Specificity": 0.8993,
+      "Precision": 0.9055,
+      "top1_precision": 0.5433,
+      "top1_recall": 0.6039,
+      "top1_f1": 0.5719,
+      "fold_times_sec": [
+        529.4,
+        530.37,
+        530.77,
+        532.45,
+        543.78
+      ],
+      "avg_fold_time_sec": 533.354,
+      "total_execution_sec": 2667.19,
+      "lambda2": 0.5
+    }
+  },
+  "best_lambda2": 0.3,
+  "best_top1_f1": 0.5909
+}
