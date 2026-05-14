@@ -81,9 +81,42 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 - ✅ B-D: Case study breast + HCC (~9 phút train + cache score) → `results/case_study_*.csv`
 - ✅ B-E: Update [generate_report.py](generate_report.py) Section 3.2/3.4/3.5/3.6 → `BaoCao_DHGCMDA.docx` (308 para, 11 bảng)
 
-## 7z. REFOCUS REPRODUCE (2026-05-11, đang chạy)
+## 7zz. RESUME 2026-05-14 — v3.2 filtered overnight + Combo A done
 
 ### 🚀 RESUME 1 LỆNH KHI MỞ MÁY LẠI
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+.\run_overnight_v32.ps1   # baseline + 5 ablations v3.2 filtered, ~5h CPU
+```
+
+Sau khi xong (auto regen report + commit + push):
+- Xem `results/v32_filtered_summary.json` — bảng so sánh v2.0 vs v3.2 Fig.4
+- Xem `BaoCao_DHGCMDA.docx` — auto-updated
+
+### Trạng thái 2026-05-14 (commit `17dd84b`)
+
+**Đã xong**:
+- Combo A: K=3,5 sweep + multi-seed K=7 verify
+- Email draft cho CDMBlab authors (chờ user gửi)
+- v3.2 filtered build script + overnight orchestrator (CHƯA chạy)
+
+**Findings mới quan trọng**:
+- K=3 mới best Top-1 F1 = 0.5924 (gap -0.8% paper) — slight improvement
+- Multi-seed verify K=7: mean 0.5691, std 0.019, **|t|=2.53 SIGNIFICANT vs paper**
+- seed=1 là LUCKY SEED → robust gap = -4.7% (NOT -1.0% như single-seed claim)
+
+**Pending overnight (chưa launch)**:
+- v3.2 filtered controlled experiment (baseline + 5 ablations)
+- ETA ~5h CPU
+- Pre-built dataset: `v3.2_filtered_495m383D/` (3,938 pairs, 2.63× v2.0)
+
+---
+
+## 7z. REFOCUS REPRODUCE (2026-05-11, hoàn tất)
+
+### 🚀 RESUME (legacy, đã chạy xong)
 
 ```powershell
 cd d:\Tien\DHGCMDA-fork
