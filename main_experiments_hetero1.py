@@ -94,9 +94,12 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.device = device
         self.loss_mode = getattr(args, 'loss_mode', 'two_head')
 
-        # 🔥 Effective Number 类别权重 (更激进的平衡)
-        counts = [367, 157, 293, 681]  # 循环, 表观, 靶标, 遗传
-        beta = 0.99999  # 🔥 改进: 更接近1 → 给少数类更高权重
+        # Effective Number 类别权重 — chuyển dynamic theo dataset
+        if getattr(args, 'dataset', 'v2.0_495m383D') == 'v3.2_processed':
+            counts = [3216, 575, 6052, 1820, 5952]  # 5 types v3.2
+        else:
+            counts = [367, 157, 293, 681]  # 4 types v2.0
+        beta = 0.99999
         effective_nums = [(1 - beta ** n) / (1 - beta) for n in counts]
         raw_weights = [1.0 / en for en in effective_nums]
         sum_weights = sum(raw_weights)

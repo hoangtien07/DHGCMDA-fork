@@ -3,6 +3,27 @@
 > File này ghi lại trạng thái thực nghiệm. Cập nhật mỗi khi run xong một experiment.
 
 ## Lần cập nhật cuối
+**2026-05-20 07:07, đang dở Phase C — v3.2 baseline 3/5 fold (user tắt máy).**
+
+### Phase C status (HMDD v3.2 + baseline comparison)
+
+| Sub-phase | Status | Note |
+|---|---|---|
+| C-1a download v3.2 raw | ✅ | `HMDD_data/MDAv3.2/v3_*.txt` |
+| C-1b preprocess GIP | ✅ | `v3.2_processed/` 722×614 × 5 types |
+| C-1c adapt code | ✅ | param.py, prepareData.py, hetero_model.py |
+| C-1d v3.2 baseline | ⚠ 3/5 fold | partial: AUC 0.9217 (match paper), Top-1 F1 0.0 (class collapse) |
+| C-1e v3.2 ablation | ⏸ skip | quá lâu trên CPU |
+| C-2a TDRC adapt | ✅ patched + vectorized | sẵn sàng `python run_tdrc.py` |
+| C-2b NMCMDA adapt | ⏸ chưa | cần DGL install + writer eval |
+| C-3 update báo cáo | ⏸ chưa | cần combine partial v3.2 + TDRC vào báo cáo |
+
+### Kết quả v3.2 partial (3/5 fold) — saved `results/v3.2_baseline_partial.json`
+- AUC 0.9217 vs paper 0.9181 (**+0.4%** — khớp!)
+- Top-1 F1 = 0.0 vs paper 0.860 (**class collapse hoàn toàn**)
+- Confirm: GIP-only similarity không đủ cho 5-type prediction. Cần Wang MeSH semantic.
+
+### Lưu ý trước đó (state cũ, vẫn còn relevant)
 **2026-05-11, REFOCUS REPRODUCE: Plan B2 (MLRC pivot) stopped. Seed sweep XONG (seed=1 best, gap -5.3% paper). K sweep CHƯA CHẠY — resume bằng `.\run_k_sweep.ps1 -Seed 1` khi mở máy.**
 
 ---

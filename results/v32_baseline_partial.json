@@ -1,0 +1,29 @@
+{
+  "status": "PARTIAL (3/5 folds at time of save)",
+  "dataset": "HMDD v3.2 (GIP similarity, 722×614 × 5 types)",
+  "note": "Top-1 F1=0 across all completed folds → class collapse with GIP-only similarity",
+  "folds_partial": [
+    {
+      "fold": 1,
+      "AUC": 0.9238,
+      "top1_f1": 0.0
+    },
+    {
+      "fold": 2,
+      "AUC": 0.9222,
+      "top1_f1": 0.0
+    },
+    {
+      "fold": 3,
+      "AUC": 0.9192,
+      "top1_f1": 0.0
+    }
+  ],
+  "avg_AUC_partial": 0.9217333333333334,
+  "avg_top1_f1_partial": 0.0,
+  "paper_v32_baseline": {
+    "AUC": 0.9181,
+    "AUPR": 0.9271,
+    "Top-1 F1": 0.86
+  }
+}

@@ -41,3 +41,15 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Baseline repos — keep patched source, skip nested .git + extracted data + archives
+**/.git/
+baselines/NMCMDA/extracted/
+baselines/TDRC/data_v32/
+baselines/TDRC/datav2.0/
+baselines/TDRC/*.rar
+baselines/TDRC/*.zip
+baselines/NMCMDA/*.rar
+
+# PDF text extracted (regenerate from PDF anytime)
+_pdf_text/

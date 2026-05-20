@@ -46,7 +46,7 @@ def read_excel(path, sheet_name=0):
         return None
 
 
-def read_association_csv(path):
+def read_association_csv(path, max_mirna=495, max_disease=383):
     """
     读取多类型关联CSV文件并转换为关联矩阵
 
@@ -55,7 +55,10 @@ def read_association_csv(path):
     2 -> 表观遗传学类型 (Epigenetics)
     3 -> 靶标类型 (Target)
     4 -> 遗传学类型 (Genetics)
+    5 -> 组织表达 (Tissue) — chỉ có ở v3.2
     0 -> 无关联
+
+    max_mirna/max_disease: kích thước ma trận (v2.0: 495x383, v3.2_processed: 722x614)
     """
     try:
         data = pd.read_csv(path, header=None)
@@ -64,17 +67,13 @@ def read_association_csv(path):
         # 提取数据（转换为0-based索引）
         mirna_indices = data.iloc[:, 0].values - 1
         disease_indices = data.iloc[:, 1].values - 1
-        association_types = data.iloc[:, 2].values  # 保持原始类型编码 1,2,3,4
+        association_types = data.iloc[:, 2].values
 
-        # 创建关联矩阵 - 495个miRNA × 383个疾病
-        max_mirna = 495
-        max_disease = 383
         association_matrix = np.zeros((max_mirna, max_disease), dtype=np.float32)
 
-        # 填充关联矩阵（保持原始类型值 1,2,3,4）
         for i, j, atype in zip(mirna_indices, disease_indices, association_types):
             if 0 <= i < max_mirna and 0 <= j < max_disease:
-                association_matrix[i, j] = atype  # 不做转换，保持1,2,3,4
+                association_matrix[i, j] = atype
 
         print(f"✅ Created multi-type association matrix: {association_matrix.shape}")
 
@@ -85,7 +84,8 @@ def read_association_csv(path):
             1: "循环类型 (Circulation)",
             2: "表观遗传学 (Epigenetics)",
             3: "靶标类型 (Target)",
-            4: "遗传学类型 (Genetics)"
+            4: "遗传学类型 (Genetics)",
+            5: "组织表达 (Tissue)",
         }
 
         unique_vals, counts = np.unique(association_matrix, return_counts=True)
@@ -333,10 +333,14 @@ def prepare_data_optimized(opt):
     dataset = {}
     preprocessor = OptimizedDataPreprocessor()
 
-    print("Loading all similarity and feature files from v2.0_495m383D...")
+    # Dynamic dataset support: v2.0_495m383D (default) hoặc v3.2_processed
+    dataset_dir = getattr(opt, 'dataset', 'v2.0_495m383D')
+    mi_num = getattr(opt, 'mi_num', 495)
+    dis_num = getattr(opt, 'dis_num', 383)
+    print(f"Loading all similarity and feature files from {dataset_dir}...")
 
     # 1. 加载疾病语义相似性 (D_SSM1.txt) - Disease View 2的基础
-    dd_sem_path = os.path.join(opt.data_path, 'v2.0_495m383D', 'D_SSM1.txt')
+    dd_sem_path = os.path.join(opt.data_path, dataset_dir, 'D_SSM1.txt')
     if os.path.exists(dd_sem_path):
         dd_sem_data = read_txt(dd_sem_path)
         dd_sem_mat = dd_sem_data.numpy().astype(np.float32)
@@ -346,7 +350,7 @@ def prepare_data_optimized(opt):
         return None
 
     # 2. 加载miRNA功能相似性 (M_FSM.txt) - miRNA View 2的基础
-    mm_fun_path = os.path.join(opt.data_path, 'v2.0_495m383D', 'M_FSM.txt')
+    mm_fun_path = os.path.join(opt.data_path, dataset_dir, 'M_FSM.txt')
     if os.path.exists(mm_fun_path):
         mm_fun_data = read_txt(mm_fun_path)
         mm_fun_mat = mm_fun_data.numpy().astype(np.float32)
@@ -356,9 +360,9 @@ def prepare_data_optimized(opt):
         return None
 
     # 3. 加载关联数据并转换为矩阵 (multi_all_mirna_disease_pairs_without_negative.csv)
-    mi_dis_path = os.path.join(opt.data_path, 'v2.0_495m383D', 'multi_all_mirna_disease_pairs_without_negative.csv')
+    mi_dis_path = os.path.join(opt.data_path, dataset_dir, 'multi_all_mirna_disease_pairs_without_negative.csv')
     if os.path.exists(mi_dis_path):
-        association_matrix_tensor = read_association_csv(mi_dis_path)
+        association_matrix_tensor = read_association_csv(mi_dis_path, max_mirna=mi_num, max_disease=dis_num)
         if association_matrix_tensor is not None:
             association_matrix = association_matrix_tensor.numpy()
             print(f"✅ Created association matrix from CSV: {association_matrix.shape}")
@@ -373,7 +377,7 @@ def prepare_data_optimized(opt):
     dataset['md_true'] = dataset['md_p']
 
     # 4. 加载疾病-基因特征 (D_SSM2.txt) - Disease View 1的基础
-    d_gs_path = os.path.join(opt.data_path, 'v2.0_495m383D', 'D_SSM2.txt')
+    d_gs_path = os.path.join(opt.data_path, dataset_dir, 'D_SSM2.txt')
     if os.path.exists(d_gs_path):
         d_gs_data = read_txt(d_gs_path)
         dataset['d_gs'] = d_gs_data
@@ -383,7 +387,7 @@ def prepare_data_optimized(opt):
         dataset['d_gs'] = t.FloatTensor(dd_sem_mat)
 
     # 5. 加载miRNA-序列特征 (M_GSM.txt) - miRNA View 1的基础
-    m_ss_path = os.path.join(opt.data_path, 'v2.0_495m383D', 'M_GSM.txt')
+    m_ss_path = os.path.join(opt.data_path, dataset_dir, 'M_GSM.txt')
     if os.path.exists(m_ss_path):
         m_ss_data = read_txt(m_ss_path)
         dataset['m_ss'] = m_ss_data
@@ -419,7 +423,7 @@ def prepare_data_optimized(opt):
 
     # 打印双视图配置摘要
     print("\n" + "=" * 60)
-    print("🎯 DUAL-VIEW CONFIGURATION SUMMARY (v2.0_495m383D)")
+    print(f"🎯 DUAL-VIEW CONFIGURATION SUMMARY ({dataset_dir})")
     print("=" * 60)
     print("miRNA Dual Views:")
     print(f"  📊 View 1 (Sequence): M_GSM.txt {dataset['m_ss'].shape}")
@@ -428,7 +432,7 @@ def prepare_data_optimized(opt):
     print(f"  📊 View 1 (Gene): D_SSM2.txt {dataset['d_gs'].shape}")
     print(f"  📊 View 2 (Semantic): D_SSM1.txt {dataset['dis_sem'].shape}")
     print(f"\nAssociation Matrix: {dataset['md_p'].shape}")
-    print(f"Data source: v2.0_495m383D (495 miRNAs × 383 Diseases)")
+    print(f"Data source: {dataset_dir} ({mi_num} miRNAs × {dis_num} Diseases)")
     print("=" * 60)
 
     return dataset

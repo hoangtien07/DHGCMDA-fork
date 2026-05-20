@@ -695,11 +695,11 @@ class HeterogenousGraphCLAMIR(nn.Module):
             self.skip_proj_dis = nn.Linear(hidden_list[0], out_channels)
             print(f"[ABLATION REBUILD] no_hgt_rebuild — skip transformers + HGT, projection trực tiếp")
 
-        # 优化的关联预测器
+        # 优化的关联预测器 — num_types từ args (v2.0=4, v3.2=5)
         self.association_predictor = SimplifiedTypePredictor(
             node_dim=out_channels,
             hidden_dim=128,
-            num_types=4,
+            num_types=getattr(args, 'num_association_types', 4),
             loss_mode=getattr(args, 'loss_mode', 'two_head')
         )
 

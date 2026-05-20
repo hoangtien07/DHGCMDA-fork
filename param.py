@@ -276,23 +276,24 @@ def validate_and_adjust_parameters(args):
 
     # Set class weights if not provided
     if args.class_weights is None:
-        # 使用反比例权重，强调少数类以防止类别崩溃
-        # Circulation: 367 (24.5%), Epigenetics: 157 (10.5%), Target: 293 (19.6%), Genetics: 681 (45.5%)
-        counts = [367, 157, 293, 681]  # 实际样本数
+        if args.dataset == 'v3.2_processed':
+            # v3.2 counts theo preprocess_v32.py output
+            # Type 1=Circulation 3216, 2=Epigenetics 575, 3=Target 6052, 4=Genetics 1820, 5=Tissue 5952
+            counts = [3216, 575, 6052, 1820, 5952]
+            type_names = ['Circulation', 'Epigenetics', 'Target', 'Genetics', 'Tissue']
+        else:
+            # v2.0 default
+            counts = [367, 157, 293, 681]
+            type_names = ['Circulation', 'Epigenetics', 'Target', 'Genetics']
+
         total = sum(counts)
-
-        # 计算反比例权重（样本越少，权重越高）
         args.class_weights = [total / count for count in counts]
-
-        # 归一化权重，使平均值为1.0
         avg_weight = sum(args.class_weights) / len(args.class_weights)
         args.class_weights = [w / avg_weight for w in args.class_weights]
 
         print("[INFO] Auto-computed BALANCED class weights (to prevent class collapse):")
-        print(f"  Circulation  (367 samples): {args.class_weights[0]:.3f}")
-        print(f"  Epigenetics  (157 samples): {args.class_weights[1]:.3f}")
-        print(f"  Target       (293 samples): {args.class_weights[2]:.3f}")
-        print(f"  Genetics     (681 samples): {args.class_weights[3]:.3f}")
+        for name, count, weight in zip(type_names, counts, args.class_weights):
+            print(f"  {name:12s} ({count:5d} samples): {weight:.3f}")
         print(f"  [NOTE] Higher weights for minority classes to prevent model from only predicting majority class")
 
     # Validate number of association types
@@ -310,11 +311,24 @@ def validate_and_adjust_parameters(args):
     if args.dataset == 'v2.0_495m383D':
         args.mi_num = 495
         args.dis_num = 383
+        args.num_association_types = 4
         print(f"[INFO] Using v2.0_495m383D dataset:")
         print(f"  miRNAs: {args.mi_num}")
         print(f"  Diseases: {args.dis_num}")
         print(f"  Expected associations: ~1498")
         print(f"  Types: 4 (Circulation, Epigenetics, Target, Genetics)")
+    elif args.dataset == 'v3.2_processed':
+        args.mi_num = 722
+        args.dis_num = 614
+        args.num_association_types = 5
+        # Disable class_weights default (set lại theo v3.2 distribution)
+        if args.class_weights is None or len(args.class_weights) == 4:
+            args.class_weights = None  # cho phép loss tự compute từ args.num_association_types
+        print(f"[INFO] Using v3.2_processed dataset:")
+        print(f"  miRNAs: {args.mi_num}")
+        print(f"  Diseases: {args.dis_num}")
+        print(f"  Expected associations: ~13,748")
+        print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
     else:
         print(f"[WARNING] Unknown dataset: {args.dataset}")
         print("  Using default dimensions (495 miRNAs, 383 diseases)")

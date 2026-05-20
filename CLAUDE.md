@@ -72,6 +72,113 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 → Gain của ablation giảm nhẹ nhưng **vẫn ngược paper**. Finding strengthen → đây là **legitimate observation**, không phải artifact của code-paper discrepancies. Có thể nguyên nhân chính là (i) ablation implementation additive switch không tương đương paper re-train từ đầu, hoặc (ii) loss formulation `0.3*existence + 0.7*type` khác Eq. 32 paper. Chi tiết trong [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
 
+## 7zz. RESUME 2026-05-20 07:07 — v3.2 baseline 3/5 fold xong, USER tắt máy
+
+### Status snapshot khi tắt máy
+
+- **v3.2 baseline running** từ 01:39 đêm 2026-05-20 → 07:07 sáng (5h28min wall).
+- **3/5 folds completed**, đang ở fold 4 epoch ~500/650. ETA xong ~08:22 (1h15min nữa).
+- **PID 18652** đang chạy. RAM 2GB, CPU full.
+
+### Kết quả partial 3/5 folds (đã save `results/v32_baseline_partial.json`)
+
+| Metric | Reproduce (3 fold avg) | Paper v3.2 | Δ |
+|---|---:|---:|---:|
+| AUC | **0.9217** | 0.9181 | +0.4% ✅ |
+| Top-1 F1 | **0.0000** | 0.8600 | -100% ❌ |
+
+**Quan sát chính**: AUC khớp paper rất sát, nhưng **Top-1 F1 = 0 trên cả 3 folds → CLASS COLLAPSE hoàn toàn**. Điều này confirm giả thuyết: với GIP-only similarity (không Wang MeSH semantic + miRNA functional), model học được binary signal nhưng không phân biệt được 5 types. Paper Top-1 F1 = 0.86 KHÔNG reproduce được với GIP pragmatic shortcut.
+
+### Khi mở máy lại
+
+Process đã CHẾT (shutdown). v3.2 baseline cần retrain hoặc accept partial 3-fold result.
+
+Lựa chọn:
+1. **Accept partial** (recommend): Dùng partial 3-fold result, note rõ "3/5 fold do interrupt" trong báo cáo. Đã có evidence mạnh cho class collapse với GIP.
+2. **Retrain full**: thêm 5h30min CPU để có 5/5 fold.
+3. **Move on**: skip v3.2 hoàn toàn, dùng partial làm note "GIP không đủ cho type prediction", chuyển TDRC + báo cáo.
+
+### Quick commands
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+# Check status (process should be dead after shutdown)
+Get-Process python -ErrorAction SilentlyContinue
+
+# Đọc kết quả partial đã save
+cat results\v32_baseline_partial.json
+
+# Nếu retrain v3.2:
+$env:PYTHONUTF8 = 1
+.\venv\Scripts\python.exe main_experiments_hetero1.py --device cpu --dataset v3.2_processed *>&1 | Tee-Object logs\v32_baseline.log
+
+# Hoặc chuyển TDRC
+cd baselines\TDRC
+..\..\venv\Scripts\python.exe run_tdrc.py *>&1 | Tee-Object ..\..\logs\tdrc_v32.log
+```
+
+---
+
+## 7z. PHASE C (đang chạy — 2026-05-20) — Reproduce HMDD v3.2 + baseline comparison
+
+**Mục tiêu**: nâng % reproduce paper từ 50% → 70-80% bằng cách add:
+- C-1: HMDD v3.2 baseline + 5 ablation (tăng từ 0% → ~30%)
+- C-2: 2 baseline reproducible (TDRC + NMCMDA) trên v2.0 + v3.2 (tăng từ 0% → 2/6 cells)
+
+### Trạng thái hiện tại
+
+- ✅ **C-1a**: HMDD v3.2 raw downloaded từ cuilab.cn (`HMDD_data/MDAv3.2/v3_*.txt`).
+- ✅ **C-1b**: Preprocessed v3.2 với GIP similarity (chỉ approximation, không phải Wang MeSH). Output: `v3.2_processed/` (722 miRNAs × 614 diseases × 13,748 associations × 5 types).
+- ✅ **C-1c**: Adapted code (param.py, prepareData.py, hetero_model.py) để support `--dataset v3.2_processed` với 5 types.
+- ✅ **C-1d**: Smoke test v3.2 (3 epoch × 2 fold) PASS, AUC 0.89.
+- 🔄 **C-1d-full**: Đang chạy baseline v3.2 single process, ETA ~6h CPU. Started 2026-05-20 ~01:39.
+- ⏸ **C-1e**: 5 ablation v3.2 — pending sau baseline.
+- ⏸ **C-2a**: TDRC repo cloned + adapted (np.mat → np.asmatrix, vectorized functional_sim). Chạy pending sau v3.2.
+- ⏸ **C-2b**: NMCMDA repo cloned, chưa adapt.
+
+### Caveat quan trọng
+
+- **v3.2 với 650 epoch trên CPU EXTREMELY SLOW** (~15s/epoch khi parallel 2 jobs, ~7-8s/epoch single process). Single baseline ước tính 6h, 6 runs (baseline + 5 ablation) sequential ~36h. → Quyết định chỉ chạy baseline, skip ablation v3.2 (hoặc giảm epoch).
+- **GIP similarity is pragmatic shortcut**, không phải Wang's MeSH method như paper → kết quả sẽ KHÔNG sát paper Table 3 (paper báo +35% gain trên v3.2 với SSM, GIP có thể cho kết quả thấp hơn).
+- **NumPy 2.0 compatibility**: TDRC repo có `np.mat` deprecated → đã patch sang `np.asmatrix` trong toàn bộ TDRC files.
+- **TDRC `get_functional_sim` quá chậm** với 713 miRNAs (~20 phút CPU/call). Đã vectorize.
+
+### Files mới của Phase C
+
+- `preprocess_v32.py` — script preprocess raw cuilab → DHGCMDA format.
+- `v3.2_processed/` — preprocessed v3.2 data (4 sim matrices + association csv + name mappings).
+- `HMDD_data/MDAv3.2/v3_*.txt` — raw v3.2 từ cuilab.
+- `run_v32_rerun.ps1` — orchestrator parallel 2 jobs v3.2 (KILLED, sẽ rewrite simpler).
+- `baselines/TDRC/` — TDRC repo cloned + patched.
+  - `run_tdrc.py` — wrapper script.
+  - `data.py`, `experiments.py`, `method.py`, `TDRC.py`, `TFAI.py` — patched np.mat → np.asmatrix.
+  - `data.py:get_functional_sim` — vectorized.
+- `baselines/NMCMDA/extracted/` — NMCMDA repo cloned, chưa adapt.
+
+### Lệnh tiếp tục lần sau
+
+```powershell
+cd d:\Tien\DHGCMDA-fork
+.\venv\Scripts\Activate.ps1
+$env:PYTHONUTF8 = 1
+
+# Nếu v3.2 baseline đang chạy: đợi xong
+# Get-Process python | Format-Table
+
+# Sau khi v3.2 baseline xong:
+python parse_metrics.py logs\v32_baseline.log results\v32_baseline_metrics.json
+
+# Chạy TDRC trên v3.2
+cd baselines\TDRC
+..\..\venv\Scripts\python.exe run_tdrc.py *>&1 | Tee-Object ..\..\logs\tdrc_v32.log
+
+# NMCMDA — cần adapt thêm (DGL, format data)
+
+# Update báo cáo
+cd ..\..
+python generate_report.py
+```
+
 ## 7. Plan B status — HOÀN THÀNH 5/5 phase
 
 **Tất cả phase Plan B đã xong:**
