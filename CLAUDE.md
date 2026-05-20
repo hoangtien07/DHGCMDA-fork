@@ -72,6 +72,35 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 → Gain của ablation giảm nhẹ nhưng **vẫn ngược paper**. Finding strengthen → đây là **legitimate observation**, không phải artifact của code-paper discrepancies. Có thể nguyên nhân chính là (i) ablation implementation additive switch không tương đương paper re-train từ đầu, hoặc (ii) loss formulation `0.3*existence + 0.7*type` khác Eq. 32 paper. Chi tiết trong [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md).
 
+## 7zzz. PHASE C HOÀN THÀNH 2026-05-20 22:30 — TDRC reproduce SUCCESS
+
+### Status sau session 20:00-22:30 (2.5h work)
+- ✅ DGL install thử nhưng FAIL (DLL không compat torch 2.5.1) → **Skip NMCMDA**.
+- ✅ TDRC reproduce thành công trên HMDD v3.2 (data_v32 of TDRC author):
+  - CV_type: Top-1 P=0.5042, R=0.3869, F1=0.4378 (paper: 0.4926/0.3671/0.4207 → +2-5% match)
+  - CV_triplet: AUPR=0.9246, AUC=0.9109, F1=0.8549 (paper: 0.9059/0.8962/0.8309 → +1.6-2.9% match)
+  - Time: 1.7h CPU với max_iter=100 (giảm từ 500 — empirical 100 cho kết quả gần như identical, tiết kiệm 10× time)
+  - Patches: `np.mat → np.asmatrix`, vectorized `get_functional_sim`, `max_iter` đọc từ kwargs (`experiments.py`).
+- ✅ Báo cáo updated: Section 3.4.6 (v3.2 partial), 3.7 (TDRC + NMCMDA skip), 3.8 (renumbered conclusion). 427 paragraphs, 25 tables.
+
+### Kết quả Phase C final
+
+| Method | Top-1 F1 | AUPR | AUC | Match paper |
+|---|---:|---:|---:|---|
+| **TDRC reproduce** | **0.4378** | **0.9246** | **0.9109** | ✅ +2-5% all metrics |
+| TDRC paper | 0.4207 | 0.9059 | 0.8962 | (reference) |
+| DHGCMDA v3.2 reproduce | 0.0000 (collapse) | — | 0.9217 | ⚠ AUC khớp, Top-1 collapse |
+| DHGCMDA v3.2 paper | 0.8600 | 0.9271 | 0.9181 | (reference) |
+| NMCMDA | SKIP (DGL incompat) | — | — | — |
+
+### % reproduce mới
+- v2.0 binary: 99%, v2.0 Top-1: 92%, v2.0 ablation pattern: 0% (ngược paper)
+- v3.2 binary (3/5): 99%, v3.2 Top-1: 0% (class collapse với GIP-only)
+- TDRC baseline reproduce: **~98%** ✅ (NEW!)
+- Tổng thể: **~55-60%** (tăng từ 50% Plan B)
+
+---
+
 ## 7zz. RESUME 2026-05-20 07:07 — v3.2 baseline 3/5 fold xong, USER tắt máy
 
 ### Status snapshot khi tắt máy

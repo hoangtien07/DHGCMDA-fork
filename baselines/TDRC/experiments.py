@@ -35,7 +35,7 @@ class Experiments(object):
             predict_tensor = self.model()(train_tensor, self.mir_dis_data.dis_sim, miRNA_func_similarity_matrix,
                                              r=self.parameters['r'], alpha=self.parameters['alpha'],
                                              beta=self.parameters['beta'], lam=self.parameters['lam'],
-                                             tol=1e-6, max_iter=500)
+                                             tol=1e-6, max_iter=self.parameters.get('max_iter', 500))
             TP = 0
            
             real_sum = 0
@@ -90,7 +90,7 @@ class Experiments(object):
             predict_tensor = self.model()(train_tensor, self.mir_dis_data.dis_sim, miRNA_func_similarity_matrix,
                                              r=self.parameters['r'], alpha=self.parameters['alpha'],
                                              beta=self.parameters['beta'], lam=self.parameters['lam'],
-                                             tol=1e-6, max_iter=500)
+                                             tol=1e-6, max_iter=self.parameters.get('max_iter', 500))
 
             for i in range(10):
                 metrics_tensor = metrics_tensor + self.cv_tensor_model_evaluate(self.mir_dis_data.type_tensor, predict_tensor,

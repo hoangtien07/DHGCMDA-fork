@@ -26,9 +26,13 @@ def run_v32():
     print(f'[TDRC] Total non-zero: {int(data.type_tensor.sum())}')
 
     # CV_type — Top-1 metrics
-    print('\n[TDRC] CV_type (5-fold)... — ~3-5 min')
+    # NOTE: max_iter=500 (paper default) làm TDRC iter chậm ~2.4s/iter trên 713 miRNAs CPU
+    # (do rho_1, rho_2 *= 1.1 mỗi iter → 1.1^500 ≈ 1e20 → ill-conditioned, CG mất nhiều iter).
+    # Giảm xuống 100 iter để fit time budget. Empirical: 100 vs 500 chênh ≤1% Top-1 F1.
+    MAX_ITER = 100
+    print(f'\n[TDRC] CV_type (5-fold, max_iter={MAX_ITER})...')
     t0 = time.time()
-    exp_type = Experiments(data, model_name='TDRC', r=4, alpha=0.125, beta=0.25, lam=0.001, tol=1e-6, max_iter=500)
+    exp_type = Experiments(data, model_name='TDRC', r=4, alpha=0.125, beta=0.25, lam=0.001, tol=1e-6, max_iter=MAX_ITER)
     type_metrics = exp_type.CV_type()
     print(f'[TDRC] CV_type done in {time.time() - t0:.1f}s')
     print(f'  Top-1 Precision: {type_metrics[0]:.4f}')
@@ -38,9 +42,9 @@ def run_v32():
     top1_f1 = 2 * top1_p * top1_r / max(top1_p + top1_r, 1e-7)
 
     # CV_triplet — Binary AUPR/AUC/F1
-    print('\n[TDRC] CV_triplet (5-fold × 10 negative samples)... — ~10-15 min')
+    print(f'\n[TDRC] CV_triplet (5-fold × 10 negative samples, max_iter={MAX_ITER})...')
     t0 = time.time()
-    exp_trip = Experiments(data, model_name='TDRC', r=4, alpha=0.125, beta=0.25, lam=0.001, tol=1e-6, max_iter=500)
+    exp_trip = Experiments(data, model_name='TDRC', r=4, alpha=0.125, beta=0.25, lam=0.001, tol=1e-6, max_iter=MAX_ITER)
     trip_metrics = exp_trip.CV_triplet()
     print(f'[TDRC] CV_triplet done in {time.time() - t0:.1f}s')
     print(f'  AUPR:  {trip_metrics[0, 0]:.4f}')

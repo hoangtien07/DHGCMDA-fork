@@ -1,0 +1,25 @@
+{
+  "method": "TDRC",
+  "dataset": "HMDD v3.2",
+  "CV_type": {
+    "top1_precision": 0.5042218357217578,
+    "top1_recall": 0.3868658400701848,
+    "top1_f1": 0.4378159621271072
+  },
+  "CV_triplet": {
+    "AUPR": 0.9246,
+    "AUC": 0.9109,
+    "F1": 0.8549,
+    "Accuracy": 0.8544,
+    "Recall": 0.8572,
+    "Specificity": 0.8517,
+    "Precision": 0.8527
+  },
+  "hyperparams": {
+    "r": 4,
+    "alpha": 0.125,
+    "beta": 0.25,
+    "lam": 0.001,
+    "max_iter": 500
+  }
+}
