@@ -1,0 +1,40 @@
+============================================================
+[v3.2_wang] Building DHGCMDA dataset từ TDRC Wang preprocessing
+============================================================
+[v3.2_wang] miRNAs: 713
+[v3.2_wang] Diseases: 447
+
+[v3.2_wang] Loading 5 type matrices...
+  Type 1 (circu.csv): 3,310 associations
+  Type 2 (epic.csv): 519 associations
+  Type 3 (target.csv): 5,844 associations
+  Type 4 (genetic.csv): 1,581 associations
+  Type 5 (tissue.csv): 5,087 associations
+
+[v3.2_wang] Building multi-type association matrix...
+  Binary associations: 12,534
+  Type 1: 3,310 (1.039%)
+  Type 2: 411 (0.129%)
+  Type 3: 4,810 (1.509%)
+  Type 4: 850 (0.267%)
+  Type 5: 3,153 (0.989%)
+
+[v3.2_wang] Loading Wang MeSH disease semantic similarity...
+  Disease similarity: (447, 447), range [0.0000, 1.0000]
+  Nonzero fraction: 23.7%
+
+[v3.2_wang] Computing miRNA functional similarity (Wang method, vectorized)...
+  (Sử dụng TDRC GetData.get_functional_sim — vectorized, ~20 phút CPU)
+  Done in 603.7s
+  miRNA functional sim: (713, 713), range [0.0000, 1.0000]
+
+[v3.2_wang] Saving to v3.2_wang/...
+  Saved 4 similarity files
+  Saved association CSV: 12,534 rows
+  Saved name mappings xlsx
+
+[v3.2_wang] DONE.
+  Output: v3.2_wang/
+  Dimensions: 713 miRNAs × 447 diseases
+  Total associations: 12,534
+  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)

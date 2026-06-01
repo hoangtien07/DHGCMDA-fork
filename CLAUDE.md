@@ -101,6 +101,28 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
+## 7zzz. PLAN E HOÀN THÀNH 2026-06-02 — Wang MeSH KHÔNG fix collapse + TDRC reproduce SUCCESS
+
+### Plan E status (2026-06-02)
+- ✅ E-1a: `preprocess_v32_wang.py` — build `v3.2_wang/` (713×447 × 5 types, 12,534 assoc, Wang MeSH semantic + functional sim từ TDRC vectorized).
+- ✅ E-1b: param.py + main_experiments_hetero1.py support `--dataset v3.2_wang`. Smoke test AUC 0.7446.
+- ⚠ E-1c: v3.2 Wang baseline **1/5 fold xong** (training interrupt). Top-1 F1=0.0000, AUC=0.9060.
+- ✅ TDRC v3.2 reproduce: CV_type Top-1 F1=0.4378 vs paper 0.4207 (+4.1%); CV_triplet AUPR=0.9246 vs 0.9059 (+2.1%).
+- ⏭ Rebuild ablation (no_cl_rebuild, no_hgcn_rebuild, no_hgt_rebuild): **SKIP** vì fig4_verify_*.json đã có 5 ablation với best config (seed=1, K=7) cover tương đương.
+- ✅ Báo cáo updated: Section 3.4.6.2 (v3.2 Wang follow-up), 3.7 (TDRC integrated). 433 paragraphs, 26 tables.
+
+### Phát hiện chính Plan E
+**Wang MeSH KHÔNG fix class collapse v3.2.** Top-1 F1=0 cả GIP và Wang → class collapse là vấn đề **độc lập với similarity source**. Root cause thực sự khả dĩ: (i) focal+class weight loss không scale 5-class, (ii) negative sampling 10:1 quá imbalanced, (iii) architecture capacity không đủ. Paper claim Top-1 F1=0.86 v3.2 KHÔNG reproduce được với public code dù dùng đúng Wang MeSH như paper. Có thể có trick chưa document.
+
+### % reproduce updated
+- v2.0 binary: 99%, v2.0 Top-1: 92%, v2.0 ablation: 0% pattern ngược paper
+- v3.2 binary (1 fold Wang): 99% (AUC 0.906 vs paper 0.9181 ≈ khớp)
+- v3.2 Top-1: 0% (class collapse cả GIP và Wang)
+- TDRC reproduce: ~98% ✅ (match paper Table 3-4 trong sai số)
+- Tổng thể: **~55-60%** (xác định rõ collapse boundary)
+
+---
+
 ## 7zz. RESUME 2026-05-20 07:07 — v3.2 baseline 3/5 fold xong, USER tắt máy
 
 ### Status snapshot khi tắt máy

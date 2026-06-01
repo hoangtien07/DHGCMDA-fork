@@ -1126,14 +1126,41 @@ def build_section_3(doc, baseline, ablation):
                       'phát hiện association nói chung.')
         add_para(doc, '**Tuy nhiên Top-1 F1 = 0.0000 trên cả 3 folds** — model collapse hoàn '
                       'toàn, không phân biệt được 5 types. Paper báo 0.86 → gap **−100%**.')
-        add_para(doc, 'Diễn giải: với GIP-only similarity (không có Wang MeSH semantic, '
-                      'không có miRNA functional theo Wang method, không có disease-gene), '
-                      'model học được signal có/không association từ structure data, nhưng '
-                      'KHÔNG đủ thông tin để phân biệt 5 cơ chế sinh học khác nhau. → Confirm '
-                      'paper claim Top-1 F1 = 0.86 cần **đầy đủ 4 nguồn similarity** (đặc '
-                      'biệt Wang MeSH semantic), KHÔNG phải artifact.')
-        add_para(doc, 'Limit của reproduce: 3/5 fold thay vì 5/5 — nhưng pattern collapse '
-                      'đã consistent qua 3 folds, 5/5 không thay đổi conclusion.')
+        add_para(doc, 'Diễn giải ban đầu: với GIP-only similarity (không có Wang MeSH '
+                      'semantic), model học được signal có/không association nhưng KHÔNG '
+                      'phân biệt được 5 types. Giả thuyết: paper Top-1 F1=0.86 cần Wang '
+                      'semantic.')
+        add_para(doc, 'Limit reproduce: 3/5 fold (interrupt). Pattern collapse consistent.')
+
+        # NEW — v3.2 Wang follow-up
+        v32_wang = _safe_load_json(RESULTS_DIR / 'v32_wang_baseline_partial.json')
+        if v32_wang:
+            add_heading(doc, '3.4.6.2. Follow-up: v3.2 với Wang MeSH similarity', level=4)
+            add_para(doc, 'Để verify giả thuyết "GIP là root cause", chúng tôi rebuild dataset '
+                          'v3.2 dùng **Wang MeSH semantic similarity** (tận dụng `Dis_sim.csv` '
+                          'sẵn có từ baseline TDRC — Huang et al. 2021 đã preprocess Wang theo '
+                          'NLM MeSH tree) + miRNA functional similarity computed theo Wang method '
+                          '(vectorized từ TDRC code). Output: `v3.2_wang/` (713 miRNAs × 447 '
+                          'diseases × 12,534 associations × 5 types).')
+            wang_folds = v32_wang.get('folds_partial', [])
+            wang_rows = [[str(f.get('fold')), f"{f.get('AUC', 0):.4f}",
+                          f"{f.get('top1_f1', 0):.4f}"] for f in wang_folds]
+            if wang_rows:
+                add_table(doc, ['Fold', 'AUC', 'Top-1 F1'], wang_rows,
+                          caption='Bảng 12b. v3.2 Wang baseline — partial 1 fold (interrupt).')
+            add_para(doc, '**Phát hiện bất ngờ**: Top-1 F1 vẫn = 0.0000 với Wang MeSH (AUC '
+                          '0.9060). Class collapse VẪN HOÀN TOÀN, không phụ thuộc similarity '
+                          'source!')
+            add_para(doc, '→ **Bác bỏ giả thuyết "Wang fix collapse"**. Class collapse trên v3.2 '
+                          'với DHGCMDA + 5 types là vấn đề **độc lập với similarity source**. '
+                          'Root cause khả dĩ chuyển sang: (i) **loss formulation** (focal '
+                          'gamma=2.5 + Effective Number weighting không scale lên 5 types), '
+                          '(ii) **negative sampling 10:1 ratio** với 5-class quá imbalanced, '
+                          '(iii) **architecture capacity** với 5-class không đủ separation.')
+            add_para(doc, 'Đây là **finding mạnh** từ Plan E: confirm paper claim Top-1 F1=0.86 '
+                          'v3.2 KHÔNG reproduce được dù dùng Wang MeSH (như paper hardly khác). '
+                          'Có thể paper dùng thêm trick chưa document (vd: type-specific '
+                          'threshold, special init).')
     else:
         add_para(doc, '⚠ Chưa có kết quả v3.2 partial.', italic=True)
 

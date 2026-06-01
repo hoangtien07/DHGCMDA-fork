@@ -95,8 +95,13 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.loss_mode = getattr(args, 'loss_mode', 'two_head')
 
         # Effective Number 类别权重 — chuyển dynamic theo dataset
-        if getattr(args, 'dataset', 'v2.0_495m383D') == 'v3.2_processed':
-            counts = [3216, 575, 6052, 1820, 5952]  # 5 types v3.2
+        ds = getattr(args, 'dataset', 'v2.0_495m383D')
+        if ds == 'v3.2_processed':
+            counts = [3216, 575, 6052, 1820, 5952]  # 5 types v3.2 GIP
+        elif ds == 'v3.2_wang':
+            # v3.2 Wang TDRC preprocessing — actual counts after preprocess_v32_wang.py
+            # circu=3310, epic=411, target=4810, genetic=850, tissue=3153
+            counts = [3310, 411, 4810, 850, 3153]
         else:
             counts = [367, 157, 293, 681]  # 4 types v2.0
         beta = 0.99999

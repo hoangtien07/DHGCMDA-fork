@@ -329,6 +329,17 @@ def validate_and_adjust_parameters(args):
         print(f"  Diseases: {args.dis_num}")
         print(f"  Expected associations: ~13,748")
         print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
+    elif args.dataset == 'v3.2_wang':
+        args.mi_num = 713
+        args.dis_num = 447
+        args.num_association_types = 5
+        if args.class_weights is None or len(args.class_weights) == 4:
+            args.class_weights = None
+        print(f"[INFO] Using v3.2_wang dataset (Wang MeSH semantic + functional sim):")
+        print(f"  miRNAs: {args.mi_num}")
+        print(f"  Diseases: {args.dis_num}")
+        print(f"  Expected associations: ~16,341 (TDRC preprocessing)")
+        print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
     else:
         print(f"[WARNING] Unknown dataset: {args.dataset}")
         print("  Using default dimensions (495 miRNAs, 383 diseases)")

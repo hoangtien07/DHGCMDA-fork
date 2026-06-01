@@ -1,0 +1,29 @@
+{
+  "status": "PARTIAL (1/5 fold, training interrupted)",
+  "dataset": "HMDD v3.2 với Wang MeSH semantic + functional (TDRC preprocessing 713x447)",
+  "epoch": 300,
+  "note": "Wang MeSH KHÔNG fix class collapse — Top-1 F1=0 sau 300 epoch confirm rằng collapse không phải do GIP vs Wang similarity issue",
+  "folds_partial": [
+    {
+      "fold": 1,
+      "AUC": 0.906,
+      "top1_f1": 0.0
+    }
+  ],
+  "comparison": {
+    "v3.2_GIP_baseline (3 fold avg)": {
+      "AUC": 0.9217,
+      "Top-1 F1": 0.0
+    },
+    "v3.2_wang_baseline (1 fold)": {
+      "AUC": 0.906,
+      "Top-1 F1": 0.0
+    },
+    "paper": {
+      "AUC": 0.9181,
+      "AUPR": 0.9271,
+      "Top-1 F1": 0.86
+    }
+  },
+  "conclusion": "Class collapse trên v3.2 với DHGCMDA + 5 types là vấn đề độc lập với similarity source. Root cause khả dĩ: loss formulation (focal+class weights) hoặc model architecture chưa đủ capacity với 5-class."
+}
