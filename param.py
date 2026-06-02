@@ -192,12 +192,19 @@ def parameter_parser():
     parser.add_argument('--loss_mode',
                         type=str,
                         default='two_head',
-                        choices=['two_head', 'softmax_5class', 'paper_literal'],
-                        help='Loss formulation. two_head=Plan C path (existence head + type head); '
-                             'softmax_5class=Fix A++ path (single 5-class softmax CE); '
-                             'paper_literal=Plan F silver bullet (Eq. 32 LITERAL: no focal, no '
-                             'class_weights, no label_smoothing, no existence loss; chỉ plain CE '
-                             'cho type + CL + recon).')
+                        choices=['two_head', 'softmax_5class', 'paper_literal', 'multilabel_bce'],
+                        help='Loss formulation. two_head=Plan C (existence + type); '
+                             'softmax_5class=Fix A++ (single 5-class softmax CE); '
+                             'paper_literal=Plan F (Eq.32 LITERAL); '
+                             'multilabel_bce=Plan G-1 (multi-label BCE per type channel — '
+                             'cell có thể có multiple types, không collapse).')
+
+    # Plan G-1: Multi-label mode (load target tensor [m, d, K] thay vì matrix [m, d])
+    parser.add_argument('--multilabel_target_path',
+                        type=str,
+                        default='',
+                        help='Path to target_multilabel.npy file [n_mi, n_dis, K]. '
+                             'Khi set, override targets từ CSV. Required cho loss_mode=multilabel_bce.')
 
     # Verbose output
     parser.add_argument('--verbose',

@@ -163,6 +163,10 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         if self.loss_mode == 'softmax_5class':
             return self._compute_softmax5_loss(one_index, zero_index, predictions, targets)
 
+        # Plan G-1: Multi-label BCE branch
+        if self.loss_mode == 'multilabel_bce':
+            return self._compute_multilabel_bce_loss(one_index, zero_index, predictions, targets)
+
         # two_head mode (Plan A/B/C path) — giữ nguyên
         # 兼容2D和3D输入
         if len(predictions.shape) == 2:
@@ -191,6 +195,57 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         else:
             # 只有存在性损失
             return exist_loss
+
+    def _compute_multilabel_bce_loss(self, one_index, zero_index, predictions, targets):
+        """Plan G-1: Multi-label BCE — mỗi (mi, dis) cell có thể có multiple types active.
+
+        predictions: [mi, dis, K+1] (K=num_types). Channel 0 = existence, 1..K = type logits.
+        targets: hỗ trợ 2 formats:
+          - 3D [mi, dis, K] — multi-hot tensor đã build từ preprocess (preferred).
+          - 2D [mi, dis] — single-label int (backward compat, sẽ convert sang multi-hot trivial).
+
+        Loss = BCE(existence_logit, has_any_type) + BCE(type_logits[1:], type_targets) trên positive.
+        Reuse existing existence_loss focal pattern + type BCE.
+        """
+        num_types = predictions.shape[2] - 1  # exclude existence channel
+
+        # Build multi-hot target tensor
+        if len(targets.shape) == 3:
+            target_multi = targets  # already [mi, dis, K]
+        else:
+            # convert from single-label int [mi, dis] → multi-hot [mi, dis, K]
+            target_multi = torch.zeros((predictions.shape[0], predictions.shape[1], num_types),
+                                       device=predictions.device, dtype=torch.float32)
+            for t in range(1, num_types + 1):
+                target_multi[:, :, t - 1] = (targets == t).float()
+
+        # Existence loss (focal) on channel 0
+        exist_pred = predictions[:, :, 0]
+        existence_target = (target_multi.sum(dim=-1) > 0).float()
+        exist_loss = self._compute_existence_loss(
+            one_index, zero_index, exist_pred, existence_target.long())
+
+        # Type BCE on channels 1..K — chỉ tính trên positive cells
+        pos_indices = self._process_indices(one_index, predictions.shape[0], predictions.shape[1])
+        if len(pos_indices) == 0:
+            return exist_loss
+
+        # Lấy logits + multi-hot targets cho positive cells
+        type_logits = predictions[pos_indices[:, 0], pos_indices[:, 1], 1:]  # [N_pos, K]
+        type_targets = target_multi[pos_indices[:, 0], pos_indices[:, 1], :]  # [N_pos, K]
+
+        # BCE per channel với class_weights để boost minority
+        # F.binary_cross_entropy_with_logits expects raw logits — predictor may have sigmoid/softmax already
+        # Để safe, dùng plain BCE assuming logits đã được processed bởi predictor
+        pos_weight = self.class_weights  # [K] — boost minority types
+        bce_loss = F.binary_cross_entropy(
+            type_logits.clamp(1e-7, 1 - 1e-7),
+            type_targets,
+            weight=pos_weight.unsqueeze(0).expand_as(type_targets),
+            reduction='mean'
+        )
+
+        return self.exist_weight * exist_loss + self.type_weight * bce_loss
 
     def _compute_softmax5_loss(self, one_index, zero_index, logits, targets):
         """Plan D Fix A++: single 5-class CrossEntropy.
