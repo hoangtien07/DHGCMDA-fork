@@ -192,11 +192,12 @@ def parameter_parser():
     parser.add_argument('--loss_mode',
                         type=str,
                         default='two_head',
-                        choices=['two_head', 'softmax_5class'],
+                        choices=['two_head', 'softmax_5class', 'paper_literal'],
                         help='Loss formulation. two_head=Plan C path (existence head + type head); '
-                             'softmax_5class=Fix A++ path (single 5-class softmax CE: class 0 = no '
-                             'association, classes 1-4 = 4 types). softmax_5class khớp Eq. 32 paper '
-                             'và force per-(m,d) competition giữa positive types và negative class.')
+                             'softmax_5class=Fix A++ path (single 5-class softmax CE); '
+                             'paper_literal=Plan F silver bullet (Eq. 32 LITERAL: no focal, no '
+                             'class_weights, no label_smoothing, no existence loss; chỉ plain CE '
+                             'cho type + CL + recon).')
 
     # Verbose output
     parser.add_argument('--verbose',

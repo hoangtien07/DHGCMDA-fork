@@ -1,0 +1,22 @@
+{
+  "AUC": 0.3771,
+  "AUPR": 0.4566,
+  "F1": 0.6678,
+  "Accuracy": 0.5028,
+  "Recall": 0.9996,
+  "Specificity": 0.0061,
+  "Precision": 0.5014,
+  "top1_precision": 0.6388,
+  "top1_recall": 0.5076,
+  "top1_f1": 0.5656,
+  "fold_times_sec": [
+    887.59,
+    906.58,
+    856.65,
+    786.91,
+    775.34
+  ],
+  "avg_fold_time_sec": 842.6139999999999,
+  "total_execution_sec": 4213.75,
+  "_source": "logs\\ablation_paper_literal_no_dv.log"
+}

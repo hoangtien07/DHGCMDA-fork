@@ -1,0 +1,22 @@
+{
+  "AUC": 0.3985,
+  "AUPR": 0.4768,
+  "F1": 0.6687,
+  "Accuracy": 0.5049,
+  "Recall": 0.9991,
+  "Specificity": 0.0107,
+  "Precision": 0.5025,
+  "top1_precision": 0.6179,
+  "top1_recall": 0.4645,
+  "top1_f1": 0.5301,
+  "fold_times_sec": [
+    535.4,
+    531.26,
+    532.53,
+    525.05,
+    524.03
+  ],
+  "avg_fold_time_sec": 529.654,
+  "total_execution_sec": 2648.8,
+  "_source": "logs\\baseline_paper_literal.log"
+}

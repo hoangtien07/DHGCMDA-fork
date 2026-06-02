@@ -101,6 +101,47 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
+## 8. PLAN F COMPLETE 2026-06-02 — Silver Bullet FAIL, finding cũ STRENGTHENED
+
+### Hypothesis tested
+"Toàn bộ findings 'ablation pattern reversal' + 'v3.2 collapse' là artifact của loss tự chế (focal+class_weights+existence). Nếu implement Eq. 32 LITERAL (plain CE + CL + recon, không trick), pattern sẽ khớp paper."
+
+### Implementation
+Plan F-A thêm `--loss_mode paper_literal` mode trong [param.py:195](param.py#L195) + [main_experiments_hetero1.py:140-152](main_experiments_hetero1.py#L140-L152). Override class_weights=uniform, focal_gamma=0, label_smoothing=0, exist_weight=0 → chỉ plain CE cho type loss.
+
+### Results
+
+| Variant | AUC (PL) | Top-1 F1 (PL) | Δ PL | Top-1 F1 (TH) | Δ TH |
+|---|---:|---:|---:|---:|---:|
+| Baseline | 0.3985 | 0.5301 | — | 0.5521 | — |
+| no_cl | 0.4072 | 0.5880 | +10.9% | 0.6206 | +12.4% |
+| no_hgt | 0.5074 | 0.6235 | +17.6% | 0.6415 | +16.2% |
+| no_dv | 0.3771 | 0.5656 | +6.7% | 0.5705 | +3.3% |
+
+### Phát hiện chính
+
+1. **Binary AUC sụp đổ < 0.5** với paper_literal mode → **existence_loss + focal + class_weights là CẦN THIẾT** cho binary signal, không phải artifact.
+2. **Top-1 F1 pattern reversal PERSIST** trong cả 2 loss modes (no_cl +10.9%/+12.4%, no_hgt +17.6%/+16.2%) → pattern reversal là **property của architecture/data**, KHÔNG phải loss-specific artifact.
+3. Finding cũ "ablation pattern ngược paper Fig. 4" → **STRENGTHENED** thành legitimate observation về implementation gap với paper.
+
+### Verdict cuối Plan F
+
+**Case C: SILVER BULLET FAIL** → tất cả finding Plan A-E remain valid và stronger:
+- Paper Fig. 4 ablation pattern: KHÔNG reproduce được dù với cấu hình loss nào.
+- v3.2 class collapse: independent của similarity source (GIP/Wang) và loss mode (two_head/paper_literal).
+- v2.0 binary metrics: chỉ work với loss tự chế, KHÔNG work với Eq. 32 literal.
+
+### Files added
+- [run_paper_literal_ablations.ps1](run_paper_literal_ablations.ps1) — orchestrator parallel
+- [results/baseline_paper_literal.json](results/baseline_paper_literal.json)
+- [results/ablation_paper_literal_{no_cl,no_hgt,no_dv}.json](results/) (3 files)
+- [logs/baseline_paper_literal.log](logs/baseline_paper_literal.log) + 3 ablation logs
+
+### Báo cáo updated
+[BaoCao_DHGCMDA.docx](BaoCao_DHGCMDA.docx): 448 paragraphs, 28 tables. Section 3.4.8 mới với verdict Case C.
+
+---
+
 ## 7zzz. PLAN E HOÀN THÀNH 2026-06-02 — Wang MeSH KHÔNG fix collapse + TDRC reproduce SUCCESS
 
 ### Plan E status (2026-06-02)

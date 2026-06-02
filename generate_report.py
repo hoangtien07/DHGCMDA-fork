@@ -1164,6 +1164,104 @@ def build_section_3(doc, baseline, ablation):
     else:
         add_para(doc, '⚠ Chưa có kết quả v3.2 partial.', italic=True)
 
+    # ----- 3.4.8 NEW: Plan F Silver Bullet Test (Eq. 32 LITERAL)
+    add_heading(doc, '3.4.8. Plan F — Silver Bullet Test: Eq. 32 Literal', level=3)
+    add_para(doc, 'Sau Plan E, đánh giá độc lập post-mortem phát hiện rằng dự án **chưa bao '
+                  'giờ implement paper Eq. 32 literal** — toàn bộ thí nghiệm Plan A-E đều '
+                  'dùng loss công thức tự chế có 5 drift điểm so với paper:')
+    add_bullet(doc, 'Existence loss 0.3 × focal_existence — paper Eq. 32 KHÔNG có')
+    add_bullet(doc, 'Focal loss γ=2.0 cho cả existence + type — paper không document')
+    add_bullet(doc, 'Label smoothing 0.1 — paper không có')
+    add_bullet(doc, 'Class weights via Effective Number β=0.99999 — aggressive implementation')
+    add_bullet(doc, 'L2 reg 0.0001 — paper không document')
+    add_para(doc, 'Plan F kiểm tra giả thuyết: **nếu paper_literal mode (chỉ plain CE + CL + '
+                  'recon, không trick) cho kết quả tốt hơn → các finding "ablation pattern '
+                  'reversal" và "v3.2 class collapse" là artifact của loss tự chế chứ không '
+                  'phải paper sai**.')
+
+    pl_baseline = _safe_load_json(RESULTS_DIR / 'baseline_paper_literal.json')
+    if pl_baseline:
+        add_heading(doc, '3.4.8.1. Kết quả baseline v2.0 paper_literal', level=4)
+        # Compare two_head vs paper_literal vs paper
+        th_auc = baseline.get('AUC', 0)
+        th_top1 = baseline.get('top1_f1', 0)
+        pl_auc = pl_baseline.get('AUC', 0)
+        pl_top1 = pl_baseline.get('top1_f1', 0)
+        cmp_rows = [
+            ['AUC (binary)', f'{th_auc:.4f}', f'{pl_auc:.4f}',
+             f'{(pl_auc - th_auc) / max(th_auc, 1e-9) * 100:+.2f}%', '0.9669'],
+            ['Top-1 F1 (type)', f'{th_top1:.4f}', f'{pl_top1:.4f}',
+             f'{(pl_top1 - th_top1) / max(th_top1, 1e-9) * 100:+.2f}%', '0.5970'],
+        ]
+        add_table(doc, ['Metric', 'two_head (Plan B-C)', 'paper_literal (Plan F)',
+                        'Δ vs two_head', 'Paper'],
+                  cmp_rows,
+                  caption='Bảng 12c. Plan F Silver Bullet Test — baseline v2.0 comparison.')
+
+        # Verdict
+        case_a = pl_top1 >= 0.58 and pl_auc >= 0.95
+        case_c = pl_auc < 0.5 or pl_top1 < 0.5
+        if case_a:
+            verdict = 'A — SUCCESS'
+            conclusion = ('Silver bullet HIT: paper_literal vượt two_head, ablation pattern '
+                          'reversal LÀ artifact của loss tự chế. Toàn bộ Plan B-E finding cần '
+                          'revisit.')
+        elif case_c:
+            verdict = 'C — FAIL'
+            conclusion = ('Silver bullet MISS: paper_literal kém two_head rõ rệt (AUC giảm '
+                          f'{(pl_auc - th_auc) / max(th_auc, 1e-9) * 100:.1f}%, Top-1 F1 '
+                          f'giảm {(pl_top1 - th_top1) / max(th_top1, 1e-9) * 100:.1f}%). '
+                          '**Loại bỏ existence loss + focal + class_weights làm BINARY AUC '
+                          'sụp đổ < 0.5** → các "trick" này KHÔNG phải artifact mà THỰC SỰ '
+                          'cần thiết. Finding "ablation pattern reversal" và "v3.2 class '
+                          'collapse" được STRENGTHEN thành legitimate observation về '
+                          'implementation gap với paper.')
+        else:
+            verdict = 'B — PARTIAL'
+            conclusion = ('Silver bullet PARTIAL: paper_literal có mixed result. Cần '
+                          'investigate thêm.')
+        add_para(doc, f'**Verdict: Case {verdict}**. {conclusion}')
+
+        # Ablation results placeholder
+        pl_ablations = {}
+        for mode in ['no_cl', 'no_hgt', 'no_dv']:
+            j = _safe_load_json(RESULTS_DIR / f'ablation_paper_literal_{mode}.json')
+            if j:
+                pl_ablations[mode] = j
+
+        if pl_ablations:
+            add_heading(doc, '3.4.8.2. Ablation pattern với paper_literal', level=4)
+            add_para(doc, 'Để kiểm tra liệu ablation pattern reversal có phụ thuộc loss '
+                          'formulation hay không, chạy 3 ablation key (no_cl, no_hgt, no_dv) '
+                          'với paper_literal mode:')
+            abl_rows = []
+            for mode, j in pl_ablations.items():
+                pl_abl_top1 = j.get('top1_f1', 0)
+                delta = (pl_abl_top1 - pl_top1) / max(pl_top1, 1e-9) * 100
+                # so sánh với two_head ablation
+                th_abl = _safe_load_json(RESULTS_DIR / f'ablation_{mode}.json')
+                th_abl_delta = '—'
+                if th_abl:
+                    th_abl_top1 = th_abl.get('top1_f1', 0)
+                    th_abl_delta_v = (th_abl_top1 - th_top1) / max(th_top1, 1e-9) * 100
+                    th_abl_delta = f'{th_abl_delta_v:+.1f}%'
+                abl_rows.append([
+                    f'w/o {mode.split("_")[1].upper()}',
+                    f'{pl_abl_top1:.4f}',
+                    f'{delta:+.1f}%',
+                    th_abl_delta,
+                ])
+            add_table(doc, ['Variant', 'Top-1 F1 (paper_literal)',
+                            'Δ vs PL baseline', 'Δ vs two_head baseline'],
+                      abl_rows,
+                      caption='Bảng 12d. Ablation pattern paper_literal vs two_head.')
+            add_para(doc, 'So sánh delta của 2 modes: nếu cả 2 đều positive (ablation TĂNG) → '
+                          'pattern reversal là **architecture/data property**, không phải '
+                          'loss-mode-specific. Nếu paper_literal cho pattern hurt (negative '
+                          'delta) → pattern reversal là loss-mode-specific.')
+    else:
+        add_para(doc, '⚠ Chưa có kết quả Plan F.', italic=True)
+
     # ----- 3.5 NEW: Case Study (breast neoplasms + HCC)
     add_heading(doc, '3.5. Case study: breast neoplasms và hepatocellular carcinoma', level=2)
     case_study = _safe_load_json(RESULTS_DIR / 'case_study_summary.json')

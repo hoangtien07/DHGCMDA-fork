@@ -130,9 +130,25 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.label_smoothing = 0.1
         self.exist_weight = float(getattr(args, 'exist_weight', 0.3))
         self.type_weight = 1.0 - self.exist_weight if self.exist_weight < 1.0 else 0.0
+
+        # Plan F: paper_literal mode override — strict Eq. 32 implementation
+        # Disable mọi trick: focal, class_weights, label_smoothing, existence loss.
+        # Chỉ giữ plain CE cho type prediction. CL + recon đã match paper bên ngoài forward.
+        if self.loss_mode == 'paper_literal':
+            self.class_weights = torch.ones_like(self.class_weights)
+            self.class_weights_5 = torch.ones_like(self.class_weights_5)
+            self.focal_gamma = 0.0
+            self.label_smoothing = 0.0
+            self.exist_weight = 0.0
+            self.type_weight = 1.0
+            print(f"   [Plan F paper_literal] OVERRIDE: uniform class_weights, focal_gamma=0, "
+                  f"label_smoothing=0, exist_weight=0 → plain CE cho type only")
+
         print(f"   loss_mode={self.loss_mode}")
         if self.loss_mode == 'two_head':
             print(f"   exist_weight={self.exist_weight:.3f}, type_weight={self.type_weight:.3f}")
+        elif self.loss_mode == 'paper_literal':
+            print(f"   [paper_literal] exist_weight=0.0, type_weight=1.0, plain CE, no focal/CW/LS")
         else:
             print(f"   class_weights_5 (neg+4types): {[f'{w:.3f}' for w in normalized_weights_5]}")
 
