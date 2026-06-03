@@ -101,6 +101,41 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
+## 9. PLAN H COMPLETE 2026-06-03 — Process audit + 6 confirmed mistakes + 2 verified findings
+
+### Audit workflow (27-agent: 5 lens → consolidate → adversarial verify → synth)
+45 raw → 17 unique → **6 confirmed**. Adversarial stage REFUTED stratified-CV + best-checkpoint + single-label-metric (synthesis prose over-claimed 75-85%, real ~65-72%).
+
+| ID | Mistake | Severity | Fault |
+|---|---|---|---|
+| M1 | Multi-label collapse v3.2 (23.3% signal) | medium | our_process |
+| M5 | exist_weight=0.3 sai (paper≈0.1) | high | paper spec gap |
+| M6 | Loss 5 tricks ngoài Eq.32 | medium | paper spec gap |
+| M7 | Type monotone collapse case study | critical | our (tied M1) |
+| M14 | Ablation reversal chưa multi-seed verify | medium | our_process |
+| M16 | NO train/test leakage — CV SOUND | positive | — |
+
+### H-1 (M5) — exist_weight fix: ĐÓNG GAP v2.0
+`--exist_weight 0.1` → Top-1 F1 **0.5996 vs paper 0.5970 (+0.4%)** (từ -7.5%). Với w=0.1, no_avf -3.7% + no_dv -2.0% HURT đúng paper (2/5 ablation match).
+
+### H-2 (M14) — Multi-seed verify: reversal REAL
+2 ablation × 4 seeds {0,1,42,1234} @ exist_weight=0.1:
+- no_cl mean Δ **+4.52%** (>2σ=3.6%) → REAL
+- no_hgt mean Δ **+7.01%** (>2σ=3.6%) → REAL
+- 8/8 deltas dương → ablation reversal là **legitimate finding, multi-seed verified**, KHÔNG phải noise.
+
+### H-3 (M1) — Multi-label BCE: KHÔNG unlock v3.2
+`v3.2_wang_multilabel/` (16,341 triplets, multi-label preserved) + `--loss_mode multilabel_bce` + multi-hot target [713,447,5]. Fold-1: AUC 0.9127, **Top-1 F1=0.0** → collapse PERSIST. M1 cần thiết nhưng KHÔNG đủ. Root cause v3.2 sâu hơn (architecture/paper trick chưa document). Killed sau fold 1 (consistent với mọi v3.2 run trước → conclusive).
+
+### Kết luận Plan H
+- **Reproduce % v2.0 thực sự CAO HƠN ta nghĩ**: với M5 fix (exist_weight=0.1), v2.0 Top-1 F1 khớp paper (+0.4%). Gap -7.5% trước đó là do paper under-document, KHÔNG phải ta sai.
+- **Ablation reversal = legitimate** (multi-seed verified, không phải single-seed noise).
+- **v3.2 collapse = genuine non-reproducibility** (khẳng định qua 6 cấu hình: GIP/Wang × single/multi-label × two_head/paper_literal).
+- Files mới: run_multiseed_ablation_verify.ps1, summarize_multiseed_ablation.py, preprocess_v32_wang_multilabel.py, v3.2_wang_multilabel/, results/multiseed_ablation_verify.json, results/v32_wang_multilabel_baseline.json.
+- Báo cáo: 465 para, 32 tables. Section 3.4.9 (audit+multiseed) + 3.4.10 (multilabel).
+
+---
+
 ## 8. PLAN F COMPLETE 2026-06-02 — Silver Bullet FAIL, finding cũ STRENGTHENED
 
 ### Hypothesis tested

@@ -1,0 +1,14 @@
+{
+  "status": "PARTIAL (1/5 fold, killed — fold-1 conclusive given consistent prior)",
+  "dataset": "v3.2_wang_multilabel (16,341 triplets, multi-label preserved, BCE loss)",
+  "AUC": 0.9127,
+  "top1_f1": 0.0,
+  "folds": [
+    {
+      "fold": 1,
+      "AUC": 0.9127,
+      "top1_f1": 0.0
+    }
+  ],
+  "conclusion": "Multi-label BCE (M1 fix) KHONG unlock v3.2 class collapse. Top-1 F1=0 fold 1, consistent voi moi v3.2 run truoc (GIP, Wang, single-label, two_head, paper_literal). → M1 can thiet nhung KHONG du. Root cause v3.2 collapse sau hon (architecture capacity hoac paper trick chua document)."
+}
