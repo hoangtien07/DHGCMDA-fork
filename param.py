@@ -188,6 +188,12 @@ def parameter_parser():
                         default=0.3,
                         help='Weight of existence (focal) loss term. Paper Eq. 32 uses 0.0 (no existence loss). Sweep {0.0, 0.05, 0.1, 0.3}.')
 
+    # Plan I A16: override CL + reconstruction loss weights (diagnostic v3.2 collapse)
+    parser.add_argument('--cl_weight_override', type=float, default=1.0,
+                        help='A16: multiplier for (mi_cl + dis_cl) loss. Default 1.0 (paper λ₁).')
+    parser.add_argument('--recon_weight_override', type=float, default=1.0,
+                        help='A16: multiplier for (mi_recon + dis_recon) loss. Default 1.0 (paper λ₃).')
+
     # Plan D — Fix A++: 5-class softmax CE (Eq. 32 fully aligned)
     parser.add_argument('--loss_mode',
                         type=str,

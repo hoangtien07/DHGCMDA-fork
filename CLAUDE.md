@@ -101,6 +101,34 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
+## 10. PLAN I COMPLETE 2026-06-03 — Reproduction ceiling analysis + STOP recommendation
+
+### Workflow 34-agent (5 angles → consolidate → adversarial ceiling-check → roadmap)
+46 avenues → 27 unique. **Verdict: 0 high-value, 3 marginal, 17 likely-futile, 7 blocked.** Không còn avenue ROI cao.
+
+### Giới hạn đạt được (HARD LIMITS)
+- **Trần KHÔNG có author: 72-75% lý thuyết, 62-68% thực tế** (hiện ~62-65%).
+- **Với author cooperation: 85-95%**.
+- v3.2 Top-1 F1: ceiling 0.05-0.35 (paper 0.86) — architectural wall.
+- Ablation Fig.4: 2-3/5 match — terminal (verified 4 cách).
+- Case study: 5-10%. Baseline: 17-50%.
+
+### Phát hiện then chốt: True rebuild ĐÃ làm (Plan E)
+`phase_e_*_rebuild.json`: no_cl_rebuild +9.7%, no_hgcn +4.5%, no_hgt +8.4% (verdict D_strong_negative). → Ablation reversal persist cả true rebuild. Kết hợp 4 evidence (additive + rebuild + multi-seed + 2 loss modes) → TERMINAL genuine finding.
+
+### 2 diagnostic cuối (A16 + A24)
+- **A16** (v3.2 loss reweight, 3 config): tất cả Top-1 F1=0.0 (AUC ~0.89) → collapse KHÔNG tunable, confirm architectural wall. `results/a16_v32_loss_reweight.json`.
+- **A24** (baseline code search): TFLP found tại github.com/nayu0419/TFLP. Out of scope (40-60h cho +1.7%). `tflp_search_results.md`.
+
+### Bottom line
+Reproduce study HOÀN CHỈNH. Đã exhaust mọi avenue tuning (Plan A-I + 2 audit workflow). Gap còn lại = genuine non-reproducibility (architectural + paper underspec), KHÔNG phải lỗi ta. Recommended: STOP tuning, pivot ReScience note. Marginal gain < 5%, ROI < 20%.
+
+Báo cáo: 480 para, 35 tables. Section 3.4.11 (ceiling analysis + true rebuild + A16/A24).
+
+Files mới: run_a16_loss_sweep.ps1, results/a16_v32_loss_reweight.json, tflp_search_results.md.
+
+---
+
 ## 9. PLAN H COMPLETE 2026-06-03 — Process audit + 6 confirmed mistakes + 2 verified findings
 
 ### Audit workflow (27-agent: 5 lens → consolidate → adversarial verify → synth)

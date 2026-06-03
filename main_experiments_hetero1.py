@@ -1026,8 +1026,10 @@ def train_epoch_optimized(model, train_data, optim, args):
         # 总损失
         # 🔥 SimplifiedTypePredictor不需要额外的类别分离损失
         # 类型关系向量已经通过正交初始化确保了分离性
-
-        tol_loss = recover_loss + mi_cl_loss + dis_cl_loss + 1.0 * (
+        # Plan I A16: cl_weight + recon_weight override để test có giảm được collapse v3.2 không.
+        _cl_w = float(getattr(args, 'cl_weight_override', 1.0))
+        _recon_w = float(getattr(args, 'recon_weight_override', 1.0))
+        tol_loss = recover_loss + _cl_w * (mi_cl_loss + dis_cl_loss) + _recon_w * (
                 mi_recon_loss + dis_recon_loss) + 0.0001 * reg_loss
 
         # 🔧 检查是否有nan(在反向传播之前)

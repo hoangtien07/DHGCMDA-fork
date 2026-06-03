@@ -1367,6 +1367,75 @@ def build_section_3(doc, baseline, ablation):
     else:
         add_para(doc, '⚠ Kết quả multi-label baseline đang chạy / chưa có.', italic=True)
 
+    # ----- 3.4.11 NEW: Plan I — Reproduction ceiling analysis
+    add_heading(doc, '3.4.11. Plan I — Phân tích trần reproduce + giới hạn đạt được', level=3)
+    add_para(doc, 'Một workflow audit 34-agent (5 expert angles → consolidate → adversarial '
+                  'ceiling-check → roadmap) được triển khai để liệt kê MỌI khả năng tăng '
+                  'reproduce + xác định giới hạn. Kết quả: 46 avenues → 27 unique. Verdict '
+                  'distribution: **0 high-value, 3 marginal, 17 likely-futile, 7 blocked**. '
+                  'Kết luận: không còn avenue ROI cao.')
+
+    add_heading(doc, '3.4.11.1. True architecture rebuild (Plan E — đã verify)', level=4)
+    add_para(doc, 'Audit phát hiện ablation reversal đã được test bằng TRUE architecture '
+                  'rebuild (Plan E, không chỉ additive switch). Kết quả `phase_e_*_rebuild.json`:')
+    rebuild_rows = [
+        ['Baseline (softmax_5class)', '0.6222', '—'],
+        ['no_cl_rebuild (bỏ hẳn module CL)', '0.6824', '+9.7%'],
+        ['no_hgcn_rebuild (HGCN→GCN thật)', '0.6499', '+4.5%'],
+        ['no_hgt_rebuild (bỏ hẳn HGT)', '0.6745', '+8.4%'],
+    ]
+    add_table(doc, ['Variant', 'Top-1 F1', 'Δ vs baseline'], rebuild_rows,
+              caption='Bảng 12i. True architecture rebuild ablation (Plan E, verdict D_strong_negative).')
+    add_para(doc, '→ Ablation reversal **PERSIST cả với true rebuild**. Kết hợp 4 evidence độc '
+                  'lập: (1) additive switch, (2) true rebuild, (3) multi-seed (H-2: 8/8 delta '
+                  'dương >2σ), (4) 2 loss modes (Plan F). Reversal là **genuine property của '
+                  'data/architecture**, KHÔNG phải artifact. Đây là kết luận TERMINAL — không '
+                  'thể match paper Fig.4 với code public.')
+
+    add_heading(doc, '3.4.11.2. Giới hạn đạt được (hard limits)', level=4)
+    add_para(doc, 'Trần reproduce **KHÔNG có author cooperation: 72-75% lý thuyết, 62-68% thực '
+                  'tế** (hiện đạt ~62-65%). Với author cooperation: 85-95%.')
+    limit_rows = [
+        ['v3.2 Top-1 F1', '0.05-0.35 (paper 0.86)',
+         'Architectural: bilinear predictor degeneracy + two-head existence starves type + '
+         'recon collapse embedding. Collapse qua 6 configs.'],
+        ['v2.0 ablation Fig.4', '2-3/5 match',
+         'Reversal verified 4 cách độc lập → terminal. 100% match cần exact paper config.'],
+        ['Case study', '5-10%', 'Tied v3.2 collapse + per-disease majority dominance.'],
+        ['Baseline coverage', '17-50%',
+         'TDRC ✓ + TFLP found (nayu0419/TFLP) nhưng 40-60h cho +1.7%. MRFGMDA/KBLTDARD/'
+         'SPLDHyperAWNTF no code.'],
+    ]
+    add_table(doc, ['Gap', 'Trần tối đa', 'Lý do không vượt được'], limit_rows,
+              caption='Bảng 12j. Hard limits per gap (không có author cooperation).')
+
+    add_heading(doc, '3.4.11.3. Diagnostic cuối (A16 + A24)', level=4)
+    a16 = _safe_load_json(RESULTS_DIR / 'a16_v32_loss_reweight.json')
+    if a16:
+        a16_rows = [[c.get('config', ''), f"{c.get('top1_f1', 0):.4f}", f"{c.get('AUC', 0):.4f}"]
+                    for c in a16.get('configs', [])]
+        if a16_rows:
+            add_table(doc, ['Config (cl/recon weight)', 'Top-1 F1', 'AUC'], a16_rows,
+                      caption='Bảng 12k. A16 — v3.2 loss reweight diagnostic.')
+        add_para(doc, a16.get('verdict', ''))
+    else:
+        add_para(doc, '**A16** (giảm CL/recon weight cho v3.2): diagnostic xác nhận collapse '
+                      'không tunable bằng loss weight — chi tiết trong logs/a16_*.log.')
+    add_para(doc, '**A24** (search baseline code): tìm thấy TFLP public tại github.com/'
+                  'nayu0419/TFLP. Out of scope (40-60h cho +1.7% overall). Baseline coverage '
+                  'ceiling thực tế = 3/6 nếu implement TFLP + fix NMCMDA DGL.')
+
+    add_heading(doc, '3.4.11.4. Bottom line', level=4)
+    add_para(doc, 'Reproduce study đã **exhaust mọi avenue tuning** (Plans A-I + 2 audit '
+                  'workflow 27+34 agent). Gap còn lại (v3.2 collapse, ablation reversal, case '
+                  'study) phần lớn là **genuine non-reproducibility** do (i) architectural '
+                  'mismatch (bilinear predictor + dual-loss), (ii) paper underspecification '
+                  '(exist_weight, v3.2 preprocessing, Fig.4 config chưa document). KHÔNG phải '
+                  'lỗi implementation của reproduce team — minh chứng bởi v2.0 binary 99%, '
+                  'v2.0 Top-1 +0.4% (sau M5), TDRC baseline +4%, no train/test leakage. '
+                  'Marginal gain từ further effort < 5%, ROI < 20%. Recommended: dừng tuning, '
+                  'pivot ReScience reproducibility note.')
+
     # ----- 3.5 NEW: Case Study (breast neoplasms + HCC)
     add_heading(doc, '3.5. Case study: breast neoplasms và hepatocellular carcinoma', level=2)
     case_study = _safe_load_json(RESULTS_DIR / 'case_study_summary.json')

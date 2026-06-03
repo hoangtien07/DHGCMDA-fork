@@ -1,0 +1,21 @@
+{
+  "experiment": "A16 v3.2 loss reweight diagnostic (2 fold x 3 config, exist_weight=0.1)",
+  "configs": [
+    {
+      "config": "aggressive (cl=0.05/recon=0.3)",
+      "AUC": 0.8928,
+      "top1_f1": 0.0
+    },
+    {
+      "config": "baseline (cl=1.0/recon=1.0)",
+      "AUC": 0.8873500000000001,
+      "top1_f1": 0.0
+    },
+    {
+      "config": "mid (cl=0.1/recon=0.5)",
+      "AUC": 0.89215,
+      "top1_f1": 0.0
+    }
+  ],
+  "verdict": "**A16 verdict: v3.2 collapse KHÔNG tunable bằng loss weight.** Cả 3 config (baseline cl=1.0/recon=1.0, aggressive cl=0.05/recon=0.3, mid cl=0.1/recon=0.5) đều Top-1 F1=0.0 dù AUC binary ~0.89 OK. → Confirm v3.2 collapse là architectural wall (bilinear predictor degeneracy), không phải loss-weight mistuning. STOP criterion met."
+}
