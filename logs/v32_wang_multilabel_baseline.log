@@ -1,0 +1,170 @@
+[CPU] torch.set_num_threads(14), interop=min(4, 14)
+Using device: cpu
+[INFO] Auto-computed BALANCED class weights (to prevent class collapse):
+  Circulation  (  367 samples): 0.780
+  Epigenetics  (  157 samples): 1.823
+  Target       (  293 samples): 0.977
+  Genetics     (  681 samples): 0.420
+  [NOTE] Higher weights for minority classes to prevent model from only predicting majority class
+[INFO] Using v3.2_wang_multilabel dataset (Plan H-3, multi-label preserved):
+  miRNAs: 713
+  Diseases: 447
+  Triplets: 16,341 (12,534 unique pairs, multi-label preserved)
+  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)
+
+================================================================================
+Configuration Summary
+================================================================================
+Dataset: v3.2_wang_multilabel
+Data Path: ./
+Model: HeterogenousGraphCLAMIR
+  - HGT Layers: 2
+  - Attention Heads: 4
+  - Association Types: 5
+  - Inter-view CL: Enabled
+    - Weight: 0.3
+    - Temperature: 0.5
+    - Margin: 0.5
+
+Training:
+  - Epochs: 300
+  - Learning Rate: 0.0001
+  - Dropout: 0.3
+  - Weight Decay: 5e-05
+  - Focal Loss: Enabled
+
+Evaluation:
+  - Cross-Validation Folds: 5
+  - Primary Metric: AUPR
+
+Device: cpu
+Random Seed: 1234
+================================================================================
+
+[SEED] Re-seeded với args.seed = 1234
+🚀 Running with comprehensive evaluation including Top-1 metrics...
+🎯 Loading dual-view data...
+Starting dual-view data preparation with new file format...
+Loading all similarity and feature files from v3.2_wang_multilabel...
+✅ Loaded disease semantic similarity from D_SSM1.txt: (447, 447)
+✅ Loaded miRNA functional similarity from M_FSM.txt: (713, 713)
+✅ Loaded multi-type association pairs from ./v3.2_wang_multilabel\multi_all_mirna_disease_pairs_without_negative.csv: (16341, 3)
+✅ Created multi-type association matrix: (713, 447)
+📊 Multi-type Association Statistics:
+   无关联 (No association): 306177 pairs (96.07%)
+   循环类型 (Circulation): 2057 pairs (0.65%)
+   表观遗传学 (Epigenetics): 214 pairs (0.07%)
+   靶标类型 (Target): 4094 pairs (1.28%)
+   遗传学类型 (Genetics): 1082 pairs (0.34%)
+   组织表达 (Tissue): 5087 pairs (1.60%)
+✅ Created association matrix from CSV: (713, 447)
+✅ Loaded disease-gene features from D_SSM2.txt: torch.Size([447, 447])
+✅ Loaded miRNA-sequence features from M_GSM.txt: torch.Size([713, 713])
+Processing integrated similarity matrices...
+Loaded similarity matrices from cache
+Processing indices...
+Computing indices (seed=1234)...
+Indices computed in 1.16 seconds
+✅ Dual-view data preparation completed in 1.96 seconds
+
+============================================================
+🎯 DUAL-VIEW CONFIGURATION SUMMARY (v3.2_wang_multilabel)
+============================================================
+miRNA Dual Views:
+  📊 View 1 (Sequence): M_GSM.txt torch.Size([713, 713])
+  📊 View 2 (Function): M_FSM.txt torch.Size([713, 713])
+
+Disease Dual Views:
+  📊 View 1 (Gene): D_SSM2.txt torch.Size([447, 447])
+  📊 View 2 (Semantic): D_SSM1.txt torch.Size([447, 447])
+
+Association Matrix: torch.Size([713, 447])
+Data source: v3.2_wang_multilabel (713 miRNAs × 447 Diseases)
+============================================================
+Preloading dual-view data to device...
+✅ Loaded disease-gene features to device: torch.Size([447, 447])
+✅ Loaded miRNA-sequence features to device: torch.Size([713, 713])
+✅ Loaded disease semantic similarity to device: torch.Size([447, 447])
+✅ Loaded miRNA functional similarity to device: torch.Size([713, 713])
+✅ Dual-view data preloading completed in 0.00 seconds
+OptimizedDataset initialized with 5 folds
+Using device: cpu
+=== Cross Validation Fold 1/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+优化模型初始化: miRNA数量 = 713, 疾病数量 = 447
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+Original positive index shape: torch.Size([9020, 2])
+Original negative index shape: torch.Size([220440, 2])
+采样后负样本数量: 90200
+[H-3 multilabel] Loaded target tensor torch.Size([713, 447, 5]) từ v3.2_wang_multilabel/target_multilabel.npy
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([447, 447])
+  miRNA functional: torch.Size([713, 713])
+  Disease-gene: torch.Size([447, 447])
+  miRNA-sequence: torch.Size([713, 713])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([713, 1160])
+  📊 miRNA View 2 (Function): torch.Size([713, 1160])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([447, 1160])
+  📊 Disease View 2 (Semantic): torch.Size([447, 1160])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.166004     0.003552 ✅ 正常           
+  exist_relation                0.096064     0.006135 ✅ 正常           
+  mi_proj_layer0                0.314675     0.001007 ✅ 正常           
+  dis_proj_layer0               0.341156     0.001069 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 19.6268, Recover Loss: 0.3371, miRNA CL: 9.2245, Disease CL: 8.6318, Inter-view (est): 4.1207, Recon Loss: 1.1167, Time: 4.68s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.156697     0.002416 ✅ 正常           
+  exist_relation                0.056693     0.001795 ✅ 正常           
+  mi_proj_layer0                0.018389     0.000063 ✅ 正常           
+  dis_proj_layer0               0.018533     0.000067 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 16.4048, Recover Loss: 0.2436, miRNA CL: 8.0068, Disease CL: 7.7736, Inter-view (est): 3.6416, Recon Loss: 0.0781, Time: 322.00s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.061729     0.000998 ✅ 正常           
+  exist_relation                0.040519     0.001203 ✅ 正常           
+  mi_proj_layer0                0.008606     0.000030 ✅ 正常           
+  dis_proj_layer0               0.008632     0.000031 ✅ 正常           
+================================================================================

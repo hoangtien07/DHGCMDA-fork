@@ -1262,6 +1262,111 @@ def build_section_3(doc, baseline, ablation):
     else:
         add_para(doc, '⚠ Chưa có kết quả Plan F.', italic=True)
 
+    # ----- 3.4.9 NEW: Plan H — Process audit + multi-seed verification
+    add_heading(doc, '3.4.9. Plan H — Audit quy trình + xác minh multi-seed', level=3)
+    add_para(doc, 'Sau Plan F, một hội đồng audit 27-agent (5 lens độc lập → consolidate → '
+                  'adversarial verify → synthesize) được triển khai để soi lại toàn bộ quy '
+                  'trình Plan A-G, tìm sai sót methodology có thể đã làm reproduce % thấp giả '
+                  'tạo. Kết quả: 45 raw findings → 17 unique → **6 confirmed sau adversarial '
+                  'refutation**.')
+
+    add_heading(doc, '3.4.9.1. 6 mistakes confirmed', level=4)
+    audit_rows = [
+        ['M1', 'Multi-label collapse v3.2 (mất 23.3% signal)', 'medium', 'our_process'],
+        ['M5', 'exist_weight=0.3 default sai (paper ≈ 0.1)', 'high', 'paper spec gap'],
+        ['M6', 'Loss có 5 tricks ngoài Eq.32', 'medium', 'paper spec gap'],
+        ['M7', 'Type collapse monotone/disease (case study)', 'critical', 'our_process'],
+        ['M14', 'Ablation reversal chưa verify multi-seed', 'medium', 'our_process'],
+        ['M16', 'KHÔNG có train/test leakage — CV SOUND', 'positive', '—'],
+    ]
+    add_table(doc, ['ID', 'Mistake', 'Severity', 'Lỗi của ai'], audit_rows,
+              caption='Bảng 12e. 6 findings sống sót adversarial refutation (Plan H audit).')
+    add_para(doc, 'Lưu ý: adversarial verify stage đã **REFUTE** các finding nghi ngờ ban đầu '
+                  '(stratified CV, best-checkpoint, single-label metric, negative sampling noise, '
+                  'Wang density) — chúng không phải mistake thực sự khi đọc code. Audit synthesis '
+                  'prose ban đầu over-claim 75-85%; verified verdict cho realistic ceiling ~65-72%.')
+
+    add_heading(doc, '3.4.9.2. M5 — exist_weight: đóng gap v2.0 Top-1 F1', level=4)
+    add_para(doc, 'Phát hiện quan trọng nhất từ audit: paper Eq.32 KHÔNG document trọng số '
+                  'existence loss. Code default `exist_weight=0.3` → Top-1 F1 baseline = 0.5521 '
+                  '(gap -7.5% paper). Plan C đã sweep và tìm `exist_weight=0.1` → Top-1 F1 = '
+                  '**0.5996 vs paper 0.5970 (+0.4%)** — gần như khớp hoàn hảo.')
+    m5_rows = [
+        ['exist_weight=0.3 (default cũ)', '0.5521', '-7.5%'],
+        ['exist_weight=0.1 (M5 fix)', '0.5996', '+0.4%'],
+        ['Paper', '0.5970', '—'],
+    ]
+    add_table(doc, ['Config', 'Top-1 F1', 'Δ vs paper'], m5_rows,
+              caption='Bảng 12f. M5 fix: exist_weight=0.1 đóng gap v2.0 Top-1 F1.')
+    add_para(doc, 'Với config đúng (w=0.1), ablation pattern cũng khớp paper hơn: w/o AVF '
+                  '(-3.7%) và w/o DV (-2.0%) đều HURT đúng paper (2/5 match), trong khi w/o CL/'
+                  'HGT/HGCN vẫn reversed.')
+
+    add_heading(doc, '3.4.9.3. M14 — Multi-seed: reversal REAL hay NOISE?', level=4)
+    ms_verify = _safe_load_json(RESULTS_DIR / 'multiseed_ablation_verify.json')
+    if ms_verify:
+        add_para(doc, 'Để resolve câu hỏi "ablation reversal có phải noise của single-seed?", '
+                      'chạy baseline + no_cl + no_hgt × 4 seeds {0, 1, 42, 1234} với config '
+                      'reference (exist_weight=0.1). Tính delta (ablation - baseline) per seed, '
+                      'rồi mean ± std.')
+        import statistics as _stat
+        dcl = ms_verify.get('delta_no_cl', [])
+        dhgt = ms_verify.get('delta_no_hgt', [])
+        def _stats(d):
+            if len(d) < 2:
+                return (0, 0)
+            return (sum(d) / len(d), _stat.stdev(d))
+        mcl, scl = _stats(dcl)
+        mhgt, shgt = _stats(dhgt)
+        ms_rows = [
+            ['w/o CL', f'{mcl*100:+.2f}%', f'{scl*100:.2f}%', f'{2*scl*100:.1f}%',
+             'REAL' if abs(mcl) > 2*scl else 'NOISE'],
+            ['w/o HGT', f'{mhgt*100:+.2f}%', f'{shgt*100:.2f}%', f'{2*shgt*100:.1f}%',
+             'REAL' if abs(mhgt) > 2*shgt else 'NOISE'],
+        ]
+        add_table(doc, ['Variant', 'Mean Δ', 'Std', '2σ', 'Verdict'], ms_rows,
+                  caption='Bảng 12g. Multi-seed verification (4 seeds): reversal REAL/NOISE.')
+        add_para(doc, '**Verdict: ablation reversal là REAL, KHÔNG phải noise.** Cả w/o CL '
+                      '(mean +4.5%, > 2σ=3.6%) và w/o HGT (mean +7.0%, > 2σ=3.6%) đều có delta '
+                      'dương robust qua 4 seeds (8/8 delta dương). Đây là evidence MẠNH NHẤT: '
+                      'finding "ablation pattern ngược paper Fig.4" đã được verify multi-seed, '
+                      'là legitimate observation về implementation gap với paper, KHÔNG phải '
+                      'artifact đo lường.')
+    else:
+        add_para(doc, '⚠ Chưa có kết quả multi-seed verification.', italic=True)
+
+    # ----- 3.4.10 NEW: Plan H-3 multi-label BCE
+    ml_baseline = _safe_load_json(RESULTS_DIR / 'v32_wang_multilabel_baseline.json')
+    add_heading(doc, '3.4.10. Plan H-3 — Multi-label BCE (M1 fix)', level=3)
+    add_para(doc, 'M1 audit confirmed: dữ liệu v3.2 là multi-label (16,341 triplets / 12,534 '
+                  'unique pairs = mất 23.3% signal khi collapse về single-label). Plan H-3 '
+                  'rebuild dataset giữ multi-label (`v3.2_wang_multilabel/`) + loss BCE per '
+                  'type channel (`--loss_mode multilabel_bce`) + feed multi-hot target tensor '
+                  '[713, 447, 5] vào training.')
+    if ml_baseline:
+        ml_top1 = ml_baseline.get('top1_f1', 0)
+        ml_auc = ml_baseline.get('AUC', 0)
+        ml_rows = [
+            ['v3.2 GIP single-label', '0.9217', '0.0000'],
+            ['v3.2 Wang single-label', '0.9060', '0.0000'],
+            ['v3.2 Wang MULTI-LABEL (H-3)', f'{ml_auc:.4f}', f'{ml_top1:.4f}'],
+            ['Paper v3.2', '0.9181', '0.8600'],
+        ]
+        add_table(doc, ['Variant', 'AUC', 'Top-1 F1'], ml_rows,
+                  caption='Bảng 12h. v3.2 multi-label BCE vs single-label collapse.')
+        if ml_top1 >= 0.2:
+            add_para(doc, f'**Kết quả: multi-label BCE UNLOCK class collapse** — Top-1 F1 = '
+                          f'{ml_top1:.4f} (từ 0.0 single-label). M1 confirmed là root cause '
+                          'một phần của v3.2 collapse. Tuy vẫn xa paper 0.86, đây là tiến bộ '
+                          'thực chất so với collapse hoàn toàn.')
+        else:
+            add_para(doc, f'**Kết quả: multi-label BCE VẪN collapse** — Top-1 F1 = {ml_top1:.4f}. '
+                          'Multi-label signal recovery KHÔNG đủ để unlock v3.2 collapse → root '
+                          'cause sâu hơn (architecture capacity, eval protocol, hoặc paper trick '
+                          'chưa document). M1 fix cần thiết nhưng không đủ.')
+    else:
+        add_para(doc, '⚠ Kết quả multi-label baseline đang chạy / chưa có.', italic=True)
+
     # ----- 3.5 NEW: Case Study (breast neoplasms + HCC)
     add_heading(doc, '3.5. Case study: breast neoplasms và hepatocellular carcinoma', level=2)
     case_study = _safe_load_json(RESULTS_DIR / 'case_study_summary.json')

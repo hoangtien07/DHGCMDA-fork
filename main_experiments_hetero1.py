@@ -102,6 +102,10 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
             # v3.2 Wang TDRC preprocessing — actual counts after preprocess_v32_wang.py
             # circu=3310, epic=411, target=4810, genetic=850, tissue=3153
             counts = [3310, 411, 4810, 850, 3153]
+        elif ds == 'v3.2_wang_multilabel':
+            # Plan H-3: multi-label preserved counts (per-type sum, not collapsed)
+            # circu=3310, epic=519, target=5844, genetic=1581, tissue=5087
+            counts = [3310, 519, 5844, 1581, 5087]
         else:
             counts = [367, 157, 293, 681]  # 4 types v2.0
         beta = 0.99999
@@ -864,6 +868,15 @@ def train_epoch_optimized(model, train_data, optim, args):
     args.mi_num = mi_num
     args.dis_num = dis_num
 
+    # Plan H-3: load multi-label target tensor [m, d, K] nếu flag set.
+    # Preserve 23.3% multi-label signal mất khi collapse single-label (M1 fix).
+    multilabel_target = None
+    ml_path = getattr(args, 'multilabel_target_path', '')
+    if ml_path and os.path.exists(ml_path):
+        ml_np = np.load(ml_path)
+        multilabel_target = torch.from_numpy(ml_np).float().to(device)
+        print(f"[H-3 multilabel] Loaded target tensor {multilabel_target.shape} từ {ml_path}")
+
     # 🎯 真正的双视图构建 - 四个不同的特征源
     print("🎯 Building TRUE DUAL VIEWS from four different sources...")
 
@@ -989,7 +1002,9 @@ def train_epoch_optimized(model, train_data, optim, args):
         binary_target = (association_matrix != 0).float()
         # 🔥 修复: 传入完整的score (3D) 而不是existence_score (2D)
         # 这样SimplifiedMultiTypeAssociationLoss才能同时计算存在性和类型损失
-        recover_loss = regression_crit(one_index_tensor, zero_index_tensor, score, association_matrix)
+        # Plan H-3: dùng multi-label target [m,d,K] nếu có (multilabel_bce mode), else single-label matrix.
+        loss_target = multilabel_target if multilabel_target is not None else association_matrix
+        recover_loss = regression_crit(one_index_tensor, zero_index_tensor, score, loss_target)
 
         # 正则化损失
         reg_loss = get_L2reg(model.parameters())
