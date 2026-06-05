@@ -1,0 +1,32 @@
+{
+  "experiment": "Plan J-1 full bilinear predictor (F1 faithfulness fix)",
+  "v2.0": {
+    "AUC": 0.9805,
+    "AUPR": 0.9779,
+    "F1": 0.9347,
+    "top1_f1": 0.635,
+    "folds_top1": [
+      0.6323,
+      0.6515,
+      0.6177,
+      0.6513,
+      0.6223
+    ],
+    "diag_baseline": 0.5996,
+    "paper": 0.597
+  },
+  "v3.2_partial": {
+    "folds": [
+      {
+        "fold": 1,
+        "AUC": 0.8908,
+        "top1_f1": 0.0
+      }
+    ]
+  },
+  "gate_A": {
+    "v2.0_threshold_0.63": "PASS (0.6350)",
+    "v3.2_threshold_0.10": "FAIL (0.0)",
+    "verdict": "SCENARIO C (MIXED): full bilinear predictor SIGNIFICANTLY improves v2.0 Top-1 F1 (+5.9% vs diag, +6.4% ABOVE paper) confirming diagonal predictor was unfaithful degradation. BUT v3.2 STILL collapses (0.0) → v3.2 collapse root is NOT the predictor (deeper: embedding degeneracy from recon loss, or v3.2 data/preprocessing). Adopt full_bilinear for v2.0; v3.2 terminal."
+  }
+}

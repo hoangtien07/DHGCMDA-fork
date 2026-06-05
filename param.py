@@ -194,6 +194,13 @@ def parameter_parser():
     parser.add_argument('--recon_weight_override', type=float, default=1.0,
                         help='A16: multiplier for (mi_recon + dis_recon) loss. Default 1.0 (paper λ₃).')
 
+    # Plan J-1: type predictor architecture (faithfulness fix F1)
+    parser.add_argument('--predictor_mode', type=str, default='diag',
+                        choices=['diag', 'full_bilinear'],
+                        help='Type predictor. diag=BilinearDiag (code gốc, rank-d degenerate); '
+                             'full_bilinear=mi^T·W_t·dis với W_t đầy đủ d×d/type (paper faithful, '
+                             'phá monotone collapse). Plan J-1.')
+
     # Plan D — Fix A++: 5-class softmax CE (Eq. 32 fully aligned)
     parser.add_argument('--loss_mode',
                         type=str,

@@ -1,0 +1,43 @@
+[00:02:00] v2=Running v32=Running
+[00:04:01] v2=Running v32=Running
+[00:06:01] v2=Running v32=Running
+[00:08:01] v2=Running v32=Running
+[00:10:01] v2=Running v32=Running
+[00:12:01] v2=Running v32=Running
+[00:14:01] v2=Running v32=Running
+[00:16:01] v2=Running v32=Running
+[00:18:01] v2=Running v32=Running
+[00:20:01] v2=Running v32=Running
+[00:22:01] v2=Running v32=Running
+[00:24:01] v2=Running v32=Running
+[00:26:01] v2=Running v32=Running
+[00:28:01] v2=Running v32=Running
+[00:30:01] v2=Running v32=Running
+[00:32:01] v2=Running v32=Running
+[00:34:01] v2=Running v32=Running
+[00:36:01] v2=Running v32=Running
+[00:38:01] v2=Running v32=Running
+[00:40:01] v2=Running v32=Running
+[00:42:01] v2=Running v32=Running
+[00:44:01] v2=Running v32=Running
+[00:46:01] v2=Running v32=Running
+[00:48:01] v2=Running v32=Running
+[00:50:01] v2=Running v32=Running
+[00:52:01] v2=Running v32=Running
+[00:54:01] v2=Running v32=Running
+[00:56:01] v2=Running v32=Running
+[00:58:01] v2=Running v32=Running
+[01:00:01] v2=Running v32=Running
+[01:02:01] v2=Running v32=Running
+[01:04:01] v2=Running v32=Running
+[01:06:01] v2=Running v32=Running
+[01:08:01] v2=Running v32=Running
+[01:10:01] v2=Running v32=Running
+[01:12:01] v2=Completed v32=Running
+[01:14:01] v2=Completed v32=Running
+[01:16:01] v2=Completed v32=Completed
+  Top-1 F1: 0.6350
+==========================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+DONE 01:16:01

@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9805,
+  "AUPR": 0.9779,
+  "F1": 0.9347,
+  "Accuracy": 0.9331,
+  "Recall": 0.9585,
+  "Specificity": 0.9076,
+  "Precision": 0.9125,
+  "top1_precision": 0.6291,
+  "top1_recall": 0.642,
+  "top1_f1": 0.635,
+  "fold_times_sec": [
+    910.05,
+    848.43,
+    807.86,
+    881.7,
+    808.64
+  ],
+  "avg_fold_time_sec": 851.336,
+  "total_execution_sec": 4257.21,
+  "_source": "logs\\j1_v2_full_bilinear.log"
+}

@@ -462,12 +462,14 @@ class SimplifiedTypePredictor(nn.Module):
     Type relation vectors được init ORTHOGONAL để tránh collapse.
     """
 
-    def __init__(self, node_dim, hidden_dim, num_types=4, dropout=0.2, loss_mode='two_head'):
+    def __init__(self, node_dim, hidden_dim, num_types=4, dropout=0.2, loss_mode='two_head',
+                 predictor_mode='diag'):
         super(SimplifiedTypePredictor, self).__init__()
         self.node_dim = node_dim
         self.hidden_dim = hidden_dim
         self.num_types = num_types
         self.loss_mode = loss_mode
+        self.predictor_mode = predictor_mode
 
         # 节点投影层
         self.mi_projector = nn.Sequential(
@@ -487,6 +489,18 @@ class SimplifiedTypePredictor(nn.Module):
 
         # 类型特定的关系向量 (核心创新)
         self.type_relations = nn.Parameter(torch.randn(num_types, hidden_dim) * 0.01)
+
+        # Plan J-1 (F1): full bilinear type weights W_t [num_types, d, d] — phá rank-d degeneracy.
+        # type_logit[i,j,t] = mi_feat[i]^T · W_t · dis_feat[j]  (rank d² thay vì diag rank d).
+        # Init scaled identity + small noise để gần BilinearDiag lúc khởi tạo (training-stable).
+        if self.predictor_mode == 'full_bilinear':
+            eye = torch.eye(hidden_dim).unsqueeze(0).repeat(num_types, 1, 1)
+            noise = torch.randn(num_types, hidden_dim, hidden_dim) * (1.0 / hidden_dim)
+            self.type_weights = nn.Parameter(eye / math.sqrt(hidden_dim) + noise)
+            # full bilinear cho existence channel (softmax_5class no_assoc) + exist (two_head)
+            self.exist_weight_mat = nn.Parameter(
+                torch.eye(hidden_dim) / math.sqrt(hidden_dim)
+                + torch.randn(hidden_dim, hidden_dim) * (1.0 / hidden_dim))
 
         # Plan D Fix A++: r_no_assoc cho softmax_5class mode (class 0 = no association).
         # Chỉ dùng khi loss_mode='softmax_5class'; với two_head thì parameter này vẫn tồn tại
@@ -535,40 +549,38 @@ class SimplifiedTypePredictor(nn.Module):
         dis_feat = self.dis_projector(dis_embeddings)  # [dis_num, hidden_dim]
 
         temperature = torch.clamp(self.temperature, min=0.5, max=5.0)
+        full_bl = (self.predictor_mode == 'full_bilinear')
+
+        def _type_logit(type_idx):
+            # Plan J-1: full bilinear mi^T·W_t·dis (rank d²) hoặc diag mi·r_t·dis (rank d).
+            if full_bl:
+                return torch.mm(torch.mm(mi_feat, self.type_weights[type_idx]), dis_feat.t())
+            r_type = self.type_relations[type_idx]
+            return torch.mm(mi_feat * r_type, dis_feat.t())
 
         if self.loss_mode == 'softmax_5class':
             # Plan D Fix A++: 5-class softmax CE (Eq. 32 aligned).
-            # Class 0 = no association, classes 1-4 = 4 types.
-            # Trả về RAW LOGITS (không apply softmax) — F.cross_entropy tự handle.
-            # Downstream code (Calculate_Metrics, case_study) detect bằng shape + dùng softmax derive.
-            no_assoc_logit = torch.mm(mi_feat * self.r_no_assoc, dis_feat.t())  # [mi, dis]
-            type_logits_list = []
-            for type_idx in range(self.num_types):
-                r_type = self.type_relations[type_idx]
-                type_logits_list.append(torch.mm(mi_feat * r_type, dis_feat.t()))
-            type_logits = torch.stack(type_logits_list, dim=2)  # [mi, dis, 4]
-            # Concat no_assoc làm channel 0
+            if full_bl:
+                no_assoc_logit = torch.mm(torch.mm(mi_feat, self.exist_weight_mat), dis_feat.t())
+            else:
+                no_assoc_logit = torch.mm(mi_feat * self.r_no_assoc, dis_feat.t())  # [mi, dis]
+            type_logits_list = [_type_logit(t) for t in range(self.num_types)]
+            type_logits = torch.stack(type_logits_list, dim=2)  # [mi, dis, K]
             scores = torch.cat([
                 no_assoc_logit.unsqueeze(-1),  # [mi, dis, 1] = no_assoc logit
-                type_logits  # [mi, dis, 4] = type logits
+                type_logits  # [mi, dis, K] = type logits
             ], dim=-1) / temperature
-            # scores shape [mi, dis, 5] — RAW LOGITS, downstream phải softmax
             return scores
 
-        # two_head mode (Plan A/B/C path) — giữ nguyên behavior
-        # 存在性预测: score = mi^T @ diag(r_exist) @ dis
-        exist_scores = torch.sigmoid(
-            torch.mm(mi_feat * self.exist_relation, dis_feat.t())
-        )
+        # two_head mode (Plan A/B/C path)
+        # 存在性预测: full bilinear hoặc diag
+        if full_bl:
+            exist_scores = torch.sigmoid(torch.mm(torch.mm(mi_feat, self.exist_weight_mat), dis_feat.t()))
+        else:
+            exist_scores = torch.sigmoid(torch.mm(mi_feat * self.exist_relation, dis_feat.t()))
 
-        # 类型预测: 对每个类型计算 score_type = mi^T @ diag(r_type) @ dis
-        type_logits = []
-        for type_idx in range(self.num_types):
-            r_type = self.type_relations[type_idx]
-            type_score = torch.mm(mi_feat * r_type, dis_feat.t())
-            type_logits.append(type_score)
-
-        type_logits = torch.stack(type_logits, dim=2)  # [mi_num, dis_num, num_types]
+        # 类型预测
+        type_logits = torch.stack([_type_logit(t) for t in range(self.num_types)], dim=2)
 
         # 🔥 关键修改: 使用temperature scaling (提高多分类准确性)
         # 避免所有类型概率都接近0.25
@@ -700,7 +712,8 @@ class HeterogenousGraphCLAMIR(nn.Module):
             node_dim=out_channels,
             hidden_dim=128,
             num_types=getattr(args, 'num_association_types', 4),
-            loss_mode=getattr(args, 'loss_mode', 'two_head')
+            loss_mode=getattr(args, 'loss_mode', 'two_head'),
+            predictor_mode=getattr(args, 'predictor_mode', 'diag')
         )
 
         self.dropout = nn.Dropout(args.dropout)

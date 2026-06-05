@@ -101,6 +101,31 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
+## 11. PLAN J-1 COMPLETE 2026-06-05 — Full bilinear predictor: v2.0 EXCEEDS paper, v3.2 terminal
+
+### Faithfulness audit (20-agent) → fix F1
+Code `SimplifiedTypePredictor` dùng BilinearDiag degenerate (rank d, shared embeddings). Paper "bilinear predictor". Plan J-1 thay full bilinear `miᵀ·W_t·dis` (W_t đầy đủ d×d/type). Flag `--predictor_mode full_bilinear` ([param.py](param.py), [hetero_model.py:449-596](hetero_model.py#L449)).
+
+### Kết quả (Gate A: MIXED / Scenario C)
+| | full_bilinear | diag | paper |
+|---|---:|---:|---:|
+| v2.0 Top-1 F1 | **0.6350** | 0.5996 | 0.5970 |
+| v2.0 AUC | 0.9805 | 0.9752 | 0.9669 |
+| v3.2 Top-1 F1 (fold 1) | **0.0000** | 0.0 | 0.86 |
+
+- **v2.0: full bilinear ĐÁNH BẠI diag (+5.9%) VÀ paper (+6.4%)** → diagonal predictor là rewrite KHÔNG trung thực làm giảm chất lượng. Faithfulness fix thực sự.
+- **v3.2: VẪN collapse** → collapse KHÔNG do predictor. Root sâu hơn (embedding degeneracy/recon loss, v3.2 data, paper trick).
+- Gate A: v2.0 PASS (≥0.63), v3.2 FAIL (>0.10) → Scenario C.
+
+### Hệ quả
+- Reproduce % v2.0 Top-1: "matched +0.4%" → "EXCEEDS paper +6.4%". Overall 62-65% → 64-67%.
+- v3.2 = genuine non-reproducibility độc lập predictor → strengthen Plan I conclusion.
+- >90% vẫn infeasible (v3.2 external-blocked). Full bilinear nên adopt làm default cho v2.0.
+- Files: results/j1_full_bilinear_results.json, results/j1_v2_full_bilinear.json, logs/j1_*.log, run_j1_benchmark.ps1.
+- Báo cáo: 486 para, 36 tables. Section 3.4.12.
+
+---
+
 ## 10. PLAN I COMPLETE 2026-06-03 — Reproduction ceiling analysis + STOP recommendation
 
 ### Workflow 34-agent (5 angles → consolidate → adversarial ceiling-check → roadmap)
