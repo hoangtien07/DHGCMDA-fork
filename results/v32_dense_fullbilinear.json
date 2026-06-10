@@ -1,0 +1,44 @@
+{
+  "config": "v3.2_wang_dense (385x275, density 10.3%) full_bilinear two_head exist_weight=0.1 epoch=300 val=5 CORRECTED-metric",
+  "purpose": "Control for data density \u2014 does matching paper density (10.5%) close the gap?",
+  "per_fold": [
+    {
+      "fold": 1,
+      "auc": 0.8412,
+      "top1_f1": 0.3175
+    },
+    {
+      "fold": 2,
+      "auc": 0.8498,
+      "top1_f1": 0.3378
+    },
+    {
+      "fold": 3,
+      "auc": 0.8566,
+      "top1_f1": 0.3372
+    },
+    {
+      "fold": 4,
+      "auc": 0.8516,
+      "top1_f1": 0.3346
+    },
+    {
+      "fold": 5,
+      "auc": 0.8588,
+      "top1_f1": 0.3408
+    }
+  ],
+  "avg": {
+    "auc": 0.8516,
+    "top1_precision": 0.3033,
+    "top1_recall": 0.3717,
+    "top1_f1": 0.3336
+  },
+  "vs_wang_fullbilinear": {
+    "wang_3.9pct": 0.3301,
+    "dense_10.3pct": 0.3336,
+    "delta": 0.0035
+  },
+  "conclusion": "Density matched to paper (10.3% vs 10.5%) gives NO Top-1 improvement (+0.0035, noise). Density is NOT the cause of the 0.33->0.86 gap. Gap traces to paper unreleased curation quality + 4 similarity sources + possible optimistic reporting.",
+  "paper_v32": 0.86
+}

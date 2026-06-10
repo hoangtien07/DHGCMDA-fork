@@ -106,6 +106,10 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
             # Plan H-3: multi-label preserved counts (per-type sum, not collapsed)
             # circu=3310, epic=519, target=5844, genetic=1581, tissue=5087
             counts = [3310, 519, 5844, 1581, 5087]
+        elif ds == 'v3.2_wang_dense':
+            # Plan K: paper-density subset (min-assoc>=7 on v3.2_wang). Actual per-type counts.
+            # circu=2926, epic=391, target=4132, genetic=728, tissue=2711
+            counts = [2926, 391, 4132, 728, 2711]
         else:
             counts = [367, 157, 293, 681]  # 4 types v2.0
         beta = 0.99999

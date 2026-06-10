@@ -372,6 +372,19 @@ def validate_and_adjust_parameters(args):
         print(f"  Diseases: {args.dis_num}")
         print(f"  Triplets: 16,341 (12,534 unique pairs, multi-label preserved)")
         print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
+    elif args.dataset == 'v3.2_wang_dense':
+        # Plan K: paper-density subset of v3.2_wang (iterative min-assoc>=7).
+        # 385x275 @ 10.3% density — matches paper v3.2 shape (411x271 @ 10.5%).
+        args.mi_num = 385
+        args.dis_num = 275
+        args.num_association_types = 5
+        if args.class_weights is None or len(args.class_weights) == 4:
+            args.class_weights = None
+        print(f"[INFO] Using v3.2_wang_dense dataset (paper-density subset, Plan K):")
+        print(f"  miRNAs: {args.mi_num}")
+        print(f"  Diseases: {args.dis_num}")
+        print(f"  Expected associations: ~10,888 (density 10.3% ≈ paper 10.5%)")
+        print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
     else:
         print(f"[WARNING] Unknown dataset: {args.dataset}")
         print("  Using default dimensions (495 miRNAs, 383 diseases)")

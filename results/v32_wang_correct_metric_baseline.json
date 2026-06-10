@@ -1,0 +1,46 @@
+{
+  "config": "v3.2_wang diag two_head exist_weight=0.1 epoch=300 val=5 CORRECTED-metric",
+  "note": "Re-measured with general-K metric (monkey-patched, no repo edit). Official metric reported 0.0 due to 4-type hardcode.",
+  "per_fold": [
+    {
+      "fold": 1,
+      "auc": 0.8913,
+      "top1_f1": 0.2479
+    },
+    {
+      "fold": 2,
+      "auc": 0.885,
+      "top1_f1": 0.2849
+    },
+    {
+      "fold": 3,
+      "auc": 0.8961,
+      "top1_f1": 0.2695
+    },
+    {
+      "fold": 4,
+      "auc": 0.8998,
+      "top1_f1": 0.2646
+    },
+    {
+      "fold": 5,
+      "auc": 0.9003,
+      "top1_f1": 0.2743
+    }
+  ],
+  "avg": {
+    "auc": 0.8945,
+    "aupr": 0.8928,
+    "top1_precision": 0.2464,
+    "top1_recall": 0.2947,
+    "top1_f1": 0.2682
+  },
+  "official_metric_reported": 0.0,
+  "paper_v32": {
+    "top1_precision": 0.7915,
+    "top1_recall": 0.9421,
+    "top1_f1": 0.86,
+    "auc": 0.9181,
+    "aupr": 0.9271
+  }
+}

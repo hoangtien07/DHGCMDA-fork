@@ -1,0 +1,52 @@
+{
+  "config": "v3.2_wang full_bilinear two_head exist_weight=0.1 epoch=300 val=5 CORRECTED-metric",
+  "per_fold": [
+    {
+      "fold": 1,
+      "auc": 0.8958,
+      "top1_f1": 0.3192
+    },
+    {
+      "fold": 2,
+      "auc": 0.897,
+      "top1_f1": 0.3491
+    },
+    {
+      "fold": 3,
+      "auc": 0.912,
+      "top1_f1": 0.3295
+    },
+    {
+      "fold": 4,
+      "auc": 0.9066,
+      "top1_f1": 0.3272
+    },
+    {
+      "fold": 5,
+      "auc": 0.9036,
+      "top1_f1": 0.3253
+    }
+  ],
+  "avg": {
+    "auc": 0.903,
+    "top1_precision": 0.2974,
+    "top1_recall": 0.3711,
+    "top1_f1": 0.3301
+  },
+  "metric_suite_example_fold": {
+    "accuracy": 0.2918,
+    "macroP": 0.2417,
+    "macroR": 0.3676,
+    "macroF1": 0.2227,
+    "weightedF1": 0.2377,
+    "hybridF1": 0.3253
+  },
+  "vs_diag": {
+    "diag_top1_f1": 0.2682,
+    "fullbilinear_top1_f1": 0.3301,
+    "rel_gain_pct": 23.1
+  },
+  "paper_v32": {
+    "top1_f1": 0.86
+  }
+}

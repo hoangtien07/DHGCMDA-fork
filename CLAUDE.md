@@ -101,7 +101,71 @@ $env:PYTHONUTF8 = 1   # bắt buộc — code có emoji + tên file tiếng Trun
 
 ---
 
-## 11. PLAN J-1 COMPLETE 2026-06-05 — Full bilinear predictor: v2.0 EXCEEDS paper, v3.2 terminal
+## 12. PLAN K 2026-06-06 — 🚨 v3.2 "collapse" là LỖI METRIC, không phải model collapse
+
+### Smoking gun (đã chứng minh 3 cách)
+Mọi `v3.2 Top-1 F1 = 0.0` xuyên suốt Plan C→J là **artifact của metric hỏng**, KHÔNG phải model collapse.
+
+**Root cause** — [Calculate_Metrics.py](Calculate_Metrics.py) `compute_top1_metrics` hardcode 4 types:
+- [line 309-318](Calculate_Metrics.py#L309): ground-truth map chỉ xử lý type 1..4 → `else: continue` (bỏ mọi type-5 Tissue).
+- [line 323-331](Calculate_Metrics.py#L323): pred vector chỉ chấp nhận length 5 (existence+4) hoặc 4 → `else: continue` (bỏ mọi pred v3.2 length-6 = existence+5).
+- Với v3.2: `valid_samples == 0` → Top-1 F1 == 0.0 **bất kể model tốt hay tệ**.
+
+**3 bằng chứng:**
+1. Synthetic predictor HOÀN HẢO: official metric → 4-type F1=1.0 ✓, 5-type F1=**0.0** ✗.
+2. Tương đương: corrected general-K metric cho P/R/F1 **identical** official trên 4 types (0.7047=0.7047) → v2.0 KHÔNG đổi, chỉ MỞ RỘNG cho 5 lớp.
+3. Đo lại thật (v3.2_wang, two_head, exist_weight=0.1, **metric đúng**, không sửa repo):
+
+| | per-fold Top-1 F1 | avg |
+|---|---|---:|
+| diag 300ep × 5fold | 0.248/0.285/0.270/0.265/0.274 | **0.2682** |
+| AUC / AUPR | — | 0.8945 / 0.8928 |
+| (official metric bug) | — | 0.0 |
+| (paper v3.2) | — | 0.86 |
+
+### Cách đo (KHÔNG sửa code — đúng ràng buộc user)
+[run_v32_correct_metric.py](run_v32_correct_metric.py) monkey-patch `Metric_fun.compute_top1_metrics` lúc runtime → chạy pipeline gốc. Không sửa 1 dòng repo. Báo cáo full suite (accuracy, macroP/R/F1, weightedF1).
+
+### Paper metric (p24, p27) — đã verify
+- v3.2 CV_type: P=0.7915, R=0.9421, F1=0.8600; `0.86 = harmonic_mean(P,R)` → **cùng công thức F1 hybrid như code ta**.
+- p24 ghi CV_type chấm "across all **four** association types" — nhưng v3.2 có **5 types** → **metric tác giả phát hành KHÔNG chấm được v3.2 của chính họ** → họ dùng eval code khác → **lỗi code-release** (finding seminar mạnh).
+
+### Hệ quả (đảo ngược kết luận Plan F/H/I/J)
+- "v3.2 collapse / architectural wall / ceiling 62-72%" → **VOID** (đo bằng metric hỏng). v3.2 KHÔNG collapse — cho ~0.27 thật, cùng tầm TDRC v3.2 (0.42).
+- J-1 "v3.2 terminal 0.0000" (mục 11 dưới) cũng là metric bug, KHÔNG phải predictor failure.
+- Gap 0.27→0.86 = **THẬT** (~85-90%), do data curation paper (411×271 unreleased) + config chưa document. Metric/data definition chỉ ~10-15% gap.
+- Trần no-code-change thực tế: **0.30-0.35** (full_bilinear/650ep/data dày). Đạt 0.86 cần author data → <5% solo.
+
+### Ma trận thí nghiệm v3.2 (metric đúng, 5-fold) — HOÀN TẤT
+| Config | v3.2 Top-1 F1 | AUC | Ghi chú |
+|---|---:|---:|---|
+| Official metric (bug) | 0.0000 | — | bỏ 100% mẫu v3.2 |
+| diag predictor 300ep | 0.2682 | 0.894 | baseline thật |
+| **full_bilinear 300ep** | **0.3301** | 0.903 | +23% vs diag |
+| full_bilinear 650ep (3/5 fold) | **0.3620** | 0.910 | +epoch giúp +0.03 |
+| full_bilinear **dense 385×275** (density 10.3%) | 0.3336 | 0.852 | **density KHÔNG giúp** (≈wang 0.330) |
+| Paper v3.2 | 0.8600 | 0.918 | (411×271 curated, chưa public) |
+
+### Phát hiện DATA (user hỏi: data có khác paper không?)
+**ĐÚNG — data khác paper.** Cùng raw HMDD v3.2 nhưng 3 bản preprocessing:
+- Raw cuilab: 1049×758×18,084 (density 2.3%)
+- TDRC (bộ ta dùng = v3.2_wang): 713×447×12,534 (3.9%)
+- **Paper: 411×271×11,748 (10.5%) — curation KHÔNG công bố.**
+
+Paper lọc raw rất mạnh → dày 2.7×. **411×271 KHÔNG reverse-engineer chính xác được**: miRNA + tổng assoc khớp ở min-assoc≥7 (391×332×11,768) nhưng số disease (271) cần bộ lọc MeSH bổ sung chưa document.
+
+**Test density (đòn bẩy lớn nhất nghi ngờ):** build `v3.2_wang_dense` 385×275 @ 10.3% (khớp paper) bằng cách lọc v3.2_wang min-assoc≥7 + slice Wang similarity. Kết quả: Top-1 F1 = 0.3336 ≈ wang 0.3301 → **density KHÔNG phải nguyên nhân gap.** Gap 0.33→0.86 do: (i) chất lượng curation cụ thể (chọn ĐÚNG entity nào, không phải bao nhiêu), (ii) 4 nguồn similarity paper (Wang MeSH + functional + disease-gene + miRNA-sequence) vs 2 nguồn ta, (iii) có thể số 0.86 optimistic (best fold/seed).
+
+### Files Plan K
+- `run_v32_correct_metric.py` (monkey-patch metric, full suite), `build_v32_dense.py`, `v3.2_wang_dense/`.
+- `results/v32_wang_correct_metric_baseline.json` (diag), `v32_wang_correct_fullbilinear.json`, `v32_dense_fullbilinear.json`.
+- `logs/v32_wang_correct_*.log`, `v32_dense_fullbilinear.log`.
+- Edit code (additive, chỉ ĐĂNG KÝ dataset — KHÔNG đụng model/loss algo): param.py + main_experiments_hetero1.py thêm branch `v3.2_wang_dense` (dims + per-type counts).
+- Báo cáo: Section 3.4.13 (metric bug + v3.2 re-measure + density control).
+
+---
+
+## 11. PLAN J-1 COMPLETE 2026-06-05 — Full bilinear predictor: v2.0 EXCEEDS paper, v3.2 terminal ⚠ (v3.2 0.0000 = metric bug, xem Plan K)
 
 ### Faithfulness audit (20-agent) → fix F1
 Code `SimplifiedTypePredictor` dùng BilinearDiag degenerate (rank d, shared embeddings). Paper "bilinear predictor". Plan J-1 thay full bilinear `miᵀ·W_t·dis` (W_t đầy đủ d×d/type). Flag `--predictor_mode full_bilinear` ([param.py](param.py), [hetero_model.py:449-596](hetero_model.py#L449)).
