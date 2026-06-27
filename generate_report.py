@@ -2193,6 +2193,91 @@ def build_references(doc):
 #                                    MAIN
 # ============================================================================
 
+def build_section_plan_l(doc):
+    """3.4.14 — Plan L: Linux port + council improvement study (K=3 full_bilinear)."""
+    add_heading(doc, '3.4.14. Plan L — Port Linux + Council cải thiện: K_neigs=3 nâng v2.0 Top-1 F1 lên 0.688',
+                level=3)
+    add_para(doc, 'Plan L chuyển toàn bộ pipeline sang Linux (Ubuntu, 32 cores; venv dựng bằng uv, '
+                  '20 script PowerShell port sang bash) và chạy một "hội đồng chuyên gia" (council) — '
+                  'ma trận thí nghiệm đa-agent + 3 thẩm định viên đối kháng — để truy tìm cải thiện '
+                  'thực sự cho HMDD v2.0, đồng thời kiểm chứng lại kết luận v3.2 / ablation / baseline. '
+                  'Mọi run chạy 4 job song song (8 thread/job).')
+
+    add_heading(doc, '3.4.14.1. Phát hiện chính — K_neigs=3 dưới full_bilinear', level=4)
+    add_para(doc, 'Predictor full_bilinear (Plan J-1, đạt 0.6350) được tìm ra muộn nên K_neigs CHƯA '
+                  'bao giờ được tune dưới nó — baseline kẹt ở K=13, vốn là K TỆ NHẤT trên diag sweep cũ. '
+                  'Council kiểm tra K dưới full_bilinear và phát hiện trend đơn điệu small-K-better:')
+    add_table(doc,
+              ['K_neigs', 'Top-1 F1 (seed 1234)', 'AUC', 'Ghi chú'],
+              [['13 (baseline cũ)', '0.6311', '0.9805', 'K tệ nhất diag-sweep'],
+               ['7', '0.6538', '0.9818', 'trung gian'],
+               ['3', '0.6808', '0.9806', 'K đúng dưới full_bilinear']],
+              caption='Bảng 12n. K-sweep dưới full_bilinear (seed 1234): monotone smaller-K-better, '
+                      'không đánh đổi AUC.')
+    add_para(doc, 'Cơ chế: v2.0 thưa (1498 assoc/189K cells); hypergraph thưa hơn (K nhỏ) giảm '
+                  'over-smoothing, khớp với kết luận "DHGCMDA over-parameterized cho v2.0" (Plan E).')
+
+    add_heading(doc, '3.4.14.2. Kiểm định multi-seed (headline trung thực)', level=4)
+    add_table(doc,
+              ['Seed', 'Top-1 F1', 'AUC', 'AUPR'],
+              [['1234', '0.6808', '0.9806', '0.9800'],
+               ['0', '0.7006 (lucky)', '0.9805', '0.9783'],
+               ['42', '0.6835', '0.9820', '0.9806'],
+               ['Mean ± std', '0.6883 ± 0.0107', '0.9810', '0.9796']],
+              caption='Bảng 12o. K=3 full_bilinear qua 3 seed — cả 3 đều vượt 0.6350.')
+    add_para(doc, 'HEADLINE CÔNG BỐ: v2.0 Top-1 F1 = 0.688 ± 0.011 (trung bình 3 seed), so paper 0.5970 '
+                  '(+15.3%) và best cũ 0.6350 (+8.4%). KHÔNG công bố 0.7006 (chỉ là seed may mắn — '
+                  'lặp lại đúng lỗi "lucky seed" dự án từng mắc). Kiểm định: paired per-fold t=3.62 '
+                  '(cùng seed/fold), seed-paired t=12.97, pooled fold-level t=11.4 (0/15 fold dưới 0.6350, '
+                  'survives Bonferroni). 3 thẩm định viên đối kháng độc lập đều refuted=false, '
+                  'confidence=high. Không đánh đổi AUC (0.981 ≥ baseline 0.9805).', bold=False)
+    add_para(doc, 'Combo K=3 + no_hgcn = 0.6978 = no_hgcn đơn lẻ → 2 lever REDUNDANT (cùng cơ chế '
+                  'độ thưa), KHÔNG cộng dồn. softmax_5class+full_bilinear (v2.0) = 0.6431, khiêm tốn hơn K=3.')
+
+    add_heading(doc, '3.4.14.3. Ablation Fig.4 dưới full_bilinear — xác nhận reversal lần 5', level=4)
+    add_table(doc,
+              ['Ablation', 'Top-1 F1', 'Δ vs baseline', 'Hướng'],
+              [['no_hgcn', '0.6978', '+10.6%', 'HELP (đảo)'],
+               ['no_hgt', '0.6826', '+8.2%', 'HELP (đảo)'],
+               ['no_cl', '0.6680', '+5.8%', 'HELP (đảo)'],
+               ['no_avf', '0.6356', '+0.7%', '~phẳng'],
+               ['no_dv', '0.6303', '−0.1%', '~phẳng']],
+              caption='Bảng 12p. Ablation dưới full_bilinear (baseline 0.6311); paper claim tất cả phải HẠI.')
+    add_para(doc, 'Reversal vẫn dai dẳng dưới predictor TRUNG THỰC NHẤT (full_bilinear, vượt cả paper ở '
+                  'baseline) → xác nhận độc lập THỨ 5 (trước: additive, rebuild Plan E, multi-seed Plan H, '
+                  'paper_literal Plan F — đều trên diag). Loại trừ giả thuyết "reversal là artifact của diag '
+                  'predictor". Lưu ý: no_hgcn=0.6978 là mô hình ĐÃ ABLATE, không phải mô hình đầy đủ — '
+                  'headline vẫn là 0.688 (kiến trúc đầy đủ).')
+
+    add_heading(doc, '3.4.14.4. v3.2 + baseline (kiểm chứng lại)', level=4)
+    add_table(doc,
+              ['Cấu hình v3.2 (metric đúng)', 'Top-1 F1', 'AUC', 'Kết luận'],
+              [['two_head full_bilinear (300ep/3fold)', '0.3232', '0.9133', 'khớp Plan K, Linux-confirmed'],
+               ['softmax_5class (loss tổng quát K+1)', '0.2704', '0.1245', 'softmax5 LÀM HẠI v3.2']],
+              caption='Bảng 12q. v3.2 honest trên Linux. Gap tới paper 0.86 vẫn terminal (data 411×271 '
+                      'chưa public, Plan K).')
+    add_para(doc, 'v3.2: con số honest ~0.33 ổn định độc lập platform; softmax5 (sau khi tổng quát loss '
+                  'sang K+1 lớp — thay đổi additive trung thực) làm sụp AUC → không dùng. NMCMDA vẫn blocked '
+                  '(DGL thiếu binary graphbolt cho torch 2.5.1, cùng class blocker như Windows). '
+                  'TDRC giữ ~98% (Plan C/E).')
+
+    add_heading(doc, '3.4.14.5. Hạn chế & trung thực', level=4)
+    for b in [
+        'Config-selection: ~15 config chạy cho row v2.0; test seed-level n=3 không sống sót Bonferroni '
+        'mức seed, nhưng test fold-level pooled (p<1e-4) và "cả 3 seed vượt 0.6350" thì sống sót.',
+        'CV-tuning: K=3 tune trên chính 5-fold CV dùng báo cáo (không held-out riêng) → 0.688 là ước '
+        'lượng in-sample lạc quan; giảm nhẹ vì replicate qua seed không dùng cho selection.',
+        'Một phần gain là "phục hồi" baseline xui (K=13 tệ nhất); khung đúng = "K=3 là K đúng dưới '
+        'full_bilinear", delta vs baseline fair-tuned nhỏ hơn delta vs K=13.',
+        'n=3 seed nhỏ (CI rộng df=2); K-sweep thưa {3,7,13}, K=1,2 chưa thử.',
+        'Mọi win Plan L là v2.0-specific; K=3 không validate có lợi trên v3.2; gap 0.86 terminal.',
+    ]:
+        add_bullet(doc, b)
+    add_para(doc, 'KHUYẾN NGHỊ: adopt full_bilinear + K_neigs=3 làm default mới cho v2.0 (công bố 0.688 '
+                  'multi-seed). % tái hiện tổng thể: ~64-67% → ~66-69% (v2.0 Top-1 mạnh hơn, mọi finding '
+                  'được củng cố). Chi tiết: results/council_synthesis.md.')
+
+
 def main():
     print("[generate_report] Loading reproduce metrics...")
     baseline, ablation = load_reproduce_metrics()
@@ -2214,6 +2299,7 @@ def main():
     build_section_1(doc)
     build_section_2(doc)
     build_section_3(doc, baseline, ablation)
+    build_section_plan_l(doc)
     build_section_4(doc)
     build_references(doc)
 

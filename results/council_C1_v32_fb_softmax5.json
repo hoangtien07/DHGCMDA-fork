@@ -1,0 +1,19 @@
+{
+  "AUC": 0.1245,
+  "AUPR": 0.3264,
+  "F1": 0.6667,
+  "Accuracy": 0.5,
+  "Recall": 1.0,
+  "Specificity": 0.0,
+  "Precision": 0.5,
+  "top1_precision": 0.2217,
+  "top1_recall": 0.3467,
+  "top1_f1": 0.2704,
+  "fold_times_sec": [
+    2016.69,
+    1576.15,
+    1212.01
+  ],
+  "avg_fold_time_sec": 1601.6166666666668,
+  "_source": "logs/council_C1_v32_fb_softmax5.log"
+}

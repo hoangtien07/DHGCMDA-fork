@@ -1,0 +1,37 @@
+{
+  "experiments": [
+    {
+      "id": "C1_v32_fb_softmax5",
+      "focus": "C",
+      "entrypoint": "v32_correct",
+      "extra_flags": "--dataset v3.2_wang --predictor_mode full_bilinear --loss_mode softmax_5class --exist_weight 0.1 --K_neigs 7 --epoch 300 --validation 3 --seed 1234",
+      "rationale": "v3.2 honest improvement attempt: softmax5 vs two_head 0.3232",
+      "priority": 1
+    },
+    {
+      "id": "A2b_fb_K3_s0",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 0 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5",
+      "rationale": "K=3 significance: seed 0 (verify new best 0.6808 not lucky seed)",
+      "priority": 2
+    },
+    {
+      "id": "A2c_fb_K3_s42",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 42 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5",
+      "rationale": "K=3 significance: seed 42",
+      "priority": 3
+    },
+    {
+      "id": "A6_fb_K3_no_hgcn",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --ablation no_hgcn --epoch 650 --validation 5",
+      "rationale": "Combine 2 best levers: K=3 + no_hgcn (best ablation 0.6978)",
+      "priority": 4
+    }
+  ],
+  "notes": "wave2: v3.2 softmax5 + K=3 multiseed verify + K=3xno_hgcn combo"
+}

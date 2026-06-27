@@ -2,6 +2,50 @@
 
 > File này được Claude đọc tự động khi mở project. Mục đích: giúp lần làm việc sau bắt đầu ngay không phải dò lại setup.
 
+---
+
+## 13. PLAN L 2026-06-27 — Port LINUX + Council cải thiện: 🏆 K_neigs=3 nâng v2.0 Top-1 F1 → 0.688 (+15.3% vs paper)
+
+### Môi trường Linux (branch `linux-run`, KHÔNG push)
+- Máy mới: **Ubuntu, 32 cores** (trước Xeon 14-core Windows). Không có pip/venv hệ thống.
+- **uv** (user-level, `~/.local/bin/uv`) → venv với **CPython 3.12 standalone do uv quản lý** (KHÔNG dùng `/usr/bin/python3.12` Debian — patch site.py làm venv không nạp site-packages → torch import fail). Dựng lại: `./setup_linux.sh`.
+- Deps: `requirements_linux.txt` (freeze venv, +python-docx +matplotlib). Cài torch CPU cần `--index-strategy unsafe-best-match`.
+- 20 script `.ps1` → `.sh` cùng tên (giữ `.ps1`). `tee` Linux ra UTF-8 (parse_metrics auto-detect). [README_LINUX.md](README_LINUX.md), [setup_linux.sh](setup_linux.sh).
+- Code sửa: [main_experiments_hetero1.py](main_experiments_hetero1.py) thread default `'14'` → adaptive `os.cpu_count()` (override `DHGCMDA_N_THREADS`).
+
+### 🚨 ĐÍNH CHÍNH config 0.6350 (verify từ logs/j1_v2_full_bilinear.log)
+Baseline J-1 0.6350 = `--exist_weight 0.1 --predictor_mode full_bilinear` + **mọi default khác (seed=1234, K_neigs=13, two_head)**. K=13 là **K TỆ NHẤT** trên diag sweep cũ (diag monotone: K3=0.5924 > K7 > K13=0.5655 > K15). full_bilinear thừa hưởng K=13 do tình cờ → K chưa từng tune dưới full_bilinear.
+
+### 🏆 Phát hiện cải thiện — K_neigs=3 dưới full_bilinear (multi-seed, adversarial-verified)
+| Seed | Top-1 F1 (K=3, full_bilinear, exist0.1) | AUC |
+|---|---:|---:|
+| 1234 | 0.6808 | 0.9806 |
+| 0 | 0.7006 (lucky — KHÔNG công bố riêng) | 0.9805 |
+| 42 | 0.6835 | 0.9820 |
+| **Mean** | **0.6883 ± 0.0107** | 0.9810 |
+
+- **HEADLINE công bố: 0.688 ± 0.011** (multi-seed mean), so paper 0.5970 **+15.3%**, so best cũ 0.6350 **+8.4%**. KHÔNG công bố 0.7006 (lucky seed — lặp lỗi cũ).
+- Kiểm định: paired per-fold t=3.62, seed-paired t=12.97, pooled fold-level t=11.4 (0/15 fold < 0.6350, survives Bonferroni). **3 thẩm định viên đối kháng độc lập đều refuted=false, confidence=high.** Không đánh đổi AUC.
+- Cơ chế: v2.0 thưa → hypergraph thưa (K nhỏ) giảm over-smoothing (khớp "over-parameterized cho v2.0", Plan E).
+- K-sweep dưới full_bilinear (seed1234): K13=0.6311, K7=0.6538, K3=0.6808 (monotone). K=1,2 chưa thử.
+- Combo K=3 + no_hgcn = 0.6978 = no_hgcn đơn lẻ → **REDUNDANT, KHÔNG stack** (cùng cơ chế).
+
+### Ablation Fig.4 dưới full_bilinear — xác nhận reversal LẦN 5
+no_hgcn +10.6%, no_hgt +8.2%, no_cl +5.8% (HELP=đảo); no_avf/no_dv ~phẳng. Reversal dai dẳng dưới predictor trung thực nhất → loại trừ "artifact của diag". (no_hgcn=0.6978 là model ĐÃ ABLATE, không phải headline.)
+
+### v3.2 + baseline (Linux-confirmed)
+- two_head full_bilinear (300ep/3fold, metric đúng) = **0.3232** (AUC 0.9133) → khớp Plan K ~0.33.
+- softmax_5class (sau khi **tổng quát loss sang K+1 lớp** — sửa additive trung thực [main_experiments_hetero1.py:269,294]) = 0.2704, **AUC sụp 0.1245** → softmax5 HẠI v3.2, không dùng.
+- Gap → paper 0.86 vẫn TERMINAL (data 411×271 chưa public). NMCMDA vẫn blocked (DGL thiếu `libgraphbolt_pytorch_2.5.1.so`, cùng class blocker Windows).
+
+### Files Plan L
+- `run_council_matrix.sh` (orchestrator song song), `summarize_council.py`, `results/council_matrix.json` + `council_matrix_wave2.json`, `results/council_*.json` (15 run), `results/council_summary.json`, **`results/council_synthesis.md`** (báo cáo council đầy đủ + caveat).
+- `results/repro_v2_best_linux.json` (R0 anchor 0.6311), `results/repro_v32_honest_linux.json` (0.3232).
+- Báo cáo: [BaoCao_DHGCMDA.docx](BaoCao_DHGCMDA.docx) **537 para, 43 tables**, Section 3.4.14.
+- **KHUYẾN NGHỊ: adopt `--predictor_mode full_bilinear --K_neigs 3` làm default v2.0.** % tái hiện tổng thể ~64-67% → **~66-69%**.
+
+---
+
 ## 1. Mục tiêu dự án
 
 Fork của repo [CDMBlab/DHGCMDA](https://github.com/CDMBlab/DHGCMDA), kèm bài báo gốc dạng PDF tại root: `[2026] DHGCMDA a dual-view heterogeneous graph constrastive learning framework for miRNA-disaese.pdf` (BMC Bioinformatics 2026, Sun Y. et al.). Hai mục tiêu chính người dùng (Tien) đang theo đuổi:

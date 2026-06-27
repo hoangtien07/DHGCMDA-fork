@@ -1,7 +1,9 @@
 import os
 # CPU thread tuning — phải set trước torch/numpy import để MKL/OpenMP nhận ra
-# Xeon E5-2680 v4: 14 physical cores; HyperThreading thường ko giúp compute-bound
-_N_THREADS = os.environ.get('DHGCMDA_N_THREADS', '14')
+# Default = số CPU vật lý của máy (Linux: os.cpu_count). Override bằng env DHGCMDA_N_THREADS.
+# (Trước đây hardcode '14' cho Xeon E5-2680 v4; nay adaptive để chạy đúng trên Linux mọi core-count.)
+_DEFAULT_THREADS = str(max(1, (os.cpu_count() or 4)))
+_N_THREADS = os.environ.get('DHGCMDA_N_THREADS', _DEFAULT_THREADS)
 os.environ.setdefault('OMP_NUM_THREADS', _N_THREADS)
 os.environ.setdefault('MKL_NUM_THREADS', _N_THREADS)
 os.environ.setdefault('OPENBLAS_NUM_THREADS', _N_THREADS)
@@ -264,8 +266,11 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         Build target classes 0..4 cho cả positive (one_index) + sampled negative (zero_index).
         F.cross_entropy với class_weights_5 + label_smoothing → đơn loss thay 2-head fight.
         """
-        if len(logits.shape) != 3 or logits.shape[2] != 5:
-            raise ValueError(f"softmax_5class expects logits shape [mi, dis, 5], got {logits.shape}")
+        # Generalized to K+1 classes (channel 0 = no_assoc, 1..K = types).
+        # v2.0 -> K=4 -> shape[-1]=5 (unchanged); v3.2 -> K=5 -> shape[-1]=6.
+        if len(logits.shape) != 3 or logits.shape[2] < 2:
+            raise ValueError(f"softmax_5class expects logits shape [mi, dis, K+1>=2], got {logits.shape}")
+        num_classes = logits.shape[2]
 
         pos_indices = self._process_indices(one_index, logits.shape[0], logits.shape[1])
         neg_indices = self._process_indices(zero_index, logits.shape[0], logits.shape[1])
@@ -288,8 +293,8 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         # targets[i,j] = 0 cho no_assoc, 1..4 cho 4 types — match class indices của 5-class softmax
         combined_targets = targets[combined_idx[:, 0], combined_idx[:, 1]].long()
 
-        # Clip để đảm bảo target trong [0, 4] (defensive)
-        combined_targets = torch.clamp(combined_targets, 0, 4)
+        # Clip để đảm bảo target trong [0, K] (defensive; K+1 classes)
+        combined_targets = torch.clamp(combined_targets, 0, num_classes - 1)
 
         return F.cross_entropy(
             combined_logits, combined_targets,

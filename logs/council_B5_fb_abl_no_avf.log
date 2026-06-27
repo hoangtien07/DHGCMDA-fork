@@ -1,0 +1,1370 @@
+[CPU] torch.set_num_threads(8), interop=min(4, 8)
+Using device: cpu
+[INFO] Auto-computed BALANCED class weights (to prevent class collapse):
+  Circulation  (  367 samples): 0.780
+  Epigenetics  (  157 samples): 1.823
+  Target       (  293 samples): 0.977
+  Genetics     (  681 samples): 0.420
+  [NOTE] Higher weights for minority classes to prevent model from only predicting majority class
+[INFO] Using v2.0_495m383D dataset:
+  miRNAs: 495
+  Diseases: 383
+  Expected associations: ~1498
+  Types: 4 (Circulation, Epigenetics, Target, Genetics)
+
+================================================================================
+Configuration Summary
+================================================================================
+Dataset: v2.0_495m383D
+Data Path: ./
+Model: HeterogenousGraphCLAMIR
+  - HGT Layers: 2
+  - Attention Heads: 4
+  - Association Types: 4
+  - Inter-view CL: Enabled
+    - Weight: 0.3
+    - Temperature: 0.5
+    - Margin: 0.5
+
+Training:
+  - Epochs: 650
+  - Learning Rate: 0.0001
+  - Dropout: 0.3
+  - Weight Decay: 5e-05
+  - Focal Loss: Enabled
+
+Evaluation:
+  - Cross-Validation Folds: 5
+  - Primary Metric: AUPR
+
+Device: cpu
+Random Seed: 1234
+================================================================================
+
+[SEED] Re-seeded với args.seed = 1234
+🚀 Running with comprehensive evaluation including Top-1 metrics...
+🎯 Loading dual-view data...
+Starting dual-view data preparation with new file format...
+Loading all similarity and feature files from v2.0_495m383D...
+✅ Loaded disease semantic similarity from D_SSM1.txt: (383, 383)
+✅ Loaded miRNA functional similarity from M_FSM.txt: (495, 495)
+✅ Loaded multi-type association pairs from ./v2.0_495m383D/multi_all_mirna_disease_pairs_without_negative.csv: (1679, 3)
+✅ Created multi-type association matrix: (495, 383)
+📊 Multi-type Association Statistics:
+   无关联 (No association): 188087 pairs (99.21%)
+   循环类型 (Circulation): 367 pairs (0.19%)
+   表观遗传学 (Epigenetics): 157 pairs (0.08%)
+   靶标类型 (Target): 293 pairs (0.15%)
+   遗传学类型 (Genetics): 681 pairs (0.36%)
+✅ Created association matrix from CSV: (495, 383)
+✅ Loaded disease-gene features from D_SSM2.txt: torch.Size([383, 383])
+✅ Loaded miRNA-sequence features from M_GSM.txt: torch.Size([495, 495])
+Processing integrated similarity matrices...
+Loaded similarity matrices from cache
+Processing indices...
+Loaded indices from cache (seed=1234)
+✅ Dual-view data preparation completed in 0.36 seconds
+
+============================================================
+🎯 DUAL-VIEW CONFIGURATION SUMMARY (v2.0_495m383D)
+============================================================
+miRNA Dual Views:
+  📊 View 1 (Sequence): M_GSM.txt torch.Size([495, 495])
+  📊 View 2 (Function): M_FSM.txt torch.Size([495, 495])
+
+Disease Dual Views:
+  📊 View 1 (Gene): D_SSM2.txt torch.Size([383, 383])
+  📊 View 2 (Semantic): D_SSM1.txt torch.Size([383, 383])
+
+Association Matrix: torch.Size([495, 383])
+Data source: v2.0_495m383D (495 miRNAs × 383 Diseases)
+============================================================
+Preloading dual-view data to device...
+✅ Loaded disease-gene features to device: torch.Size([383, 383])
+✅ Loaded miRNA-sequence features to device: torch.Size([495, 495])
+✅ Loaded disease semantic similarity to device: torch.Size([383, 383])
+✅ Loaded miRNA functional similarity to device: torch.Size([495, 495])
+✅ Dual-view data preloading completed in 0.00 seconds
+OptimizedDataset initialized with 5 folds
+Using device: cpu
+=== Cross Validation Fold 1/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+[ABLATION] Running with mode = no_avf
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+   Loss mode: two_head
+   loss_mode=two_head
+   exist_weight=0.100, type_weight=0.900
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+Original positive index shape: torch.Size([1072, 2])
+Original negative index shape: torch.Size([135416, 2])
+采样后负样本数量: 10720
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([383, 383])
+  miRNA functional: torch.Size([495, 495])
+  Disease-gene: torch.Size([383, 383])
+  miRNA-sequence: torch.Size([495, 495])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([495, 878])
+  📊 miRNA View 2 (Function): torch.Size([495, 878])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([383, 878])
+  📊 Disease View 2 (Semantic): torch.Size([383, 878])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000025     0.000001 ✅ 正常           
+  exist_relation                0.000134     0.000010 ✅ 正常           
+  mi_proj_layer0                0.451272     0.001675 ✅ 正常           
+  dis_proj_layer0               0.483070     0.001865 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 20.5942, Recover Loss: 1.3397, miRNA CL: 8.9730, Disease CL: 8.4522, Inter-view (est): 4.0212, Recon Loss: 1.5308, Time: 0.76s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000017     0.000000 ✅ 正常           
+  exist_relation                0.000129     0.000009 ✅ 正常           
+  mi_proj_layer0                0.162771     0.000619 ✅ 正常           
+  dis_proj_layer0               0.134934     0.000511 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 17.3203, Recover Loss: 1.2107, miRNA CL: 8.0250, Disease CL: 7.6971, Inter-view (est): 3.6282, Recon Loss: 0.1032, Time: 98.54s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000010     0.000000 ✅ 正常           
+  exist_relation                0.000123     0.000008 ✅ 正常           
+  mi_proj_layer0                0.142946     0.000525 ✅ 正常           
+  dis_proj_layer0               0.147015     0.000558 ✅ 正常           
+================================================================================
+
+Epoch 100, Total Loss: 16.1471, Recover Loss: 1.1505, miRNA CL: 7.7498, Disease CL: 6.9459, Inter-view (est): 3.3913, Recon Loss: 0.0303, Time: 133.77s
+[INFO] Hypergraph updated at epoch 150
+
+🔧 Epoch 150 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000006     0.000000 ✅ 正常           
+  exist_relation                0.000118     0.000008 ✅ 正常           
+  mi_proj_layer0                0.111590     0.000449 ✅ 正常           
+  dis_proj_layer0               0.109653     0.000422 ✅ 正常           
+================================================================================
+
+Epoch 150, Total Loss: 15.4649, Recover Loss: 1.0763, miRNA CL: 7.5468, Disease CL: 6.5506, Inter-view (est): 3.2532, Recon Loss: 0.0296, Time: 166.92s
+[INFO] Hypergraph updated at epoch 200
+
+🔧 Epoch 200 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000004     0.000000 ✅ 正常           
+  exist_relation                0.000114     0.000008 ✅ 正常           
+  mi_proj_layer0                0.109690     0.000443 ✅ 正常           
+  dis_proj_layer0               0.109199     0.000435 ✅ 正常           
+================================================================================
+
+Epoch 200, Total Loss: 15.0398, Recover Loss: 1.0436, miRNA CL: 7.3047, Disease CL: 6.4063, Inter-view (est): 3.1641, Recon Loss: 0.0291, Time: 199.59s
+[INFO] Hypergraph updated at epoch 250
+
+🔧 Epoch 250 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000003     0.000000 ✅ 正常           
+  exist_relation                0.000111     0.000007 ✅ 正常           
+  mi_proj_layer0                0.087371     0.000354 ✅ 正常           
+  dis_proj_layer0               0.074050     0.000302 ✅ 正常           
+================================================================================
+
+Epoch 250, Total Loss: 14.7582, Recover Loss: 0.9954, miRNA CL: 7.1538, Disease CL: 6.3277, Inter-view (est): 3.1111, Recon Loss: 0.0295, Time: 232.80s
+[INFO] Hypergraph updated at epoch 300
+
+🔧 Epoch 300 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000107     0.000007 ✅ 正常           
+  mi_proj_layer0                0.086746     0.000362 ✅ 正常           
+  dis_proj_layer0               0.083208     0.000336 ✅ 正常           
+================================================================================
+
+Epoch 300, Total Loss: 14.5785, Recover Loss: 0.9825, miRNA CL: 7.0502, Disease CL: 6.2695, Inter-view (est): 3.0738, Recon Loss: 0.0280, Time: 265.61s
+[INFO] Hypergraph updated at epoch 350
+
+🔧 Epoch 350 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000105     0.000007 ✅ 正常           
+  mi_proj_layer0                0.110460     0.000455 ✅ 正常           
+  dis_proj_layer0               0.131463     0.000497 ✅ 正常           
+================================================================================
+
+Epoch 350, Total Loss: 14.4610, Recover Loss: 0.9754, miRNA CL: 6.9775, Disease CL: 6.2334, Inter-view (est): 3.0487, Recon Loss: 0.0287, Time: 298.26s
+[INFO] Hypergraph updated at epoch 400
+
+🔧 Epoch 400 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000103     0.000007 ✅ 正常           
+  mi_proj_layer0                0.080005     0.000334 ✅ 正常           
+  dis_proj_layer0               0.075607     0.000315 ✅ 正常           
+================================================================================
+
+Epoch 400, Total Loss: 14.3589, Recover Loss: 0.9557, miRNA CL: 6.9183, Disease CL: 6.2131, Inter-view (est): 3.0303, Recon Loss: 0.0272, Time: 331.59s
+[INFO] Hypergraph updated at epoch 450
+
+🔧 Epoch 450 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000102     0.000006 ✅ 正常           
+  mi_proj_layer0                0.078008     0.000328 ✅ 正常           
+  dis_proj_layer0               0.069118     0.000293 ✅ 正常           
+================================================================================
+
+Epoch 450, Total Loss: 14.2897, Recover Loss: 0.9521, miRNA CL: 6.8646, Disease CL: 6.2022, Inter-view (est): 3.0154, Recon Loss: 0.0270, Time: 365.51s
+[INFO] Hypergraph updated at epoch 500
+
+🔧 Epoch 500 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000102     0.000006 ✅ 正常           
+  mi_proj_layer0                0.081270     0.000343 ✅ 正常           
+  dis_proj_layer0               0.076543     0.000318 ✅ 正常           
+================================================================================
+
+Epoch 500, Total Loss: 14.2354, Recover Loss: 0.9487, miRNA CL: 6.8213, Disease CL: 6.1952, Inter-view (est): 3.0038, Recon Loss: 0.0269, Time: 405.27s
+[INFO] Hypergraph updated at epoch 550
+
+🔧 Epoch 550 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000095)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000101     0.000006 ✅ 正常           
+  mi_proj_layer0                0.083444     0.000347 ✅ 正常           
+  dis_proj_layer0               0.073933     0.000302 ✅ 正常           
+================================================================================
+
+Epoch 550, Total Loss: 14.1956, Recover Loss: 0.9446, miRNA CL: 6.7921, Disease CL: 6.1896, Inter-view (est): 2.9958, Recon Loss: 0.0265, Time: 442.04s
+[INFO] Hypergraph updated at epoch 600
+
+🔧 Epoch 600 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000090)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000101     0.000006 ✅ 正常           
+  mi_proj_layer0                0.074164     0.000314 ✅ 正常           
+  dis_proj_layer0               0.062686     0.000266 ✅ 正常           
+================================================================================
+
+Epoch 600, Total Loss: 14.1656, Recover Loss: 0.9423, miRNA CL: 6.7695, Disease CL: 6.1844, Inter-view (est): 2.9894, Recon Loss: 0.0271, Time: 473.39s
+[INFO] Hypergraph updated at epoch 650
+
+🔧 Epoch 650 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000086)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000100     0.000006 ✅ 正常           
+  mi_proj_layer0                0.068082     0.000288 ✅ 正常           
+  dis_proj_layer0               0.058845     0.000248 ✅ 正常           
+================================================================================
+
+Epoch 650, Total Loss: 14.1359, Recover Loss: 0.9372, miRNA CL: 6.7506, Disease CL: 6.1790, Inter-view (est): 2.9838, Recon Loss: 0.0270, Time: 502.36s
+
+================================================================================
+Training completed. Running final test...
+================================================================================
+Fold 1 completed - AUC: 0.9808, Top-1 F1: 0.6355
+Fold 1 training time: 503.30 seconds
+=== Cross Validation Fold 2/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+[ABLATION] Running with mode = no_avf
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+   Loss mode: two_head
+   loss_mode=two_head
+   exist_weight=0.100, type_weight=0.900
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+Original positive index shape: torch.Size([1072, 2])
+Original negative index shape: torch.Size([135416, 2])
+采样后负样本数量: 10720
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([383, 383])
+  miRNA functional: torch.Size([495, 495])
+  Disease-gene: torch.Size([383, 383])
+  miRNA-sequence: torch.Size([495, 495])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([495, 878])
+  📊 miRNA View 2 (Function): torch.Size([495, 878])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([383, 878])
+  📊 Disease View 2 (Semantic): torch.Size([383, 878])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000025     0.000001 ✅ 正常           
+  exist_relation                0.000155     0.000011 ✅ 正常           
+  mi_proj_layer0                0.270904     0.001038 ✅ 正常           
+  dis_proj_layer0               0.280246     0.001103 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 20.5535, Recover Loss: 1.3224, miRNA CL: 8.9154, Disease CL: 8.4195, Inter-view (est): 4.0004, Recon Loss: 1.5974, Time: 0.57s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000017     0.000001 ✅ 正常           
+  exist_relation                0.000150     0.000011 ✅ 正常           
+  mi_proj_layer0                0.162206     0.000593 ✅ 正常           
+  dis_proj_layer0               0.140085     0.000525 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 17.4296, Recover Loss: 1.1911, miRNA CL: 8.0473, Disease CL: 7.7194, Inter-view (est): 3.6385, Recon Loss: 0.1870, Time: 91.61s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000010     0.000000 ✅ 正常           
+  exist_relation                0.000144     0.000010 ✅ 正常           
+  mi_proj_layer0                0.111529     0.000448 ✅ 正常           
+  dis_proj_layer0               0.137775     0.000517 ✅ 正常           
+================================================================================
+
+Epoch 100, Total Loss: 16.1702, Recover Loss: 1.1297, miRNA CL: 7.7620, Disease CL: 6.9764, Inter-view (est): 3.4012, Recon Loss: 0.0307, Time: 123.96s
+[INFO] Hypergraph updated at epoch 150
+
+🔧 Epoch 150 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000006     0.000000 ✅ 正常           
+  exist_relation                0.000138     0.000009 ✅ 正常           
+  mi_proj_layer0                0.129569     0.000507 ✅ 正常           
+  dis_proj_layer0               0.128669     0.000506 ✅ 正常           
+================================================================================
+
+Epoch 150, Total Loss: 15.5701, Recover Loss: 1.0858, miRNA CL: 7.6033, Disease CL: 6.5896, Inter-view (est): 3.2753, Recon Loss: 0.0294, Time: 152.57s
+[INFO] Hypergraph updated at epoch 200
+
+🔧 Epoch 200 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000004     0.000000 ✅ 正常           
+  exist_relation                0.000134     0.000009 ✅ 正常           
+  mi_proj_layer0                0.115004     0.000459 ✅ 正常           
+  dis_proj_layer0               0.142566     0.000567 ✅ 正常           
+================================================================================
+
+Epoch 200, Total Loss: 15.0869, Recover Loss: 1.0360, miRNA CL: 7.3246, Disease CL: 6.4412, Inter-view (est): 3.1767, Recon Loss: 0.0290, Time: 181.14s
+[INFO] Hypergraph updated at epoch 250
+
+🔧 Epoch 250 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000131     0.000009 ✅ 正常           
+  mi_proj_layer0                0.095128     0.000396 ✅ 正常           
+  dis_proj_layer0               0.098009     0.000403 ✅ 正常           
+================================================================================
+
+Epoch 250, Total Loss: 14.8146, Recover Loss: 0.9992, miRNA CL: 7.1732, Disease CL: 6.3599, Inter-view (est): 3.1230, Recon Loss: 0.0300, Time: 209.60s
+[INFO] Hypergraph updated at epoch 300
+
+🔧 Epoch 300 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000129     0.000008 ✅ 正常           
+  mi_proj_layer0                0.083085     0.000344 ✅ 正常           
+  dis_proj_layer0               0.068522     0.000286 ✅ 正常           
+================================================================================
+
+Epoch 300, Total Loss: 14.6755, Recover Loss: 0.9808, miRNA CL: 7.0981, Disease CL: 6.3188, Inter-view (est): 3.0962, Recon Loss: 0.0279, Time: 238.11s
+[INFO] Hypergraph updated at epoch 350
+
+🔧 Epoch 350 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000126     0.000008 ✅ 正常           
+  mi_proj_layer0                0.074241     0.000310 ✅ 正常           
+  dis_proj_layer0               0.069553     0.000288 ✅ 正常           
+================================================================================
+
+Epoch 350, Total Loss: 14.5351, Recover Loss: 0.9565, miRNA CL: 7.0243, Disease CL: 6.2789, Inter-view (est): 3.0700, Recon Loss: 0.0281, Time: 266.35s
+[INFO] Hypergraph updated at epoch 400
+
+🔧 Epoch 400 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000123     0.000008 ✅ 正常           
+  mi_proj_layer0                0.097619     0.000402 ✅ 正常           
+  dis_proj_layer0               0.085559     0.000359 ✅ 正常           
+================================================================================
+
+Epoch 400, Total Loss: 14.4169, Recover Loss: 0.9481, miRNA CL: 6.9530, Disease CL: 6.2439, Inter-view (est): 3.0454, Recon Loss: 0.0271, Time: 294.72s
+[INFO] Hypergraph updated at epoch 450
+
+🔧 Epoch 450 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000088)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000121     0.000008 ✅ 正常           
+  mi_proj_layer0                0.077406     0.000323 ✅ 正常           
+  dis_proj_layer0               0.070274     0.000296 ✅ 正常           
+================================================================================
+
+Epoch 450, Total Loss: 14.3155, Recover Loss: 0.9332, miRNA CL: 6.8893, Disease CL: 6.2224, Inter-view (est): 3.0258, Recon Loss: 0.0272, Time: 323.32s
+[INFO] Hypergraph updated at epoch 500
+
+🔧 Epoch 500 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000078)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000120     0.000008 ✅ 正常           
+  mi_proj_layer0                0.077745     0.000324 ✅ 正常           
+  dis_proj_layer0               0.070571     0.000295 ✅ 正常           
+================================================================================
+
+Epoch 500, Total Loss: 14.2575, Recover Loss: 0.9336, miRNA CL: 6.8455, Disease CL: 6.2099, Inter-view (est): 3.0128, Recon Loss: 0.0260, Time: 358.67s
+[INFO] Hypergraph updated at epoch 550
+
+🔧 Epoch 550 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000072)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000119     0.000008 ✅ 正常           
+  mi_proj_layer0                0.066302     0.000278 ✅ 正常           
+  dis_proj_layer0               0.077019     0.000321 ✅ 正常           
+================================================================================
+
+Epoch 550, Total Loss: 14.2008, Recover Loss: 0.9242, miRNA CL: 6.8070, Disease CL: 6.2015, Inter-view (est): 3.0020, Recon Loss: 0.0263, Time: 393.03s
+[INFO] Hypergraph updated at epoch 600
+
+🔧 Epoch 600 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000067)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000118     0.000007 ✅ 正常           
+  mi_proj_layer0                0.079442     0.000334 ✅ 正常           
+  dis_proj_layer0               0.085534     0.000356 ✅ 正常           
+================================================================================
+
+Epoch 600, Total Loss: 14.1705, Recover Loss: 0.9308, miRNA CL: 6.7785, Disease CL: 6.1935, Inter-view (est): 2.9936, Recon Loss: 0.0264, Time: 424.11s
+[INFO] Hypergraph updated at epoch 650
+
+🔧 Epoch 650 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000063)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000118     0.000007 ✅ 正常           
+  mi_proj_layer0                0.072293     0.000297 ✅ 正常           
+  dis_proj_layer0               0.065590     0.000276 ✅ 正常           
+================================================================================
+
+Epoch 650, Total Loss: 14.1216, Recover Loss: 0.9132, miRNA CL: 6.7559, Disease CL: 6.1854, Inter-view (est): 2.9865, Recon Loss: 0.0263, Time: 452.92s
+
+================================================================================
+Training completed. Running final test...
+================================================================================
+Fold 2 completed - AUC: 0.9810, Top-1 F1: 0.6526
+Fold 2 training time: 453.59 seconds
+=== Cross Validation Fold 3/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+[ABLATION] Running with mode = no_avf
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+   Loss mode: two_head
+   loss_mode=two_head
+   exist_weight=0.100, type_weight=0.900
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+Original positive index shape: torch.Size([1072, 2])
+Original negative index shape: torch.Size([135416, 2])
+采样后负样本数量: 10720
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([383, 383])
+  miRNA functional: torch.Size([495, 495])
+  Disease-gene: torch.Size([383, 383])
+  miRNA-sequence: torch.Size([495, 495])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([495, 878])
+  📊 miRNA View 2 (Function): torch.Size([495, 878])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([383, 878])
+  📊 Disease View 2 (Semantic): torch.Size([383, 878])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000025     0.000001 ✅ 正常           
+  exist_relation                0.000145     0.000010 ✅ 正常           
+  mi_proj_layer0                0.399776     0.001490 ✅ 正常           
+  dis_proj_layer0               0.423623     0.001611 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 20.4483, Recover Loss: 1.3225, miRNA CL: 8.8635, Disease CL: 8.4282, Inter-view (est): 3.9904, Recon Loss: 1.5357, Time: 0.56s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000017     0.000000 ✅ 正常           
+  exist_relation                0.000140     0.000010 ✅ 正常           
+  mi_proj_layer0                0.186115     0.000684 ✅ 正常           
+  dis_proj_layer0               0.154086     0.000571 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 17.3349, Recover Loss: 1.1989, miRNA CL: 7.9953, Disease CL: 7.7293, Inter-view (est): 3.6288, Recon Loss: 0.1270, Time: 82.68s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000010     0.000000 ✅ 正常           
+  exist_relation                0.000134     0.000009 ✅ 正常           
+  mi_proj_layer0                0.113398     0.000440 ✅ 正常           
+  dis_proj_layer0               0.106605     0.000422 ✅ 正常           
+================================================================================
+
+Epoch 100, Total Loss: 16.1754, Recover Loss: 1.1414, miRNA CL: 7.7401, Disease CL: 6.9926, Inter-view (est): 3.3998, Recon Loss: 0.0313, Time: 113.48s
+[INFO] Hypergraph updated at epoch 150
+
+🔧 Epoch 150 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000006     0.000000 ✅ 正常           
+  exist_relation                0.000129     0.000009 ✅ 正常           
+  mi_proj_layer0                0.098584     0.000392 ✅ 正常           
+  dis_proj_layer0               0.136880     0.000520 ✅ 正常           
+================================================================================
+
+Epoch 150, Total Loss: 15.5129, Recover Loss: 1.0883, miRNA CL: 7.5370, Disease CL: 6.5976, Inter-view (est): 3.2618, Recon Loss: 0.0294, Time: 142.18s
+[INFO] Hypergraph updated at epoch 200
+
+🔧 Epoch 200 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000004     0.000000 ✅ 正常           
+  exist_relation                0.000125     0.000008 ✅ 正常           
+  mi_proj_layer0                0.097427     0.000389 ✅ 正常           
+  dis_proj_layer0               0.107248     0.000422 ✅ 正常           
+================================================================================
+
+Epoch 200, Total Loss: 15.1192, Recover Loss: 1.0695, miRNA CL: 7.2897, Disease CL: 6.4756, Inter-view (est): 3.1766, Recon Loss: 0.0291, Time: 171.03s
+[INFO] Hypergraph updated at epoch 250
+
+🔧 Epoch 250 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000003     0.000000 ✅ 正常           
+  exist_relation                0.000123     0.000008 ✅ 正常           
+  mi_proj_layer0                0.094694     0.000377 ✅ 正常           
+  dis_proj_layer0               0.095165     0.000388 ✅ 正常           
+================================================================================
+
+Epoch 250, Total Loss: 14.9185, Recover Loss: 1.0352, miRNA CL: 7.1941, Disease CL: 6.4080, Inter-view (est): 3.1389, Recon Loss: 0.0289, Time: 199.69s
+[INFO] Hypergraph updated at epoch 300
+
+🔧 Epoch 300 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000003     0.000000 ✅ 正常           
+  exist_relation                0.000120     0.000008 ✅ 正常           
+  mi_proj_layer0                0.081881     0.000344 ✅ 正常           
+  dis_proj_layer0               0.080411     0.000331 ✅ 正常           
+================================================================================
+
+Epoch 300, Total Loss: 14.7393, Recover Loss: 1.0119, miRNA CL: 7.1026, Disease CL: 6.3471, Inter-view (est): 3.1038, Recon Loss: 0.0286, Time: 228.29s
+[INFO] Hypergraph updated at epoch 350
+
+🔧 Epoch 350 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000117     0.000008 ✅ 正常           
+  mi_proj_layer0                0.108957     0.000449 ✅ 正常           
+  dis_proj_layer0               0.089531     0.000367 ✅ 正常           
+================================================================================
+
+Epoch 350, Total Loss: 14.5806, Recover Loss: 0.9881, miRNA CL: 7.0211, Disease CL: 6.2975, Inter-view (est): 3.0735, Recon Loss: 0.0282, Time: 256.88s
+[INFO] Hypergraph updated at epoch 400
+
+🔧 Epoch 400 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000115     0.000007 ✅ 正常           
+  mi_proj_layer0                0.099554     0.000423 ✅ 正常           
+  dis_proj_layer0               0.088819     0.000369 ✅ 正常           
+================================================================================
+
+Epoch 400, Total Loss: 14.4810, Recover Loss: 0.9755, miRNA CL: 6.9721, Disease CL: 6.2625, Inter-view (est): 3.0541, Recon Loss: 0.0274, Time: 285.39s
+[INFO] Hypergraph updated at epoch 450
+
+🔧 Epoch 450 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000112     0.000007 ✅ 正常           
+  mi_proj_layer0                0.091900     0.000383 ✅ 正常           
+  dis_proj_layer0               0.080790     0.000331 ✅ 正常           
+================================================================================
+
+Epoch 450, Total Loss: 14.3712, Recover Loss: 0.9538, miRNA CL: 6.9177, Disease CL: 6.2310, Inter-view (est): 3.0343, Recon Loss: 0.0270, Time: 314.11s
+[INFO] Hypergraph updated at epoch 500
+
+🔧 Epoch 500 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000111     0.000007 ✅ 正常           
+  mi_proj_layer0                0.081573     0.000342 ✅ 正常           
+  dis_proj_layer0               0.068981     0.000288 ✅ 正常           
+================================================================================
+
+Epoch 500, Total Loss: 14.2702, Recover Loss: 0.9466, miRNA CL: 6.8455, Disease CL: 6.2107, Inter-view (est): 3.0130, Recon Loss: 0.0271, Time: 346.56s
+[INFO] Hypergraph updated at epoch 550
+
+🔧 Epoch 550 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000110     0.000007 ✅ 正常           
+  mi_proj_layer0                0.078518     0.000323 ✅ 正常           
+  dis_proj_layer0               0.070997     0.000290 ✅ 正常           
+================================================================================
+
+Epoch 550, Total Loss: 14.2069, Recover Loss: 0.9365, miRNA CL: 6.8036, Disease CL: 6.2010, Inter-view (est): 3.0011, Recon Loss: 0.0263, Time: 381.61s
+[INFO] Hypergraph updated at epoch 600
+
+🔧 Epoch 600 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000109     0.000007 ✅ 正常           
+  mi_proj_layer0                0.064092     0.000269 ✅ 正常           
+  dis_proj_layer0               0.061798     0.000258 ✅ 正常           
+================================================================================
+
+Epoch 600, Total Loss: 14.1595, Recover Loss: 0.9287, miRNA CL: 6.7724, Disease CL: 6.1933, Inter-view (est): 2.9921, Recon Loss: 0.0262, Time: 414.20s
+[INFO] Hypergraph updated at epoch 650
+
+🔧 Epoch 650 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000096)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000108     0.000007 ✅ 正常           
+  mi_proj_layer0                0.083924     0.000351 ✅ 正常           
+  dis_proj_layer0               0.081820     0.000335 ✅ 正常           
+================================================================================
+
+Epoch 650, Total Loss: 14.1321, Recover Loss: 0.9320, miRNA CL: 6.7500, Disease CL: 6.1858, Inter-view (est): 2.9852, Recon Loss: 0.0259, Time: 443.43s
+
+================================================================================
+Training completed. Running final test...
+================================================================================
+Fold 3 completed - AUC: 0.9786, Top-1 F1: 0.6175
+Fold 3 training time: 444.09 seconds
+=== Cross Validation Fold 4/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+[ABLATION] Running with mode = no_avf
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+   Loss mode: two_head
+   loss_mode=two_head
+   exist_weight=0.100, type_weight=0.900
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+Original positive index shape: torch.Size([1072, 2])
+Original negative index shape: torch.Size([135416, 2])
+采样后负样本数量: 10720
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([383, 383])
+  miRNA functional: torch.Size([495, 495])
+  Disease-gene: torch.Size([383, 383])
+  miRNA-sequence: torch.Size([495, 495])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([495, 878])
+  📊 miRNA View 2 (Function): torch.Size([495, 878])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([383, 878])
+  📊 Disease View 2 (Semantic): torch.Size([383, 878])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000025     0.000001 ✅ 正常           
+  exist_relation                0.000133     0.000010 ✅ 正常           
+  mi_proj_layer0                0.422567     0.001540 ✅ 正常           
+  dis_proj_layer0               0.410361     0.001536 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 20.5678, Recover Loss: 1.3350, miRNA CL: 8.9475, Disease CL: 8.4417, Inter-view (est): 4.0129, Recon Loss: 1.5447, Time: 0.55s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000017     0.000000 ✅ 正常           
+  exist_relation                0.000128     0.000009 ✅ 正常           
+  mi_proj_layer0                0.146463     0.000554 ✅ 正常           
+  dis_proj_layer0               0.143042     0.000531 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 17.4192, Recover Loss: 1.1978, miRNA CL: 8.0163, Disease CL: 7.7200, Inter-view (est): 3.6314, Recon Loss: 0.2003, Time: 85.59s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000010     0.000000 ✅ 正常           
+  exist_relation                0.000122     0.000009 ✅ 正常           
+  mi_proj_layer0                0.103204     0.000409 ✅ 正常           
+  dis_proj_layer0               0.121733     0.000469 ✅ 正常           
+================================================================================
+
+Epoch 100, Total Loss: 16.1918, Recover Loss: 1.1287, miRNA CL: 7.7418, Disease CL: 7.0163, Inter-view (est): 3.4057, Recon Loss: 0.0329, Time: 119.12s
+[INFO] Hypergraph updated at epoch 150
+
+🔧 Epoch 150 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000006     0.000000 ✅ 正常           
+  exist_relation                0.000117     0.000008 ✅ 正常           
+  mi_proj_layer0                0.107384     0.000429 ✅ 正常           
+  dis_proj_layer0               0.117141     0.000446 ✅ 正常           
+================================================================================
+
+Epoch 150, Total Loss: 15.5629, Recover Loss: 1.0774, miRNA CL: 7.5381, Disease CL: 6.6539, Inter-view (est): 3.2751, Recon Loss: 0.0300, Time: 148.90s
+[INFO] Hypergraph updated at epoch 200
+
+🔧 Epoch 200 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000004     0.000000 ✅ 正常           
+  exist_relation                0.000113     0.000008 ✅ 正常           
+  mi_proj_layer0                0.089714     0.000367 ✅ 正常           
+  dis_proj_layer0               0.085024     0.000342 ✅ 正常           
+================================================================================
+
+Epoch 200, Total Loss: 15.1522, Recover Loss: 1.0467, miRNA CL: 7.3128, Disease CL: 6.5040, Inter-view (est): 3.1885, Recon Loss: 0.0302, Time: 178.06s
+[INFO] Hypergraph updated at epoch 250
+
+🔧 Epoch 250 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000003     0.000000 ✅ 正常           
+  exist_relation                0.000110     0.000008 ✅ 正常           
+  mi_proj_layer0                0.089611     0.000375 ✅ 正常           
+  dis_proj_layer0               0.110981     0.000452 ✅ 正常           
+================================================================================
+
+Epoch 250, Total Loss: 14.8969, Recover Loss: 1.0141, miRNA CL: 7.1917, Disease CL: 6.4072, Inter-view (est): 3.1382, Recon Loss: 0.0290, Time: 207.30s
+[INFO] Hypergraph updated at epoch 300
+
+🔧 Epoch 300 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000106     0.000007 ✅ 正常           
+  mi_proj_layer0                0.096024     0.000398 ✅ 正常           
+  dis_proj_layer0               0.107799     0.000441 ✅ 正常           
+================================================================================
+
+Epoch 300, Total Loss: 14.6934, Recover Loss: 0.9857, miRNA CL: 7.0875, Disease CL: 6.3395, Inter-view (est): 3.0985, Recon Loss: 0.0292, Time: 236.47s
+[INFO] Hypergraph updated at epoch 350
+
+🔧 Epoch 350 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000104     0.000007 ✅ 正常           
+  mi_proj_layer0                0.074723     0.000313 ✅ 正常           
+  dis_proj_layer0               0.083426     0.000348 ✅ 正常           
+================================================================================
+
+Epoch 350, Total Loss: 14.5623, Recover Loss: 0.9638, miRNA CL: 7.0219, Disease CL: 6.2995, Inter-view (est): 3.0742, Recon Loss: 0.0279, Time: 266.32s
+[INFO] Hypergraph updated at epoch 400
+
+🔧 Epoch 400 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000101     0.000007 ✅ 正常           
+  mi_proj_layer0                0.095305     0.000392 ✅ 正常           
+  dis_proj_layer0               0.087570     0.000361 ✅ 正常           
+================================================================================
+
+Epoch 400, Total Loss: 14.4439, Recover Loss: 0.9513, miRNA CL: 6.9545, Disease CL: 6.2636, Inter-view (est): 3.0503, Recon Loss: 0.0274, Time: 295.63s
+[INFO] Hypergraph updated at epoch 450
+
+🔧 Epoch 450 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000099     0.000007 ✅ 正常           
+  mi_proj_layer0                0.074488     0.000312 ✅ 正常           
+  dis_proj_layer0               0.068468     0.000289 ✅ 正常           
+================================================================================
+
+Epoch 450, Total Loss: 14.3134, Recover Loss: 0.9420, miRNA CL: 6.8614, Disease CL: 6.2365, Inter-view (est): 3.0226, Recon Loss: 0.0281, Time: 324.97s
+[INFO] Hypergraph updated at epoch 500
+
+🔧 Epoch 500 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000098     0.000006 ✅ 正常           
+  mi_proj_layer0                0.070945     0.000303 ✅ 正常           
+  dis_proj_layer0               0.076193     0.000320 ✅ 正常           
+================================================================================
+
+Epoch 500, Total Loss: 14.2377, Recover Loss: 0.9296, miRNA CL: 6.8132, Disease CL: 6.2237, Inter-view (est): 3.0085, Recon Loss: 0.0267, Time: 353.02s
+[INFO] Hypergraph updated at epoch 550
+
+🔧 Epoch 550 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000097)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000097     0.000006 ✅ 正常           
+  mi_proj_layer0                0.071212     0.000297 ✅ 正常           
+  dis_proj_layer0               0.069864     0.000292 ✅ 正常           
+================================================================================
+
+Epoch 550, Total Loss: 14.1926, Recover Loss: 0.9238, miRNA CL: 6.7808, Disease CL: 6.2170, Inter-view (est): 2.9995, Recon Loss: 0.0268, Time: 379.88s
+[INFO] Hypergraph updated at epoch 600
+
+🔧 Epoch 600 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000091)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000097     0.000006 ✅ 正常           
+  mi_proj_layer0                0.068464     0.000290 ✅ 正常           
+  dis_proj_layer0               0.067643     0.000283 ✅ 正常           
+================================================================================
+
+Epoch 600, Total Loss: 14.1678, Recover Loss: 0.9253, miRNA CL: 6.7618, Disease CL: 6.2104, Inter-view (est): 2.9936, Recon Loss: 0.0267, Time: 406.67s
+[INFO] Hypergraph updated at epoch 650
+
+🔧 Epoch 650 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000085)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000096     0.000006 ✅ 正常           
+  mi_proj_layer0                0.076104     0.000318 ✅ 正常           
+  dis_proj_layer0               0.091552     0.000377 ✅ 正常           
+================================================================================
+
+Epoch 650, Total Loss: 14.1395, Recover Loss: 0.9231, miRNA CL: 6.7420, Disease CL: 6.2036, Inter-view (est): 2.9875, Recon Loss: 0.0277, Time: 433.52s
+
+================================================================================
+Training completed. Running final test...
+================================================================================
+Fold 4 completed - AUC: 0.9763, Top-1 F1: 0.6334
+Fold 4 training time: 434.18 seconds
+=== Cross Validation Fold 5/5 ===
+Using hidden dimensions: [256, 256] with 4 attention heads
+[ABLATION] Running with mode = no_avf
+优化模型初始化: miRNA数量 = 495, 疾病数量 = 383
+   节点维度: 256 → 128
+   类型数量: 4
+   Temperature: 2.0 (可学习)
+   Loss mode: two_head
+   loss_mode=two_head
+   exist_weight=0.100, type_weight=0.900
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.780', '1.822', '0.977', '0.421']
+Original positive index shape: torch.Size([1072, 2])
+Original negative index shape: torch.Size([135416, 2])
+采样后负样本数量: 10720
+🎯 Building TRUE DUAL VIEWS from four different sources...
+📊 Data sources loaded:
+  Disease semantic: torch.Size([383, 383])
+  miRNA functional: torch.Size([495, 495])
+  Disease-gene: torch.Size([383, 383])
+  miRNA-sequence: torch.Size([495, 495])
+🧬 Building miRNA dual-view hypergraphs...
+  📊 miRNA View 1 (Sequence): torch.Size([495, 878])
+  📊 miRNA View 2 (Function): torch.Size([495, 878])
+🦠 Building disease dual-view hypergraphs...
+  📊 Disease View 1 (Gene): torch.Size([383, 878])
+  📊 Disease View 2 (Semantic): torch.Size([383, 878])
+✅ Successfully built TRUE DUAL VIEWS:
+   🧬 miRNA: Sequence Features (m_ss.xlsx) vs Functional Similarity (mi_fun_sim_2.0.csv)
+   🦠 Disease: Gene Features (d_gs.xlsx) vs Semantic Similarity (dis_sem_sim_2.0.csv)
+
+🔧 Epoch 1 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000025     0.000001 ✅ 正常           
+  exist_relation                0.000151     0.000011 ✅ 正常           
+  mi_proj_layer0                0.264995     0.001008 ✅ 正常           
+  dis_proj_layer0               0.301619     0.001159 ✅ 正常           
+================================================================================
+
+Epoch 1, Total Loss: 20.7809, Recover Loss: 1.3183, miRNA CL: 9.1521, Disease CL: 8.4509, Inter-view (est): 4.0622, Recon Loss: 1.5610, Time: 0.52s
+[INFO] Hypergraph updated at epoch 5
+[INFO] Hypergraph updated at epoch 10
+[INFO] Hypergraph updated at epoch 15
+[INFO] Hypergraph updated at epoch 20
+[INFO] Hypergraph updated at epoch 25
+[INFO] Hypergraph updated at epoch 30
+[INFO] Hypergraph updated at epoch 35
+[INFO] Hypergraph updated at epoch 40
+[INFO] Hypergraph updated at epoch 45
+[INFO] Hypergraph updated at epoch 50
+
+🔧 Epoch 50 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000017     0.000000 ✅ 正常           
+  exist_relation                0.000146     0.000010 ✅ 正常           
+  mi_proj_layer0                0.178873     0.000669 ✅ 正常           
+  dis_proj_layer0               0.140280     0.000521 ✅ 正常           
+================================================================================
+
+Epoch 50, Total Loss: 17.3681, Recover Loss: 1.1848, miRNA CL: 8.0572, Disease CL: 7.7270, Inter-view (est): 3.6425, Recon Loss: 0.1147, Time: 78.37s
+[INFO] Hypergraph updated at epoch 100
+
+🔧 Epoch 100 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000010     0.000000 ✅ 正常           
+  exist_relation                0.000140     0.000010 ✅ 正常           
+  mi_proj_layer0                0.121663     0.000470 ✅ 正常           
+  dis_proj_layer0               0.132349     0.000496 ✅ 正常           
+================================================================================
+
+Epoch 100, Total Loss: 16.2597, Recover Loss: 1.1241, miRNA CL: 7.7648, Disease CL: 7.0680, Inter-view (est): 3.4230, Recon Loss: 0.0318, Time: 106.61s
+[INFO] Hypergraph updated at epoch 150
+
+🔧 Epoch 150 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000006     0.000000 ✅ 正常           
+  exist_relation                0.000135     0.000009 ✅ 正常           
+  mi_proj_layer0                0.092539     0.000378 ✅ 正常           
+  dis_proj_layer0               0.101613     0.000416 ✅ 正常           
+================================================================================
+
+Epoch 150, Total Loss: 15.6357, Recover Loss: 1.0653, miRNA CL: 7.6027, Disease CL: 6.6750, Inter-view (est): 3.2949, Recon Loss: 0.0304, Time: 133.02s
+[INFO] Hypergraph updated at epoch 200
+
+🔧 Epoch 200 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000004     0.000000 ✅ 正常           
+  exist_relation                0.000131     0.000009 ✅ 正常           
+  mi_proj_layer0                0.097170     0.000393 ✅ 正常           
+  dis_proj_layer0               0.099676     0.000405 ✅ 正常           
+================================================================================
+
+Epoch 200, Total Loss: 15.1424, Recover Loss: 1.0151, miRNA CL: 7.3510, Disease CL: 6.4897, Inter-view (est): 3.1940, Recon Loss: 0.0295, Time: 159.32s
+[INFO] Hypergraph updated at epoch 250
+
+🔧 Epoch 250 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000003     0.000000 ✅ 正常           
+  exist_relation                0.000128     0.000008 ✅ 正常           
+  mi_proj_layer0                0.084427     0.000344 ✅ 正常           
+  dis_proj_layer0               0.079871     0.000326 ✅ 正常           
+================================================================================
+
+Epoch 250, Total Loss: 14.8776, Recover Loss: 0.9894, miRNA CL: 7.2023, Disease CL: 6.4037, Inter-view (est): 3.1398, Recon Loss: 0.0290, Time: 185.76s
+[INFO] Hypergraph updated at epoch 300
+
+🔧 Epoch 300 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000125     0.000008 ✅ 正常           
+  mi_proj_layer0                0.100407     0.000398 ✅ 正常           
+  dis_proj_layer0               0.103040     0.000416 ✅ 正常           
+================================================================================
+
+Epoch 300, Total Loss: 14.7269, Recover Loss: 0.9810, miRNA CL: 7.1092, Disease CL: 6.3574, Inter-view (est): 3.1077, Recon Loss: 0.0288, Time: 212.44s
+[INFO] Hypergraph updated at epoch 350
+
+🔧 Epoch 350 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000002     0.000000 ✅ 正常           
+  exist_relation                0.000123     0.000008 ✅ 正常           
+  mi_proj_layer0                0.103510     0.000425 ✅ 正常           
+  dis_proj_layer0               0.105362     0.000425 ✅ 正常           
+================================================================================
+
+Epoch 350, Total Loss: 14.6000, Recover Loss: 0.9618, miRNA CL: 7.0391, Disease CL: 6.3227, Inter-view (est): 3.0835, Recon Loss: 0.0280, Time: 239.51s
+[INFO] Hypergraph updated at epoch 400
+
+🔧 Epoch 400 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000120     0.000008 ✅ 正常           
+  mi_proj_layer0                0.086583     0.000357 ✅ 正常           
+  dis_proj_layer0               0.078278     0.000325 ✅ 正常           
+================================================================================
+
+Epoch 400, Total Loss: 14.4816, Recover Loss: 0.9463, miRNA CL: 6.9725, Disease CL: 6.2887, Inter-view (est): 3.0603, Recon Loss: 0.0279, Time: 266.47s
+[INFO] Hypergraph updated at epoch 450
+
+🔧 Epoch 450 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000118     0.000007 ✅ 正常           
+  mi_proj_layer0                0.109325     0.000434 ✅ 正常           
+  dis_proj_layer0               0.103737     0.000417 ✅ 正常           
+================================================================================
+
+Epoch 450, Total Loss: 14.3709, Recover Loss: 0.9392, miRNA CL: 6.8992, Disease CL: 6.2607, Inter-view (est): 3.0369, Recon Loss: 0.0273, Time: 293.43s
+[INFO] Hypergraph updated at epoch 500
+
+🔧 Epoch 500 梯度检查:
+================================================================================
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000117     0.000007 ✅ 正常           
+  mi_proj_layer0                0.092821     0.000378 ✅ 正常           
+  dis_proj_layer0               0.098908     0.000405 ✅ 正常           
+================================================================================
+
+Epoch 500, Total Loss: 14.3010, Recover Loss: 0.9276, miRNA CL: 6.8548, Disease CL: 6.2481, Inter-view (est): 3.0237, Recon Loss: 0.0269, Time: 320.35s
+[INFO] Hypergraph updated at epoch 550
+
+🔧 Epoch 550 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000096)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000116     0.000007 ✅ 正常           
+  mi_proj_layer0                0.083474     0.000340 ✅ 正常           
+  dis_proj_layer0               0.068567     0.000285 ✅ 正常           
+================================================================================
+
+Epoch 550, Total Loss: 14.2371, Recover Loss: 0.9235, miRNA CL: 6.8058, Disease CL: 6.2381, Inter-view (est): 3.0101, Recon Loss: 0.0268, Time: 347.17s
+[INFO] Hypergraph updated at epoch 600
+
+🔧 Epoch 600 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000089)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000115     0.000007 ✅ 正常           
+  mi_proj_layer0                0.081637     0.000335 ✅ 正常           
+  dis_proj_layer0               0.083186     0.000349 ✅ 正常           
+================================================================================
+
+Epoch 600, Total Loss: 14.2074, Recover Loss: 0.9193, miRNA CL: 6.7902, Disease CL: 6.2292, Inter-view (est): 3.0045, Recon Loss: 0.0264, Time: 374.18s
+[INFO] Hypergraph updated at epoch 650
+
+🔧 Epoch 650 梯度检查:
+================================================================================
+  ⚠️ 警告: type_relations梯度几乎为0 (norm=0.00000083)
+     → 类型分类器可能没有学习!
+
+  参数名称                              梯度范数         梯度均值 状态             
+  ----------------------------------------------------------------------
+  type_relations                0.000001     0.000000 ✅ 正常           
+  exist_relation                0.000114     0.000007 ✅ 正常           
+  mi_proj_layer0                0.063211     0.000263 ✅ 正常           
+  dis_proj_layer0               0.075709     0.000295 ✅ 正常           
+================================================================================
+
+Epoch 650, Total Loss: 14.1699, Recover Loss: 0.9125, miRNA CL: 6.7680, Disease CL: 6.2212, Inter-view (est): 2.9975, Recon Loss: 0.0264, Time: 400.99s
+
+================================================================================
+Training completed. Running final test...
+================================================================================
+Fold 5 completed - AUC: 0.9808, Top-1 F1: 0.6390
+Fold 5 training time: 401.65 seconds
+Average binary metrics across folds: [[0.97950323 0.9768305  0.93381666 0.93246269 0.95253731 0.91238806
+  0.91631798]]
+🎯 Average Top-1 metrics across folds: {'top1_precision': 0.6305970149253731, 'top1_recall': np.float64(0.6412593095100259), 'top1_f1': np.float64(0.6356105272331359)}
+
+📊 CV_type Style Metrics Details:
+  AUC            : 0.9795
+  AUPR           : 0.9768
+  F1             : 0.9338
+  Accuracy       : 0.9325
+  Recall         : 0.9525
+  Specificity    : 0.9124
+  Precision      : 0.9163
+
+🎯 Top-1 Metrics Details:
+  top1_precision : 0.6306
+  top1_recall    : 0.6413
+  top1_f1        : 0.6356
+
+Total execution time: 2237.17 seconds
+
+==========================================================================================
+🎯 FINAL COMPREHENSIVE RESULTS WITH TOP-1 METRICS
+==========================================================================================
+📊 Binary Classification Metrics (Original):
+  AUC: 0.9795
+  AUPR: 0.9768
+  F1: 0.9338
+  Accuracy: 0.9325
+  Recall: 0.9525
+  Specificity: 0.9124
+  Precision: 0.9163
+
+🎯 CV_type Style Metrics (Enhanced):
+  AUC: 0.9795
+  AUPR: 0.9768
+  F1: 0.9338
+  Accuracy: 0.9325
+  Recall: 0.9525
+  Specificity: 0.9124
+  Precision: 0.9163
+
+🏆 Top-1 Metrics (NEW):
+  Top-1 Precision: 0.6306
+  Top-1 Recall: 0.6413
+  Top-1 F1: 0.6356
+==========================================================================================

@@ -1,0 +1,33 @@
+================================================================
+ COUNCIL MATRIX: 4 experiments, 4 lanes x 8 threads
+================================================================
+[START] C1_v32_fb_softmax5 (run_v32_correct_metric.py) flags: --dataset v3.2_wang --predictor_mode full_bilinear --loss_mode softmax_5class --exist_weight 0.1 --K_neigs 7 --epoch 300 --validation 3 --seed 1234
+[START] A2b_fb_K3_s0 (main_experiments_hetero1.py) flags: --seed 0 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5
+[START] A2c_fb_K3_s42 (main_experiments_hetero1.py) flags: --seed 42 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5
+[START] A6_fb_K3_no_hgcn (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --ablation no_hgcn --epoch 650 --validation 5
+[WARN] C1_v32_fb_softmax5 exited rc=1 (see logs/council_C1_v32_fb_softmax5.log)
+[DONE] C1_v32_fb_softmax5 -> results/council_C1_v32_fb_softmax5.json
+[DONE] A6_fb_K3_no_hgcn -> results/council_A6_fb_K3_no_hgcn.json
+[DONE] A2c_fb_K3_s42 -> results/council_A2c_fb_K3_s42.json
+[DONE] A2b_fb_K3_s0 -> results/council_A2b_fb_K3_s0.json
+================================================================
+ MATRIX COMPLETE in 3134s
+================================================================
+  results/council_A1_fb_K7_s1234.json
+  results/council_A2b_fb_K3_s0.json
+  results/council_A2c_fb_K3_s42.json
+  results/council_A2_fb_K3_s1234.json
+  results/council_A3_fb_softmax5_s1234.json
+  results/council_A4_ens_fb_s0.json
+  results/council_A5_ens_fb_s42.json
+  results/council_A6_fb_K3_no_hgcn.json
+  results/council_B1_fb_abl_no_cl.json
+  results/council_B2_fb_abl_no_hgt.json
+  results/council_B3_fb_abl_no_hgcn.json
+  results/council_B4_fb_abl_no_dv.json
+  results/council_B5_fb_abl_no_avf.json
+  results/council_C1_v32_fb_softmax5.json
+  results/council_matrix.json
+  results/council_matrix_wave2.json
+  results/council_R0_baseline_fb.json
+  results/council_summary.json

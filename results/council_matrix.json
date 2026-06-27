@@ -1,0 +1,104 @@
+{
+  "experiments": [
+    {
+      "id": "R0_baseline_fb",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--exist_weight 0.1 --predictor_mode full_bilinear --epoch 650 --validation 5",
+      "rationale": "TRUE 0.6350 config (seed1234/K13/two_head defaults) = Linux anchor + portability check.",
+      "est_minutes": 45,
+      "priority": 0
+    },
+    {
+      "id": "A1_fb_K7_s1234",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 7 --epoch 650 --validation 5",
+      "rationale": "HIGHEST ROI. CORRECTION to the brief: the 0.6350 baseline was seed=1234 / K_neigs=13(DEFAULT) / exist_weight=0.1, verified in logs/j1_v2_full_bilinear.log. K=13 is the WORST K on the diag sweep (diag: K3=0.5924 > K7=0.5909 >> K13=0.5655 > K15=0.5506, strictly monotone smaller-is-better). full_bilinear inherited K=13 by accident, never tuned. Holding seed=1234/exist=0.1 fixed and only moving K 13->7 is a clean single-knob test directly against 0.6350; diag trend predicts a sizeable lift.",
+      "est_minutes": 45,
+      "priority": 1
+    },
+    {
+      "id": "A2_fb_K3_s1234",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5",
+      "rationale": "K=3 was the global best on the diag K-sweep (0.5924). Paired with A1 (K=7) and the existing baseline (K=13) this gives a clean 3-point full_bilinear K-curve at the exact baseline config. If the diag small-K monotone trend transfers, K=3 is the most likely new project best. Single-knob, controlled vs 0.6350.",
+      "est_minutes": 45,
+      "priority": 2
+    },
+    {
+      "id": "A3_fb_softmax5_s1234",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --loss_mode softmax_5class --exist_weight 0.1 --K_neigs 13 --epoch 650 --validation 5",
+      "rationale": "Combines the two independent best-of findings never run together: softmax_5class was the best LOSS on diag (0.6222 vs two_head 0.5996, +12.7%) and full_bilinear the best PREDICTOR (0.6350, with two_head). Code-verified compatible (hetero_model.py branches at L496 full_bilinear and L561 softmax_5class coexist). Per-class W_t in full_bilinear is exactly the regime a 5-way joint softmax exploits most. Single changed knob (loss_mode) vs baseline; strong prior for new global optimum.",
+      "est_minutes": 45,
+      "priority": 3
+    },
+    {
+      "id": "B1_fb_abl_no_cl",
+      "focus": "B",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_cl --epoch 650 --validation 5",
+      "rationale": "Decisive Fig.4 test. Every ablation in Plan A-K (additive, rebuild-E, multiseed-H, paper_literal-F) ran on the DIAG predictor; NONE under full_bilinear. Leading theory: diag's weak type head couldn't use CL/HGT embeddings so they acted as noise -> reversal. full_bilinear can use richer embeddings, so no_cl may finally HURT (matching paper). no_cl is the most-cited reversal (multiseed mean +4.52%). Held at exact baseline config so delta vs 0.6350 is clean. Either outcome strong: <0.6350 = Fig.4 partially reproduced under faithful predictor; >0.6350 = reversal proven predictor-independent.",
+      "est_minutes": 45,
+      "priority": 4
+    },
+    {
+      "id": "B2_fb_abl_no_hgt",
+      "focus": "B",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_hgt --epoch 650 --validation 5",
+      "rationale": "Second decisive Fig.4 case: no_hgt was the STRONGEST diag reversal (multiseed mean +7.01%, Plan H). Pairing with B1 covers the two largest reversals under the new faithful predictor. Comparing whether full_bilinear flips no_cl vs no_hgt tells us WHICH component the faithful predictor rescues. Same baseline config for clean delta.",
+      "est_minutes": 45,
+      "priority": 5
+    },
+    {
+      "id": "A4_ens_fb_s0",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 0 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --epoch 650 --validation 5",
+      "rationale": "Multi-seed significance for the headline claim. 0.6350 is a SINGLE seed (1234); recall seed=1 was the LUCKY seed for diag (gap -1% single-seed collapsed to -4.7% multi-seed). With seed=1234 already done (0.6350) and seed=1 running separately, seeds 0 + 42 complete a 4-seed band at the EXACT baseline config -> mean+/-std and a Plan-H-style significance test vs paper 0.5970. Converts '+6.4% beats paper' from anecdote to statistic; also enables a score-average ensemble (typically +0.5-1.5%).",
+      "est_minutes": 75,
+      "priority": 6
+    },
+    {
+      "id": "A5_ens_fb_s42",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 42 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --epoch 650 --validation 5",
+      "rationale": "Fourth seed (with 1234 done, 1 running, 0 in A4) for the full_bilinear multi-seed band. Required for a proper 4-seed mean+/-std significance verdict vs paper and for the seed-average ensemble that should exceed best single seed 0.6350. Same baseline config.",
+      "est_minutes": 75,
+      "priority": 7
+    },
+    {
+      "id": "B3_fb_abl_no_hgcn",
+      "focus": "B",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_hgcn --epoch 650 --validation 5",
+      "rationale": "Third Fig.4 ablation under full_bilinear. no_hgcn had a smaller diag reversal (+4.5% rebuild) than no_cl/no_hgt, so lower priority but completes the structural-component coverage so the Fig.4-under-full_bilinear table has 3/5 cells. Clean delta vs 0.6350.",
+      "est_minutes": 45,
+      "priority": 8
+    },
+    {
+      "id": "B4_fb_abl_no_dv",
+      "focus": "B",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_dv --epoch 650 --validation 5",
+      "rationale": "Fourth Fig.4 ablation. no_dv (single shared hypergraph) on diag at exist_weight=0.1 actually HURT (-2.0%, paper-consistent per Plan H). Re-testing under full_bilinear checks whether the one already-paper-consistent ablation stays consistent. Lower priority; run if a lane is free.",
+      "est_minutes": 45,
+      "priority": 9
+    },
+    {
+      "id": "B5_fb_abl_no_avf",
+      "focus": "B",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_avf --epoch 650 --validation 5",
+      "rationale": "Fifth/last Fig.4 ablation to complete the full 5-cell Fig.4-under-full_bilinear table. no_avf (mean-fusion instead of attention) HURT on diag at exist=0.1 (-3.7%, paper-consistent). Lowest-priority B item; only if budget allows after A and the higher-reversal ablations.",
+      "est_minutes": 45,
+      "priority": 11
+    }
+  ],
+  "notes": "wave1 v2.0 (lanes=3 alongside R2 v3.2)"
+}

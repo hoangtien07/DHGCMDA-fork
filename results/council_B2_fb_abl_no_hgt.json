@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9704,
+  "AUPR": 0.9718,
+  "F1": 0.9244,
+  "Accuracy": 0.9244,
+  "Recall": 0.9248,
+  "Specificity": 0.924,
+  "Precision": 0.9244,
+  "top1_precision": 0.6933,
+  "top1_recall": 0.6723,
+  "top1_f1": 0.6826,
+  "fold_times_sec": [
+    511.71,
+    485.74,
+    494.45,
+    477.03,
+    378.66
+  ],
+  "avg_fold_time_sec": 469.51800000000003,
+  "total_execution_sec": 2347.97,
+  "_source": "logs/council_B2_fb_abl_no_hgt.log"
+}

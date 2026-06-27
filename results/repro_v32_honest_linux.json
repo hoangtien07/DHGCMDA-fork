@@ -1,0 +1,19 @@
+{
+  "AUC": 0.9133,
+  "AUPR": 0.9116,
+  "F1": 0.8379,
+  "Accuracy": 0.8299,
+  "Recall": 0.8796,
+  "Specificity": 0.7802,
+  "Precision": 0.8002,
+  "top1_precision": 0.2894,
+  "top1_recall": 0.366,
+  "top1_f1": 0.3232,
+  "fold_times_sec": [
+    1899.86,
+    2168.98,
+    2030.85
+  ],
+  "avg_fold_time_sec": 2033.2299999999998,
+  "_source": "logs/repro_v32_honest_linux.log"
+}

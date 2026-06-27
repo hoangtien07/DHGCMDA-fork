@@ -3,7 +3,18 @@
 > File này ghi lại trạng thái thực nghiệm. Cập nhật mỗi khi run xong một experiment.
 
 ## Lần cập nhật cuối
-**2026-05-20 07:07, đang dở Phase C — v3.2 baseline 3/5 fold (user tắt máy).**
+**2026-06-27 — PLAN L HOÀN TẤT (Linux): K_neigs=3 nâng v2.0 Top-1 F1 → 0.688 (+15.3% vs paper), adversarial-verified.**
+
+### Plan L tóm tắt (branch `linux-run`)
+- ✅ Port Linux: uv venv (CPython standalone), 20 `.ps1`→`.sh`, `setup_linux.sh`, `requirements_linux.txt`, `README_LINUX.md`. Smoke + full pipeline chạy OK.
+- ✅ Council (multi-agent): brainstorm → ma trận 15 run (4 job song song) → adversarial verify → synthesis.
+- 🏆 **v2.0 cải thiện: K=3 dưới full_bilinear = 0.688 ± 0.011 (multi-seed)**, vượt paper 0.5970 (+15.3%) và best cũ 0.6350 (+8.4%). 3 reviewer đối kháng đều refuted=false/high. Công bố 0.688 (KHÔNG 0.7006 lucky seed). ADOPT `--predictor_mode full_bilinear --K_neigs 3`.
+- ✅ Ablation reversal xác nhận LẦN 5 (dưới full_bilinear). v3.2 honest 0.3232 (softmax5 hại, AUC sụp). NMCMDA vẫn blocked (DGL).
+- Chi tiết: `results/council_synthesis.md`, CLAUDE.md mục 13, BaoCao §3.4.14.
+
+---
+
+### (cũ) 2026-05-20 07:07, đang dở Phase C — v3.2 baseline 3/5 fold (user tắt máy).
 
 ### Phase C status (HMDD v3.2 + baseline comparison)
 

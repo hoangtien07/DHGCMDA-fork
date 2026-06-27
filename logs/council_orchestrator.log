@@ -1,0 +1,41 @@
+================================================================
+ COUNCIL MATRIX: 11 experiments, 3 lanes x 8 threads
+================================================================
+[START] R0_baseline_fb (main_experiments_hetero1.py) flags: --exist_weight 0.1 --predictor_mode full_bilinear --epoch 650 --validation 5
+[START] A1_fb_K7_s1234 (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 7 --epoch 650 --validation 5
+[START] A2_fb_K3_s1234 (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 3 --epoch 650 --validation 5
+[DONE] A2_fb_K3_s1234 -> results/council_A2_fb_K3_s1234.json
+[START] A3_fb_softmax5_s1234 (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --loss_mode softmax_5class --exist_weight 0.1 --K_neigs 13 --epoch 650 --validation 5
+[DONE] A1_fb_K7_s1234 -> results/council_A1_fb_K7_s1234.json
+[START] B1_fb_abl_no_cl (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_cl --epoch 650 --validation 5
+[DONE] R0_baseline_fb -> results/council_R0_baseline_fb.json
+[START] B2_fb_abl_no_hgt (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_hgt --epoch 650 --validation 5
+[DONE] B1_fb_abl_no_cl -> results/council_B1_fb_abl_no_cl.json
+[START] A4_ens_fb_s0 (main_experiments_hetero1.py) flags: --seed 0 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --epoch 650 --validation 5
+[DONE] B2_fb_abl_no_hgt -> results/council_B2_fb_abl_no_hgt.json
+[START] A5_ens_fb_s42 (main_experiments_hetero1.py) flags: --seed 42 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --epoch 650 --validation 5
+[DONE] A3_fb_softmax5_s1234 -> results/council_A3_fb_softmax5_s1234.json
+[START] B3_fb_abl_no_hgcn (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_hgcn --epoch 650 --validation 5
+[DONE] A4_ens_fb_s0 -> results/council_A4_ens_fb_s0.json
+[START] B4_fb_abl_no_dv (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_dv --epoch 650 --validation 5
+[DONE] A5_ens_fb_s42 -> results/council_A5_ens_fb_s42.json
+[START] B5_fb_abl_no_avf (main_experiments_hetero1.py) flags: --seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 13 --ablation no_avf --epoch 650 --validation 5
+[DONE] B3_fb_abl_no_hgcn -> results/council_B3_fb_abl_no_hgcn.json
+[DONE] B4_fb_abl_no_dv -> results/council_B4_fb_abl_no_dv.json
+[DONE] B5_fb_abl_no_avf -> results/council_B5_fb_abl_no_avf.json
+================================================================
+ MATRIX COMPLETE in 10753s
+================================================================
+  results/council_A1_fb_K7_s1234.json
+  results/council_A2_fb_K3_s1234.json
+  results/council_A3_fb_softmax5_s1234.json
+  results/council_A4_ens_fb_s0.json
+  results/council_A5_ens_fb_s42.json
+  results/council_B1_fb_abl_no_cl.json
+  results/council_B2_fb_abl_no_hgt.json
+  results/council_B3_fb_abl_no_hgcn.json
+  results/council_B4_fb_abl_no_dv.json
+  results/council_B5_fb_abl_no_avf.json
+  results/council_matrix.json
+  results/council_matrix_wave2.json
+  results/council_R0_baseline_fb.json

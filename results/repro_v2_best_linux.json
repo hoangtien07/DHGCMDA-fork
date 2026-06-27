@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9805,
+  "AUPR": 0.9774,
+  "F1": 0.9366,
+  "Accuracy": 0.9346,
+  "Recall": 0.9658,
+  "Specificity": 0.9033,
+  "Precision": 0.9093,
+  "top1_precision": 0.6224,
+  "top1_recall": 0.6409,
+  "top1_f1": 0.6311,
+  "fold_times_sec": [
+    682.8,
+    702.75,
+    691.36,
+    684.41,
+    651.0
+  ],
+  "avg_fold_time_sec": 682.4639999999999,
+  "total_execution_sec": 3412.6,
+  "_source": "logs/council_R0_baseline_fb.log"
+}

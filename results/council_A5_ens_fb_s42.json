@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9777,
+  "AUPR": 0.9741,
+  "F1": 0.9302,
+  "Accuracy": 0.9282,
+  "Recall": 0.9567,
+  "Specificity": 0.8997,
+  "Precision": 0.9056,
+  "top1_precision": 0.6403,
+  "top1_recall": 0.6506,
+  "top1_f1": 0.6452,
+  "fold_times_sec": [
+    559.04,
+    540.68,
+    535.97,
+    549.65,
+    541.78
+  ],
+  "avg_fold_time_sec": 545.424,
+  "total_execution_sec": 2728.17,
+  "_source": "logs/council_A5_ens_fb_s42.log"
+}
