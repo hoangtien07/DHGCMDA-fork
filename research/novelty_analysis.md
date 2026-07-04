@@ -80,3 +80,27 @@ Ngoài repo, không kết quả, không khớp thế mạnh critique. Chỉ nh�
 - Điểm chấm là **định tính** (đánh giá của trợ lý), không phải phép đo — user cân nhắc lại.
 - Chưa verify số Top-1 của TFLP/SPLDHyperAWNTF (SH) — nếu Bài A liệt kê bảng SOTA đầy đủ, cần fetch.
 - C-uq/C-llm: novelty dựa trên "không tìm thấy trong ~10 search" — CHƯA đủ mạnh để tuyên bố "chưa ai làm"; cần R7 sâu hơn nếu theo đuổi.
+
+---
+
+## CẬP NHẬT 2026-07-05 — C-uq ĐÃ THỰC HIỆN (branch breakthrough-conformal): có số thật
+
+Ứng viên **C-uq** chuyển từ "novelty cao nhưng CHƯA làm" → **có kết quả demonstrated**. Post-hoc split-conformal (APS/RAPS) trên v2.0 (full_bilinear, K=2, seed1234; held-out CV 5-fold, model Top-1 type acc = 0.6978).
+
+| Method | α | Target cov | **Marginal cov** | Avg set size (/C=4) |
+|---|---|---:|---:|---:|
+| **APS** | 0.10 | 0.900 | **0.9239** ✓ | **2.29** |
+| **APS** | 0.05 | 0.950 | **0.9657** ✓ | **2.91** |
+| RAPS (λ=0.05) | 0.10 | 0.900 | 0.9433 ✓ | 2.89 (lớn hơn APS) |
+| **Shuffle control** | 0.10 | 0.900 | 0.9313 | **3.57 ≈ C** |
+
+**Kết quả then chốt:**
+- **Coverage guarantee GIỮ** (APS marginal cov ≥ target ở cả 2 α) — phân phối-tự-do, không cần train lại.
+- **Set-size 2.29/4** ở 90%: gần cắt đôi không gian nhãn mà vẫn đảm bảo 90% coverage.
+- **Negative control (shuffle nhãn)**: set-size phình → 3.57 ≈ C, trong khi APS = 2.29 → **model info ≈ 1.3 lớp** (khoảng cách này = giá trị phân biệt thực). *Lưu ý sửa framing plan gốc:* conformal LUÔN đạt coverage theo cấu trúc; tín hiệu phân biệt nằm ở SET-SIZE, không phải coverage sụp.
+- **Conditional validity**: per-class coverage đồng đều 0.89–0.94, kể cả type hiếm T2 (Epigenetics, n=64) = 0.92.
+- **APS > RAPS ở C=4** (RAPS thiết kế cho large-C như ImageNet → không lợi, thậm chí phình set ở 4 lớp). Honest finding.
+
+**Cảnh báo trung thực:** (i) split-conformal trong-fold (cal/test chia đôi held-out của cùng model M_k) → exchangeable hợp lệ; (ii) chỉ trên positive pairs (type prediction có điều kiện đã có association); (iii) mild over-coverage (~+0.02) = conservatism hữu hạn mẫu chuẩn; (iv) mới v2.0 4-type — v3.2 5-type chờ user duyệt (+~1h).
+
+**Novelty (R7 Session 5):** không thấy prior conformal/uncertainty cho MDA-**type** → đây là first demonstration. Files: `conformal_type_prediction.py`, `results/conformal/v2_conformal_report.json`, `results/conformal/coverage_setsize_v2.png`, `logs/conformal_v2_analysis.log`.

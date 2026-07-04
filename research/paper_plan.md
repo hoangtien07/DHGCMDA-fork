@@ -114,3 +114,9 @@ Nền lý thuyết:          SimplE(expressiveness), HGNN, HGT, Oversmoothing (�
 # ✅ KẾT THÚC CUNG 6-SESSION
 File `research/`: `protocol_v1.md`, `ledger.md`, `search_log.md`, `biblio_A.md`, `biblio_B_C.md`, `knowledge_map.md`, `novelty_analysis.md`, `paper_plan.md`.
 Tổng: **13 bài VERIFIED · 6 SEARCH-HIT cần verify · 1 LOẠI (GRENADE)**. Luật vàng giữ nguyên xuyên suốt: 0 citation từ trí nhớ.
+
+---
+
+## CẬP NHẬT 2026-07-05 — Bài 2 (C-uq conformal): PROOF-OF-CONCEPT XONG trên v2.0
+
+Branch `breakthrough-conformal`. Uncertainty-aware type prediction bằng split-conformal (APS) — post-hoc, không train lại. **APS @90%: coverage 0.924, set-size 2.29/4; @95%: 0.966, 2.91/4.** Negative-control set-size → 3.57≈C xác nhận model info thật. Chi tiết `novelty_analysis.md` (cập nhật cùng ngày). C-uq từ "future work" → **có proof-of-concept**. Còn lại để thành bài đầy đủ: (i) v3.2 5-type (chờ user), (ii) so calibration methods (post-hoc temperature), (iii) coverage plots đa-α, (iv) positioning conformal-in-biomedicine.

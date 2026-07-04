@@ -49,10 +49,12 @@ def load_folds(dump_dir):
 
 
 # ----------------------------- conformal core ---------------------------------
-def aps_scores(probs, labels, rng, randomize=True):
+def aps_scores(probs, labels, rng, randomize=True, lam=0.0, k_reg=1):
     """APS non-conformity score for the TRUE label of each row (Romano et al. 2020).
     E_i = cumulative prob mass of classes ranked >= true class (more-probable-first),
-    with optional uniform randomisation of the true class's own mass."""
+    with optional uniform randomisation of the true class's own mass.
+    RAPS (lam>0): + lam*max(0, rank_true - k_reg). The SAME reg is applied here
+    (calibration) and in aps_predict_sets (prediction) so coverage holds."""
     n = probs.shape[0]
     order = np.argsort(-probs, axis=1)               # most->least probable
     sorted_p = np.take_along_axis(probs, order, axis=1)
@@ -61,11 +63,12 @@ def aps_scores(probs, labels, rng, randomize=True):
     rank_true = np.argmax(order == labels[:, None], axis=1)
     cum_incl = csum[np.arange(n), rank_true]         # mass up to & incl. true class
     p_true = probs[np.arange(n), labels]
+    reg = lam * np.maximum(0, (rank_true + 1) - k_reg)   # 1-based rank penalty
     if randomize:
         u = rng.uniform(size=n)
-        scores = cum_incl - u * p_true
+        scores = cum_incl - u * p_true + reg
     else:
-        scores = cum_incl
+        scores = cum_incl + reg
     return scores
 
 
@@ -139,7 +142,7 @@ def run_method(folds, alpha, seed, lam=0.0, k_reg=1, shuffle=False):
         idx = rng.permutation(n)
         half = n // 2
         cal, tst = idx[:half], idx[half:]
-        cal_scores = aps_scores(probs[cal], y[cal], rng)
+        cal_scores = aps_scores(probs[cal], y[cal], rng, lam=lam, k_reg=k_reg)
         tau = conformal_quantile(cal_scores, alpha)
         sets = aps_predict_sets(probs[tst], tau, rng, lam=lam, k_reg=k_reg)
         all_sets.append(sets)
