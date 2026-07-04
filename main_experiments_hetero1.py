@@ -835,7 +835,7 @@ def check_gradients(model, epoch):
 
 
 # 训练和测试函数
-def train_epoch_optimized(model, train_data, optim, args):
+def train_epoch_optimized(model, train_data, optim, args, dump_path=None, dump_fold=None):
     """优化的训练函数 - 真正的双视图实现 + 详细调试
 
     [VN] Training loop cho 1 fold của CV:
@@ -1103,14 +1103,16 @@ def train_epoch_optimized(model, train_data, optim, args):
     model.eval()
     true_value_one, true_value_zero, pre_value_one, pre_value_zero = test_optimized(
         model, train_data, concat_mi_tensor_view1, concat_dis_tensor_view1,
-        G_mi_view1, G_mi_view2, G_dis_view1, G_dis_view2, hetero_data
+        G_mi_view1, G_mi_view2, G_dis_view1, G_dis_view2, hetero_data,
+        dump_path=dump_path, dump_fold=dump_fold
     )
 
     return true_value_one, true_value_zero, pre_value_one, pre_value_zero
 
 
 def test_optimized(model, data, concat_mi_tensor, concat_dis_tensor,
-                   G_mi_Kn, G_mi_Km, G_dis_Kn, G_dis_Km, hetero_data=None):
+                   G_mi_Kn, G_mi_Km, G_dis_Kn, G_dis_Km, hetero_data=None,
+                   dump_path=None, dump_fold=None):
     """优化的测试函数 - 设备兼容版本"""
     model.eval()
     with torch.no_grad():
@@ -1202,6 +1204,26 @@ def test_optimized(model, data, concat_mi_tensor, concat_dis_tensor,
                 pre_zero[valid_zero_mask] = score[valid_zero_indices[:, 0], valid_zero_indices[:, 1]]
             else:
                 pre_zero[valid_zero_mask] = score[valid_zero_indices[:, 0], valid_zero_indices[:, 1]].float()
+
+    # Branch breakthrough-conformal: dump per-fold held-out positive-pair predictions
+    if dump_path:
+        import os as _os, numpy as _np
+        _os.makedirs(dump_path, exist_ok=True)
+        _to = test_one_indices.detach().cpu().numpy()
+        _po = pre_one.detach().cpu().numpy()
+        _yo = true_one.detach().cpu().numpy().astype(int)
+        if _po.ndim == 2 and _po.shape[1] > 1:
+            _C = _po.shape[1] - 1
+            _tp = _po[:, 1:]
+            _ex = _po[:, 0]
+        else:
+            _C = 1
+            _tp = _po.reshape(-1, 1)
+            _ex = _po.reshape(-1)
+        _np.savez(_os.path.join(dump_path, f'fold{dump_fold}.npz'),
+                  mirna_idx=_to[:, 0], disease_idx=_to[:, 1],
+                  type_probs=_tp, existence=_ex, true_type=_yo, num_types=_C)
+        print(f'[dump_scores] fold{dump_fold}: {_tp.shape[0]} positive test pairs -> {dump_path}')
 
     return true_one, true_zero, pre_one, pre_zero
 
@@ -1589,8 +1611,9 @@ def main_optimized(args):
 
         # 训练模型
         fold_data = train_data[i]
+        _dump = getattr(args, 'dump_scores', '') or None
         true_value_one, true_value_zero, pre_value_one, pre_value_zero = train_epoch_optimized(
-            model, fold_data, optimizer, args
+            model, fold_data, optimizer, args, dump_path=_dump, dump_fold=i
         )
 
         # 🎯 使用增强评估函数(包含Top-1指标)

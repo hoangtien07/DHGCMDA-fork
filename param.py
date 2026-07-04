@@ -219,6 +219,14 @@ def parameter_parser():
                         help='Path to target_multilabel.npy file [n_mi, n_dis, K]. '
                              'Khi set, override targets từ CSV. Required cho loss_mode=multilabel_bce.')
 
+    # Branch breakthrough-conformal: dump per-fold held-out predictions for post-hoc conformal
+    parser.add_argument('--dump_scores',
+                        type=str,
+                        default='',
+                        help='Nếu set, thư mục dump per-fold held-out test predictions '
+                             '(mirna/disease idx, type_probs, existence, true_type) thành foldK.npz '
+                             'cho conformal type prediction post-hoc. Additive; rỗng = không ảnh hưởng.')
+
     # Verbose output
     parser.add_argument('--verbose',
                         type=bool,
