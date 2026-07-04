@@ -1,0 +1,21 @@
+{
+  "experiments": [
+    {
+      "id": "D2b_fb_K2_s0",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 0 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 2 --epoch 650 --validation 5",
+      "rationale": "K=2 beats K=3 at seed1234 (0.694>0.6808); multi-seed verify seed 0",
+      "priority": 1
+    },
+    {
+      "id": "D2c_fb_K2_s42",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 42 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 2 --epoch 650 --validation 5",
+      "rationale": "K=2 multi-seed verify seed 42 -> mean+-std vs K=3 0.688",
+      "priority": 2
+    }
+  ],
+  "notes": "wave3b: multi-seed K=2 to establish defensive mean+-std (staged gate passed: K2 s1234=0.694 > K3 s1234=0.6808)"
+}

@@ -1,0 +1,21 @@
+{
+  "experiments": [
+    {
+      "id": "D2_fb_K2_s1234",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 2 --epoch 650 --validation 5",
+      "rationale": "Close K-sensitivity curve: K=2 under full_bilinear (never run). Compare vs K=3 seed1234=0.6808 to find the floor.",
+      "priority": 1
+    },
+    {
+      "id": "D1_fb_K1_s1234",
+      "focus": "A",
+      "entrypoint": "main",
+      "extra_flags": "--seed 1234 --predictor_mode full_bilinear --exist_weight 0.1 --loss_mode two_head --K_neigs 1 --epoch 650 --validation 5",
+      "rationale": "Lower-bound sanity: K=1 => hypergraph identity (degenerate, ~no_hgcn). Anchors 'too sparse also hurts' end of the curve.",
+      "priority": 2
+    }
+  ],
+  "notes": "wave3: complete full_bilinear K-sweep at K=1,2 (staged fail-fast). Curve so far K13=0.6311<K7=0.6538<K3=0.6808."
+}

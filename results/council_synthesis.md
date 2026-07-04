@@ -113,7 +113,7 @@ Paper claim **mọi** ablation đều *làm hại* (all components critical). D�
 
 - **ADOPT làm default mới cho v2.0:** `--predictor_mode full_bilinear --K_neigs 3`. Công bố **0.688 ± 0.011 (multi-seed)**, KHÔNG dùng 0.7006.
 - **Không stack** K=3 với no_hgcn (redundant, đã chạm trần ~0.698).
-- **Defer:** NMCMDA (cần downgrade torch / DGL fix — ROI thấp, rủi ro phá env); K<3 (K=1,2 chưa thử — có thể tune thêm nhưng marginal).
+- **Defer:** NMCMDA (cần downgrade torch / DGL fix — ROI thấp, rủi ro phá env). ~~K<3~~ → **ĐÃ HOÀN TẤT (Plan M): K=2 = best mới 0.697±0.003; K=1 ≡ no_hgcn**.
 - **v3.2:** giữ two_head, KHÔNG dùng softmax5; gap tới 0.86 = terminal không-author, dừng tune.
 
 ---
@@ -125,6 +125,36 @@ Paper claim **mọi** ablation đều *làm hại* (all components critical). D�
 - **Một phần gain là "phục hồi" baseline xui:** K=13 là K tệ nhất diag-sweep. Khung trung thực = "K=3 là K đúng dưới full_bilinear"; delta so với baseline *fair-tuned* nhỏ hơn delta so với baseline K=13.
 - **n=3 seed nhỏ:** point estimate ~0.688 có CI rộng (df=2); hướng vững nhưng độ lớn cần thêm seed để siết.
 - **Per-fold range chạm nhau mong manh:** 1 fold K=3 (0.6540) nằm ngay dưới best-fold của baseline (0.6554) — means và paired diff tách rõ, nhưng phân phối chồng lấn nhẹ ở đuôi.
-- **K-sweep thưa:** chỉ {3,7,13} dưới full_bilinear; K=1,2 chưa thử → "small-K beats K=13" mạnh hơn "K=3 là tối ưu tuyệt đối".
+- **K-sweep ĐẦY ĐỦ (Plan M):** {1,2,3,7,13} dưới full_bilinear, đơn điệu. K=2 là best hợp lệ (0.697±0.003); K=1=no_hgcn (degenerate). "small-K beats large-K" xác nhận trọn vẹn.
 - **no_hgcn=0.6978 là mô hình đã ablate**, không phải DHGCMDA đầy đủ — không dùng làm headline.
 - **v3.2 & D giới hạn:** gap 0.86 terminal (data chưa public); NMCMDA blocked (DGL); mọi win của Plan L là **v2.0-specific** — K=3 không validate có lợi trên v3.2.
+---
+
+## PLAN M (2026-07-05) — K-sweep HOÀN TẤT (K=1,2): K=2 là best hợp lệ mới, K=1 ≡ no_hgcn
+
+Đóng nốt caveat "K=1,2 chưa thử". Đường cong `full_bilinear` (seed 1234) giờ đầy đủ và **đơn điệu tới tận K=1**:
+
+| K_neigs | 13 | 7 | 3 | 2 | 1 |
+|---|---:|---:|---:|---:|---:|
+| Top-1 F1 (seed1234) | 0.6311 | 0.6538 | 0.6808 | **0.6940** | **0.6978** |
+
+### K=2 multi-seed — BEST hợp lệ mới (vượt K=3, ổn định hơn)
+| Seed | 1234 | 0 | 42 | **Mean ± std** |
+|---|---:|---:|---:|---:|
+| K=2 Top-1 F1 | 0.6940 | 0.7008 | 0.6974 | **0.6974 ± 0.0034** |
+| K=2 AUC | 0.9816 | 0.9814 | 0.9823 | 0.9818 |
+
+- **K=2 mean 0.6974 > K=3 mean 0.6883** (+0.0091), và **std chặt hơn 3×** (0.0034 vs 0.0107). Mọi seed K=2 (min 0.6940) đều vượt *mean* K=3. So paper 0.5970 → **+16.8%** (K=3 là +15.3%).
+- Cùng caveat in-sample-CV như K=3, nhưng **replicate qua 2 seed không dùng selection** (0.7008, 0.6974). Không đánh đổi binary (AUC 0.9818 ≈ K=3).
+- Vẫn KHÔNG công bố lucky seed 0.7008 riêng lẻ (giữ kỷ luật cũ).
+
+### K=1 = no_hgcn — CONFIRMATION cơ chế (KHÔNG phải headline)
+**K=1 = 0.6978 / AUC 0.9833 == no_hgcn đơn lẻ (B3) == K3+no_hgcn (A6)** — trùng khít CẢ Top-1 F1 LẪN AUC (3 chiều).
+- Cơ chế: K=1 → mỗi hyperedge chỉ chứa chính node đó → H = identity → G ≈ identity → HGCN thoái hoá thành MLP = **đúng bằng ablation no_hgcn**. "Làm hypergraph thưa cực đại" VÀ "bỏ HGCN" là **cùng một lever**, cho **cùng một số**.
+- → K=1 là mô hình **đã ablate trá hình**, KHÔNG phải cấu hình full-model hợp lệ. Không dùng 0.6978 làm headline (đồng nhất với caveat no_hgcn cũ).
+- Đây là bằng chứng đối kháng-mạnh cho luận điểm **over-parameterization**: cực trị của trục K-sparsity hội tụ chính xác về trục component-ablation.
+
+### Khuyến nghị cập nhật (chờ user chốt publish)
+- **Default v2.0 mới đề xuất:** `--predictor_mode full_bilinear --K_neigs 2` (thay K=3).
+- **Headline candidate:** **0.697 ± 0.003** (K=2 multi-seed) thay cho 0.688 (K=3). Chờ user xác nhận trước khi đổi số công bố chính thức.
+- Trần hợp lệ (full-model) của hướng tune này ≈ **0.697** (K=2); K=1/no_hgcn 0.698 là mô hình đã ablate, không tính.

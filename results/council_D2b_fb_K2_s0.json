@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9814,
+  "AUPR": 0.9804,
+  "F1": 0.9357,
+  "Accuracy": 0.9347,
+  "Recall": 0.9488,
+  "Specificity": 0.9206,
+  "Precision": 0.9246,
+  "top1_precision": 0.6993,
+  "top1_recall": 0.7027,
+  "top1_f1": 0.7008,
+  "fold_times_sec": [
+    486.73,
+    439.71,
+    433.62,
+    430.5,
+    433.99
+  ],
+  "avg_fold_time_sec": 444.91,
+  "total_execution_sec": 2224.89,
+  "_source": "logs/council_D2b_fb_K2_s0.log"
+}
