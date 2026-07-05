@@ -104,3 +104,33 @@ Ngoài repo, không kết quả, không khớp thế mạnh critique. Chỉ nh�
 **Cảnh báo trung thực:** (i) split-conformal trong-fold (cal/test chia đôi held-out của cùng model M_k) → exchangeable hợp lệ; (ii) chỉ trên positive pairs (type prediction có điều kiện đã có association); (iii) mild over-coverage (~+0.02) = conservatism hữu hạn mẫu chuẩn; (iv) mới v2.0 4-type — v3.2 5-type chờ user duyệt (+~1h).
 
 **Novelty (R7 Session 5):** không thấy prior conformal/uncertainty cho MDA-**type** → đây là first demonstration. Files: `conformal_type_prediction.py`, `results/conformal/v2_conformal_report.json`, `results/conformal/coverage_setsize_v2.png`, `logs/conformal_v2_analysis.log`.
+
+---
+
+## CẬP NHẬT 2026-07-05 (2) — Conformal v3.2 (5-type) + Mondrian: "problem→solution" hoàn chỉnh
+
+Mở rộng C-uq sang v3.2_wang (713×447, 5-type; two_head full_bilinear 300ep/5fold). Conformal script đọc raw scores → **bypass metric-bug**, xử lý được 5 type.
+
+**Xác nhận độc lập metric-bug:** official Top-1 F1 = **0.0000** (Calculate_Metrics bỏ type-5) NHƯNG model held-out **top-1 acc thật = 0.3024** (khớp Plan K ~0.30). Conformal pipeline vô tình trở thành cách đo đúng thứ 4.
+
+**Kết quả conformal v3.2 @90% (so v2.0):**
+| | v2.0 (C=4, acc 0.70) | v3.2 (C=5, acc 0.30) |
+|---|---|---|
+| APS marginal cov | 0.924 ✓ | 0.907 ✓ |
+| APS set size | **2.29/4** (informative) | **4.68/5** (near-vacuous) |
+| APS per-class | đồng đều 0.89–0.94 | T1-4 ~1.0 **nhưng T5(Tissue)=0.64** ✗ |
+
+→ APS marginal coverage đạt nhưng **CHE GIẤU collapse type-5 (Tissue)**: model v3.2 gần như không dự đoán Tissue.
+
+**Mondrian (class-conditional) PHỤC HỒI per-class** (đóng góp method):
+- v3.2 @90%: **T5 0.64 → 0.96**, mọi class ≥ 0.90 (0.92/0.93/0.90/0.94/0.96), marginal 0.923, size 4.36.
+- v2.0 @90%: mọi class 0.90–0.98 (marginal APS đã cân bằng sẵn nên Mondrian chỉ siết thêm).
+
+**Ý nghĩa (mạnh cho cả breakthrough lẫn critique A):**
+1. Conformal = công cụ chẩn đoán trung thực: set-size 4.7/5 định lượng "v3.2 type-prediction trên public data là bất định cao" — không giấu như một con số Top-1 F1 đơn lẻ.
+2. **Class-conditional conformal là CẦN THIẾT cho MDA đa-type mất cân bằng** (marginal che collapse minority type) → đóng góp phương pháp cụ thể, novel cho MDA.
+3. Củng cố C5 (v3.2 gap thật): model collapse trên Tissue = biểu hiện cùng gốc với gap 0.30→0.86.
+
+**Fix trong quá trình:** Mondrian ban đầu under-cover (calibration randomized vs prediction deterministic mismatch) → sửa dùng non-randomized score nhất quán. RAPS λ=0.05 degenerate ở 5-class (cov 1.0, size 5) → APS là method chính.
+
+Files: `results/conformal/v32_conformal_report.json`, `results/conformal/perclass_and_compare.png`, `logs/conformal_v32_analysis.log`.

@@ -155,6 +155,60 @@ def run_method(folds, alpha, seed, lam=0.0, k_reg=1, shuffle=False):
     return res
 
 
+def mondrian_thresholds(probs, labels, alpha, C, rng, lam=0.0, k_reg=1):
+    """Class-conditional (Mondrian) thresholds: a separate tau per TRUE class so
+    each class gets >= 1-alpha coverage (fixes marginal conformal hiding a
+    minority-class collapse)."""
+    taus = np.full(C, np.inf)
+    # non-randomized score to match the deterministic inclusion rule in mondrian_predict
+    scores = aps_scores(probs, labels, rng, randomize=False, lam=lam, k_reg=k_reg)
+    for c in range(C):
+        m = labels == c
+        if m.sum() >= 1:
+            taus[c] = conformal_quantile(scores[m], alpha)
+    return taus
+
+
+def mondrian_predict(probs, taus, lam=0.0, k_reg=1):
+    """Include class k iff its APS inclusion-score <= tau_k (deterministic)."""
+    n, C = probs.shape
+    order = np.argsort(-probs, axis=1)
+    sorted_p = np.take_along_axis(probs, order, axis=1)
+    csum = np.cumsum(sorted_p, axis=1)
+    reg = lam * np.maximum(0, np.arange(1, C + 1) - k_reg)[None, :]
+    csum_reg = csum + reg
+    ranks = np.argsort(order, axis=1)                 # ranks[i,k] = position of class k
+    incl_score = np.take_along_axis(csum_reg, ranks, axis=1)  # score to include class k
+    sets = np.zeros((n, C), dtype=bool)
+    for k in range(C):
+        sets[:, k] = incl_score[:, k] <= taus[k]
+    return sets
+
+
+def run_mondrian(folds, alpha, seed, lam=0.0, k_reg=1):
+    rng = np.random.default_rng(seed)
+    all_sets, all_labels = [], []
+    C = folds[0]["C"]
+    for fd in folds:
+        probs, y = fd["probs"], fd["y"].copy()
+        n = len(y)
+        if n < 4:
+            continue
+        idx = rng.permutation(n)
+        half = n // 2
+        cal, tst = idx[:half], idx[half:]
+        taus = mondrian_thresholds(probs[cal], y[cal], alpha, C, rng, lam=lam, k_reg=k_reg)
+        sets = mondrian_predict(probs[tst], taus, lam=lam, k_reg=k_reg)
+        all_sets.append(sets)
+        all_labels.append(y[tst])
+    sets = np.vstack(all_sets)
+    labels = np.concatenate(all_labels)
+    res = eval_sets(sets, labels, C)
+    res["target_coverage"] = 1 - alpha
+    res["n_test"] = int(len(labels))
+    return res
+
+
 def top1_accuracy(folds):
     correct = tot = 0
     for fd in folds:
@@ -184,21 +238,26 @@ def main():
     report = {"dump_dir": args.dump_dir, "num_types": C, "n_total": n_total,
               "top1_accuracy": top1_accuracy(folds), "results": []}
 
+    def pc(res):
+        return ", ".join(f"T{k}:{v['coverage']:.2f}(n{v['n']})"
+                         for k, v in res["per_class"].items())
+
     for alpha in args.alpha:
         aps = run_method(folds, alpha, args.seed)
         raps = run_method(folds, alpha, args.seed, lam=args.raps_lambda, k_reg=args.raps_kreg)
+        mond = run_mondrian(folds, alpha, args.seed)          # class-conditional
         ctrl = run_method(folds, alpha, args.seed, shuffle=True)
         row = {"alpha": alpha, "target": 1 - alpha,
-               "APS": aps, "RAPS": raps, "shuffle_control": ctrl}
+               "APS": aps, "RAPS": raps, "Mondrian": mond, "shuffle_control": ctrl}
         report["results"].append(row)
         print(f"alpha={alpha}  target coverage={1-alpha:.3f}")
-        print(f"  APS : cov={aps['marginal_coverage']:.4f}  size={aps['avg_set_size']:.3f}")
-        print(f"  RAPS: cov={raps['marginal_coverage']:.4f}  size={raps['avg_set_size']:.3f}"
+        print(f"  APS      : cov={aps['marginal_coverage']:.4f}  size={aps['avg_set_size']:.3f}")
+        print(f"  RAPS     : cov={raps['marginal_coverage']:.4f}  size={raps['avg_set_size']:.3f}"
               f"  (lambda={args.raps_lambda})")
-        print(f"  CTRL(shuffle): cov={ctrl['marginal_coverage']:.4f}  size={ctrl['avg_set_size']:.3f}")
-        print(f"  APS per-class coverage: "
-              + ", ".join(f"T{k}:{v['coverage']:.2f}(n{v['n']})"
-                          for k, v in aps["per_class"].items()))
+        print(f"  Mondrian : cov={mond['marginal_coverage']:.4f}  size={mond['avg_set_size']:.3f}  (class-conditional)")
+        print(f"  CTRL(shuf): cov={ctrl['marginal_coverage']:.4f}  size={ctrl['avg_set_size']:.3f}")
+        print(f"  APS per-class      : {pc(aps)}")
+        print(f"  Mondrian per-class : {pc(mond)}")
         print()
 
     out = args.out or os.path.join(args.dump_dir, "conformal_report.json")

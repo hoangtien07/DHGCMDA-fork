@@ -1,0 +1,20 @@
+Loaded 5 folds, 11275 positive test pairs, C=5 types
+Model Top-1 type accuracy (held-out): 0.3024
+
+alpha=0.1  target coverage=0.900
+  APS      : cov=0.9074  size=4.684
+  RAPS     : cov=1.0000  size=5.000  (lambda=0.05)
+  Mondrian : cov=0.9232  size=4.360  (class-conditional)
+  CTRL(shuf): cov=0.8975  size=4.568
+  APS per-class      : T1:1.00(n1445), T2:0.99(n181), T3:1.00(n2233), T4:0.99(n380), T5:0.64(n1401)
+  Mondrian per-class : T1:0.92(n1460), T2:0.93(n176), T3:0.90(n2189), T4:0.94(n381), T5:0.96(n1434)
+
+alpha=0.05  target coverage=0.950
+  APS      : cov=0.9553  size=4.867
+  RAPS     : cov=1.0000  size=5.000  (lambda=0.05)
+  Mondrian : cov=0.9676  size=4.737  (class-conditional)
+  CTRL(shuf): cov=0.9505  size=4.797
+  APS per-class      : T1:1.00(n1445), T2:1.00(n181), T3:1.00(n2233), T4:1.00(n380), T5:0.82(n1401)
+  Mondrian per-class : T1:0.96(n1460), T2:0.99(n176), T3:0.95(n2189), T4:0.97(n381), T5:0.99(n1434)
+
+Saved -> results/conformal/v32_conformal_report.json

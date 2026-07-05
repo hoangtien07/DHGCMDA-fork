@@ -2,15 +2,19 @@ Loaded 5 folds, 1340 positive test pairs, C=4 types
 Model Top-1 type accuracy (held-out): 0.6978
 
 alpha=0.1  target coverage=0.900
-  APS : cov=0.9239  size=2.287
-  RAPS: cov=0.9433  size=2.894  (lambda=0.05)
-  CTRL(shuffle): cov=0.9313  size=3.566
-  APS per-class coverage: T1:0.92(n154), T2:0.92(n64), T3:0.89(n142), T4:0.94(n310)
+  APS      : cov=0.9239  size=2.287
+  RAPS     : cov=0.9433  size=2.894  (lambda=0.05)
+  Mondrian : cov=0.9373  size=3.419  (class-conditional)
+  CTRL(shuf): cov=0.9313  size=3.566
+  APS per-class      : T1:0.92(n154), T2:0.92(n64), T3:0.89(n142), T4:0.94(n310)
+  Mondrian per-class : T1:0.96(n165), T2:0.97(n70), T3:0.98(n134), T4:0.90(n301)
 
 alpha=0.05  target coverage=0.950
-  APS : cov=0.9657  size=2.906
-  RAPS: cov=0.9910  size=3.793  (lambda=0.05)
-  CTRL(shuffle): cov=0.9567  size=3.775
-  APS per-class coverage: T1:0.97(n154), T2:0.97(n64), T3:0.94(n142), T4:0.97(n310)
+  APS      : cov=0.9657  size=2.906
+  RAPS     : cov=0.9910  size=3.793  (lambda=0.05)
+  Mondrian : cov=0.9746  size=3.718  (class-conditional)
+  CTRL(shuf): cov=0.9567  size=3.775
+  APS per-class      : T1:0.97(n154), T2:0.97(n64), T3:0.94(n142), T4:0.97(n310)
+  Mondrian per-class : T1:1.00(n165), T2:0.97(n70), T3:0.98(n134), T4:0.96(n301)
 
 Saved -> results/conformal/v2_conformal_report.json
