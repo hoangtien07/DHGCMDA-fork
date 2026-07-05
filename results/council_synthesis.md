@@ -155,6 +155,6 @@ Paper claim **mọi** ablation đều *làm hại* (all components critical). D�
 - Đây là bằng chứng đối kháng-mạnh cho luận điểm **over-parameterization**: cực trị của trục K-sparsity hội tụ chính xác về trục component-ablation.
 
 ### Khuyến nghị cập nhật (chờ user chốt publish)
-- **Default v2.0 mới đề xuất:** `--predictor_mode full_bilinear --K_neigs 2` (thay K=3).
-- **Headline candidate:** **0.697 ± 0.003** (K=2 multi-seed) thay cho 0.688 (K=3). Chờ user xác nhận trước khi đổi số công bố chính thức.
+- **Default v2.0 MỚI:** `--predictor_mode full_bilinear --K_neigs 2` (thay K=3).
+- **HEADLINE công bố: 0.697 ± 0.003** (K=2 multi-seed) — ✅ ADOPTED (user 2026-07-05). K=3=0.688 giữ như điểm trên đường cong.
 - Trần hợp lệ (full-model) của hướng tune này ≈ **0.697** (K=2); K=1/no_hgcn 0.698 là mô hình đã ablate, không tính.

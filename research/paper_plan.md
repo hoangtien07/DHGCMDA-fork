@@ -21,12 +21,12 @@ Một reimplementation **trung thực** của DHGCMDA (i) phát lộ một **l�
 |---|---|---|---|
 | C1 (A) | **Metric bug**: `compute_top1_metrics` hardcode 4 types → bỏ 100% mẫu v3.2 (5 types) → Top-1 F1=0.0 GIẢ. Chứng minh 3 cách (synthetic-perfect; tương đương 4-type; đo lại 0.27–0.33) | Plan K, `run_v32_correct_metric.py` | MassSpecGym-in-the-Wild (metric divergence, 17/26 papers); Kapoor taxonomy |
 | C2 (A) | **Predictor faithfulness**: code dùng bilinear ĐƯỜNG CHÉO (degenerate); full bilinear mᵀWₜd → v2.0 Top-1 F1 **+6.4%**, VƯỢT paper | Plan J-1, `--predictor_mode full_bilinear` | SimplE ("fully expressive"); DistMult diagonal=symmetric [SH] |
-| C3 (A+B) | **K-sparsity right-sizing**: K_neigs=3 → **0.688±0.011** (+15.3% vs paper); K=13 (default) là K tệ nhất; monotone K13<K7<K3 | Plan L, multi-seed, `run_council_matrix.sh` | Oversmoothing survey; K-sens link-pred [SH] |
+| C3 (A+B) | **K-sparsity right-sizing**: K_neigs=**2** → **0.697±0.003** (+16.8% vs paper; ADOPTED default); K=13 tệ nhất; **monotone K13<K7<K3<K2<K1** đầy đủ (Plan M). K=1=no_hgcn (degenerate) → cực trị K-sparsity ≡ ablation HGCN | Plan L+M, multi-seed, `run_council_matrix.sh` | Oversmoothing survey; K-sens link-pred [SH] |
 | C4 (A+B) | **Ablation reversal / over-param**: bỏ HGCN/HGT/CL đều +8–11% v2.0; verify 5 cách (additive + rebuild + 4-seed + 2 loss + full_bilinear) | Plan E/F/H/L | Untrained-MP ("superior…"); Oversmoothing |
 | C5 (A) | **v3.2 0.86 không tái hiện** (public best ~0.33; curated 411×271 ẩn) + **baseline lệch có hệ thống** (own-paper ≠ bảng DHGCMDA) | Plan K + knowledge_map O2 | Kapoor; consistent-eval-2020 [SH]; TDRC/KBLTDARD own numbers |
 | C6 (B) | **Nguyên tắc chuyển giao**: "right-sizing hypergraph capacity cho MDA thưa — khi nào CL/transformer là NHIỄU" | tổng hợp C2–C4 | PROXI, GAE-reconsidered, Untrained-MP |
 
-**Headline number:** v2.0 Top-1 F1 **0.5970 (paper) → 0.688±0.011 (ta)**, vượt mọi public baseline (KBLTDARD 0.5869, TFLP 0.5996, TDRC 0.5286).
+**Headline number:** v2.0 Top-1 F1 **0.5970 (paper) → 0.697±0.003 (ta, K=2 ADOPTED)**, +16.8%, vượt mọi public baseline (KBLTDARD 0.5869, TFLP 0.5996, TDRC 0.5286). [K=3=0.688 là điểm trước đó trên đường cong K.]
 
 ## 4. THÍ NGHIỆM CẦN BỔ SUNG (map về repo — additive, KHÔNG sửa model/loss lõi)
 

@@ -19,9 +19,9 @@ Seed 1234, đơn điệu tới tận K=1: K13=0.6311 < K7=0.6538 < K3=0.6808 < *
 ### 🔬 K=1 = no_hgcn — CONFIRMATION over-parameterization (KHÔNG dùng làm headline)
 **K=1 = 0.6978/AUC0.9833 == no_hgcn (B3) == K3+no_hgcn (A6)** trùng khít 3 chiều. Cơ chế: K=1 → H=identity → G≈identity → HGCN thoái hoá thành MLP = đúng bằng ablation no_hgcn. "Thưa hoá hypergraph cực đại" và "bỏ HGCN" là **cùng lever, cùng số** → cực trị trục K-sparsity hội tụ chính xác về trục component-ablation. K=1 = mô hình ablate trá hình, không phải full-model.
 
-### Khuyến nghị (⏸ CHỜ USER CHỐT trước khi đổi số công bố)
-- **Default v2.0 đề xuất:** `--predictor_mode full_bilinear --K_neigs 2` (thay K=3).
-- **Headline candidate: 0.697 ± 0.003** (K=2) thay 0.688 (K=3). Trần hợp lệ hướng tune ≈ 0.697.
+### Khuyến nghị (✅ ADOPTED — user xác nhận 2026-07-05)
+- **Default v2.0 MỚI:** `--predictor_mode full_bilinear --K_neigs 2` (thay K=3).
+- **HEADLINE công bố: 0.697 ± 0.003** (K=2 multi-seed) thay 0.688 (K=3). K=3=0.688 vẫn nêu như điểm trên đường cong. Trần hợp lệ hướng tune ≈ 0.697. KHÔNG công bố lucky seed 0.7008 riêng.
 - Files: `results/council_matrix_wave3.json` + `wave3b.json`, `results/council_D1_fb_K1_s1234.json`, `council_D2_fb_K2_s1234.json`, `council_D2b_fb_K2_s0.json`, `council_D2c_fb_K2_s42.json`, `results/council_synthesis.md` (§Plan M). Literature research 6-session: `research/` (8 file, xem `research/paper_plan.md`).
 - **Branch tiếp theo:** `breakthrough-conformal` — uncertainty-aware type prediction (conformal APS/RAPS post-hoc), xem `research/novelty_analysis.md` C-uq.
 
