@@ -4,6 +4,51 @@
 
 ---
 
+## 15. REVIEW + PHA 0 (tiên quyết) 2026-07-12 — Audit methodology + 3 flag additive P7/P9/P10
+
+### Báo cáo review (read-only, không sửa code) — `docs/review/`
+- [01-baseline-audit.md](docs/review/01-baseline-audit.md): audit 8 phát hiện. Quan trọng nhất:
+  **F1 rò rỉ transductive** (ma trận association đầy đủ, kể cả test-positive, nối vào hypergraph +
+  hetero-edge + inter-view CL + GIP), **F2 multi-label collapse** (161 cặp = 20.4% dòng bị đè
+  "last-wins"), **F3 CV bỏ ~10% data**, **F4 tune ngưỡng trên test**, **F5 gộp CVtriplet/CVtype**,
+  **F6 "sequence view" thực ra là GIP**, **F7 AUPR balanced**, **F8 independent set overlap (dead)**.
+- [02-improvement-proposals.md](docs/review/02-improvement-proposals.md): 10 đề xuất P1–P10 + RL,
+  mỗi cái đủ 7 trường. **P7+P9+P10 là TIÊN QUYẾT** (không đo được cải tiến nào khi metric còn thổi
+  phồng). Mọi lợi ích là giả thuyết chỉ-số-tính-toán, KHÔNG suy diễn sinh học/lâm sàng.
+- [03-prereq-implementation.md](docs/review/03-prereq-implementation.md): trạng thái hiện thực + lệnh chạy.
+
+### 3 flag MỚI (additive, mặc định = hành vi cũ, smoke-test PASS)
+| Flag | Ý nghĩa | Mặc định |
+|---|---|---|
+| `--leakage_free` (P7, **đã hoàn chỉnh**) | mask test-positive + **recompute GIP m_ss** từ association đã mask + assert 0 leak. Trước đây chỉ mask concat (bỏ sót m_ss). | TẮT (leaky) |
+| `--cv_scheme full` (P9a/F3) | 5-fold CHUẨN dùng 100% cặp (legacy bỏ ~10%) + independent disjoint. Cache key có hậu tố scheme. | `legacy` |
+| `--deterministic` (P10) | `torch.use_deterministic_algorithms(True, warn_only)` | TẮT |
+
+- **Manifest provenance**: mọi run tự ghi `results/manifests/manifest_*.json` (git SHA, md5 dataset,
+  key flags, versions) — `write_run_manifest()` trong [main_experiments_hetero1.py](main_experiments_hetero1.py).
+- **[summarize_stats.py](summarize_stats.py)** (P9b): bootstrap CI + paired t/Wilcoxon + Holm,
+  parse per-fold từ log ("Fold k completed - AUC..Top-1 F1.."). Nhãn lặp → gộp nhiều seed vào 1 điều kiện.
+### 🔬 KẾT QUẢ leakage-gap (HOÀN TẤT 2026-07-13, `run_leakage_gap.sh`, `results/leakage_gap.json`)
+Config: full_bilinear, K=2, `--cv_scheme full`, 3 seed {0,42,1234} × 5 fold = n=15 mỗi điều kiện.
+
+| Điều kiện | AUC (mean±std) | Top-1 F1 (mean±std) |
+|---|---|---|
+| **leaky** (baseline cũ) | 0.9875 ± 0.0016 | **0.6969** ± 0.0314 |
+| **leakage_free** (P7 hoàn chỉnh) | 0.9361 ± 0.0072 | **0.6151** ± 0.0204 |
+| **GAP (leaky − free)** | **+0.0514** [CI .0479–.0548] | **+0.0818** [CI .0662–.0979] |
+
+- **Gap dương, CÓ Ý NGHĨA THỐNG KÊ** (paired t: AUC p=7.8e-14, Top-1 F1 p=1.45e-7; cả hai qua Holm;
+  Wilcoxon p=6.1e-5). Nhất quán CẢ 3 seed (mọi seed leaky > leakfree, không chồng lấn).
+- **KẾT LUẬN: baseline cũ BỊ THỔI PHỒNG do rò rỉ transductive (F1).** Headline 0.697 (K=2) thực chất
+  gồm ~0.082 Top-1 F1 và ~0.051 AUC đến từ leakage.
+- **🎯 BASELINE TRUNG THỰC MỚI (dùng cho MỌI đề xuất P1–P6/P8 về sau):**
+  **Top-1 F1 = 0.615 ± 0.020, AUC = 0.936 ± 0.007** (full_bilinear, K=2, `--leakage_free --cv_scheme full`).
+  So paper 0.5970 vẫn +3% Top-1 F1 nhưng KHÔNG còn thổi phồng. Mọi cải tiến phải đo TRÊN nền này.
+- ⚠️ **CHƯA làm**: F4 tận gốc (ngưỡng trên train) → khuyến nghị báo cáo AUC/AUPR/Top-1 F1 (không tune
+  ngưỡng test); tách hẳn CVtriplet vs CVtype (F5).
+
+---
+
 ## 14. PLAN M 2026-07-05 — K-sweep HOÀN TẤT (K=1,2): 🏆 K_neigs=2 = best hợp lệ mới 0.697±0.003; K=1 ≡ no_hgcn
 
 ### Đường cong K đầy đủ dưới full_bilinear (đóng caveat "K=1,2 chưa thử" của Plan L)

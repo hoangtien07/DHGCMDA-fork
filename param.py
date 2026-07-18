@@ -219,6 +219,47 @@ def parameter_parser():
                         help='Path to target_multilabel.npy file [n_mi, n_dis, K]. '
                              'Khi set, override targets từ CSV. Required cho loss_mode=multilabel_bce.')
 
+    # Branch breakthrough-imbalance-features (B3): imbalance-aware type loss.
+    # ce = hành vi cũ (CE + class_weights + label_smoothing). Additive: default 'ce' giữ nguyên mọi kết quả Plan A–M.
+    parser.add_argument('--type_loss',
+                        type=str,
+                        default='ce',
+                        choices=['ce', 'logit_adjust', 'ldam'],
+                        help='B3: điều chỉnh type-head cho mất cân bằng lớp. '
+                             'ce=cross-entropy cũ (mặc định, không đổi hành vi); '
+                             'logit_adjust=Menon+ 2020 (cộng tau*log(prior) vào logits khi train); '
+                             'ldam=Cao+ 2019 (margin per-class ∝ 1/n_c^{1/4}). '
+                             'Nhắm phục hồi minority type (Tissue v3.2).')
+    parser.add_argument('--la_tau',
+                        type=float,
+                        default=1.0,
+                        help='B3: hệ số tau cho logit_adjust (mặc định 1.0). Lớn hơn = ưu ái minority mạnh hơn.')
+    parser.add_argument('--ldam_max_margin',
+                        type=float,
+                        default=0.5,
+                        help='B3: margin lớn nhất C cho ldam (margin lớp = C / n_c^{1/4}, chuẩn hoá theo max).')
+    parser.add_argument('--legacy_type_map',
+                        action='store_true',
+                        help='B3 A/B control: tái lập BUG mapping cũ (chỉ type 1..4; type-5 Tissue rơi về lớp 0). '
+                             'Chỉ dùng để đo tác động của mapping-fix. Mặc định tắt = mapping đúng.')
+
+    # Branch breakthrough-imbalance-features (B4): leakage-free hypergraph input.
+    # Mặc định False = hành vi cũ (association matrix ĐẦY ĐỦ nối vào view → test-positive rò rỉ
+    # vào feature/hypergraph). Khi True: zero-out test-fold positive TRƯỚC khi dựng hypergraph
+    # → đánh giá held-out trung thực (không leak). Nhãn train/test lookup KHÔNG bị ảnh hưởng.
+    parser.add_argument('--leakage_free',
+                        action='store_true',
+                        help='B4: mask test-fold positive khỏi input association matrix trước khi '
+                             'dựng hypergraph (chống feature/similarity leakage). Additive; mặc định tắt.')
+
+    # Branch breakthrough-imbalance-features (B4-features): thay GIP "sequence" bằng sequence THẬT.
+    parser.add_argument('--mirna_seq_sim_path',
+                        type=str,
+                        default='',
+                        help='B4: path tới similarity miRNA từ SEQUENCE thật (miRBase k-mer, '
+                             'build_mirna_seq_features.py → M_SEQ.txt). Khi set, thay M_GSM (GIP, '
+                             'association-derived) cho miRNA View 1. Additive; rỗng = dùng M_GSM cũ.')
+
     # Branch breakthrough-conformal: dump per-fold held-out predictions for post-hoc conformal
     parser.add_argument('--dump_scores',
                         type=str,
@@ -226,6 +267,24 @@ def parameter_parser():
                         help='Nếu set, thư mục dump per-fold held-out test predictions '
                              '(mirna/disease idx, type_probs, existence, true_type) thành foldK.npz '
                              'cho conformal type prediction post-hoc. Additive; rỗng = không ảnh hưởng.')
+
+    # P9 (docs/review/02): honest statistical evaluation.
+    # cv_scheme='legacy' = hành vi cũ (split /10, giữ 9 chunk, chia lại validation → bỏ ~10% data,
+    # audit F3). cv_scheme='full' = k-fold CHUẨN trên TOÀN BỘ positive/negative (không bỏ data).
+    # Additive: mặc định 'legacy' giữ nguyên mọi split/kết quả Plan A–M.
+    parser.add_argument('--cv_scheme',
+                        type=str,
+                        default='legacy',
+                        choices=['legacy', 'full'],
+                        help="P9/F3: 'legacy'=split cũ (bỏ ~10% data); "
+                             "'full'=5-fold chuẩn dùng toàn bộ dữ liệu.")
+
+    # P10 (docs/review/02): reproducibility — bật thuật toán tất định của torch.
+    # Additive: mặc định tắt để không đổi tốc độ/kết quả run cũ.
+    parser.add_argument('--deterministic',
+                        action='store_true',
+                        help='P10: torch.use_deterministic_algorithms(True) + cudnn deterministic '
+                             'cho tái lập chính xác (có thể chậm hơn). Mặc định tắt.')
 
     # Verbose output
     parser.add_argument('--verbose',

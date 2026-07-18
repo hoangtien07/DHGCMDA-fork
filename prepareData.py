@@ -229,14 +229,17 @@ class OptimizedDataPreprocessor:
         print(f"Similarity matrices computed in {elapsed_time:.2f} seconds")
         return result
 
-    def preprocess_indices(self, association_matrix, validation, seed=0):
+    def preprocess_indices(self, association_matrix, validation, seed=0, cv_scheme='legacy'):
         """索引预处理.
 
         🐛 FIX (2026-05-11): Trước đây `np.random.seed(0)` hardcoded → train/test split
         FIXED across mọi --seed. Giờ accept `seed` parameter và include vào cache_key
         để multi-seed thực sự cho different splits.
+
+        P9/F3 (docs/review/02): cv_scheme='full' dùng k-fold CHUẨN trên toàn bộ dữ liệu
+        (không bỏ ~10% như 'legacy'). 'legacy' giữ nguyên hành vi cũ (mặc định).
         """
-        cache_key = f"indices_{self._compute_hash(association_matrix)}_{validation}_seed{seed}"
+        cache_key = f"indices_{self._compute_hash(association_matrix)}_{validation}_seed{seed}_{cv_scheme}"
 
         cached_result = self._load_from_cache(cache_key)
         if cached_result is not None:
@@ -282,31 +285,62 @@ class OptimizedDataPreprocessor:
         zero_tensor = type_indices['zero']
         nonzero_tensor = type_indices['nonzero']
 
-        zero_splits = zero_tensor.split(int(zero_tensor.size(0) / 10), dim=0)
-        nonzero_splits = nonzero_tensor.split(int(nonzero_tensor.size(0) / 10), dim=0)
+        if cv_scheme == 'full':
+            # P9/F3: k-fold CHUẨN trên TOÀN BỘ positive/negative (không bỏ ~10% như legacy).
+            # tensor_split đảm bảo đúng `validation` phần, phủ hết mọi index.
+            nz_folds = list(t.tensor_split(nonzero_tensor, validation, dim=0))
+            z_folds = list(t.tensor_split(zero_tensor, validation, dim=0))
 
-        cross_zero_index = t.cat([zero_splits[i] for i in range(9)])
-        cross_nonzero_index = t.cat([nonzero_splits[j] for j in range(9)])
+            cv_data = []
+            for i in range(validation):
+                others = [j for j in range(validation) if j != i]
+                cv_data.append({
+                    'test': [nz_folds[i], z_folds[i]],
+                    'train': [
+                        t.cat([nz_folds[j] for j in others]),
+                        t.cat([z_folds[j] for j in others])
+                    ]
+                })
 
-        new_zero_splits = cross_zero_index.split(int(cross_zero_index.size(0) / validation), dim=0)
-        new_nonzero_splits = cross_nonzero_index.split(int(cross_nonzero_index.size(0) / validation), dim=0)
-
-        cv_data = []
-        for i in range(validation):
-            train_indices = [j for j in range(validation) if j != i]
-            cv_fold = {
-                'test': [new_nonzero_splits[i], new_zero_splits[i]],
+            # Independent set: fold cuối làm held-out, train = các fold còn lại → DISJOINT
+            # (khắc phục audit F8: legacy independent overlap với train pool).
+            independent_test = {
+                'test': [nz_folds[-1], z_folds[-1]],
                 'train': [
-                    t.cat([new_nonzero_splits[j] for j in train_indices]),
-                    t.cat([new_zero_splits[j] for j in train_indices])
+                    t.cat([nz_folds[j] for j in range(validation - 1)]),
+                    t.cat([z_folds[j] for j in range(validation - 1)])
                 ]
             }
-            cv_data.append(cv_fold)
+            _cov = sum(f.size(0) for f in nz_folds)
+            print(f"[P9 cv_scheme=full] k-fold chuẩn: {_cov}/{nonzero_tensor.size(0)} positive "
+                  f"dùng hết ({validation} fold), KHÔNG bỏ data (khác legacy bỏ ~10%).")
+        else:
+            # legacy (mặc định): split /10, giữ 9 chunk, chia lại validation → bỏ ~10% data (F3).
+            zero_splits = zero_tensor.split(int(zero_tensor.size(0) / 10), dim=0)
+            nonzero_splits = nonzero_tensor.split(int(nonzero_tensor.size(0) / 10), dim=0)
 
-        independent_test = {
-            'test': [nonzero_splits[-2], zero_splits[-2]],
-            'train': [cross_nonzero_index, cross_zero_index]
-        }
+            cross_zero_index = t.cat([zero_splits[i] for i in range(9)])
+            cross_nonzero_index = t.cat([nonzero_splits[j] for j in range(9)])
+
+            new_zero_splits = cross_zero_index.split(int(cross_zero_index.size(0) / validation), dim=0)
+            new_nonzero_splits = cross_nonzero_index.split(int(cross_nonzero_index.size(0) / validation), dim=0)
+
+            cv_data = []
+            for i in range(validation):
+                train_indices = [j for j in range(validation) if j != i]
+                cv_fold = {
+                    'test': [new_nonzero_splits[i], new_zero_splits[i]],
+                    'train': [
+                        t.cat([new_nonzero_splits[j] for j in train_indices]),
+                        t.cat([new_zero_splits[j] for j in train_indices])
+                    ]
+                }
+                cv_data.append(cv_fold)
+
+            independent_test = {
+                'test': [nonzero_splits[-2], zero_splits[-2]],
+                'train': [cross_nonzero_index, cross_zero_index]
+            }
 
         result = {
             'cv_data': cv_data,
@@ -386,15 +420,26 @@ def prepare_data_optimized(opt):
         print("⚠️ D_SSM2.txt not found, using semantic similarity as fallback")
         dataset['d_gs'] = t.FloatTensor(dd_sem_mat)
 
-    # 5. 加载miRNA-序列特征 (M_GSM.txt) - miRNA View 1的基础
-    m_ss_path = os.path.join(opt.data_path, dataset_dir, 'M_GSM.txt')
-    if os.path.exists(m_ss_path):
-        m_ss_data = read_txt(m_ss_path)
+    # 5. 加载miRNA View 1 的基础.
+    # LƯU Ý (B4/F3): M_GSM.txt = "miRNA高斯相互作用谱核相似度" = GIP (ASSOCIATION-DERIVED),
+    # dù comment gốc gọi nhầm là "sequence". Flag --mirna_seq_sim_path cho phép thay bằng
+    # feature SEQUENCE THẬT (miRBase k-mer, build_mirna_seq_features.py) → hiện thực đúng
+    # tiền đề paper "tránh association-derived similarity". Additive: không set = hành vi cũ.
+    seq_path = getattr(opt, 'mirna_seq_sim_path', '') or ''
+    if seq_path and os.path.exists(seq_path):
+        m_ss_data = read_txt(seq_path)
         dataset['m_ss'] = m_ss_data
-        print(f"✅ Loaded miRNA-sequence features from M_GSM.txt: {m_ss_data.shape}")
+        print(f"✅ [B4] Loaded REAL miRNA-sequence similarity from {seq_path}: {m_ss_data.shape} "
+              f"(thay GIP M_GSM cho View 1)")
     else:
-        print("⚠️ M_GSM.txt not found, using functional similarity as fallback")
-        dataset['m_ss'] = t.FloatTensor(mm_fun_mat)
+        m_ss_path = os.path.join(opt.data_path, dataset_dir, 'M_GSM.txt')
+        if os.path.exists(m_ss_path):
+            m_ss_data = read_txt(m_ss_path)
+            dataset['m_ss'] = m_ss_data
+            print(f"✅ Loaded miRNA View-1 features from M_GSM.txt (=GIP): {m_ss_data.shape}")
+        else:
+            print("⚠️ M_GSM.txt not found, using functional similarity as fallback")
+            dataset['m_ss'] = t.FloatTensor(mm_fun_mat)
 
     # 存储四个不同的相似性/特征源
     dataset['dis_sem'] = t.FloatTensor(dd_sem_mat)  # 疾病语义相似性
@@ -411,8 +456,9 @@ def prepare_data_optimized(opt):
     # 预处理索引 — truyền seed để multi-seed thực sự cho different train/test split
     print("Processing indices...")
     seed = getattr(opt, 'seed', 0)
+    cv_scheme = getattr(opt, 'cv_scheme', 'legacy')
     index_results = preprocessor.preprocess_indices(
-        association_matrix, opt.validation, seed=seed)
+        association_matrix, opt.validation, seed=seed, cv_scheme=cv_scheme)
 
     dataset['md'] = index_results['cv_data']
     dataset['independent'] = index_results['independent']

@@ -135,6 +135,19 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.register_buffer('class_weights_5',
                              torch.tensor(normalized_weights_5, device=self.device))
 
+        # B3 (branch breakthrough-imbalance-features): imbalance-aware type loss.
+        # counts = per-type positive counts (đúng thứ tự type 1..K). Additive: type_loss='ce' giữ hành vi cũ.
+        self.type_loss = getattr(args, 'type_loss', 'ce')
+        self.la_tau = float(getattr(args, 'la_tau', 1.0))
+        self.ldam_max_margin = float(getattr(args, 'ldam_max_margin', 0.5))
+        self.legacy_type_map = bool(getattr(args, 'legacy_type_map', False))  # A/B control cho mapping bug
+        _counts_t = torch.tensor([float(c) for c in counts], device=self.device)
+        # log-prior cho logit adjustment: log(n_c / sum n)
+        self.register_buffer('type_log_prior', torch.log(_counts_t / _counts_t.sum()))
+        # LDAM margin ∝ 1/n_c^{1/4}, chuẩn hoá để max = ldam_max_margin
+        _inv = 1.0 / torch.pow(_counts_t, 0.25)
+        self.register_buffer('ldam_margins', self.ldam_max_margin * _inv / _inv.max())
+
         self.focal_gamma = 2.0
         # Eq. 32 alignment sweep: exist_weight ∈ {0.0, 0.05, 0.1, 0.3} via CLI
         self.label_smoothing = 0.1
@@ -330,26 +343,61 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
             return torch.tensor(0.0, device=self.device)
 
         pos_targets = targets[pos_indices[:, 0], pos_indices[:, 1]]
-        type_indices = torch.zeros_like(pos_targets, dtype=torch.long)
-        type_indices[pos_targets == 1] = 0
-        type_indices[pos_targets == 2] = 1
-        type_indices[pos_targets == 3] = 2
-        type_indices[pos_targets == 4] = 3
 
         valid_mask = pos_targets > 0
         if valid_mask.sum() == 0:
             return torch.tensor(0.0, device=self.device)
 
+        if getattr(self, 'legacy_type_map', False):
+            # A/B control: tái lập BUG mapping cũ (chỉ map 1..4; type-5 Tissue rơi về lớp 0).
+            type_indices = torch.zeros_like(pos_targets, dtype=torch.long)
+            type_indices[pos_targets == 1] = 0
+            type_indices[pos_targets == 2] = 1
+            type_indices[pos_targets == 3] = 2
+            type_indices[pos_targets == 4] = 3
+        else:
+            # B3 fix: mapping tổng quát type k -> lớp k-1. Tương đương HỆT hardcode cũ cho type 1..4
+            # (1->0,2->1,3->2,4->3) nhưng KHÔNG còn gán nhầm type-5 (Tissue) về lớp 0 như bản cũ.
+            type_indices = (pos_targets.long() - 1)
+
         valid_indices = pos_indices[valid_mask]
         valid_type_indices = type_indices[valid_mask]
         type_logits = type_pred[valid_indices[:, 0], valid_indices[:, 1], :]
 
+        # B3: imbalance-aware adjustment (logit_adjust / ldam). type_loss='ce' -> không đổi.
+        adj_logits = self._adjust_type_logits(type_logits, valid_type_indices)
+
+        # logit_adjust là ALTERNATIVE cho reweighting (Menon+ 2020) → KHÔNG stack class_weights
+        # (double-correction làm sập majority). ldam giữ class_weights kiểu LDAM-DRW. ce giữ như cũ.
+        ce_weight = None if self.type_loss == 'logit_adjust' else self.class_weights
+
         return F.cross_entropy(
-            type_logits, valid_type_indices,
-            weight=self.class_weights,
+            adj_logits, valid_type_indices,
+            weight=ce_weight,
             label_smoothing=self.label_smoothing,
             reduction='mean'
         )
+
+    def _adjust_type_logits(self, logits, target_idx):
+        """B3: điều chỉnh logits type-head cho mất cân bằng lớp (train-time).
+
+        - logit_adjust (Menon+ 2020): logits += tau * log(prior_c). Model buộc phải vượt
+          prior của lớp đa số -> ưu ái minority. Chỉ dùng khi train; suy luận dùng logits gốc.
+        - ldam (Cao+ 2019): trừ margin per-class khỏi logit của LỚP THẬT (enforce larger margin
+          cho minority). Áp trực tiếp vào logit true-class của mỗi mẫu.
+        - ce: trả nguyên logits (hành vi cũ).
+        """
+        C = logits.shape[1]
+        if self.type_loss == 'logit_adjust':
+            lp = self.type_log_prior[:C].to(logits.dtype)
+            return logits + self.la_tau * lp.unsqueeze(0)
+        if self.type_loss == 'ldam':
+            m = self.ldam_margins[:C].to(logits.dtype)
+            batch_margin = m[target_idx]                       # margin của lớp thật mỗi mẫu
+            adj = logits.clone()
+            adj[torch.arange(adj.shape[0], device=adj.device), target_idx] -= batch_margin
+            return adj
+        return logits
 
     def _process_indices(self, indices, max_rows, max_cols):
         if isinstance(indices, torch.Tensor):
@@ -877,6 +925,27 @@ def train_epoch_optimized(model, train_data, optim, args, dump_path=None, dump_f
     args.mi_num = mi_num
     args.dis_num = dis_num
 
+    # B4 (leakage_free): train_data[4] (=md_p) là tensor CHIA SẺ giữa các fold và chứa TOÀN BỘ
+    # positive (kể cả test-fold). Nó được nối thẳng vào 4 view hypergraph bên dưới → test-positive
+    # rò rỉ vào feature. Khi bật --leakage_free: clone rồi zero-out test-fold positive.
+    # Nhãn KHÔNG hỏng: train-label đọc ở train-index (không đụng), test-label eval lấy từ data[5].
+    if getattr(args, 'leakage_free', False):
+        association_matrix = association_matrix.clone()
+        try:
+            test_pos = train_data[3][0].to(device).long()
+            if test_pos.dim() == 2 and test_pos.shape[0] > 0:
+                association_matrix[test_pos[:, 0], test_pos[:, 1]] = 0.0
+                # P7 verify: sau khi mask, mọi cell test-positive PHẢI bằng 0 (không còn rò rỉ).
+                _leak = int((association_matrix[test_pos[:, 0], test_pos[:, 1]] != 0).sum().item())
+                assert _leak == 0, f"[P7] leakage-free mask thất bại: còn {_leak} test-positive != 0"
+                print(f"[B4 leakage_free] Masked {test_pos.shape[0]} test-positive entries "
+                      f"khỏi input association matrix trước khi dựng hypergraph. "
+                      f"(P7 verify: 0/{test_pos.shape[0]} test cell còn khác 0)")
+        except AssertionError:
+            raise
+        except Exception as _e:
+            print(f"[B4 leakage_free] WARNING: không mask được test-positive ({_e}) — chạy như thường.")
+
     # Plan H-3: load multi-label target tensor [m, d, K] nếu flag set.
     # Preserve 23.3% multi-label signal mất khi collapse single-label (M1 fix).
     multilabel_target = None
@@ -895,6 +964,20 @@ def train_epoch_optimized(model, train_data, optim, args, dump_path=None, dump_f
         mi_fun_data = train_data[1].to(device).float()  # miRNA功能相似性 (miRNA View 2)
         d_gs_data = train_data[8].to(device).float()  # 疾病-基因特征 (Disease View 1)
         m_ss_data = train_data[9].to(device).float()  # miRNA-序列特征 (miRNA View 1)
+
+        # P7 (leakage-free HOÀN CHỈNH — audit F1/F6): m_ss (M_GSM) là GIP dẫn xuất TỪ association
+        # ĐẦY ĐỦ → vẫn rò rỉ test-edge vào miRNA View 1 dù --leakage_free đã mask association_matrix.
+        # Khi leakage_free bật VÀ KHÔNG dùng sequence similarity thật (--mirna_seq_sim_path, vốn
+        # association-independent nên đã sạch), tính lại GIP từ association ĐÃ MASK. Additive: chỉ
+        # kích hoạt khi --leakage_free (mặc định tắt) → mọi run cũ không đổi.
+        if getattr(args, 'leakage_free', False) and not (getattr(args, 'mirna_seq_sim_path', '') or ''):
+            from prepareData import Gauss_M_optimized
+            _assoc_np = association_matrix.detach().cpu().numpy()
+            _lf_gip = Gauss_M_optimized(_assoc_np, association_matrix.shape[0])
+            m_ss_data = torch.from_numpy(_lf_gip).to(device).float()
+            print(f"[P7 leakage_free] Recomputed miRNA GIP (m_ss) từ association ĐÃ MASK "
+                  f"{tuple(m_ss_data.shape)} — miRNA View 1 không còn chứa test-edge "
+                  f"(nguồn rò rỉ còn lại duy nhất trong nhánh chính, theo audit F1).")
 
         print(f"📊 Data sources loaded:")
         print(f"  Disease semantic: {dis_sem_data.shape}")
@@ -1681,6 +1764,79 @@ def main_optimized(args):
     return metrics_cross_avg, cv_type_metrics_cross_avg, top1_metrics_cross_avg
 
 
+# ============================================================================
+# P10 (docs/review/02-improvement-proposals.md): reproducibility helpers.
+# ============================================================================
+def _apply_determinism(args):
+    """P10: bật thuật toán tất định của torch (opt-in --deterministic)."""
+    if not getattr(args, 'deterministic', False):
+        return
+    try:
+        os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if torch.cuda.is_available():
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
+        print("[P10 deterministic] torch.use_deterministic_algorithms(True, warn_only=True) đã bật.")
+    except Exception as e:
+        print(f"[P10 deterministic] WARNING: không bật được ({e}).")
+
+
+def write_run_manifest(args, save_dir='results/manifests'):
+    """P10: ghi manifest config+provenance cho 1 run → tái lập chính xác + audit.
+
+    Ghi: args đã resolve, git SHA (+dirty), md5 dataset CSV, version torch/python/platform,
+    và các flag then chốt (leakage_free, cv_scheme, loss_mode, predictor_mode, K_neigs, seed).
+    """
+    import json as _json
+    import subprocess as _sp
+    import sys as _sys
+    import hashlib as _hl
+    import platform as _pf
+    manifest = {}
+    try:
+        manifest['git_sha'] = _sp.check_output(
+            ['git', 'rev-parse', 'HEAD'], stderr=_sp.DEVNULL).decode().strip()
+        manifest['git_dirty'] = bool(_sp.check_output(
+            ['git', 'status', '--porcelain'], stderr=_sp.DEVNULL).decode().strip())
+    except Exception:
+        manifest['git_sha'] = 'unknown'
+    manifest['timestamp'] = time.strftime('%Y-%m-%d %H:%M:%S')
+    manifest['python'] = _sys.version.split()[0]
+    manifest['torch'] = torch.__version__
+    manifest['platform'] = _pf.platform()
+    manifest['n_threads'] = _N_THREADS
+    try:
+        ds = getattr(args, 'dataset', 'v2.0_495m383D')
+        csv = os.path.join(getattr(args, 'data_path', './'), ds,
+                           'multi_all_mirna_disease_pairs_without_negative.csv')
+        with open(csv, 'rb') as f:
+            manifest['dataset_csv'] = csv
+            manifest['dataset_md5'] = _hl.md5(f.read()).hexdigest()
+    except Exception as e:
+        manifest['dataset_md5'] = f'unavailable ({e})'
+    manifest['key_flags'] = {
+        k: getattr(args, k, None) for k in
+        ['dataset', 'seed', 'validation', 'epoch', 'leakage_free', 'cv_scheme',
+         'loss_mode', 'predictor_mode', 'type_loss', 'exist_weight', 'K_neigs',
+         'mirna_seq_sim_path', 'deterministic']
+    }
+    manifest['args'] = {
+        k: (v if isinstance(v, (int, float, str, bool, list, type(None))) else str(v))
+        for k, v in vars(args).items()
+    }
+    os.makedirs(save_dir, exist_ok=True)
+    fname = (f"manifest_{getattr(args, 'dataset', 'ds')}_seed{getattr(args, 'seed', 'NA')}"
+             f"_{time.strftime('%Y%m%d_%H%M%S')}.json")
+    path = os.path.join(save_dir, fname)
+    with open(path, 'w', encoding='utf-8') as f:
+        _json.dump(manifest, f, indent=2, ensure_ascii=False)
+    print(f"[P10 manifest] Ghi provenance → {path}  "
+          f"(leakage_free={manifest['key_flags']['leakage_free']}, "
+          f"cv_scheme={manifest['key_flags']['cv_scheme']})")
+    return path
+
+
 # 运行主程序
 if __name__ == '__main__':
     from param import parameter_parser
@@ -1692,6 +1848,13 @@ if __name__ == '__main__':
     # Re-seed RNG state với args.seed sau khi parse args.
     seed_torch(args.seed)
     print(f"[SEED] Re-seeded với args.seed = {args.seed}")
+
+    # P10: tất định (opt-in) + manifest provenance cho mọi run.
+    _apply_determinism(args)
+    try:
+        write_run_manifest(args)
+    except Exception as _e:
+        print(f"[P10 manifest] WARNING: không ghi được manifest ({_e}).")
 
     # 启用性能分析
     start_time = time.time()

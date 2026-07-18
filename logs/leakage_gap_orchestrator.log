@@ -1,0 +1,47 @@
+[2026-07-12 23:30:57] START leakage-gap: seeds=0 42 1234 threads=28
+[2026-07-12 23:30:57] === seed 0 : LEAKY ===
+[2026-07-13 00:10:12]     leaky s0 exit=0
+[2026-07-13 00:10:12] === seed 0 : LEAKAGE-FREE ===
+[2026-07-13 00:44:39]     leakfree s0 exit=0
+[2026-07-13 00:44:39] === seed 42 : LEAKY ===
+[2026-07-13 01:22:49]     leaky s42 exit=0
+[2026-07-13 01:22:49] === seed 42 : LEAKAGE-FREE ===
+[2026-07-13 01:57:07]     leakfree s42 exit=0
+[2026-07-13 01:57:07] === seed 1234 : LEAKY ===
+[2026-07-13 02:35:34]     leaky s1234 exit=0
+[2026-07-13 02:35:34] === seed 1234 : LEAKAGE-FREE ===
+[2026-07-13 03:09:34]     leakfree s1234 exit=0
+[2026-07-13 03:09:34] === Aggregate stats ===
+==============================================================================
+P9 — THỐNG KÊ TRUNG THỰC (bootstrap CI + paired tests)
+==============================================================================
+
+### Điều kiện: leaky
+  auc       : n=15  mean=0.9875  std=0.0016  CI95[0.9867, 0.9884]
+  top1_f1   : n=15  mean=0.6969  std=0.0314  CI95[0.6816, 0.7124]
+
+### Điều kiện: leakage_free
+  auc       : n=15  mean=0.9361  std=0.0072  CI95[0.9326, 0.9397]
+  top1_f1   : n=15  mean=0.6151  std=0.0204  CI95[0.6052, 0.6251]
+
+### leaky vs leakage_free — auc
+  gap(mean leaky-leakage_free) = +0.0514  CI95[+0.0479, +0.0548]
+  paired t: t=+28.662  p=7.826e-14
+  Wilcoxon: W=0.000  p=6.104e-05
+
+### leaky vs leakage_free — top1_f1
+  gap(mean leaky-leakage_free) = +0.0818  CI95[+0.0662, +0.0979]
+  paired t: t=+9.650  p=1.45e-07
+  Wilcoxon: W=0.000  p=6.104e-05
+
+### Hiệu chỉnh đa so sánh (Holm, trên paired-t):
+  leaky_vs_leakage_free::auc               p=7.826e-14 → Holm=1.565e-13  *SIG(α=.05)
+  leaky_vs_leakage_free::top1_f1           p=1.45e-07 → Holm=1.45e-07  *SIG(α=.05)
+
+==============================================================================
+Lưu ý: KHÔNG suy diễn sinh học/lâm sàng. Ưu tiên AUC/AUPR/Top-1 F1 (không phụ thuộc
+ngưỡng); F1 nhị phân trong pipeline tune ngưỡng trên test (audit F4) nên đọc thận trọng.
+==============================================================================
+
+✅ Đã ghi results/leakage_gap.json
+[2026-07-13 03:09:36] DONE. Xem results/leakage_gap.json
