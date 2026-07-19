@@ -1728,6 +1728,10 @@ def main_optimized(args):
             # 去掉详细的fold结果输出,只保留简要信息
             print(f"Fold {i + 1} completed - AUC: {binary_metrics[0][0]:.4f}, "
                   f"Top-1 F1: {top1_metrics['top1_f1']:.4f}")
+            # Task E (P1): log trọng số fusion học được để kiểm tra ≠ 0.6/0.4
+            if getattr(args, 'fusion_mode', 'fixed') != 'fixed' and hasattr(model, 'AM_mi'):
+                print(f"[P1 fusion] fold {i + 1} miRNA {model.AM_mi.fusion_report()} | "
+                      f"disease {model.AM_dis.fusion_report()}")
 
         else:
             metrics_cross += metrics_result
@@ -1818,8 +1822,8 @@ def write_run_manifest(args, save_dir='results/manifests'):
     manifest['key_flags'] = {
         k: getattr(args, k, None) for k in
         ['dataset', 'seed', 'validation', 'epoch', 'leakage_free', 'cv_scheme',
-         'loss_mode', 'predictor_mode', 'type_loss', 'exist_weight', 'K_neigs',
-         'mirna_seq_sim_path', 'deterministic']
+         'loss_mode', 'predictor_mode', 'fusion_mode', 'type_loss', 'exist_weight', 'K_neigs',
+         'mirna_seq_sim_path', 'multilabel_target_path', 'deterministic']
     }
     manifest['args'] = {
         k: (v if isinstance(v, (int, float, str, bool, list, type(None))) else str(v))

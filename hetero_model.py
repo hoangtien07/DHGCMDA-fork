@@ -283,13 +283,28 @@ class HGCN_Attention_Mechanism(nn.Module):
     """优化的注意力机制 - 设备兼容版本
 
     [VN] CẢNH BÁO: tên class gây hiểu nhầm — KHÔNG phải softmax attention!
-    Thực chất chỉ là weighted sum với weights cố định 0.6/0.4.
-    Đơn giản hóa để stable hơn trên dynamic graph.
-    Muốn dùng attention thật → thay bằng multi-head attention module.
+    Mặc định (`fusion_mode='fixed'`) chỉ là weighted sum cố định 0.6/0.4.
+
+    Task E (P1): thêm cơ chế FUSION HỌC ĐƯỢC (additive, default = hành vi cũ):
+      - 'fixed'     : 0.6·v1 + 0.4·v2 (như cũ, không tham số).
+      - 'gate'      : α·v1 + (1-α)·v2, α=sigmoid(scalar học được), init sigmoid⁻¹(0.6)=0.4055
+                      → KHỞI ĐỘNG đúng bằng fixed rồi học lệch đi.
+      - 'attention' : trọng số softmax THEO NODE trên 2 view (Linear(feat_dim,1) chấm điểm mỗi view),
+                      init scorer=0 → khởi động 0.5/0.5.
     """
 
-    def __init__(self):
+    def __init__(self, fusion_mode='fixed', feat_dim=None):
         super(HGCN_Attention_Mechanism, self).__init__()
+        self.fusion_mode = fusion_mode
+        if fusion_mode == 'gate':
+            # init sao cho sigmoid(gate_logit) = 0.6 (khớp weight1 cũ)
+            self.gate_logit = nn.Parameter(torch.tensor(0.4054651, dtype=torch.float32))
+        elif fusion_mode == 'attention':
+            if feat_dim is None:
+                raise ValueError("fusion_mode='attention' cần feat_dim")
+            self.view_scorer = nn.Linear(feat_dim, 1)
+            nn.init.zeros_(self.view_scorer.weight)   # khởi động 0.5/0.5
+            nn.init.zeros_(self.view_scorer.bias)
 
     def forward(self, input_list):
         if not isinstance(input_list, list) or len(input_list) < 2:
@@ -304,12 +319,26 @@ class HGCN_Attention_Mechanism(nn.Module):
         feature1 = input_list[0].to(target_device).float()
         feature2 = input_list[1].to(target_device).float()
 
-        # [VN] Weighted sum tĩnh. View 1 nhận weight cao hơn (0.6)
-        # vì code coi View 1 (sequence/gene) là "primary", View 2 là "auxiliary".
-        weight1 = 0.6
-        weight2 = 0.4
+        if self.fusion_mode == 'gate':
+            alpha = torch.sigmoid(self.gate_logit)
+            return alpha * feature1 + (1.0 - alpha) * feature2
+        elif self.fusion_mode == 'attention':
+            s1 = self.view_scorer(feature1)                       # [n,1]
+            s2 = self.view_scorer(feature2)                       # [n,1]
+            w = torch.softmax(torch.cat([s1, s2], dim=1), dim=1)  # [n,2] theo node
+            return w[:, 0:1] * feature1 + w[:, 1:2] * feature2
 
-        return weight1 * feature1 + weight2 * feature2
+        # 'fixed' (mặc định): weighted sum tĩnh 0.6/0.4 — hành vi cũ.
+        return 0.6 * feature1 + 0.4 * feature2
+
+    def fusion_report(self):
+        """Trả về trọng số học được để kiểm tra ≠ 0.6/0.4 (log sau train)."""
+        if self.fusion_mode == 'gate':
+            a = float(torch.sigmoid(self.gate_logit).detach().cpu())
+            return f"gate α(view1)={a:.4f} (view2={1-a:.4f})"
+        if self.fusion_mode == 'attention':
+            return "attention(per-node) — xem std trọng số qua node lúc eval"
+        return "fixed 0.6/0.4"
 
 
 class SimpleHypergraphDecoder(nn.Module):
@@ -652,9 +681,12 @@ class HeterogenousGraphCLAMIR(nn.Module):
                 margin=0.5  # margin loss的边界值
             )
 
-        # 简化的注意力机制
-        self.AM_mi = HGCN_Attention_Mechanism()
-        self.AM_dis = HGCN_Attention_Mechanism()
+        # 简化的注意力机制 (Task E/P1: --fusion_mode {fixed,gate,attention}, default fixed = cũ)
+        self.fusion_mode = getattr(args, 'fusion_mode', 'fixed')
+        self.AM_mi = HGCN_Attention_Mechanism(self.fusion_mode, feat_dim=hidden_list[0])
+        self.AM_dis = HGCN_Attention_Mechanism(self.fusion_mode, feat_dim=hidden_list[0])
+        if self.fusion_mode != 'fixed':
+            print(f"[P1 fusion] learned fusion mode = {self.fusion_mode}")
 
         # 优化的解码器
         self.miRNA_decoder = SimpleHypergraphDecoder(hidden_list[0], mi_num)

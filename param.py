@@ -201,6 +201,13 @@ def parameter_parser():
                              'full_bilinear=mi^T·W_t·dis với W_t đầy đủ d×d/type (paper faithful, '
                              'phá monotone collapse). Plan J-1.')
 
+    # Task E (P1): learned view fusion thay tổng cứng 0.6/0.4 (audit §6 "view fusion")
+    parser.add_argument('--fusion_mode', type=str, default='fixed',
+                        choices=['fixed', 'gate', 'attention'],
+                        help='Cách gộp 2 view hypergraph. fixed=0.6·v1+0.4·v2 (code gốc, không học); '
+                             'gate=α·v1+(1-α)·v2 với α học được (init 0.6); '
+                             'attention=trọng số softmax THEO NODE. Additive: default fixed = hành vi cũ.')
+
     # Plan D — Fix A++: 5-class softmax CE (Eq. 32 fully aligned)
     parser.add_argument('--loss_mode',
                         type=str,
