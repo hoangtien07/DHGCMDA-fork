@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9852,
+  "AUPR": 0.984,
+  "F1": 0.9441,
+  "Accuracy": 0.9437,
+  "Recall": 0.9503,
+  "Specificity": 0.9372,
+  "Precision": 0.9385,
+  "top1_precision": 0.6985,
+  "top1_recall": 0.6828,
+  "top1_f1": 0.6905,
+  "fold_times_sec": [
+    508.58,
+    508.27,
+    503.69,
+    500.28,
+    425.76
+  ],
+  "avg_fold_time_sec": 489.316,
+  "total_execution_sec": 2446.98,
+  "_source": "logs/b4_realseq_leaked_v2_K2_s1234.log"
+}

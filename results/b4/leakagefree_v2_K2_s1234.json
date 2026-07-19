@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9402,
+  "AUPR": 0.9398,
+  "F1": 0.8812,
+  "Accuracy": 0.8796,
+  "Recall": 0.8933,
+  "Specificity": 0.8658,
+  "Precision": 0.8703,
+  "top1_precision": 0.5881,
+  "top1_recall": 0.629,
+  "top1_f1": 0.6075,
+  "fold_times_sec": [
+    466.31,
+    452.8,
+    470.55,
+    473.23,
+    404.73
+  ],
+  "avg_fold_time_sec": 453.524,
+  "total_execution_sec": 2267.92,
+  "_source": "logs/b4_leakagefree_v2_K2_s1234.log"
+}

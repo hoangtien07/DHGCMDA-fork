@@ -1,0 +1,11 @@
+
+===== PER-CLASS TOP-1 [LEGACY(bug)]  (K=5, N=11277, 3 folds) =====
+type            n_true   recall     prec       f1
+circulation       2960    0.770    0.304    0.436
+epigenetics        360    0.589    0.093    0.160
+target            4353    0.056    0.583    0.103
+genetics           767    0.292    0.209    0.243
+tissue            2837    0.000    0.000    0.000  <-- Tissue
+-------------------------------------------------
+accuracy=0.2626  macro-recall=0.3415  macro-F1=0.1885
+minority classes recall: circulation=0.770, epigenetics=0.589, target=0.056, genetics=0.292, tissue=0.000

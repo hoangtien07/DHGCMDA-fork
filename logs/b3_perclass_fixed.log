@@ -1,0 +1,11 @@
+
+===== PER-CLASS TOP-1 [FIXED]  (K=5, N=11277, 3 folds) =====
+type            n_true   recall     prec       f1
+circulation       2960    0.453    0.530    0.489
+epigenetics        360    0.617    0.084    0.147
+target            4353    0.179    0.570    0.272
+genetics           767    0.413    0.153    0.223
+tissue            2837    0.479    0.514    0.496  <-- Tissue
+-------------------------------------------------
+accuracy=0.3564  macro-recall=0.4283  macro-F1=0.3254
+minority classes recall: circulation=0.453, epigenetics=0.617, target=0.179, genetics=0.413, tissue=0.479
