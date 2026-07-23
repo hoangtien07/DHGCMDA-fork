@@ -72,10 +72,11 @@ supplied System/About capture) is accepted for development, analysis and the cur
 queue. Its Intel UHD integrated graphics is not a CUDA accelerator. Local execution therefore
 remains CPU-only and is now the primary execution path.
 
-The local workstream is **ACTIVE** at milestone L4 (4/10 complete). Environment setup, reliable
-runner tests and the two-fold smoke gate are complete. The next action is the three-seed local
-canonical anchor. It uses CPython 3.12.13, pinned CPU dependencies, ten worker threads,
-seed-level resume and per-arm review gates. See
+The local workstream is **ACTIVE** at milestone L5 (5/10 complete). Environment setup, reliable
+runner tests, the two-fold smoke gate and the three-seed local canonical anchor are complete.
+Anchor `20260723-local-anchor-r1` reproduced the honest reference with mean AUC 0.93601 and
+Top-1 F1 0.61389 across 15 folds. The next action is P6. The workstream uses CPython 3.12.13,
+pinned CPU dependencies, ten worker threads, seed-level resume and per-arm review gates. See
 [LOCAL_CPU_EXECUTION_PLAN.md](LOCAL_CPU_EXECUTION_PLAN.md).
 
 The Colab workstream is **HOLD** at milestone C0 (1/10 complete). Production GPU runs are not

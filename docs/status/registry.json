@@ -45,6 +45,24 @@
       "artifacts": ["results/leakage_gap.json", "docs/review/03-prereq-implementation.md"]
     },
     {
+      "id": "v2-local-anchor-20260723",
+      "kind": "result",
+      "status": "verified",
+      "protocol": "honest_v2_fullcv",
+      "seeds": [0, 42, 1234],
+      "folds": 5,
+      "metrics": {
+        "top1_f1_fold_mean": 0.6138866666666666,
+        "auc_fold_mean": 0.9360066666666668,
+        "aupr_seed_mean": 0.9361333333333333
+      },
+      "artifacts": [
+        "results/plan_n/baseline/20260723-local-anchor-r1/run_index.json",
+        "results/plan_n/baseline/20260723-local-anchor-r1/summary.json",
+        "logs/plan_n/baseline/20260723-local-anchor-r1"
+      ]
+    },
+    {
       "id": "v32-tissue-mapping-fix",
       "kind": "diagnostic",
       "status": "verified",
@@ -96,16 +114,16 @@
       "artifacts": ["docs/status/LOCAL_CPU_EXECUTION_PLAN.md"],
       "progress": {
         "updated_at": "2026-07-23",
-        "completed": 4,
+        "completed": 5,
         "total": 10,
-        "current": "L4",
+        "current": "L5",
         "milestones": [
           {"id": "L0", "status": "complete", "name": "Isolate and register local work"},
           {"id": "L1", "status": "complete", "name": "Build the Windows CPU environment"},
           {"id": "L2", "status": "complete", "name": "Harden and test the runner"},
           {"id": "L3", "status": "complete", "name": "Run the local smoke gate"},
-          {"id": "L4", "status": "pending", "name": "Establish the local canonical anchor"},
-          {"id": "L5", "status": "hold", "name": "Run and review P6"},
+          {"id": "L4", "status": "complete", "name": "Establish the local canonical anchor"},
+          {"id": "L5", "status": "pending", "name": "Run and review P6"},
           {"id": "L6", "status": "hold", "name": "Run and review P2"},
           {"id": "L7", "status": "hold", "name": "Run and review P1 scalar gate"},
           {"id": "L8", "status": "hold", "name": "Run and review P5"},

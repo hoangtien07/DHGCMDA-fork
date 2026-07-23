@@ -144,14 +144,14 @@ This table and the registry milestone array must be updated together.
 | L1 | DONE | Python 3.12.13 `venv`; pinned CPU packages; disk/data/dependency checks pass |
 | L2 | DONE | Reliable runner; 8 unit tests, tracking validator and dry runs pass |
 | L3 | DONE | `20260723-local-smoke-r1`: 2 folds/3 epochs completed on CPU with valid metrics |
-| L4 | TODO | Local canonical anchor |
-| L5 | HOLD | P6 |
+| L4 | DONE | `20260723-local-anchor-r1`: 15 folds; AUC 0.93601; Top-1 F1 0.61389; reference gate passed |
+| L5 | TODO | P6 |
 | L6 | HOLD | P2 |
 | L7 | HOLD | P1 scalar gate |
 | L8 | HOLD | P5 |
 | L9 | HOLD | Closeout |
 
-Current progress: **4/10 milestones complete**. Next gate: **L4**.
+Current progress: **5/10 milestones complete**. Next gate: **L5**.
 
 ## Estimated compute schedule
 
@@ -173,3 +173,4 @@ Total expected compute is 12–18 hours, split by arm with a review and tracking
 |---|---:|---|
 | 2026-07-23 | 1 | Make local CPU the primary backend, add seed-level resume, run each arm behind a review gate and put Colab work on hold |
 | 2026-07-23 | 2 | Use the bundled CPython 3.12.13 runtime, accept the sequential-fold memory profile after a successful local smoke run and open the canonical anchor gate |
+| 2026-07-23 | 3 | Accept local anchor `20260723-local-anchor-r1`; its mean differs from the verified honest reference by only -0.00009 AUC and -0.00121 Top-1 F1 |

@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9359,
+  "AUPR": 0.9359,
+  "F1": 0.8755,
+  "Accuracy": 0.8706,
+  "Recall": 0.9081,
+  "Specificity": 0.8331,
+  "Precision": 0.8466,
+  "top1_precision": 0.5948,
+  "top1_recall": 0.6388,
+  "top1_f1": 0.6159,
+  "fold_times_sec": [
+    715.65,
+    754.69,
+    930.89,
+    833.21,
+    890.62
+  ],
+  "avg_fold_time_sec": 825.0120000000001,
+  "total_execution_sec": 4125.51,
+  "_source": "logs\\plan_n\\baseline\\20260723-local-anchor-r1\\attempts\\baseline_s1234_attempt02.log"
+}
