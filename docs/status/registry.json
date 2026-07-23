@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-23",
+  "base_commit": "4517c33",
+  "source_of_truth": "docs/status/PROJECT_STATUS.md",
+  "environment": {
+    "current_checkout": "no project venv detected on 2026-07-23",
+    "linux_setup": "./setup_linux.sh",
+    "windows_note": "Use Python 3.12 and the pinned requirements before invoking run_next.ps1."
+  },
+  "protocols": {
+    "legacy_leaky": {
+      "description": "Historical protocol with full association-derived features and legacy CV.",
+      "publication_headline": false
+    },
+    "honest_v2_fullcv": {
+      "description": "Leakage-free full CV with recomputed GIP and deterministic execution.",
+      "publication_headline": true,
+      "canonical_args": [
+        "--device", "cpu", "--predictor_mode", "full_bilinear", "--K_neigs", "2",
+        "--cv_scheme", "full", "--leakage_free", "--deterministic", "--loss_mode",
+        "two_head", "--exist_weight", "0.3", "--fusion_mode", "fixed", "--epoch",
+        "650", "--validation", "5"
+      ]
+    }
+  },
+  "records": [
+    {
+      "id": "v2-legacy-k2-full-bilinear",
+      "kind": "result",
+      "status": "superseded",
+      "protocol": "legacy_leaky",
+      "metrics": {"top1_f1_seed_mean": 0.6974, "auc_seed_mean": 0.9818},
+      "artifacts": ["results/council_matrix_wave3b.json", "docs/RESULTS_PLAN_M.md"],
+      "superseded_by": "v2-honest-k2-full-bilinear"
+    },
+    {
+      "id": "v2-honest-k2-full-bilinear",
+      "kind": "result",
+      "status": "verified",
+      "protocol": "honest_v2_fullcv",
+      "seeds": [0, 42, 1234],
+      "folds": 5,
+      "metrics": {"top1_f1_fold_mean": 0.6151, "top1_f1_fold_sd": 0.0204, "auc_fold_mean": 0.9361, "auc_fold_sd": 0.0072},
+      "artifacts": ["results/leakage_gap.json", "docs/review/03-prereq-implementation.md"]
+    },
+    {
+      "id": "v32-tissue-mapping-fix",
+      "kind": "diagnostic",
+      "status": "verified",
+      "protocol": "v32_correct_metric",
+      "metrics": {"tissue_recall_legacy": 0.0, "tissue_recall_fixed": 0.479},
+      "artifacts": ["results/b3/dump_legacy", "results/b3/dump_fixed"]
+    },
+    {
+      "id": "p6-diag-clean",
+      "kind": "experiment",
+      "status": "ready",
+      "protocol": "honest_v2_fullcv",
+      "queue_order": 1,
+      "runner_arm": "p6",
+      "comparison": "diag versus existing full_bilinear baseline",
+      "output_root": "results/plan_n/p6"
+    },
+    {
+      "id": "p2-real-sequence-clean",
+      "kind": "experiment",
+      "status": "ready",
+      "protocol": "honest_v2_fullcv",
+      "queue_order": 2,
+      "runner_arm": "p2",
+      "comparison": "M_SEQ versus association-derived GIP",
+      "output_root": "results/plan_n/p2"
+    },
+    {
+      "id": "p1-gate-clean",
+      "kind": "experiment",
+      "status": "ready",
+      "protocol": "honest_v2_fullcv",
+      "queue_order": 3,
+      "runner_arm": "p1",
+      "comparison": "learned scalar gate versus fixed 0.6/0.4 fusion",
+      "output_root": "results/plan_n/p1"
+    },
+    {
+      "id": "p5-ldam-clean",
+      "kind": "experiment",
+      "status": "ready",
+      "protocol": "honest_v2_fullcv",
+      "queue_order": 4,
+      "runner_arm": "p5",
+      "comparison": "LDAM versus CE with per-class score dumps",
+      "output_root": "results/plan_n/p5"
+    },
+    {
+      "id": "p1-attention-clean",
+      "kind": "experiment",
+      "status": "hold",
+      "protocol": "honest_v2_fullcv",
+      "blocked_by": ["p1-gate-clean"],
+      "reason": "Only evaluate per-node attention after scalar gate has a credible signal."
+    },
+    {
+      "id": "p3-multilabel-clean",
+      "kind": "experiment",
+      "status": "blocked",
+      "reason": "Current predictor normalizes type outputs with softmax while multilabel BCE needs independent logits or sigmoid channels.",
+      "artifacts": ["run_p3_multilabel.sh", "preprocess_v2_multilabel.py"]
+    },
+    {
+      "id": "conformal-honest-refresh",
+      "kind": "analysis",
+      "status": "hold",
+      "reason": "Requires honest, mapping-fixed out-of-fold score dumps."
+    }
+  ],
+  "reports": [
+    {
+      "path": "BaoCao_DHGCMDA.docx",
+      "status": "legacy",
+      "reason": "Long-form report predates leakage-controlled framing."
+    },
+    {
+      "path": "docs/archive/reports/2026-07-07/BaoCao_DHGCMDA_HoanThien.docx",
+      "status": "legacy_reference",
+      "reason": "Polished ca489cb report bundle; pre-audit metrics."
+    }
+  ]
+}
