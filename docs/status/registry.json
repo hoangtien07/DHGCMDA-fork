@@ -114,9 +114,9 @@
       "artifacts": ["docs/status/LOCAL_CPU_EXECUTION_PLAN.md"],
       "progress": {
         "updated_at": "2026-07-23",
-        "completed": 6,
+        "completed": 7,
         "total": 10,
-        "current": "L6",
+        "current": "L7",
         "milestones": [
           {"id": "L0", "status": "complete", "name": "Isolate and register local work"},
           {"id": "L1", "status": "complete", "name": "Build the Windows CPU environment"},
@@ -124,8 +124,8 @@
           {"id": "L3", "status": "complete", "name": "Run the local smoke gate"},
           {"id": "L4", "status": "complete", "name": "Establish the local canonical anchor"},
           {"id": "L5", "status": "complete", "name": "Run and review P6"},
-          {"id": "L6", "status": "pending", "name": "Run and review P2"},
-          {"id": "L7", "status": "hold", "name": "Run and review P1 scalar gate"},
+          {"id": "L6", "status": "complete", "name": "Run and review P2"},
+          {"id": "L7", "status": "pending", "name": "Run and review P1 scalar gate"},
           {"id": "L8", "status": "hold", "name": "Run and review P5"},
           {"id": "L9", "status": "hold", "name": "Close out"}
         ]
@@ -156,12 +156,23 @@
     {
       "id": "p2-real-sequence-clean",
       "kind": "experiment",
-      "status": "ready",
+      "status": "verified",
       "protocol": "honest_v2_fullcv",
       "queue_order": 2,
       "runner_arm": "p2",
       "comparison": "M_SEQ versus association-derived GIP",
-      "output_root": "results/plan_n/p2"
+      "output_root": "results/plan_n/p2",
+      "decision": "Do not adopt the real sequence view; retain the current GIP view.",
+      "metrics": {
+        "real_sequence_minus_baseline_top1_f1": -0.00832000000000001,
+        "real_sequence_minus_baseline_auc": 0.0014733333333333339,
+        "top1_p_holm": 0.3572391216029595
+      },
+      "artifacts": [
+        "results/plan_n/p2/20260724-local-p2-r1/run_index.json",
+        "results/plan_n/p2/20260724-local-p2-r1/summary.json",
+        "logs/plan_n/p2/20260724-local-p2-r1"
+      ]
     },
     {
       "id": "p1-gate-clean",

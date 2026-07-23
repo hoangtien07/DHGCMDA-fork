@@ -146,12 +146,12 @@ This table and the registry milestone array must be updated together.
 | L3 | DONE | `20260723-local-smoke-r1`: 2 folds/3 epochs completed on CPU with valid metrics |
 | L4 | DONE | `20260723-local-anchor-r1`: 15 folds; AUC 0.93601; Top-1 F1 0.61389; reference gate passed |
 | L5 | DONE | `20260724-local-p6-r1`: diagonal Top-1 -0.06684, AUC -0.00366; keep full-bilinear |
-| L6 | TODO | P2 |
-| L7 | HOLD | P1 scalar gate |
+| L6 | DONE | `20260724-local-p2-r1`: AUC +0.00147, Top-1 -0.00832; do not adopt real sequence |
+| L7 | TODO | P1 scalar gate |
 | L8 | HOLD | P5 |
 | L9 | HOLD | Closeout |
 
-Current progress: **6/10 milestones complete**. Next gate: **L6**.
+Current progress: **7/10 milestones complete**. Next gate: **L7**.
 
 ## Estimated compute schedule
 
@@ -175,3 +175,4 @@ Total expected compute is 12–18 hours, split by arm with a review and tracking
 | 2026-07-23 | 2 | Use the bundled CPython 3.12.13 runtime, accept the sequential-fold memory profile after a successful local smoke run and open the canonical anchor gate |
 | 2026-07-23 | 3 | Accept local anchor `20260723-local-anchor-r1`; its mean differs from the verified honest reference by only -0.00009 AUC and -0.00121 Top-1 F1 |
 | 2026-07-24 | 4 | Reject diagonal prediction after P6 reduced Top-1 F1 by 0.06684 with Holm-adjusted p below 0.000001; keep full-bilinear |
+| 2026-07-24 | 5 | Do not adopt the real sequence view: AUC increased 0.00147 without significance while Top-1 F1 decreased 0.00832 |

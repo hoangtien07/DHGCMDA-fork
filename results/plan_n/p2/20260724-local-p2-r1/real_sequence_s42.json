@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9379,
+  "AUPR": 0.9383,
+  "F1": 0.8758,
+  "Accuracy": 0.8728,
+  "Recall": 0.8971,
+  "Specificity": 0.8485,
+  "Precision": 0.8561,
+  "top1_precision": 0.5787,
+  "top1_recall": 0.6102,
+  "top1_f1": 0.594,
+  "fold_times_sec": [
+    513.74,
+    506.14,
+    504.87,
+    509.24,
+    510.77
+  ],
+  "avg_fold_time_sec": 508.95200000000006,
+  "total_execution_sec": 2545.2,
+  "_source": "logs\\plan_n\\p2\\20260724-local-p2-r1\\attempts\\real_sequence_s42_attempt01.log"
+}
