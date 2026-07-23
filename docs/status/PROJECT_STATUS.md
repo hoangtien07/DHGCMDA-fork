@@ -70,6 +70,26 @@ configured but `run_next.* check` will correctly fail until the selected runtime
 
 Do not treat a missing venv as a scientific blocker or alter the registry status of an experiment.
 
+## Compute strategy and Colab readiness
+
+The available Windows laptop (Intel Core i5-1345U, 16 GB RAM and roughly 298 GB free in the
+supplied System/About capture) is accepted for development, analysis and the current v2.0 CPU
+queue. Its Intel UHD integrated graphics is not a CUDA accelerator. Local execution therefore
+remains CPU-only; a Colab T4 may be used as optional burst capacity after qualification.
+
+The Colab workstream is **PROVISIONAL** at milestone C0 (1/10 complete), with C1 next. Production
+GPU runs are not ready yet: the device contract, CUDA dependency lock, fold-level resume,
+atomic Drive artifacts and CPU/T4 qualification must pass first.
+The active canonical arguments still specify `--device cpu`; T4 output remains qualification
+evidence until a reviewed contract update separates execution backend from scientific settings.
+
+- Detailed living plan: [COLAB_FREE_EXECUTION_PLAN.md](COLAB_FREE_EXECUTION_PLAN.md)
+- Machine tracker: registry record `colab-free-execution-readiness`
+- Branch strategy: short-lived `codex/colab-runner`, merged after validation; no permanent
+  Colab-specific scientific implementation
+- Policy: do not assume a daily GPU quota reset and do not use multiple accounts to evade
+  Colab resource limits
+
 ## Resume safely
 
 ```text

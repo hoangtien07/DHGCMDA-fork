@@ -53,6 +53,39 @@
       "artifacts": ["results/b3/dump_legacy", "results/b3/dump_fixed"]
     },
     {
+      "id": "colab-free-execution-readiness",
+      "kind": "infrastructure",
+      "status": "provisional",
+      "scope": "Local CPU control path plus optional Google Colab Free/T4 execution",
+      "decision": "Laptop accepted for local CPU/control use; T4 requires qualification before production or publication use.",
+      "artifacts": ["docs/status/COLAB_FREE_EXECUTION_PLAN.md"],
+      "progress": {
+        "updated_at": "2026-07-23",
+        "completed": 1,
+        "total": 10,
+        "current": "C1",
+        "milestones": [
+          {"id": "C0", "status": "complete", "name": "Assess and register the workstream"},
+          {"id": "C1", "status": "pending", "name": "Isolate infrastructure work"},
+          {"id": "C2", "status": "pending", "name": "Make the device and environment contract truthful"},
+          {"id": "C3", "status": "pending", "name": "Add fold-level selection and safe resume"},
+          {"id": "C4", "status": "pending", "name": "Provide a minimal Colab bootstrap"},
+          {"id": "C5", "status": "pending", "name": "Harden provenance and storage"},
+          {"id": "C6", "status": "pending", "name": "Benchmark and qualify the T4 backend"},
+          {"id": "C7", "status": "pending", "name": "Run a controlled P6 pilot"},
+          {"id": "C8", "status": "hold", "name": "Execute the active queue"},
+          {"id": "C9", "status": "hold", "name": "Merge and hand off operations"}
+        ]
+      },
+      "blockers": [
+        "The active honest_v2_fullcv canonical arguments still require --device cpu.",
+        "Current Linux requirements pin CPU-only PyTorch.",
+        "Runner and training modules do not yet share one truthful device contract.",
+        "Current job unit contains all five folds and has no safe fold-level resume.",
+        "T4 performance and same-backend reproducibility have not been qualified."
+      ]
+    },
+    {
       "id": "p6-diag-clean",
       "kind": "experiment",
       "status": "ready",
