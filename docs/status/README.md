@@ -6,5 +6,7 @@ are preserved in place and classified through the registry rather than moved or 
 
 Active implementation plans:
 
+- [`LOCAL_CPU_EXECUTION_PLAN.md`](LOCAL_CPU_EXECUTION_PLAN.md) — primary Windows CPU execution,
+  resume and active experiment queue.
 - [`COLAB_FREE_EXECUTION_PLAN.md`](COLAB_FREE_EXECUTION_PLAN.md) — local CPU plus optional
-  Colab Free/T4 readiness, resume and qualification workstream.
+  Colab Free/T4 readiness; currently on hold.

@@ -55,7 +55,7 @@
     {
       "id": "colab-free-execution-readiness",
       "kind": "infrastructure",
-      "status": "provisional",
+      "status": "hold",
       "scope": "Local CPU control path plus optional Google Colab Free/T4 execution",
       "decision": "Laptop accepted for local CPU/control use; T4 requires qualification before production or publication use.",
       "artifacts": ["docs/status/COLAB_FREE_EXECUTION_PLAN.md"],
@@ -64,6 +64,8 @@
         "completed": 1,
         "total": 10,
         "current": "C1",
+        "paused": true,
+        "pause_reason": "Local CPU execution is the current project priority.",
         "milestones": [
           {"id": "C0", "status": "complete", "name": "Assess and register the workstream"},
           {"id": "C1", "status": "pending", "name": "Isolate infrastructure work"},
@@ -84,6 +86,33 @@
         "Current job unit contains all five folds and has no safe fold-level resume.",
         "T4 performance and same-backend reproducibility have not been qualified."
       ]
+    },
+    {
+      "id": "local-cpu-execution-readiness",
+      "kind": "infrastructure",
+      "status": "provisional",
+      "scope": "Windows CPU environment, resumable runner and active honest v2.0 queue",
+      "decision": "Use local CPU as the primary canonical backend with ten threads and per-arm review gates.",
+      "artifacts": ["docs/status/LOCAL_CPU_EXECUTION_PLAN.md"],
+      "progress": {
+        "updated_at": "2026-07-23",
+        "completed": 4,
+        "total": 10,
+        "current": "L4",
+        "milestones": [
+          {"id": "L0", "status": "complete", "name": "Isolate and register local work"},
+          {"id": "L1", "status": "complete", "name": "Build the Windows CPU environment"},
+          {"id": "L2", "status": "complete", "name": "Harden and test the runner"},
+          {"id": "L3", "status": "complete", "name": "Run the local smoke gate"},
+          {"id": "L4", "status": "pending", "name": "Establish the local canonical anchor"},
+          {"id": "L5", "status": "hold", "name": "Run and review P6"},
+          {"id": "L6", "status": "hold", "name": "Run and review P2"},
+          {"id": "L7", "status": "hold", "name": "Run and review P1 scalar gate"},
+          {"id": "L8", "status": "hold", "name": "Run and review P5"},
+          {"id": "L9", "status": "hold", "name": "Close out"}
+        ]
+      },
+      "blockers": []
     },
     {
       "id": "p6-diag-clean",

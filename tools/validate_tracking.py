@@ -47,6 +47,35 @@ def main() -> int:
         for artifact in record.get("artifacts", []):
             if not (root / artifact).exists():
                 errors.append(f"{record_id}: missing artifact {artifact}")
+        progress = record.get("progress")
+        if progress is not None:
+            milestones = progress.get("milestones", [])
+            milestone_ids = [item.get("id") for item in milestones]
+            if not milestones:
+                errors.append(f"{record_id}: progress has no milestones")
+            if len(milestone_ids) != len(set(milestone_ids)):
+                errors.append(f"{record_id}: duplicate progress milestone id")
+            allowed_milestone_status = {"complete", "pending", "hold", "blocked"}
+            for milestone in milestones:
+                if milestone.get("status") not in allowed_milestone_status:
+                    errors.append(
+                        f"{record_id}: invalid milestone status "
+                        f"{milestone.get('id')}={milestone.get('status')!r}"
+                    )
+            completed = sum(item.get("status") == "complete" for item in milestones)
+            if progress.get("completed") != completed:
+                errors.append(
+                    f"{record_id}: progress completed={progress.get('completed')} "
+                    f"but milestone count is {completed}"
+                )
+            if progress.get("total") != len(milestones):
+                errors.append(
+                    f"{record_id}: progress total={progress.get('total')} "
+                    f"but milestone count is {len(milestones)}"
+                )
+            current = progress.get("current")
+            if current and current not in milestone_ids:
+                errors.append(f"{record_id}: current milestone {current!r} is missing")
         if status == "ready":
             arm = record.get("runner_arm")
             if not arm:

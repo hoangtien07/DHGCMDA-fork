@@ -13,6 +13,10 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
+# Non-canonical local smoke artifacts
+logs/smoke/
+results/smoke/
+
 # Cache directories
 cache/
 .cache/

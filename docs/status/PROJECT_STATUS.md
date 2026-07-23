@@ -60,33 +60,33 @@ Every arm runs seeds `0, 42, 1234`, five folds and 650 epochs. New output is imm
 
 ## Local environment readiness
 
-This checkout currently has no project `venv` for either Windows or Linux. The queue is
-configured but `run_next.* check` will correctly fail until the selected runtime is installed:
-
-- Linux: run `./setup_linux.sh` on the target Linux machine.
-- Windows: create the pinned Python 3.12 environment using the command in `requirements.txt` /
-  the archived context, then use `PowerShell -ExecutionPolicy Bypass -File .\run_next.ps1 ...`
-  if the local execution policy blocks scripts.
-
-Do not treat a missing venv as a scientific blocker or alter the registry status of an experiment.
+The Windows checkout now has a repository-local Python 3.12.13 `venv` with the pinned CPU
+dependencies. The environment, runner tests, dry runs and local smoke gate pass. Preflight emits
+a warning when less than 6 GB RAM is currently free and blocks below 3 GB; close memory-heavy
+applications before canonical runs when practical.
 
 ## Compute strategy and Colab readiness
 
 The available Windows laptop (Intel Core i5-1345U, 16 GB RAM and roughly 298 GB free in the
 supplied System/About capture) is accepted for development, analysis and the current v2.0 CPU
 queue. Its Intel UHD integrated graphics is not a CUDA accelerator. Local execution therefore
-remains CPU-only; a Colab T4 may be used as optional burst capacity after qualification.
+remains CPU-only and is now the primary execution path.
 
-The Colab workstream is **PROVISIONAL** at milestone C0 (1/10 complete), with C1 next. Production
-GPU runs are not ready yet: the device contract, CUDA dependency lock, fold-level resume,
-atomic Drive artifacts and CPU/T4 qualification must pass first.
+The local workstream is **ACTIVE** at milestone L4 (4/10 complete). Environment setup, reliable
+runner tests and the two-fold smoke gate are complete. The next action is the three-seed local
+canonical anchor. It uses CPython 3.12.13, pinned CPU dependencies, ten worker threads,
+seed-level resume and per-arm review gates. See
+[LOCAL_CPU_EXECUTION_PLAN.md](LOCAL_CPU_EXECUTION_PLAN.md).
+
+The Colab workstream is **HOLD** at milestone C0 (1/10 complete). Production GPU runs are not
+ready: the device contract, CUDA dependency lock, fold-level resume, atomic Drive artifacts and
+CPU/T4 qualification have not passed.
 The active canonical arguments still specify `--device cpu`; T4 output remains qualification
 evidence until a reviewed contract update separates execution backend from scientific settings.
 
 - Detailed living plan: [COLAB_FREE_EXECUTION_PLAN.md](COLAB_FREE_EXECUTION_PLAN.md)
 - Machine tracker: registry record `colab-free-execution-readiness`
-- Branch strategy: short-lived `codex/colab-runner`, merged after validation; no permanent
-  Colab-specific scientific implementation
+- Pause reason: local CPU is the current priority; no Colab implementation branch is active
 - Policy: do not assume a daily GPU quota reset and do not use multiple accounts to evade
   Colab resource limits
 
