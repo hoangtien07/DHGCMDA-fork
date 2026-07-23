@@ -1,5 +1,9 @@
 # DHGCMDA: Dual-View Heterogeneous Graph Contrastive Learning for miRNA-Disease Association Prediction
 
+> **Active status:** read [docs/status/PROJECT_STATUS.md](docs/status/PROJECT_STATUS.md) before
+> interpreting results or launching an experiment. Historical `M_GSM` is GIP (association-derived),
+> not a real sequence view; legacy `0.697` results are not leakage-controlled headlines.
+
 A deep learning framework for predicting miRNA-disease associations using dual-view heterogeneous graph neural networks with cross-modal contrastive learning.
 
 ## Highlights
@@ -16,7 +20,7 @@ A deep learning framework for predicting miRNA-disease associations using dual-v
 The model consists of three main components:
 
 1. **Dual-View Feature Extraction**
-   - miRNA View 1: Sequence similarity (m_ss)
+   - miRNA View 1: historical GIP similarity (m_ss; not sequence-derived)
    - miRNA View 2: Functional similarity (mi_fun)
    - Disease View 1: Gene similarity (d_gs)
    - Disease View 2: Semantic similarity (dis_sem)

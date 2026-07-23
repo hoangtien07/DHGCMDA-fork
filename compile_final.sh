@@ -2,6 +2,12 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
+if [ "${1:-}" != "--allow-legacy-report" ]; then
+    echo "Refusing to regenerate the legacy report without --allow-legacy-report." >&2
+    echo "See docs/status/PROJECT_STATUS.md for the leakage-controlled report policy." >&2
+    exit 2
+fi
+
 # Compile final results sau khi tat ca ablation xong:
 #   1. Re-parse tat ca ablation logs (handle UTF-16 tu Tee-Object)
 #   2. Tong hop ablation_results.json dung format

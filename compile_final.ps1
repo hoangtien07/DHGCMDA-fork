@@ -1,3 +1,7 @@
+param(
+    [switch]$AllowLegacyReport
+)
+
 # Compile final results sau khi tất cả ablation xong:
 #   1. Re-parse tất cả ablation logs (handle UTF-16 từ Tee-Object)
 #   2. Tổng hợp ablation_results.json đúng format
@@ -5,6 +9,11 @@
 
 $ErrorActionPreference = 'Continue'
 $env:PYTHONUTF8 = 1
+
+if (-not $AllowLegacyReport) {
+    Write-Error "Refusing to regenerate the legacy report without -AllowLegacyReport. See docs/status/PROJECT_STATUS.md."
+    exit 2
+}
 
 $modes = @('no_cl', 'no_hgcn', 'no_avf', 'no_hgt', 'no_dv')
 

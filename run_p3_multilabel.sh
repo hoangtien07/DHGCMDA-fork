@@ -3,6 +3,11 @@
 # Arms: {softmax_5class, multilabel_bce} x 3 seeds. two_head baseline = reuse results/p5/dump_v2_ce_s*.
 # multilabel_bce needs the multi-hot target from preprocess_v2_multilabel.py.
 set -u
+if [ "${ALLOW_UNSAFE_P3:-0}" != "1" ]; then
+  echo "P3 is BLOCKED: current type outputs use softmax while genuine multi-label BCE requires independent logits/sigmoid channels." >&2
+  echo "Do not run this legacy script until a dedicated multi-label logic-fix branch resolves the registry blocker." >&2
+  exit 2
+fi
 cd "$(dirname "$0")"
 EP="${EP:-650}"; FOLD="${FOLD:-5}"; TH="${DHGCMDA_N_THREADS:-10}"
 ML="v2.0_495m383D/target_multilabel_v2.npy"
