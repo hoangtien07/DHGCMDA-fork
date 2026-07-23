@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9325,
+  "AUPR": 0.9327,
+  "F1": 0.8644,
+  "Accuracy": 0.8645,
+  "Recall": 0.8643,
+  "Specificity": 0.8646,
+  "Precision": 0.8655,
+  "top1_precision": 0.5207,
+  "top1_recall": 0.5654,
+  "top1_f1": 0.542,
+  "fold_times_sec": [
+    460.42,
+    497.28,
+    496.21,
+    457.62,
+    456.77
+  ],
+  "avg_fold_time_sec": 473.66,
+  "total_execution_sec": 2368.68,
+  "_source": "logs\\plan_n\\p6\\20260724-local-p6-r1\\attempts\\diag_s1234_attempt01.log"
+}
