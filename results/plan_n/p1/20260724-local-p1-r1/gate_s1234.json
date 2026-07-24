@@ -1,0 +1,22 @@
+{
+  "AUC": 0.936,
+  "AUPR": 0.936,
+  "F1": 0.8765,
+  "Accuracy": 0.8735,
+  "Recall": 0.8972,
+  "Specificity": 0.8499,
+  "Precision": 0.8579,
+  "top1_precision": 0.5941,
+  "top1_recall": 0.6401,
+  "top1_f1": 0.6161,
+  "fold_times_sec": [
+    497.8,
+    494.89,
+    3385.75,
+    684.81,
+    1073.65
+  ],
+  "avg_fold_time_sec": 1227.3799999999999,
+  "total_execution_sec": 6137.22,
+  "_source": "logs\\plan_n\\p1\\20260724-local-p1-r1\\attempts\\gate_s1234_attempt01.log"
+}

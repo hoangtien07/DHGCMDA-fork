@@ -114,9 +114,9 @@
       "artifacts": ["docs/status/LOCAL_CPU_EXECUTION_PLAN.md"],
       "progress": {
         "updated_at": "2026-07-23",
-        "completed": 7,
+        "completed": 8,
         "total": 10,
-        "current": "L7",
+        "current": "L8",
         "milestones": [
           {"id": "L0", "status": "complete", "name": "Isolate and register local work"},
           {"id": "L1", "status": "complete", "name": "Build the Windows CPU environment"},
@@ -125,8 +125,8 @@
           {"id": "L4", "status": "complete", "name": "Establish the local canonical anchor"},
           {"id": "L5", "status": "complete", "name": "Run and review P6"},
           {"id": "L6", "status": "complete", "name": "Run and review P2"},
-          {"id": "L7", "status": "pending", "name": "Run and review P1 scalar gate"},
-          {"id": "L8", "status": "hold", "name": "Run and review P5"},
+          {"id": "L7", "status": "complete", "name": "Run and review P1 scalar gate"},
+          {"id": "L8", "status": "pending", "name": "Run and review P5"},
           {"id": "L9", "status": "hold", "name": "Close out"}
         ]
       },
@@ -177,12 +177,24 @@
     {
       "id": "p1-gate-clean",
       "kind": "experiment",
-      "status": "ready",
+      "status": "verified",
       "protocol": "honest_v2_fullcv",
       "queue_order": 3,
       "runner_arm": "p1",
       "comparison": "learned scalar gate versus fixed 0.6/0.4 fusion",
-      "output_root": "results/plan_n/p1"
+      "output_root": "results/plan_n/p1",
+      "decision": "Do not adopt scalar fusion; keep the attention variant on hold.",
+      "metrics": {
+        "gate_minus_baseline_top1_f1": -0.00040000000000000034,
+        "gate_minus_baseline_auc": -0.00006666666666665932,
+        "top1_p_holm": 1.0,
+        "fusion_collapsed": false
+      },
+      "artifacts": [
+        "results/plan_n/p1/20260724-local-p1-r1/run_index.json",
+        "results/plan_n/p1/20260724-local-p1-r1/summary.json",
+        "logs/plan_n/p1/20260724-local-p1-r1"
+      ]
     },
     {
       "id": "p5-ldam-clean",
