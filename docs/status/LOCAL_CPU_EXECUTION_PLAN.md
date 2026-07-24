@@ -148,10 +148,10 @@ This table and the registry milestone array must be updated together.
 | L5 | DONE | `20260724-local-p6-r1`: diagonal Top-1 -0.06684, AUC -0.00366; keep full-bilinear |
 | L6 | DONE | `20260724-local-p2-r1`: AUC +0.00147, Top-1 -0.00832; do not adopt real sequence |
 | L7 | DONE | `20260724-local-p1-r1`: Top-1 -0.00040, AUC -0.00007; keep attention on hold |
-| L8 | TODO | P5 |
-| L9 | HOLD | Closeout |
+| L8 | DONE | `20260724-local-p5-r1`: minority recall +0.00205, Top-1 +0.00401; keep CE |
+| L9 | DONE | Registry/status validated; reviewed immutable artifacts committed |
 
-Current progress: **8/10 milestones complete**. Next gate: **L8**.
+Current progress: **10/10 milestones complete**. Local queue complete.
 
 ## Estimated compute schedule
 
@@ -159,13 +159,13 @@ After engineering/setup:
 
 | Run | Expected local CPU time |
 |---|---:|
-| Local anchor | 2–3 hours |
-| P6 | 2–3 hours |
-| P2 | 2–3 hours |
-| P1 gate | 2–3 hours |
-| P5 CE + LDAM | 4–6 hours |
+| Local anchor | 5h09 wall time including one interrupted seed |
+| P6 | 2h46 |
+| P2 | 2h07 |
+| P1 gate | 3h05 |
+| P5 CE + LDAM | 6h40 |
 
-Total expected compute is 12–18 hours, split by arm with a review and tracking update after each.
+Observed canonical queue wall time was about 19h47, including the interrupted baseline attempt.
 
 ## Decision log
 
@@ -177,3 +177,4 @@ Total expected compute is 12–18 hours, split by arm with a review and tracking
 | 2026-07-24 | 4 | Reject diagonal prediction after P6 reduced Top-1 F1 by 0.06684 with Holm-adjusted p below 0.000001; keep full-bilinear |
 | 2026-07-24 | 5 | Do not adopt the real sequence view: AUC increased 0.00147 without significance while Top-1 F1 decreased 0.00832 |
 | 2026-07-24 | 6 | Keep P1 attention on hold: scalar fusion did not collapse but changed Top-1 by -0.00040 and AUC by -0.00007 with Holm-adjusted p=1 |
+| 2026-07-24 | 7 | Keep CE after LDAM improved minority mean recall by only 0.00205, below the 0.02 gate; close the local queue at 10/10 |

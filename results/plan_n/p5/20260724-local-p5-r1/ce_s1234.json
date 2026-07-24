@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9359,
+  "AUPR": 0.9359,
+  "F1": 0.8755,
+  "Accuracy": 0.8706,
+  "Recall": 0.9081,
+  "Specificity": 0.8331,
+  "Precision": 0.8466,
+  "top1_precision": 0.5948,
+  "top1_recall": 0.6388,
+  "top1_f1": 0.6159,
+  "fold_times_sec": [
+    1070.33,
+    960.54,
+    543.49,
+    530.04,
+    536.86
+  ],
+  "avg_fold_time_sec": 728.252,
+  "total_execution_sec": 3641.5,
+  "_source": "logs\\plan_n\\p5\\20260724-local-p5-r1\\attempts\\ce_s1234_attempt01.log"
+}

@@ -108,15 +108,15 @@
     {
       "id": "local-cpu-execution-readiness",
       "kind": "infrastructure",
-      "status": "provisional",
+      "status": "verified",
       "scope": "Windows CPU environment, resumable runner and active honest v2.0 queue",
       "decision": "Use local CPU as the primary canonical backend with ten threads and per-arm review gates.",
       "artifacts": ["docs/status/LOCAL_CPU_EXECUTION_PLAN.md"],
       "progress": {
-        "updated_at": "2026-07-23",
-        "completed": 8,
+        "updated_at": "2026-07-24",
+        "completed": 10,
         "total": 10,
-        "current": "L8",
+        "current": "L9",
         "milestones": [
           {"id": "L0", "status": "complete", "name": "Isolate and register local work"},
           {"id": "L1", "status": "complete", "name": "Build the Windows CPU environment"},
@@ -126,8 +126,8 @@
           {"id": "L5", "status": "complete", "name": "Run and review P6"},
           {"id": "L6", "status": "complete", "name": "Run and review P2"},
           {"id": "L7", "status": "complete", "name": "Run and review P1 scalar gate"},
-          {"id": "L8", "status": "pending", "name": "Run and review P5"},
-          {"id": "L9", "status": "hold", "name": "Close out"}
+          {"id": "L8", "status": "complete", "name": "Run and review P5"},
+          {"id": "L9", "status": "complete", "name": "Close out"}
         ]
       },
       "blockers": []
@@ -199,12 +199,24 @@
     {
       "id": "p5-ldam-clean",
       "kind": "experiment",
-      "status": "ready",
+      "status": "verified",
       "protocol": "honest_v2_fullcv",
       "queue_order": 4,
       "runner_arm": "p5",
       "comparison": "LDAM versus CE with per-class score dumps",
-      "output_root": "results/plan_n/p5"
+      "output_root": "results/plan_n/p5",
+      "decision": "Keep CE; LDAM does not meet the minority-recall adoption gate.",
+      "metrics": {
+        "ldam_minus_ce_top1_f1": 0.004013333333333343,
+        "ldam_minus_ce_auc": 0.00007999999999999118,
+        "ldam_minus_ce_minority_mean_recall": 0.002047056948037418,
+        "top1_p_holm": 0.5635518058212219
+      },
+      "artifacts": [
+        "results/plan_n/p5/20260724-local-p5-r1/run_index.json",
+        "results/plan_n/p5/20260724-local-p5-r1/summary.json",
+        "logs/plan_n/p5/20260724-local-p5-r1"
+      ]
     },
     {
       "id": "p1-attention-clean",

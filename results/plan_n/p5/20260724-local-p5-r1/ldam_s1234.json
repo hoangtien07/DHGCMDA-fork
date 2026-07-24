@@ -1,0 +1,22 @@
+{
+  "AUC": 0.9363,
+  "AUPR": 0.9357,
+  "F1": 0.8769,
+  "Accuracy": 0.8717,
+  "Recall": 0.913,
+  "Specificity": 0.8304,
+  "Precision": 0.8453,
+  "top1_precision": 0.6055,
+  "top1_recall": 0.6462,
+  "top1_f1": 0.625,
+  "fold_times_sec": [
+    779.54,
+    656.38,
+    695.73,
+    721.96,
+    794.15
+  ],
+  "avg_fold_time_sec": 729.552,
+  "total_execution_sec": 3648.14,
+  "_source": "logs\\plan_n\\p5\\20260724-local-p5-r1\\attempts\\ldam_s1234_attempt01.log"
+}

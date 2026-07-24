@@ -47,10 +47,10 @@ compare a clean result directly to paper-reported or legacy/leaky headline numbe
 
 | Order | Arm | Status | Question | Command surface |
 |---:|---|---|---|---|
-| 1 | P6 | READY | Does full-bilinear still beat diagonal prediction under clean evaluation? | `run_next.* run p6` |
-| 2 | P2 | READY | Does real sequence view beat association-derived GIP under clean evaluation? | `run_next.* run p2` |
-| 3 | P1 gate | READY | Does one learned global fusion weight help over fixed 0.6/0.4? | `run_next.* run p1` |
-| 4 | P5 | READY | Does LDAM improve per-type recall without degrading global metrics? | `run_next.* run p5` |
+| 1 | P6 | VERIFIED | Diagonal reduced Top-1 F1 by 0.06684; retain full-bilinear. | `20260724-local-p6-r1` |
+| 2 | P2 | VERIFIED | Real sequence reduced Top-1 F1 by 0.00832; retain GIP. | `20260724-local-p2-r1` |
+| 3 | P1 gate | VERIFIED | Scalar gate was neutral; retain fixed fusion. | `20260724-local-p1-r1` |
+| 4 | P5 | VERIFIED | LDAM minority recall gain was only 0.00205; retain CE. | `20260724-local-p5-r1` |
 | — | P1 attention | HOLD | Run only if scalar gate has a credible signal. | Not exposed by default |
 | — | P3 | BLOCKED | Softmax type outputs are incompatible with genuine independent multi-label BCE. | Logic-fix branch required |
 | — | Conformal refresh | HOLD | Re-run only from honest, mapping-fixed out-of-fold scores. | After core queue |
@@ -72,16 +72,17 @@ supplied System/About capture) is accepted for development, analysis and the cur
 queue. Its Intel UHD integrated graphics is not a CUDA accelerator. Local execution therefore
 remains CPU-only and is now the primary execution path.
 
-The local workstream is **ACTIVE** at milestone L8 (8/10 complete). Environment setup, reliable
+The local workstream is **COMPLETE** at milestone L9 (10/10 complete). Environment setup, reliable
 runner tests, the two-fold smoke gate and the three-seed local canonical anchor are complete.
 Anchor `20260723-local-anchor-r1` reproduced the honest reference with mean AUC 0.93601 and
 Top-1 F1 0.61389 across 15 folds. P6 rejected diagonal prediction: Top-1 F1 fell by 0.06684
 (Holm-adjusted p below 0.000001) and AUC fell by 0.00366, so full-bilinear remains canonical.
 P2 did not adopt the real sequence view: its AUC gain was non-significant (+0.00147) while
 Top-1 F1 fell by 0.00832. P1 scalar fusion was neutral (Top-1 -0.00040, AUC -0.00007,
-Holm-adjusted p=1), so P1 attention remains on hold. The next action is P5 CE versus LDAM.
-The workstream uses CPython 3.12.13, pinned CPU dependencies, ten worker threads, seed-level
-resume and per-arm review gates. See
+Holm-adjusted p=1), so P1 attention remains on hold. P5 retained CE: LDAM changed Top-1 by
++0.00401 and minority mean recall by only +0.00205, below the +0.02 adoption gate. The queue
+used CPython 3.12.13, pinned CPU dependencies, ten worker threads, seed-level resume and
+per-arm review gates. See
 [LOCAL_CPU_EXECUTION_PLAN.md](LOCAL_CPU_EXECUTION_PLAN.md).
 
 The Colab workstream is **HOLD** at milestone C0 (1/10 complete). Production GPU runs are not
