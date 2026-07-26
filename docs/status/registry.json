@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-23",
+  "updated_at": "2026-07-26",
   "base_commit": "4517c33",
   "source_of_truth": "docs/status/PROJECT_STATUS.md",
   "environment": {
@@ -232,6 +232,41 @@
       "status": "blocked",
       "reason": "Current predictor normalizes type outputs with softmax while multilabel BCE needs independent logits or sigmoid channels.",
       "artifacts": ["run_p3_multilabel.sh", "preprocess_v2_multilabel.py"]
+    },
+    {
+      "id": "v32-recovery-multilabel-readiness",
+      "kind": "workstream",
+      "status": "planned",
+      "scope": "Exact-first MDAv3.2-3 recovery with candidate fallback, paper-compatible audit, leakage-free multi-label protocol repair, and portable Windows Legion execution",
+      "decision": "HMDD v3.2 only; artifact search is capped at 8-10 active hours; dataset outputs require A/B/C identity classification; P3 remains blocked until all logic and protocol gates pass.",
+      "artifacts": [
+        "docs/status/MDA_V32_3_RECOVERY_PLAN.md",
+        "docs/status/MDA_V32_3_SOL_WORKPLAN.md",
+        "docs/status/MDA_V32_3_TERRA_WORKPLAN.md"
+      ],
+      "progress": {
+        "updated_at": "2026-07-26",
+        "completed": 0,
+        "total": 8,
+        "current": "R0",
+        "milestones": [
+          {"id": "R0", "status": "pending", "name": "Isolate work and freeze evidence"},
+          {"id": "R1", "status": "pending", "name": "Run the capped artifact search"},
+          {"id": "R2", "status": "pending", "name": "Freeze historical inputs"},
+          {"id": "R3", "status": "pending", "name": "Build the declarative reconstruction"},
+          {"id": "R4", "status": "pending", "name": "Classify dataset identity A/B/C"},
+          {"id": "R5", "status": "pending", "name": "Package and validate multi-label data"},
+          {"id": "L0", "status": "blocked", "name": "Repair P3 multi-label and leakage logic"},
+          {"id": "Q0", "status": "blocked", "name": "Qualify Legion and run reviewed pilots"}
+        ]
+      },
+      "blockers": [
+        "The exact 411x271x5 and 11748-triple artifact has not been recovered.",
+        "Historical MeSH/MISIM mappings and pruning semantics are not fully pinned.",
+        "The loader collapses multi-type pairs to a scalar cell.",
+        "The current multilabel path consumes softmax-normalized type probabilities rather than independent logits.",
+        "The current split, fold-local feature, five-type metric, and device contracts are incomplete."
+      ]
     },
     {
       "id": "conformal-honest-refresh",

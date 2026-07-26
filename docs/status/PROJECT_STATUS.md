@@ -43,6 +43,22 @@ compare a clean result directly to paper-reported or legacy/leaky headline numbe
 - Multi-type pairs are collapsed by the legacy target. P3 is intentionally blocked until output
   and loss semantics are repaired in a separate branch.
 
+## HMDD v3.2 recovery and P3 readiness
+
+The user approved an HMDD v3.2-only workstream with these locked decisions: exact-artifact-first
+with a labelled reconstruction fallback; an 8–10 active-hour artifact-search stop-loss; separate
+`paper_compatible_v32` and leakage-free multi-label protocols; and a portable
+code/manifest/downloader handoff for a Windows Legion Y540 (i5-9300H, GTX 1650 4 GB, RAM 16 GB).
+HMDD v4 is out of scope for this workstream.
+
+- Master plan: [MDA_V32_3_RECOVERY_PLAN.md](MDA_V32_3_RECOVERY_PLAN.md)
+- GPT-5.6 Sol work: [MDA_V32_3_SOL_WORKPLAN.md](MDA_V32_3_SOL_WORKPLAN.md)
+- GPT-5.6 Terra work: [MDA_V32_3_TERRA_WORKPLAN.md](MDA_V32_3_TERRA_WORKPLAN.md)
+
+The workstream is planned, not executed. P3 remains blocked until dataset identity is classified
+A/B/C and the loader, pair-group split, fold-local association-derived features, independent
+type logits/BCE-with-logits, five-type evaluator, and truthful device contract pass their gates.
+
 ## Next-run queue
 
 | Order | Arm | Status | Question | Command surface |
