@@ -10,3 +10,12 @@ Active implementation plans:
   resume and active experiment queue.
 - [`COLAB_FREE_EXECUTION_PLAN.md`](COLAB_FREE_EXECUTION_PLAN.md) — local CPU plus optional
   Colab Free/T4 readiness; currently on hold.
+- [`MDA_V32_3_RECOVERY_PLAN.md`](MDA_V32_3_RECOVERY_PLAN.md) — HMDD v3.2 recovery and protocol
+  repair; Sol S0/S1A are complete and Terra T0/T1A is the next authorized wave.
+
+HMDD v3.2 S0/S1A controls:
+
+- [`MDA_V32_3_EVIDENCE_LEDGER_V1.md`](MDA_V32_3_EVIDENCE_LEDGER_V1.md)
+- [`MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md`](MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md)
+- [`MDA_V32_3_SEARCH_LADDER_V1.json`](MDA_V32_3_SEARCH_LADDER_V1.json)
+- [`MDA_V32_3_TERRA_T1A_HANDOFF.md`](MDA_V32_3_TERRA_T1A_HANDOFF.md)

@@ -55,9 +55,17 @@ HMDD v4 is out of scope for this workstream.
 - GPT-5.6 Sol work: [MDA_V32_3_SOL_WORKPLAN.md](MDA_V32_3_SOL_WORKPLAN.md)
 - GPT-5.6 Terra work: [MDA_V32_3_TERRA_WORKPLAN.md](MDA_V32_3_TERRA_WORKPLAN.md)
 
-The workstream is planned, not executed. P3 remains blocked until dataset identity is classified
-A/B/C and the loader, pair-group split, fold-local association-derived features, independent
-type logits/BCE-with-logits, five-type evaluator, and truthful device contract pass their gates.
+Sol S0/S1A was completed on 2026-07-31: the local evidence and hashes are frozen, exact-artifact
+acceptance is explicit, and the finite Terra search is registered. The search itself has not
+started; R0/R1 remain pending and dataset identity remains unknown. P3 remains blocked until
+dataset identity is classified A/B/C and the loader, pair-group split, fold-local
+association-derived features, independent type logits/BCE-with-logits, five-type evaluator, and
+truthful device contract pass their gates.
+
+- [S0 evidence ledger](MDA_V32_3_EVIDENCE_LEDGER_V1.md)
+- [Exact-artifact acceptance contract](MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md)
+- [Registered search ladder](MDA_V32_3_SEARCH_LADDER_V1.json)
+- [Terra T0/T1A handoff](MDA_V32_3_TERRA_T1A_HANDOFF.md)
 
 ## Next-run queue
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-26",
-  "base_commit": "4517c33",
+  "updated_at": "2026-07-31",
+  "base_commit": "6a5233c",
   "source_of_truth": "docs/status/PROJECT_STATUS.md",
   "environment": {
     "current_checkout": "no project venv detected on 2026-07-23",
@@ -266,6 +266,45 @@
         "The loader collapses multi-type pairs to a scalar cell.",
         "The current multilabel path consumes softmax-normalized type probabilities rather than independent logits.",
         "The current split, fold-local feature, five-type metric, and device contracts are incomplete."
+      ]
+    },
+    {
+      "id": "v32-artifact-search-s1-20260731",
+      "kind": "investigation",
+      "status": "registered",
+      "scope": "HMDD v3.2 / MDAv3.2-3 exact-artifact search; S0 and S1A specification only",
+      "decision": "Use the finite exact-first search ladder and strict chain-of-custody/content acceptance contract. Terra may identify R4-ready candidates but only Sol may decide benchmark identity.",
+      "locked_decisions": [
+        "R1 exact-first with labelled reconstruction fallback",
+        "S1 combined 8-10 active-hour stop-loss",
+        "M2 separate paper-compatible and leakage-free multi-label protocols",
+        "multi-label pair semantics",
+        "D1 portable Git handoff"
+      ],
+      "budget": {
+        "combined_s1_active_hours_min": 8,
+        "combined_s1_active_hours_max": 10,
+        "sol_s1a_charged_hours": 2,
+        "terra_t1a_cap_hours": 5.5,
+        "sol_s1b_reserved_hours": 1.5
+      },
+      "progress": {
+        "updated_at": "2026-07-31",
+        "completed": ["S0", "S1A"],
+        "current": "T0/T1A",
+        "search_execution_started": false,
+        "dataset_identity": "unknown"
+      },
+      "artifacts": [
+        "docs/status/MDA_V32_3_EVIDENCE_LEDGER_V1.md",
+        "docs/status/MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md",
+        "docs/status/MDA_V32_3_SEARCH_LADDER_V1.json",
+        "docs/status/MDA_V32_3_TERRA_T1A_HANDOFF.md"
+      ],
+      "blockers": [
+        "No candidate has yet been executed through the registered search ladder.",
+        "No artifact has yet passed chain-of-custody and entity/triple identity tests.",
+        "P3 remains blocked and is outside this investigation wave."
       ]
     },
     {

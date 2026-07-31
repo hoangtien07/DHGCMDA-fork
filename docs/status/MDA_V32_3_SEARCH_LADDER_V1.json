@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "search_id": "mda-v32-3-artifact-search-20260731-v1",
+  "registered_at": "2026-07-31",
+  "status": "registered_not_started",
+  "scope": {
+    "dataset": "HMDD v3.2 / MDAv3.2-3",
+    "target": "411 miRNAs, 271 diseases, five types, 11748 typed triples",
+    "out_of_scope": [
+      "HMDD v4",
+      "author contact",
+      "issue creation",
+      "private or credential-gated acquisition",
+      "P3 execution",
+      "preprocessing reconstruction"
+    ]
+  },
+  "acceptance_contract": "docs/status/MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md",
+  "budget": {
+    "combined_s1_active_hours_min": 8,
+    "combined_s1_active_hours_max": 10,
+    "sol_s1a_charged_hours": 2,
+    "terra_t1a_cap_hours": 5.5,
+    "sol_s1b_reserved_hours": 1.5,
+    "passive_wait_excluded": true,
+    "stop_on_budget": true,
+    "stop_on_credible_r4_ready_candidate": true,
+    "stop_if_no_new_candidate_class_minutes": 90,
+    "minimum_stagnation_window_minutes": 60
+  },
+  "ledger_schema": {
+    "required_search_entry_fields": [
+      "entry_id",
+      "search_id",
+      "started_at_utc",
+      "ended_at_utc",
+      "active_minutes",
+      "operator",
+      "ladder_step_id",
+      "service",
+      "endpoint_or_page",
+      "query_exact",
+      "filters_exact",
+      "result_status",
+      "result_urls",
+      "candidate_ids",
+      "outcome",
+      "notes"
+    ],
+    "result_status_enum": [
+      "completed",
+      "rate_limited",
+      "access_denied",
+      "not_found",
+      "service_error"
+    ],
+    "outcome_enum": [
+      "new_candidate_class",
+      "new_candidate",
+      "metadata_only",
+      "duplicate",
+      "no_result",
+      "blocked"
+    ],
+    "required_candidate_fields": [
+      "candidate_id",
+      "discovery_entry_id",
+      "candidate_class",
+      "source_url",
+      "final_url",
+      "retrieved_at_utc",
+      "source_relationship",
+      "archive_or_commit_id",
+      "license_or_redistribution_note",
+      "container_filename",
+      "container_bytes",
+      "container_sha256",
+      "member_inventory",
+      "parser_id",
+      "inspection",
+      "acceptance_test_results",
+      "terra_disposition",
+      "sol_review_required",
+      "duplicate_of"
+    ],
+    "candidate_class_enum": [
+      "publisher_supplement",
+      "original_repository_object",
+      "original_repository_snapshot",
+      "historical_web_capture",
+      "independent_mirror",
+      "citing_implementation_bundle",
+      "metadata_only_reference",
+      "unattributed_binary"
+    ],
+    "source_relationship_enum": [
+      "publisher",
+      "original_author_or_project",
+      "archived_primary",
+      "attributed_mirror",
+      "citing_derivative",
+      "unknown"
+    ],
+    "terra_disposition_enum": [
+      "unreviewed",
+      "r4_ready",
+      "quarantined",
+      "rejected_for_class_a",
+      "metadata_only",
+      "duplicate"
+    ],
+    "hash_format": "lowercase 64-character SHA-256 hex",
+    "member_inventory_required_fields": [
+      "member_path",
+      "uncompressed_bytes",
+      "sha256",
+      "media_type",
+      "inspection_status"
+    ],
+    "inspection_required_fields": [
+      "format",
+      "shape_or_table_dimensions",
+      "nonzero_or_row_count",
+      "entity_mapping_present",
+      "mirna_count",
+      "disease_count",
+      "type_tokens",
+      "typed_triple_count",
+      "unique_pair_count",
+      "duplicate_typed_triple_count",
+      "multi_label_pair_count",
+      "semantic_digests",
+      "parse_warnings"
+    ]
+  },
+  "deduplication": {
+    "same_container_sha256": "one candidate with multiple discovery entries",
+    "same_immutable_url_or_commit": "one search outcome unless bytes changed",
+    "same_semantic_digests_different_bytes": "retain one candidate family and record all custody paths",
+    "conflicting_bytes_same_claim": "retain separately and escalate to Sol"
+  },
+  "ladder": [
+    {
+      "id": "L1",
+      "order": 1,
+      "name": "Publisher supplement and former original repository",
+      "services": [
+        "Oxford Academic article and supplementary assets",
+        "DOI landing metadata",
+        "github.com/Ouyang-Dong/SPLDHyperAWNTF_"
+      ],
+      "query_templates": [
+        "\"SPLDHyperAWNTF\" supplementary",
+        "\"bbac390\" supplementary data",
+        "\"MDAv3.2-3\"",
+        "\"SPLDHyperAWNTF_\"",
+        "repository releases, tags, branches, commits, trees, LFS pointers, and downloadable archives"
+      ],
+      "completion_rule": "Record every accessible supplement asset and every repository namespace object or explicit absence/error."
+    },
+    {
+      "id": "L2",
+      "order": 2,
+      "name": "GitHub history, forks, dependencies, and event archives",
+      "services": [
+        "GitHub repository/fork/code/commit APIs or equivalent public pages",
+        "GH Archive public events",
+        "public dependency and submodule references"
+      ],
+      "query_templates": [
+        "\"MDAv3.2-3\" OR \"MDAv3.2_3\" OR \"MDA v3.2-3\"",
+        "\"11748\" AND (miRNA OR microRNA)",
+        "\"411\" \"271\" AND (HMDD OR miRNA)",
+        "\"SPLDHyperAWNTF\" fork OR dependency",
+        "search archive members and data-loading paths without filename-number assumptions"
+      ],
+      "completion_rule": "Enumerate public forks/history and inspect data-bearing objects, not only default branches or filenames."
+    },
+    {
+      "id": "L3",
+      "order": 3,
+      "name": "Software and web archives",
+      "services": [
+        "Software Heritage",
+        "Internet Archive Wayback CDX"
+      ],
+      "query_templates": [
+        "origin URL snapshots for the former repository",
+        "repository archive and raw-content URL snapshots",
+        "publisher supplement URL snapshots",
+        "known asset filenames and parent-directory captures discovered in L1-L2"
+      ],
+      "completion_rule": "Record origin/snapshot identifiers and inspect recoverable directory or archive contents."
+    },
+    {
+      "id": "L4",
+      "order": 4,
+      "name": "Research-data repositories and alternate code forges",
+      "services": [
+        "Zenodo",
+        "DataCite",
+        "Figshare",
+        "OSF",
+        "Gitee",
+        "GitLab"
+      ],
+      "query_templates": [
+        "\"SPLDHyperAWNTF\"",
+        "\"MDAv3.2-3\"",
+        "\"HMDD v3.2\" \"411\"",
+        "\"bbac390\"",
+        "paper title, author/project identifiers, and discovered archive filenames"
+      ],
+      "completion_rule": "Record exact queries per service and inspect public downloadable files or immutable metadata records."
+    },
+    {
+      "id": "L5",
+      "order": 5,
+      "name": "Citing and related benchmark implementations",
+      "services": [
+        "public citing-paper metadata",
+        "public code repositories referenced by citing/related implementations"
+      ],
+      "query_templates": [
+        "repositories citing SPLDHyperAWNTF or DOI 10.1093/bib/bbac390",
+        "HMDD v3.2 benchmark loaders and preprocessing scripts",
+        "files detected by content, shape, tensor axes, entity maps, or loader paths rather than 411/271/11748 in names"
+      ],
+      "completion_rule": "Inspect data dependencies and binary/archive members for provenance-bearing copies; do not broaden to HMDD v4."
+    }
+  ],
+  "execution_rules": [
+    "Execute ladder steps in order.",
+    "Record failed, empty, blocked, and duplicate searches as well as hits.",
+    "Download only public in-scope candidates; never commit candidate bytes by default.",
+    "Use a non-repository external data root or ignored quarantine directory.",
+    "Write downloads to .part, then size/hash and atomically rename.",
+    "Do not infer exactness from name, dimensions, density, or final counts.",
+    "Do not contact authors, open issues, or send external messages.",
+    "Terra stops and returns the complete ledger; Sol performs S1B."
+  ]
+}
