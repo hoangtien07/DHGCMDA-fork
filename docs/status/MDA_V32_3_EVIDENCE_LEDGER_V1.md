@@ -1,9 +1,9 @@
 # MDAv3.2-3 evidence ledger v1
 
 **Frozen:** 2026-07-31
-**Scope:** S0 and S1A only; HMDD v3.2 only
+**Scope:** S0/S1A evidence plus S1B frozen-search result; HMDD v3.2 only
 **Dataset identity:** unknown
-**Search state:** registered, not executed
+**Search state:** public ladder completed; no exact artifact found
 **P3 state:** blocked and untouched
 
 This ledger distinguishes locally verified observations from publication claims, inferences,
@@ -268,6 +268,20 @@ Budget accounting is conservative:
 
 No artifact search was executed in S1A. The next authorized action is Terra T0/T1A, followed by
 Sol S1B. R2/R3, P3, model changes, training, and author contact remain unauthorized.
+
+### 7.1 S1B frozen search result
+
+Terra completed T0/T1A on `codex/v32-portable-d1` from commit `9b35346`. The finite L1–L5
+ladder and the bounded S1B coverage correction returned no downloadable, custody-bearing
+entity/triple artifact. The former original GitHub namespace is currently 404; automated Oxford
+supplement inspection was Cloudflare-blocked; and no data-bearing candidate was found in the
+public archives, research-data repositories, or screened citing work.
+
+The frozen result is **no exact artifact found under the registered public ladder**. It does not
+prove absence. No class-A claim is possible, no A/B/C dataset identity is assigned, and the next
+path is an explicitly labelled class-B reconstruction specification. See
+`MDA_V32_3_SOL_S1B_REVIEW_V1.md` and
+`MDA_V32_3_TERRA_T1A_EXECUTION_LEDGER_V1.json`.
 
 ## 8. Mechanical command record
 

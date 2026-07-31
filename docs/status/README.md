@@ -11,7 +11,7 @@ Active implementation plans:
 - [`COLAB_FREE_EXECUTION_PLAN.md`](COLAB_FREE_EXECUTION_PLAN.md) — local CPU plus optional
   Colab Free/T4 readiness; currently on hold.
 - [`MDA_V32_3_RECOVERY_PLAN.md`](MDA_V32_3_RECOVERY_PLAN.md) — HMDD v3.2 recovery and protocol
-  repair; Sol S0/S1A are complete and Terra T0/T1A is the next authorized wave.
+  repair; S0/S1A/T0/T1A/S1B are complete and the R2/S2 class-B specification is next.
 
 HMDD v3.2 S0/S1A controls:
 
@@ -19,3 +19,5 @@ HMDD v3.2 S0/S1A controls:
 - [`MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md`](MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md)
 - [`MDA_V32_3_SEARCH_LADDER_V1.json`](MDA_V32_3_SEARCH_LADDER_V1.json)
 - [`MDA_V32_3_TERRA_T1A_HANDOFF.md`](MDA_V32_3_TERRA_T1A_HANDOFF.md)
+- [`MDA_V32_3_TERRA_T1A_EXECUTION_LEDGER_V1.json`](MDA_V32_3_TERRA_T1A_EXECUTION_LEDGER_V1.json)
+- [`MDA_V32_3_SOL_S1B_REVIEW_V1.md`](MDA_V32_3_SOL_S1B_REVIEW_V1.md)

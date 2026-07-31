@@ -245,13 +245,13 @@
         "docs/status/MDA_V32_3_TERRA_WORKPLAN.md"
       ],
       "progress": {
-        "updated_at": "2026-07-26",
-        "completed": 0,
+        "updated_at": "2026-07-31",
+        "completed": 2,
         "total": 8,
-        "current": "R0",
+        "current": "R2",
         "milestones": [
-          {"id": "R0", "status": "pending", "name": "Isolate work and freeze evidence"},
-          {"id": "R1", "status": "pending", "name": "Run the capped artifact search"},
+          {"id": "R0", "status": "complete", "name": "Isolate work and freeze evidence"},
+          {"id": "R1", "status": "complete", "name": "Run the capped artifact search; no exact artifact found"},
           {"id": "R2", "status": "pending", "name": "Freeze historical inputs"},
           {"id": "R3", "status": "pending", "name": "Build the declarative reconstruction"},
           {"id": "R4", "status": "pending", "name": "Classify dataset identity A/B/C"},
@@ -271,7 +271,7 @@
     {
       "id": "v32-artifact-search-s1-20260731",
       "kind": "investigation",
-      "status": "registered",
+      "status": "completed_no_candidate",
       "scope": "HMDD v3.2 / MDAv3.2-3 exact-artifact search; S0 and S1A specification only",
       "decision": "Use the finite exact-first search ladder and strict chain-of-custody/content acceptance contract. Terra may identify R4-ready candidates but only Sol may decide benchmark identity.",
       "locked_decisions": [
@@ -290,20 +290,25 @@
       },
       "progress": {
         "updated_at": "2026-07-31",
-        "completed": ["S0", "S1A"],
-        "current": "T0/T1A",
-        "search_execution_started": false,
+        "completed": ["S0", "S1A", "T0", "T1A", "S1B"],
+        "current": "R2/S2 class-B specification",
+        "search_execution_started": true,
+        "search_result": "no_exact_artifact_found_under_registered_public_ladder",
+        "active_minutes": {"sol_s1a": 120, "terra_t1a": 31, "combined": 151},
         "dataset_identity": "unknown"
       },
       "artifacts": [
         "docs/status/MDA_V32_3_EVIDENCE_LEDGER_V1.md",
         "docs/status/MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md",
         "docs/status/MDA_V32_3_SEARCH_LADDER_V1.json",
-        "docs/status/MDA_V32_3_TERRA_T1A_HANDOFF.md"
+        "docs/status/MDA_V32_3_TERRA_T1A_HANDOFF.md",
+        "docs/status/MDA_V32_3_TERRA_T1A_EXECUTION_LEDGER_V1.json",
+        "docs/status/MDA_V32_3_TERRA_T1A_EXECUTION_REPORT.md",
+        "docs/status/MDA_V32_3_SOL_S1B_REVIEW_V1.md"
       ],
       "blockers": [
-        "No candidate has yet been executed through the registered search ladder.",
-        "No artifact has yet passed chain-of-custody and entity/triple identity tests.",
+        "No artifact passed chain-of-custody and entity/triple identity tests under the registered public ladder.",
+        "The documented no-candidate result does not prove artifact absence; blocked access paths remain caveats.",
         "P3 remains blocked and is outside this investigation wave."
       ]
     },

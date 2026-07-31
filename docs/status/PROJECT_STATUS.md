@@ -55,10 +55,12 @@ HMDD v4 is out of scope for this workstream.
 - GPT-5.6 Sol work: [MDA_V32_3_SOL_WORKPLAN.md](MDA_V32_3_SOL_WORKPLAN.md)
 - GPT-5.6 Terra work: [MDA_V32_3_TERRA_WORKPLAN.md](MDA_V32_3_TERRA_WORKPLAN.md)
 
-Sol S0/S1A was completed on 2026-07-31: the local evidence and hashes are frozen, exact-artifact
-acceptance is explicit, and the finite Terra search is registered. The search itself has not
-started; R0/R1 remain pending and dataset identity remains unknown. P3 remains blocked until
-dataset identity is classified A/B/C and the loader, pair-group split, fold-local
+Sol S0/S1A/T0/T1A/S1B was completed on 2026-07-31: the local evidence and hashes are frozen,
+exact-artifact acceptance is explicit, and the finite public search ladder is exhausted without
+a custody-bearing artifact. R0/R1 are complete; the result is “no exact artifact found under the
+registered public ladder,” not proof of absence. Dataset identity remains unknown and the next
+path is a labelled class-B reconstruction specification. P3 remains blocked until dataset
+identity is classified A/B/C and the loader, pair-group split, fold-local
 association-derived features, independent type logits/BCE-with-logits, five-type evaluator, and
 truthful device contract pass their gates.
 
@@ -66,6 +68,8 @@ truthful device contract pass their gates.
 - [Exact-artifact acceptance contract](MDA_V32_3_ARTIFACT_ACCEPTANCE_V1.md)
 - [Registered search ladder](MDA_V32_3_SEARCH_LADDER_V1.json)
 - [Terra T0/T1A handoff](MDA_V32_3_TERRA_T1A_HANDOFF.md)
+- [Frozen T1A execution ledger](MDA_V32_3_TERRA_T1A_EXECUTION_LEDGER_V1.json)
+- [Sol S1B review](MDA_V32_3_SOL_S1B_REVIEW_V1.md)
 
 ## Next-run queue
 

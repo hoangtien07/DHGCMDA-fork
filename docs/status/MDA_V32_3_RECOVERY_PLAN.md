@@ -1,6 +1,6 @@
 # MDAv3.2-3 recovery, protocol repair, and Legion execution plan
 
-**Status:** approved plan; Sol S0/S1A complete, Terra T0/T1A pending
+**Status:** approved plan; S0/S1A/T0/T1A/S1B complete; R2/S2 class-B specification pending
 **Date:** 2026-07-26  
 **Scope:** HMDD v3.2 only; HMDD v4 is explicitly out of scope  
 **Target machine:** Windows/PowerShell, Intel i5-9300H, GTX 1650 4 GB, RAM 16 GB  
