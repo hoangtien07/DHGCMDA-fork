@@ -1,0 +1,271 @@
+Leukemia, Lymphocytic, Chronic, B-Cell
+Colon Neoplasms
+Breast Neoplasms
+Leukemia
+Lung Neoplasms
+Colorectal Carcinoma
+Leukemia, Promyelocytic, Acute
+Pituitary Neoplasms
+Carcinoma, Hepatocellular
+Cardiomyopathy, Hypertrophic
+Thyroid Neoplasms
+Asthma
+Lymphoma, B-Cell
+Ovarian Neoplasms
+Polycythemia Vera
+Leukemia, Myeloid, Acute
+Nasopharyngeal Neoplasms
+Retinal Degeneration
+Carcinoma, Renal Cell
+Myelodysplastic Syndromes
+Lupus Vulgaris
+Leukemia, Myeloid, Chronic-Phase
+Marek Disease
+Atherosclerosis
+Sepsis
+Choriocarcinoma
+Glomerulonephritis
+Melanoma
+Diabetes Mellitus, Type 2
+Lymphoma, Large-Cell, Anaplastic
+Pancreatic Neoplasms
+Heart Failure
+Hemangioma
+Diabetes Mellitus
+Hypertrophy
+Glioblastoma
+Lymphoma
+Leukemia-Lymphoma, Adult T-Cell
+Carcinoma, Adrenocortical
+Mesothelioma
+Hypertension
+Preeclampsia
+Urinary Bladder Cancer
+Eosinophilic Esophagitis
+Graves Disease
+Prostate Neoplasms
+Myocardial Infarction
+Multiple Myeloma
+Endometriosis
+Primary Biliary Cirrhosis
+Myasthenia Gravis
+Multiple Sclerosis
+Polycystic Kidney Disease
+Parkinson Disease
+Retinoblastoma
+Diabetes Mellitus, Type 1
+Crohn Disease
+Sjogren Syndrome
+Stroke
+Arrhythmia
+Coronary Artery Disease
+Spinal Cord Injuries
+Stroke, Ischemic
+Obesity
+Glioma
+Cholangiocarcinoma
+Polycystic Ovarian Syndrome
+Leukemia, Lymphoblastic, Acute
+Familial Mediterranean Fever
+Acute Lung Injury
+Lupus Nephritis
+Kidney Neoplasms
+Arthritis
+Diabetic Nephropathy
+Metabolic Syndrome
+Muscle Atrophy
+Head And Neck Neoplasms
+Scleroderma, Systemic
+Muscular Dystrophy, Duchenne
+Hepatitis B Virus Infection
+Acute Kidney Failure
+Tuberculosis, Pulmonary
+Squamous Cell Carcinoma, Head and Neck
+Gastrointestinal Neoplasms
+Giant Cell Tumor of Bone
+Liver Cirrhosis
+Osteoporosis
+Chronic Kidney Disease
+Esophageal Neoplasms
+Endometrial Neoplasms
+Lymphoma, Large B-Cell, Diffuse
+Testicular Neoplasms
+Machado-Joseph Disease
+Carcinoma, Nasopharyngeal
+Biliary Tract Neoplasms
+Peripheral Vascular Disease
+Adenocarcinoma, Lung
+HELLP Syndrome
+Adrenal Cortex Neoplasms
+Immune Thrombocytopenic Purpura
+Amyotrophic Lateral Sclerosis
+Psoriasis
+Lymphoma, Non-Hodgkin
+Influenza
+Irritable Bowel Syndrome
+Osteosarcoma
+Focal Segmental Glomerulosclerosis
+Carcinoma, Breast
+Endomyocardial Fibrosis
+Intrahepatic Cholangiocarcinoma
+Lymphoma, T-Cell
+Acute Coronary Syndrome
+Tuberculosis
+Epilepsy
+Cardiomyopathy, Dilated
+Rectal Neoplasms
+Vasculitis
+Mycobacterium tuberculosis Infection
+Liver Neoplasms
+Synovial Sarcoma
+Nephrotic Syndrome
+Bronchopulmonary Dysplasia
+Essential Hypertension
+Colitis, Ulcerative
+Ewing Sarcoma
+Digestive System Neoplasms
+Hirschsprung Disease
+Glaucoma
+Hepatoblastoma
+Aplastic Anemia
+Age-Related Macular Degeneration
+Hematologic Neoplasms
+Atrial Fibrillation
+Arteriosclerosis Obliterans
+Cardiomyopathy
+Neuralgia, Postherpetic
+Aortic Aneurysm, Abdominal
+Osteoarthritis
+Peripheral Nervous System Diseases
+Cervical Neoplasms
+Diabetic Cardiomyopathies
+Friedreich Ataxia
+Periodontitis
+Azoospermia
+Inflammatory Bowel Diseases
+Liposarcoma
+Diabetic Retinopathy
+Congenital Heart Diseases
+Cystic Fibrosis
+Kawasaki Syndrome
+Leukemia, B-Cell
+Brain Neoplasms
+Carcinoma, Embryonal
+Leukemia, Myeloid
+Tongue Neoplasms
+Prion Diseases
+Rhabdomyosarcoma
+Medulloblastoma
+Fatty Liver, Alcoholic
+Inflammation
+Atopic Dermatitis
+Cardiomegaly
+Down Syndrome
+Hearing Loss
+Cholesteatoma
+Neurilemmoma
+Migraine
+Carcinoma, Thyroid
+Waldenstrom Macroglobulinemia
+Ischemia
+Idiopathic Pulmonary Fibrosis
+Pelvic Inflammatory Disease
+Acquired Immunodeficiency Syndrome
+Ependymoma
+Neuroblastoma
+Squamous Cell Carcinoma
+Carcinoma, Endometrial
+Adenocarcinoma, Colon
+Chondrosarcoma
+Soft Tissue Sarcoma
+Gout
+Habitual Abortion
+Intracranial Aneurysm
+Ossification of Posterior Longitudinal Ligament
+Macular Degeneration
+Infertility
+Lymphoma, Mantle-Cell
+Pterygium
+Encephalomyelitis
+Intervertebral Disc Degeneration
+Colitis
+Leiomyosarcoma
+Gastrointestinal Stromal Tumor
+Liver Failure
+Pituitary Adenoma
+Neuropathic Pain
+Retinal Neovascularization
+Adenovirus Infection
+Astrocytoma
+Laryngeal Neoplasms
+Lipid Metabolism Disorder
+Barrett Esophagus
+Meningioma
+Alopecia
+Chordoma
+Carcinoma, Basal Cell
+Periodontal Diseases
+Biliary Atresia
+Oral Leukoplakia
+Pheochromocytoma
+Salivary Gland Neoplasms
+Enterovirus Infection
+Epstein-Barr Virus Infection
+Aortic Aneurysm
+Thrombosis
+Neuroendocrine Tumors
+Leukemia, Myelogenous, Chronic, BCR-ABL Positive
+Digeorge Syndrome
+Neurofibromatosis type 2
+Ovarian Disease
+Pneumonia
+Muscular Dystrophy, Facioscapulohumeral
+Lichen Planus
+Leiomyoma
+Patau Syndrome
+Fibrosarcoma
+Hemangiosarcoma
+Odontogenic Tumors
+Lymphoma, Extranodal NK-T-Cell
+Malignant Peripheral Nerve Sheath Tumor
+Epithelioid Sarcoma
+Fever
+Asthenozoospermia
+Congenital Microtia
+Angiomyolipoma
+Sickle Cell Disease
+Visceral Leishmaniasis
+Burns
+Hemophagocytic Lymphohistiocytosis
+Peritoneal Fibrosis
+Retinitis Pigmentosa
+Lymphoma, Primary Effusion
+Endotoxemia
+Mycosis Fungoides
+Aortic Aneurysm, Thoracic
+Prolactinoma
+Fibromyalgia
+Cerebral Cavernous Malformations
+Carcinoma, Adenoid Cystic
+Endocrine Gland Neoplasms
+Carcinosarcoma
+Nevus
+Shock, Septic
+Chronic Pancreatitis
+Necrotizing Enterocolitis
+Balkan Nephropathy
+Borna Disease
+Gestational Trophoblastic Disease
+Thymoma
+Sertoli Cell-Only Syndrome
+Peritoneal Neoplasms
+Parathyroid Carcinoma
+Hearing Disorders
+Smoke Inhalation Injury
+Eclampsia
+Nephrosclerosis
+Niemann-Pick Disease, Type C
+Carcinoma, Ehrlich Tumor
+Esophagitis
+HIV-Associated Lipodystrophy
+Osteonecrosis

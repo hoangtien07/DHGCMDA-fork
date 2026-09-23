@@ -1,0 +1,18 @@
+{
+ "dataset": "SPLDHyperAWNTF MDAv3.2-3 (paper-exact, recovered via Software Heritage 2024-08-21 snapshot of Ouyang-Dong/SPLDHyperAWNTF_Model)",
+ "shape": [
+  411,
+  271,
+  5
+ ],
+ "triplets": 11748,
+ "per_type": {
+  "genetics": 1155,
+  "epigenetics": 403,
+  "circulation": 2293,
+  "target": 3997,
+  "tissue": 3900
+ },
+ "unique_pairs": 8735,
+ "density": 0.021095160394906998
+}

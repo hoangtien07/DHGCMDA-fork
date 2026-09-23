@@ -1,0 +1,93 @@
+[CPU] torch.set_num_threads(14), interop=min(4, 14)
+Using device: cpu
+Y: 411x271x5, triplets=11748, pairs=8735
+优化模型初始化: miRNA数量 = 411, 疾病数量 = 271
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+fold0 ep100 loss=15.0808
+fold0 ep200 loss=14.0293
+fold0 ep300 loss=13.5048
+[fold 0] top1-acc=0.3889 macroP=0.2318 macroR=0.2571 macroF1=0.2407 AUC=0.8937 AUPR=0.9017 time=530s
+优化模型初始化: miRNA数量 = 411, 疾病数量 = 271
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+fold1 ep100 loss=15.1215
+fold1 ep200 loss=14.1238
+fold1 ep300 loss=13.5393
+[fold 1] top1-acc=0.3783 macroP=0.2307 macroR=0.2499 macroF1=0.2304 AUC=0.8949 AUPR=0.9044 time=524s
+优化模型初始化: miRNA数量 = 411, 疾病数量 = 271
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+fold2 ep100 loss=15.1026
+fold2 ep200 loss=14.1565
+fold2 ep300 loss=13.4806
+[fold 2] top1-acc=0.3877 macroP=0.2308 macroR=0.2507 macroF1=0.2329 AUC=0.9018 AUPR=0.9112 time=520s
+优化模型初始化: miRNA数量 = 411, 疾病数量 = 271
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+fold3 ep100 loss=15.1010
+fold3 ep200 loss=14.0130
+fold3 ep300 loss=13.4762
+[fold 3] top1-acc=0.3840 macroP=0.2462 macroR=0.2500 macroF1=0.2327 AUC=0.9022 AUPR=0.9098 time=617s
+优化模型初始化: miRNA数量 = 411, 疾病数量 = 271
+   节点维度: 256 → 128
+   类型数量: 5
+   Temperature: 2.0 (可学习)
+   Loss mode: multilabel_bce
+   loss_mode=multilabel_bce
+   class_weights_5 (neg+4types): ['0.023', '0.564', '3.548', '0.324', '1.171', '0.370']
+
+✅ SimplifiedMultiTypeAssociationLoss 初始化 (改进版)
+   类别权重 (beta=0.99999): ['0.472', '2.968', '0.271', '0.980', '0.310']
+fold4 ep100 loss=15.1667
+fold4 ep200 loss=14.2502
+fold4 ep300 loss=13.5729
+[fold 4] top1-acc=0.4142 macroP=0.3417 macroR=0.2778 macroF1=0.2635 AUC=0.8922 AUPR=0.9013 time=578s
+
+=== R2 OVERALL ===
+{
+  "top1_precision": 0.39061967994552266,
+  "top1_recall_macro": 0.25649448636731337,
+  "top1_f1_hybrid": 0.3096572425340947,
+  "acc": 0.39061967994552266,
+  "macroP": 0.2847005623759296,
+  "macroR_sk": 0.25649448636731337,
+  "macroF1": 0.240615003912421,
+  "auc": 0.895238071539245,
+  "aupr": 0.9039231008694526,
+  "config": {
+    "epoch": 300,
+    "predictor": "full_bilinear",
+    "K": 13,
+    "seed": 0
+  }
+}
+saved /home/ubuntu/repos/DHGCMDA-fork/forensics/r2_v32_results.json
