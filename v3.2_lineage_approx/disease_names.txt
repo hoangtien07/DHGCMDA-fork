@@ -1,0 +1,266 @@
+acute cerebral infarction
+acute coronary syndrome
+acute ischemic stroke
+acute kidney failure
+acute myocardial infarction
+adenocarcinoma, endometrial
+adenocarcinoma, gastric
+adenocarcinoma, pancreatic ductal
+adenovirus infection
+adrenal cortex neoplasms
+alcoholic hepatitis
+allergic rhinitis
+allergic rhinitis,perennial
+alzheimer disease
+amyotrophic lateral sclerosis
+aortic aneurysm, abdominal
+aortic aneurysm, thoracic
+aortic stenosis
+asthenozoospermia
+asthma
+astrocytoma
+atherosclerosis
+atopic dermatitis
+atrial fibrillation
+autoimmune diseases [unspecific]
+azoospermia
+barrett esophagus
+biliary tract neoplasms
+bladder neoplasms
+brain disease [unspecific]
+brain neoplasms
+breast neoplasms
+bronchopulmonary dysplasia
+carcinoma, adrenocortical
+carcinoma, basal cell
+carcinoma, bladder
+carcinoma, breast
+carcinoma, breast, triple negative
+carcinoma, cervical
+carcinoma, ehrlich tumor
+carcinoma, embryonal
+carcinoma, endometrial
+carcinoma, endometrioid endometrial
+carcinoma, esophageal
+carcinoma, gallbladder
+carcinoma, gastric
+carcinoma, hepatocellular
+carcinoma, laryngeal
+carcinoma, lung
+carcinoma, lung, non-small-cell
+carcinoma, lung, small-cell
+carcinoma, prostate
+carcinoma, rectal
+carcinoma, renal cell
+carcinoma, thyroid
+carcinoma, thyroid, anaplastic
+cardiomegaly
+cardiomyopathy
+cardiomyopathy, dilated
+cardiomyopathy, hypertrophic
+cardiotoxicity
+cardiovascular diseases [unspecific]
+cerebral ischemia
+cerebral malaria
+cervical neoplasms
+cholangiocarcinoma
+cholesteatoma
+chondrosarcoma
+choriocarcinoma
+chronic heart failure
+chronic hepatitis b
+chronic hepatitis c
+chronic kidney disease
+chronic obstructive pulmonary disease
+colitis, ulcerative
+colon neoplasms
+colorectal carcinoma
+congenital heart diseases
+coronary artery disease
+coronary atherosclerosis
+crohn disease
+diabetes mellitus
+diabetes mellitus, type 1
+diabetes mellitus, type 2
+diabetic nephropathy
+diabetic retinopathy
+digestive system neoplasms
+down syndrome
+early-stage breast carcinoma
+early-stage non-small-cell lung carcinoma
+ectopic pregnancy
+endocrine gland neoplasms
+endometrial neoplasms
+endometriosis
+eosinophilic esophagitis
+ependymoma
+epilepsy
+esophageal neoplasms
+ewing sarcoma
+fatty liver [unspecific]
+fatty liver, non-alcoholic
+focal segmental glomerulosclerosis
+gastric neoplasms
+gastrointestinal neoplasms
+gastrointestinal stromal tumor
+germ cell tumor
+glaucoma
+glioblastoma
+glioma
+glomerulonephritis
+gout
+graft-versus-host disease
+graves disease
+head and neck neoplasms
+heart failure
+hematologic neoplasms
+hemophagocytic lymphohistiocytosis
+hepatitis b virus infection
+hepatitis c virus infection
+hepatoblastoma
+hirschsprung disease
+hiv-associated lipodystrophy
+human immunodeficiency virus infection
+huntington disease
+hypertension
+hypertrophic scar
+hypertrophy
+idiopathic pulmonary fibrosis
+immune system disease [unspecific]
+immune thrombocytopenic purpura
+infection [unspecific]
+inflammation
+inflammatory bowel diseases
+influenza
+interstitial cystitis
+interstitial lung disease
+intervertebral disc degeneration
+intracranial aneurysm
+intrahepatic cholangiocarcinoma
+ischemia
+ischemia-reperfusion injury
+ischemic diseases [unspecific]
+ischemic heart disease
+kaposi sarcoma
+kidney diseases [unspecific]
+kidney injury
+kidney neoplasms
+laryngeal neoplasms
+leiomyoma
+leukemia
+leukemia, b-cell
+leukemia, lymphoblastic
+leukemia, lymphoblastic, acute
+leukemia, lymphocytic, chronic, b-cell
+leukemia, myeloid
+leukemia, myeloid, acute
+leukemia, myeloid, chronic
+leukemia, promyelocytic, acute
+leukemia-lymphoma, adult t-cell
+leukemia-lymphoma, precursor b-cell lymphoblastic
+leukemia-lymphoma, precursor t-cell lymphoblastic
+lichen planus
+liver cirrhosis
+liver diseases [unspecific]
+liver failure
+liver fibrosis
+liver injury
+liver neoplasms
+lung fibrosis
+lung neoplasms
+lupus nephritis
+lupus vulgaris
+lymphoma
+lymphoma, b-cell
+lymphoma, burkitt
+lymphoma, hodgkin
+lymphoma, large b-cell
+lymphoma, large b-cell, diffuse
+lymphoma, large-cell, anaplastic
+lymphoma, mantle-cell
+lymphoma, non-hodgkin
+lymphoma, primary effusion
+lymphoma, t-cell
+macular degeneration
+malignant neoplasms [unspecific]
+medulloblastoma
+melanoma
+meningioma
+mesial temporal lobe epilepsy
+metabolic syndrome
+multiple myeloma
+multiple sclerosis
+muscle atrophy
+muscular dystrophy
+muscular dystrophy, duchenne
+muscular dystrophy, facioscapulohumeral
+musculoskeletal abnormalities [unspecific]
+myasthenia gravis
+mycobacterium tuberculosis infection
+mycosis fungoides
+myelodysplastic syndromes
+myeloma
+myocardial infarction
+myocardial ischemic-reperfusion injury
+myotonic muscular dystrophy
+nasopharyngeal neoplasms
+neoplasms [unspecific]
+nephrotic syndrome
+nervous system diseases [unspecific]
+neurilemmoma
+neuroblastoma
+neurodegenerative diseases [unspecific]
+obesity
+oral neoplasms
+osteoarthritis
+osteoporosis
+osteosarcoma
+ovarian neoplasms
+pancreatic neoplasms
+parkinson disease
+pelvic inflammatory disease
+periodontal diseases
+periodontitis
+peripheral vascular disease
+pituitary adenoma
+pituitary neoplasms
+pleural mesothelioma
+polycystic ovarian syndrome
+polycythemia vera
+preeclampsia
+prion diseases
+prolactinoma
+prostate neoplasms
+psoriasis
+pterygium
+pulmonary hypertension
+rectal neoplasms
+recurrent spontaneous abortion
+respiratory syncytial virus pneumonia
+retinal degeneration
+retinal neovascularization
+retinoblastoma
+rhabdomyosarcoma
+rheumatoid arthritis
+salivary gland neoplasms
+sarcoma [unspecific]
+scleroderma, systemic
+sepsis
+sjogren syndrome
+soft tissue sarcoma
+spinal cord injuries
+squamous cell carcinoma
+stroke
+synovial sarcoma
+systemic lupus erythematosus
+testicular neoplasms
+thyroid neoplasms
+toxoplasma gondii infection
+traumatic brain injury
+tuberculosis
+tuberculosis, pulmonary
+urinary bladder cancer
+vascular disease [unspecific]
+viral infectious disease
+waldenstrom macroglobulinemia
+wounds and injuries [unspecific]

@@ -385,6 +385,19 @@ def validate_and_adjust_parameters(args):
         print(f"  Diseases: {args.dis_num}")
         print(f"  Expected associations: ~10,888 (density 10.3% ≈ paper 10.5%)")
         print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
+    elif args.dataset == 'v3.2_spld_paper_pipeline':
+        # R3/Tier-B: EXACT paper artifact MDAv3.2-3 recovered from Software Heritage
+        # (411x271x11,748 triplets, per-type [circu 2293, epic 403, target 3997, genetic 1155, tissue 3900])
+        args.mi_num = 411
+        args.dis_num = 271
+        args.num_association_types = 5
+        if args.class_weights is None or len(args.class_weights) == 4:
+            args.class_weights = None
+        print(f"[INFO] Using v3.2_spld_paper_pipeline dataset (EXACT paper artifact):")
+        print(f"  miRNAs: {args.mi_num}")
+        print(f"  Diseases: {args.dis_num}")
+        print(f"  Expected associations: 11,748 triplets / 8,735 pairs")
+        print(f"  Types: 5 (Circulation, Epigenetics, Target, Genetics, Tissue)")
     else:
         print(f"[WARNING] Unknown dataset: {args.dataset}")
         print("  Using default dimensions (495 miRNAs, 383 diseases)")

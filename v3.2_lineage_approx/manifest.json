@@ -1,0 +1,49 @@
+{
+  "pipeline": "misim\u2229mirbase(mir) x mesh-category-C(dis) -> iterative typed-degree mir>=4 dis>=7",
+  "mir": 406,
+  "dis": 266,
+  "triplets": 11970,
+  "per_type": {
+    "genetics": 1239,
+    "epigenetics": 439,
+    "circulation": 2249,
+    "target": 3956,
+    "tissue": 4087
+  },
+  "type_order": [
+    "genetics",
+    "epigenetics",
+    "circulation",
+    "target",
+    "tissue"
+  ],
+  "misim_missing_mirs": [],
+  "diseases_no_treepath": [
+    "cardiovascular diseases [unspecific]",
+    "immune system disease [unspecific]",
+    "infection [unspecific]",
+    "malignant neoplasms [unspecific]",
+    "neoplasms [unspecific]",
+    "nervous system diseases [unspecific]",
+    "wounds and injuries [unspecific]"
+  ],
+  "source_hashes": {
+    "HMDD_data/MDAv3.2/v3_genetics.txt": "f1994890f80dda0035daf62895c5cae71139e27660cbc4faf4de507ff68370b2",
+    "HMDD_data/MDAv3.2/v3_epigenetics.txt": "f50e361bd62f456921339543db94c880e557c2790eafeac5b47f1aa3a70d5e39",
+    "HMDD_data/MDAv3.2/v3_circulation.txt": "46e572b2e9e0706cc6f0378bfcc77107dc9efdf0d564952563891814f61fbc2c",
+    "HMDD_data/MDAv3.2/v3_target.txt": "ce773c927e12649d55963ba0e546cd83e1718bc62b3fb41a8956dab66d576176",
+    "HMDD_data/MDAv3.2/v3_tissue.txt": "6221fe38d075c7fda241ccaca69c5ce7cb06386bc8fd69511fead4bb97a0b8f4"
+  },
+  "paper_target": {
+    "mir": 411,
+    "dis": 271,
+    "triplets": 11748,
+    "per_type": {
+      "genetics": 1155,
+      "epigenetics": 403,
+      "circulation": 2293,
+      "target": 3997,
+      "tissue": 3900
+    }
+  }
+}
