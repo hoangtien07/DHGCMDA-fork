@@ -76,3 +76,11 @@ Same artifact, same Top-1 pair-fold protocol:
 - DHGCMDA honest multilabel: **0.31** | DHGCMDA released (leaky+collapse): **0.19** | DHGCMDA paper claim: **0.86**
 
 => 0.86 is ~1.6x the reference method's score on identical data+protocol — almost certainly produced by an eval protocol or training code never released (not by the dataset, which is now proven exact).
+
+| F21 | **Top-1 recall ceiling proof**: paper's stated CVtype = pair-fold + 1 prediction/pair → recall ≤ 8735/11748 = **0.7435 (micro)** or ≤ mean(1/pos_i) = **0.8642 (macro)**. Paper claims R=0.9421 → **mathematically impossible** under the documented protocol on MDAv3.2-3 | VERIFIED (arithmetic on recovered artifact) |
+| F22 | Table-3 baseline consistency: SPLDHyperAWNTF row in DHGCMDA Table 3 = **P=0.6219, R=0.4624** — exact match to our independent run of SPLD's own code/artifact (P=0.6219, micro-R=0.4624, macro-R=0.5069) → baselines were computed with SPLD's eval (micro-R), while DHGCMDA's own R=0.9421 is unreachable by any single-pred-per-pair metric | VERIFIED |
+| F23 | CDMBlab/DHGCMDA absent from Software Heritage; SPLHRNMTF (binary eval) + MRGBMDAT (ternary/binary edge task) recovered & eliminated as eval-code sources; sibling-leakage baseline on triplet-fold gives F1=0.216 | VERIFIED |
+
+## Private-code hunt verdict
+
+No public trace of the author's actual eval/training code (SWH, GitHub forks, sibling repos all checked). Moreover the claimed Top-1 R=0.9421 exceeds the recall ceiling of the documented protocol (0.8642), so the reported number **cannot** have come from the protocol the paper describes — the true eval was either per-triplet, multi-prediction, or a different metric/split; only the authors can confirm.
