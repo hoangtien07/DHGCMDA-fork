@@ -8,6 +8,8 @@ import sys, json, math, time
 import numpy as np
 
 sys.path.insert(0, '/home/ubuntu/repos/DHGCMDA-fork/forensics/spld_work/SPLDHyperAWNTF')
+sys.path.insert(0, '/home/ubuntu/repos/DHGCMDA-fork/forensics/spld_work/SPLDHyperAWNTF/method')
+sys.path.insert(0, '/home/ubuntu/repos/DHGCMDA-fork/forensics/spld_work/SPLDHyperAWNTF/data')
 sys.path.insert(0, '/home/ubuntu/repos/DHGCMDA-fork/forensics')
 import tensorly as tl
 from data import MDAv3_3_GetData
@@ -63,8 +65,8 @@ for k, test_index in enumerate(folds):
     real_sum = 0.0
     n = np.array(test_index).shape[1]
     for t in range(n):
-        ps = np.mat(pred[test_index[0][t], test_index[1][t]].flatten())
-        rs = np.mat(d.type_tensor[test_index[0][t], test_index[1][t]].flatten())
+        ps = np.asmatrix(pred[test_index[0][t], test_index[1][t]].flatten())
+        rs = np.asmatrix(d.type_tensor[test_index[0][t], test_index[1][t]].flatten())
         pos = rs.sum()
         real_sum += pos
         si = np.array(np.argsort(ps))[0]
@@ -75,11 +77,15 @@ for k, test_index in enumerate(folds):
         rec += tp[0, 0] / pos
     spld_fold = [TP / n, TP / real_sum, rec / n]
 
+    np.save(OUT.replace('.json', f'_pred_fold{k}.npy'), pred.astype(np.float32))
     mine = top1_metrics(pred, d.type_tensor, test_index)
     ml = multilabel_metrics(pred, d.type_tensor, test_index)
     mine.update({f'ml_{k_}': v for k_, v in ml.items()})
     mine['spld_internal'] = spld_fold
     mine['elapsed_s'] = round(time.time() - t0, 1)
+    mine['_hit_vec'] = mine['_hit_vec'].tolist()
+    mine['_rec_vec'] = mine['_rec_vec'].tolist()
+    json.dump(res, open(OUT, 'w'), indent=2, default=float)
     assert abs(mine['legacy_top1_precision'] - spld_fold[0]) < 1e-9
     assert abs(mine['legacy_micro_recall'] - spld_fold[1]) < 1e-9
     assert abs(mine['legacy_macro_recall'] - spld_fold[2]) < 1e-9
