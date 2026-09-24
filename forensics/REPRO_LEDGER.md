@@ -84,3 +84,7 @@ Same artifact, same Top-1 pair-fold protocol:
 ## Private-code hunt verdict
 
 No public trace of the author's actual eval/training code (SWH, GitHub forks, sibling repos all checked). Moreover the claimed Top-1 R=0.9421 exceeds the recall ceiling of the documented protocol (0.8642), so the reported number **cannot** have come from the protocol the paper describes — the true eval was either per-triplet, multi-prediction, or a different metric/split; only the authors can confirm.
+
+| F24 | **Similarity provenance (M0)**: `mi_fun_sim_3.2_3.csv` = **MISIM 2.0 exactly** (|diff|~1e-10 over 10k pairs) → label-derived (HMDD associations) → leaky if used static → excluded from primary track. `DSSM3.2_3.csv` corr 0.90 vs TDRC Dis_sim (MeSH/DO ontology, max 1.19) → ontology-derived, conditionally STATIC_EXTERNAL. R3 run previously used MISIM as static features → flagged as containing partial leakage | VERIFIED |
+| F25 | M1 golden evaluator: `eval_top1.py` reproduces SPLD fold membership EXACTLY (seed0 shuffle+slice, 5×1747 pairs) and metric semantics identical to SPLD internal loop on synthetic scores | VERIFIED |
+| F26 | M2 early: **simknn_gip (vote over GIP_mi(train)×(DSSM|GIP_d)) = legacy-F1 0.5599 ≈ SPLD full tensor model 0.56** — published model only matches a trivial similarity-vote baseline; cooccur_prior floor = 0.394 | VERIFIED (pending other models) |
