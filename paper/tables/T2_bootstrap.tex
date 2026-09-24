@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Paired bootstrap (10,000 resamples over pooled outer-test pairs).}
+\label{tab:boot}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Comparison & $\Delta$ F1 & 95\% CI & Verdict \\
+\midrule
+vote GIP+DSSM $-$ SPLD & +0.0014 & [$-$0.0075, +0.0104] & tied \\
+vote MISIM+DSSM $-$ SPLD & +0.0214 & [+0.0131, +0.0297] & significant (leak) \\
+DHGCMDA impl. $-$ SPLD & $-$0.1104 & -- & far below \\
+\bottomrule
+\end{tabular}
+\end{table}

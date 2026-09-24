@@ -1,0 +1,28 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Frozen leaderboard on MDAv3.2-3 under the golden SPLD pair-fold protocol (outer 5-fold). Tracks: honest (train-only similarities), legacy (SPLD configurations), leaky control (static MISIM), floor.}
+\label{tab:leader}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Model & Track & P & micro-R & macro-R & F1 & mAUPR \\
+\midrule
+vote: GIP-mi only & honest & 0.6558 & 0.4877 & 0.5380 & \textbf{0.5910} & 0.4108 \\
+vote: MISIM+DSSM (leak) & LEAKY & 0.6456 & 0.4800 & 0.5264 & \textbf{0.5799} & 0.4379 \\
+vote: foldMISIM+DSSM & honest & 0.6390 & 0.4752 & 0.5199 & \textbf{0.5733} & 0.4383 \\
+vote: GIP+GIP & honest & 0.6305 & 0.4688 & 0.5126 & \textbf{0.5655} & 0.4274 \\
+vote: GIP+DSSM+J (λ tuned) & honest & 0.6275 & 0.4666 & 0.5094 & \textbf{0.5623} & 0.4254 \\
+vote: GIP+DSSM+J (λ=0.2) & honest & 0.6262 & 0.4657 & 0.5081 & \textbf{0.5610} & 0.4348 \\
+vote: GIP+DSSM & honest & 0.6253 & 0.4650 & 0.5070 & \textbf{0.5599} & 0.4536 \\
+SPLD no-MISIM & LEGACY(corrected) & 0.6227 & 0.4631 & 0.5078 & \textbf{0.5594} & -- \\
+SPLD static-MISIM (publ.) & LEGACY(leaky-lite) & 0.6219 & 0.4624 & 0.5069 & \textbf{0.5585} & -- \\
+SPLD fold-MISIM & LEGACY(corrected) & 0.6203 & 0.4613 & 0.5054 & \textbf{0.5570} & -- \\
+DHGCMDA impl. (public) & honest & 0.5094 & 0.3789 & 0.4000 & \textbf{0.4481} & 0.3531 \\
+vote: DSSM only & honest & 0.4781 & 0.3555 & 0.3702 & \textbf{0.4173} & 0.3977 \\
+co-occurrence prior & honest & 0.4576 & 0.3403 & 0.3461 & \textbf{0.3941} & 0.2690 \\
+bilinear d32 & honest & 0.3328 & 0.2476 & 0.2577 & \textbf{0.2904} & 0.3217 \\
+DistMult d32 & honest & 0.2835 & 0.2107 & 0.2122 & \textbf{0.2427} & 0.2792 \\
+\midrule \multicolumn{7}{@{}l@{}}{\textit{DHGCMDA paper claim} — P=0.7915, R=0.9421, F1=0.8600 (unreachable: macro-R ceiling 0.8642)} \\
+\bottomrule
+\end{tabular}
+\end{table}
