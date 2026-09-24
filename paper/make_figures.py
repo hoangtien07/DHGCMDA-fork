@@ -16,9 +16,10 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-F = '/home/ubuntu/repos/DHGCMDA-fork/forensics'
-OUT_F = '/home/ubuntu/repos/DHGCMDA-fork/paper/figures'
-OUT_T = '/home/ubuntu/repos/DHGCMDA-fork/paper/tables'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+F = os.path.join(ROOT, 'forensics')
+OUT_F = os.path.join(ROOT, 'paper', 'figures')
+OUT_T = os.path.join(ROOT, 'paper', 'tables')
 load = lambda n: json.load(open(os.path.join(F, n)))
 
 plt.rcParams.update({
@@ -31,12 +32,13 @@ C_HON, C_LEAK, C_LEG, C_FLOOR = '#2a7f62', '#c44536', '#7f6a93', '#999999'
 
 rows = load('FROZEN_LEADERBOARD.json')
 ORDER = ['vote_gip_only', 'vote_misim_dssm', 'vote_fmisim_dssm', 'vote_gip_gip',
-         'simknn_j', 'vote_gip_dssm', 'SPLD_noMISIM',
+         'simknn_j', 'vote_gip_dssm_j', 'vote_gip_dssm', 'SPLD_noMISIM',
          'SPLD_staticMISIM', 'SPLD_foldMISIM', 'DHGCMDA_encoder',
          'vote_dssm_only', 'cooccur_prior', 'bilinear', 'distmult']
 LABEL = {'vote_gip_only': 'vote: GIP-mi only', 'vote_misim_dssm': 'vote: MISIM+DSSM (leak)',
          'vote_fmisim_dssm': 'vote: foldMISIM+DSSM', 'vote_gip_gip': 'vote: GIP+GIP',
-         'simknn_j': 'vote: GIP+DSSM+J', 'vote_gip_dssm_j': 'vote: GIP+DSSM+J(0.2)',
+         'simknn_j': 'vote: GIP+DSSM+J (λ tuned)',
+         'vote_gip_dssm_j': 'vote: GIP+DSSM+J (λ=0.2)',
          'vote_gip_dssm': 'vote: GIP+DSSM', 'SPLD_noMISIM': 'SPLD no-MISIM',
          'SPLD_staticMISIM': 'SPLD static-MISIM (publ.)', 'SPLD_foldMISIM': 'SPLD fold-MISIM',
          'DHGCMDA_encoder': 'DHGCMDA impl. (public)', 'vote_dssm_only': 'vote: DSSM only',
@@ -117,20 +119,25 @@ plt.close(fig)
 
 # ---------------- F3: leak channel ----------------
 fig, ax = plt.subplots(figsize=(6.0, 2.9))
-grp = [('SPLD\nstatic MISIM', 0.5585), ('SPLD\nfold MISIM', 0.5570),
-       ('SPLD\nno MISIM', 0.5594), ('', np.nan), ('vote\nstatic MISIM', 0.5799),
-       ('vote\nfold MISIM', 0.5733), ('vote\nGIP only', 0.5599)]
+grp = [('static\nMISIM', 0.5585), ('fold\nMISIM', 0.5570),
+       ('no\nMISIM', 0.5594), ('', np.nan), ('static\nMISIM', 0.5799),
+       ('fold\nMISIM', 0.5733), ('GIP\nboth', 0.5599),
+       ('GIP-mi\nonly', 0.5910)]
 xs = np.arange(len(grp))
-bcols = [C_LEG] * 3 + ['w'] + [C_LEAK, C_HON, C_HON]
+bcols = [C_LEG] * 3 + ['w'] + [C_LEAK, C_HON, C_HON, C_HON]
 for i, (name, v) in enumerate(grp):
     if not np.isnan(v):
         ax.bar(i, v, 0.62, color=bcols[i], alpha=0.92)
         ax.text(i, v + 0.004, f'{v:.4f}', ha='center', fontsize=8)
 ax.set_xticks(xs, [g[0] for g in grp], fontsize=8)
-ax.set_ylim(0.50, 0.62)
+ax.text(1, 0.494, 'SPLD (legacy)', ha='center', fontsize=8, color=C_LEG,
+        fontweight='bold', clip_on=False)
+ax.text(5.5, 0.494, 'similarity vote', ha='center', fontsize=8, color=C_HON,
+        fontweight='bold', clip_on=False)
+ax.set_ylim(0.49, 0.62)
 ax.set_ylabel('legacy Top-1 F1')
 ax.annotate('Δ ≈ 0.002 (n.s.)', xy=(1, 0.578), ha='center', fontsize=8, color=C_LEG)
-ax.annotate('Δ ≈ +0.020 (leak, 95% CI [0.013, 0.030])', xy=(5, 0.599), ha='center',
+ax.annotate('Δ ≈ +0.020 (leak, 95% CI [0.013, 0.030])', xy=(5, 0.606), ha='center',
             fontsize=8, color=C_LEAK)
 ax.set_title('MISIM channel quantification — leak inflates the vote\n'
              'but not the published tensor model (SPLD)')
@@ -167,7 +174,8 @@ def tex_table(fname, caption, label, header, body_rows):
              '\\toprule',
              ' & '.join(header) + ' \\\\', '\\midrule']
     for r in body_rows:
-        lines.append(' & '.join(str(c) for c in r) + ' \\\\')
+        lines.append(r if isinstance(r, str) else
+                     ' & '.join(str(c) for c in r) + ' \\\\')
     lines += ['\\bottomrule', '\\end{tabular}', '\\end{table}']
     open(os.path.join(OUT_T, fname), 'w').write('\n'.join(lines) + '\n')
 
@@ -182,8 +190,9 @@ for m in present:
                  f"{a['legacy_macro_recall']:.4f}", f"\\textbf{{{a['legacy_f1']:.4f}}}",
                  '--' if a.get('macro_AUPR') is None or np.isnan(a['macro_AUPR'])
                  else f"{a['macro_AUPR']:.4f}"])
-body.append(['\\midrule \\multicolumn{7}{@{}l@{}}{\\textit{DHGCMDA paper claim} '
-             '— P=0.7915, R=0.9421, F1=0.8600 (unreachable: macro-R ceiling 0.8642)}', '', '', '', '', '', ''])
+body.append('\\midrule \\multicolumn{7}{@{}l@{}}{\\textit{DHGCMDA paper claim} '
+            '— P=0.7915, R=0.9421, F1=0.8600 (unreachable: macro-R ceiling 0.8642)} '
+            '\\\\')
 tex_table('T1_leaderboard.tex', 'Frozen leaderboard on MDAv3.2-3 under the golden '
           'SPLD pair-fold protocol (outer 5-fold). Tracks: honest '
           '(train-only similarities), legacy (SPLD configurations), '
