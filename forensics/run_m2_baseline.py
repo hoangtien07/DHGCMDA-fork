@@ -20,8 +20,9 @@ REPO = '/home/ubuntu/repos/DHGCMDA-fork'
 sys.path.insert(0, os.path.join(REPO, 'forensics'))
 from eval_top1 import build_pair_folds, mask_pair, evaluate_split
 
-torch.manual_seed(0)
-np.random.seed(0)
+SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+torch.manual_seed(SEED)
+np.random.seed(SEED)
 
 T = pd.read_csv(os.path.join(REPO, 'v3.2_spld_paper/triplets.csv'))
 M, D, K = 411, 271, 5
@@ -204,6 +205,8 @@ for name in MODELS:
     out[name] = {'aggregate': agg, 'folds': fs}
     print(f"== {name}: {agg}", flush=True)
 
-json.dump(out, open(os.path.join(REPO, 'forensics/m2_baseline_results.json'), 'w'),
+_ofn = ('m2_baseline_results.json' if SEED == 0
+        else f'm2_baseline_results_seed{SEED}.json')
+json.dump(out, open(os.path.join(REPO, 'forensics', _ofn), 'w'),
           indent=2, default=float)
 print("total", round(time.time() - t_all, 1), "s")

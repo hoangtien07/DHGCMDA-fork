@@ -1,0 +1,13 @@
+fold0 bilinear: F1=0.2709 P=0.3120 miR=0.2350 maR=0.2393 Hit@1=0.3120 [train]
+fold0 distmult: F1=0.2469 P=0.2845 miR=0.2143 maR=0.2181 Hit@1=0.2845 [train]
+fold1 bilinear: F1=0.2473 P=0.2891 miR=0.2132 maR=0.2161 Hit@1=0.2891 [train]
+fold1 distmult: F1=0.2749 P=0.3205 miR=0.2364 maR=0.2406 Hit@1=0.3205 [train]
+fold2 bilinear: F1=0.3239 P=0.3663 miR=0.2756 maR=0.2903 Hit@1=0.3663 [train]
+fold2 distmult: F1=0.2595 P=0.3017 miR=0.2270 maR=0.2276 Hit@1=0.3017 [train]
+fold3 bilinear: F1=0.2798 P=0.3200 miR=0.2403 maR=0.2487 Hit@1=0.3200 [train]
+fold3 distmult: F1=0.2481 P=0.2885 miR=0.2167 maR=0.2176 Hit@1=0.2885 [train]
+fold4 bilinear: F1=0.2890 P=0.3360 miR=0.2434 maR=0.2535 Hit@1=0.3360 [train]
+fold4 distmult: F1=0.2698 P=0.3160 miR=0.2289 maR=0.2354 Hit@1=0.3160 [train]
+== bilinear: {'legacy_top1_precision': 0.3246708643388666, 'legacy_micro_recall': 0.24150058207425268, 'legacy_macro_recall': 0.24958595687845814, 'legacy_f1': 0.28218898817503985, 'macro_AUPR': 0.3144970948116195, 'micro_AUPR': 0.30451049801560126, 'Hit@1': 0.3246708643388666, 'Recall@3': 0.6281511161991986, 'micro_F1@0.5': 0.19680241386429315, 'macro_F1@0.5': 0.18724272952422627}
+== distmult: {'legacy_top1_precision': 0.30223239839725247, 'legacy_micro_recall': 0.2246398826497294, 'legacy_macro_recall': 0.22784392291547398, 'legacy_f1': 0.2598130090525955, 'macro_AUPR': 0.28946749519886883, 'micro_AUPR': 0.29320412038655536, 'Hit@1': 0.30223239839725247, 'Recall@3': 0.6246689563060485, 'micro_F1@0.5': 0.19527246474359577, 'macro_F1@0.5': 0.17854968561684634}
+total 275.7 s

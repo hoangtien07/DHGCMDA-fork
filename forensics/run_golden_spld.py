@@ -15,9 +15,13 @@ import tensorly as tl
 from data import MDAv3_3_GetData
 from method import model
 from eval_top1 import build_pair_folds, top1_metrics, multilabel_metrics
+from fold_misim import functional_sim
 
 MAX_ITER = int(sys.argv[1]) if len(sys.argv) > 1 else 2000
-OUT = '/home/ubuntu/repos/DHGCMDA-fork/forensics/golden_spld_eval.json'
+MISIM_MODE = sys.argv[2] if len(sys.argv) > 2 else 'static'  # static|fold|none
+OUT = ('/home/ubuntu/repos/DHGCMDA-fork/forensics/golden_spld_eval.json'
+       if MISIM_MODE == 'static' else
+       f'/home/ubuntu/repos/DHGCMDA-fork/forensics/golden_spld_eval_{MISIM_MODE}.json')
 
 root = '/home/ubuntu/repos/DHGCMDA-fork/forensics/spld_work/HMDD_data'
 d = MDAv3_3_GetData.MDAv3_3_GetData(root)
@@ -26,7 +30,8 @@ A = d.type_tensor.sum(2)
 folds = build_pair_folds((A > 0).astype(int), 5, 0)
 
 res = {'folds': [], 'aggregate': {}, 'params': {'r': 4, 'alpha': 2, 'beta': 2,
-       'lam_t': 0.001, 'lam_c': 0.3, 'tol': 1e-5, 'max_iter': MAX_ITER}}
+       'lam_t': 0.001, 'lam_c': 0.3, 'tol': 1e-5, 'max_iter': MAX_ITER,
+       'misim_mode': MISIM_MODE}}
 agg = np.zeros(3)
 for k, test_index in enumerate(folds):
     t0 = time.time()
@@ -49,7 +54,13 @@ for k, test_index in enumerate(folds):
     diffM = np.diag(MM)[:, None] + np.diag(MM)[None, :] - 2 * MM
     MGSM = np.exp(-gamam * diffM)
     ID = np.where(np.asarray(diSIM) == 0, DGSM, np.asarray(diSIM))
-    IM = np.where(np.asarray(miSIM) == 0, MGSM, np.asarray(miSIM))
+    if MISIM_MODE == 'static':
+        IM = np.where(np.asarray(miSIM) == 0, MGSM, np.asarray(miSIM))
+    elif MISIM_MODE == 'fold':
+        FS = functional_sim(train_matrix, np.asarray(diSIM))
+        IM = np.where(FS == 0, MGSM, FS)
+    else:
+        IM = MGSM
     tA = (train_tensor.sum(2) > 0).astype(float)
     concat_m = np.asmatrix(np.hstack([tA, IM]))
     concat_d = np.asmatrix(np.hstack([tA.T, ID]))
