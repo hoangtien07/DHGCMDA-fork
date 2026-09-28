@@ -6,7 +6,8 @@ Tài liệu hướng dẫn dự án DHGCMDA (tiếng Việt).
 
 | File | Nội dung | Khi nào đọc |
 |------|----------|-------------|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | ASCII diagram toàn bộ pipeline, file → function map | **Đọc đầu tiên** — lấy cái nhìn tổng quan |
+| [paper/](paper/README.md) | **Series 9 chương giải thích PAPER cho người mới** — từ bối cảnh sinh học đến reproduce notes | **Đọc đầu tiên nếu mục tiêu là hiểu bài báo** |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | ASCII diagram toàn bộ pipeline, file → function map | **Đọc đầu tiên** nếu mục tiêu là vọc code — lấy cái nhìn tổng quan |
 | [NOTES_DATAFLOW.md](NOTES_DATAFLOW.md) | Data flow chi tiết từng bước, shape tensor | Đọc khi muốn hiểu dữ liệu di chuyển thế nào |
 | [NOTES_MODEL.md](NOTES_MODEL.md) | Giải thích từng class + công thức toán | Đọc khi muốn hiểu sâu về kiến trúc |
 | [CHEATSHEET.md](CHEATSHEET.md) | Lệnh chạy, hyperparams, troubleshooting, prompt templates | Tham chiếu nhanh khi vọc code |
@@ -15,12 +16,14 @@ Tài liệu hướng dẫn dự án DHGCMDA (tiếng Việt).
 
 Nếu bạn là người mới:
 
-1. Đọc [ARCHITECTURE.md](ARCHITECTURE.md) (15 phút) để có bản đồ tổng quan
-2. Xem section "Quick Commands" trong [CHEATSHEET.md](CHEATSHEET.md) để chạy thử
-3. Khi gặp đoạn code khó hiểu, lookup trong [NOTES_DATAFLOW.md](NOTES_DATAFLOW.md) hoặc [NOTES_MODEL.md](NOTES_MODEL.md)
+1. Muốn **hiểu paper**: đọc series [paper/](paper/README.md) theo thứ tự chương 01→09 (chỉ cần 01+03+09 cho bản rút gọn)
+2. Muốn **vọc code**: đọc [ARCHITECTURE.md](ARCHITECTURE.md) (15 phút) để có bản đồ tổng quan
+3. Xem section "Quick Commands" trong [CHEATSHEET.md](CHEATSHEET.md) để chạy thử
+4. Khi gặp đoạn code khó hiểu, lookup trong [NOTES_DATAFLOW.md](NOTES_DATAFLOW.md) hoặc [NOTES_MODEL.md](NOTES_MODEL.md)
 
 ## 🔍 Tìm theo vấn đề
 
+- **"Chưa đọc/hiểu paper DHGCMDA"** → [paper/](paper/README.md)
 - **"Không biết bắt đầu từ đâu"** → [ARCHITECTURE.md](ARCHITECTURE.md)
 - **"Tensor này shape gì?"** → [NOTES_DATAFLOW.md](NOTES_DATAFLOW.md)
 - **"Công thức toán của block X?"** → [NOTES_MODEL.md](NOTES_MODEL.md)
@@ -35,6 +38,7 @@ Nếu bạn là người mới:
 DHGCMDA/
 ├── docs/                             ← bạn đang ở đây
 │   ├── README.md                     ← index này
+│   ├── paper/                        ← series chương giải thích paper (9 file)
 │   ├── ARCHITECTURE.md
 │   ├── NOTES_DATAFLOW.md
 │   ├── NOTES_MODEL.md
@@ -67,3 +71,4 @@ DHGCMDA/
 ## 📝 Version history của docs
 
 - 2026-04-17: Khởi tạo docs set (ARCHITECTURE, NOTES_DATAFLOW, NOTES_MODEL, CHEATSHEET)
+- 2026-09-28: Thêm `paper/` — 9 chương giải thích paper DHGCMDA cho người mới (đọc theo thứ tự 01→09)
