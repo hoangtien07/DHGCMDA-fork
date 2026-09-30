@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Vote-baseline ablation grid (golden pair-fold, seed-0 folds). The miRNA-side vote alone is the best observed honest model.}
+\label{tab:ablation}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+miRNA sim & disease sim & J prior & F1 & P & macro-R \\
+\midrule
+GIP & — & — & \textbf{0.5910} & 0.6558 & 0.5380 \\
+— & DSSM & — & \textbf{0.4173} & 0.4781 & 0.3702 \\
+GIP & GIP & — & \textbf{0.5655} & 0.6305 & 0.5126 \\
+GIP & DSSM & — & \textbf{0.5599} & 0.6253 & 0.5070 \\
+GIP & DSSM & + & \textbf{0.5610} & 0.6262 & 0.5081 \\
+fold-MISIM & DSSM & — & \textbf{0.5733} & 0.6390 & 0.5199 \\
+static MISIM (leak) & DSSM & — & \textbf{0.5799} & 0.6456 & 0.5264 \\
+\bottomrule
+\end{tabular}
+\end{table}

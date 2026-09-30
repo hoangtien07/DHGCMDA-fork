@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Seed robustness. Learned models: fixed golden folds, init seeds 0--2. Vote: repeated pair-CV draws (secondary robustness; deterministic per split).}
+\label{tab:seeds}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Model & seed 0 & seed 1 & seed 2 & mean $\pm$ std \\
+\midrule
+bilinear d32 & 0.2904 & 0.2822 & 0.2753 & 0.2826 $\pm$ 0.0062 \\
+DistMult d32 & 0.2427 & 0.2598 & 0.2550 & 0.2525 $\pm$ 0.0072 \\
+vote GIP+DSSM (rep-CV) & 0.5599 & 0.5616 & 0.5627 & 0.5614 $\pm$ 0.0012 \\
+\bottomrule
+\end{tabular}
+\end{table}
