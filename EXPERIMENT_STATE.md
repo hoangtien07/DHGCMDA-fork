@@ -484,3 +484,42 @@ Screen baseline = winner cfg → **0.6297 / 0.9807 — tái hiện CHÍNH XÁC s
 - Cập nhật BaoCao_DHGCMDA.docx: kết quả vượt paper đã multi-seed confirmed (mean 0.6834, min 0.6666 vs 0.5970).
 
 Artifacts: `results/devin_wf_hypothesis_search_r2.json`. Workflow run: `wfr-d1d2de250fcb401c9f37b5bdab7e271c` (screens bổ sung chạy on-box do cap SWE-2, cùng protocol/seed).
+
+---
+
+## 🤖 PLAN Y — Round 3: multi-seed ENSEMBLE (fixed split) (2026-09-30)
+
+Idea: còn 1 nguồn gain miễn phí chưa test — **average probs nhiều seeds**. Nhưng ensemble đòi cùng fold split (mỗi seed trước đây tự tạo split riêng qua `np.random.seed(seed)` trong prepareData) → thêm tooling additive: `--dump_folds/--load_folds/--dump_preds` + `eval_ensemble.py` (branch `devin/wf-r3-ensemble-tools`, reuse đúng `evaluate_optimized_with_comprehensive_metrics` của repo — không viết lại metric).
+
+Canonical split `folds_s1.pt` (seed=1, 5-fold); 4 seeds train trên CÙNG split, test sets identical verified bằng `torch.equal`.
+
+### Single-seed trên fixed split (650ep × 5fold, winner cfg)
+
+| Seed | Top-1 F1 | AUC | AUPR | F1 |
+|---|---:|---:|---:|---:|
+| 0 | 0.6877 | 0.9852 | 0.9826 | 0.9519 |
+| 1 | 0.6707* | 0.9861 | 0.9832 | 0.9536 |
+| 42 | 0.6997 | 0.9868 | 0.9837 | 0.9549 |
+| 1234 | 0.6803 | 0.9849 | 0.9814 | 0.9519 |
+| **mean** | **0.6846** | **0.9858** | **0.9827** | **0.9531** |
+
+*s1 fixed-split = 0.6707 vs own-split 0.6760 → jitter ±0.005 do thread nondeterminism (không phải split khác — folds đã assert identical). Ghi nhận: con số seed đơn lẻ luôn có ±0.005-0.01 noise.
+
+### Ensemble (mean probs across seeds, same folds)
+
+| Combo | Top-1 F1 | AUC | AUPR | F1 |
+|---|---:|---:|---:|---:|
+| s0+s1 | 0.6833 | 0.9878 | 0.9852 | 0.9573 |
+| s0+s42 | 0.6951 | 0.9883 | 0.9857 | 0.9567 |
+| s0+s1+s42 | 0.6917 | 0.9889 | 0.9865 | 0.9590 |
+| **all-4 (canonical)** | **0.6926** | **0.9890** | **0.9867** | **0.9585** |
+
+Per-fold all-4: 0.7098 / 0.6758 / 0.6994 / 0.6681 / 0.7102.
+
+### Kết luận
+
+- **Best honest config toàn repo: 4-seed ensemble → Top-1 F1 0.6926, AUC 0.9890** (+16.0% / +2.3% vs paper 0.5970/0.9669). Gain vs single-seed mean: +0.8pp Top-1, +0.35pp AUC — variance reduction chuẩn, không phải protocol inflation.
+- Lưu ý honest reporting: best pair (s0+s42, 0.6951) > all-4 — nhưng chọn pair theo kết quả là cherry-pick; canonical claim nên dùng all-4.
+- Tooling nằm ở `devin/wf-r3-ensemble-tools` — cần merge để tái sử dụng; fold file tái tạo bằng 1 smoke run (`--epoch 3 --validation 5 --seed 1 --dump_folds folds_s1.pt`).
+
+Artifacts: `results/devin_wf_ensemble_r3.json`; preds (không commit, ~10MB/fold-set) tại `/home/ubuntu/preds_s{0,1,42,1234}/`.

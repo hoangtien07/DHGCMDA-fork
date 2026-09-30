@@ -1,0 +1,22 @@
+{
+  "round": 3,
+  "experiment": "multi-seed ensemble on FIXED cv split (folds_s1.pt generated with seed=1)",
+  "config": "--epoch 650 --validation 5 --loss_mode softmax_5class --ablation no_cl_rebuild --predictor_mode full_bilinear --load_folds folds_s1.pt",
+  "note": "identical folds across seeds (asserted via torch.equal on true_one/true_zero). s1 fixed-split=0.6707 vs own-split 0.6760 -> ±0.005 thread-nondeterminism jitter.",
+  "single_seed_fixed_split": {
+    "0":    {"top1_f1": 0.6877, "top1_p": 0.6843, "top1_r": 0.6912, "auc": 0.9852, "aupr": 0.9826, "f1": 0.9519},
+    "1":    {"top1_f1": 0.6707, "top1_p": 0.6679, "top1_r": 0.6736, "auc": 0.9861, "aupr": 0.9832, "f1": 0.9536},
+    "42":   {"top1_f1": 0.6997, "top1_p": 0.6993, "top1_r": 0.7004, "auc": 0.9868, "aupr": 0.9837, "f1": 0.9549},
+    "1234": {"top1_f1": 0.6803, "top1_p": 0.6769, "top1_r": 0.6839, "auc": 0.9849, "aupr": 0.9814, "f1": 0.9519},
+    "mean": {"top1_f1": 0.6846, "auc": 0.9858, "aupr": 0.9827, "f1": 0.9531}
+  },
+  "ensembles": {
+    "s0+s1":       {"top1_f1": 0.6833, "auc": 0.9878, "aupr": 0.9852, "f1": 0.9573},
+    "s0+s42":      {"top1_f1": 0.6951, "auc": 0.9883, "aupr": 0.9857, "f1": 0.9567},
+    "s0+s1+s42":   {"top1_f1": 0.6917, "auc": 0.9889, "aupr": 0.9865, "f1": 0.9590},
+    "all4":        {"top1_f1": 0.6926, "top1_p": 0.6910, "top1_r": 0.6943, "auc": 0.9890, "aupr": 0.9867, "f1": 0.9585,
+                    "per_fold_top1": [0.7098, 0.6758, 0.6994, 0.6681, 0.7102]}
+  },
+  "vs_paper": {"top1_f1_delta_pct": 16.0, "auc_delta_pct": 2.3},
+  "conclusion": "Probability-averaged 4-seed ensemble on a fixed split is the best honest config so far: Top-1 F1 0.6926 / AUC 0.9890 (+16.0% / +2.3% vs paper). Gain over single-seed mean: +0.8pp Top-1, +0.35pp AUC — variance reduction, not protocol inflation."
+}
