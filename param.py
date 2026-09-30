@@ -47,6 +47,21 @@ def parameter_parser():
                         default=5,
                         help='Number of cross-validation folds.')
 
+    parser.add_argument('--dump_folds',
+                        type=str,
+                        default=None,
+                        help='Save the generated CV fold split to this file (for identical splits across seeds).')
+
+    parser.add_argument('--load_folds',
+                        type=str,
+                        default=None,
+                        help='Load CV fold split from file instead of generating a seeded one.')
+
+    parser.add_argument('--dump_preds',
+                        type=str,
+                        default=None,
+                        help='Directory to save per-fold prediction tensors (true/pre one/zero) as fold<N>.pt.')
+
     parser.add_argument('--dropout',
                         type=float,
                         default=0.3,

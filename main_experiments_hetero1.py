@@ -1537,6 +1537,17 @@ def main_optimized(args):
         print("❌ Failed to load dataset. Please check data files.")
         return None
 
+    # Plan X-3: fixed-fold experiments — share one CV split across seeds
+    if getattr(args, 'load_folds', None):
+        _folds = torch.load(args.load_folds)
+        dataset['md'] = _folds['md']
+        dataset['independent'] = _folds['independent']
+        print(f"[FOLDS] Loaded fixed CV split from {args.load_folds}")
+
+    if getattr(args, 'dump_folds', None):
+        torch.save({'md': dataset['md'], 'independent': dataset['independent']}, args.dump_folds)
+        print(f"[FOLDS] Saved CV split to {args.dump_folds}")
+
     train_data = Dataset(args, dataset)
 
     metrics_cross = np.zeros((1, 7))
@@ -1595,6 +1606,14 @@ def main_optimized(args):
         metrics_result = evaluate_optimized_with_comprehensive_metrics(
             true_value_one, true_value_zero, pre_value_one, pre_value_zero
         )
+
+        if getattr(args, 'dump_preds', None):
+            os.makedirs(args.dump_preds, exist_ok=True)
+            torch.save({
+                'true_one': true_value_one.cpu(), 'true_zero': true_value_zero.cpu(),
+                'pre_one': pre_value_one.cpu(), 'pre_zero': pre_value_zero.cpu(),
+            }, os.path.join(args.dump_preds, f'fold{i + 1}.pt'))
+            print(f"[PREDS] dumped fold {i + 1} -> {args.dump_preds}/fold{i + 1}.pt")
 
         # 处理结果
         if isinstance(metrics_result, tuple) and len(metrics_result) >= 3:
