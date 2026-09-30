@@ -132,8 +132,8 @@ def parameter_parser():
 
     parser.add_argument('--weight_decay',
                         type=float,
-                        default=5e-5,  # ✅ 适中的正则化，防止过度惩罚
-                        help='Weight decay for optimizer.')
+                        default=None,
+                        help='Weight decay for optimizer (default None keeps the hardcoded 1e-5).')
 
     # Device parameters
     parser.add_argument('--device',
