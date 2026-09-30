@@ -975,6 +975,9 @@ def train_epoch_optimized(model, train_data, optim, args):
 
     # 训练循环
     start_time = time.time()
+    # EMA of weights for evaluation (ema-eval hypothesis): variance reduction
+    # on last-epoch eval. Initialized at epoch 50, decay 0.995.
+    ema_state = None
     for epoch in range(1, args.epoch + 1):
         # 前向传播 - 使用真正的双视图
         score, mi_cl_loss, dis_cl_loss, mi_sim_recon, dis_sim_recon = model(
@@ -1062,6 +1065,14 @@ def train_epoch_optimized(model, train_data, optim, args):
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optim.step()
 
+        # EMA update — skipped for short runs (starts at epoch 50)
+        if epoch >= 50:
+            if ema_state is None:
+                ema_state = {n: p.detach().clone() for n, p in model.named_parameters()}
+            else:
+                for n, p in model.named_parameters():
+                    ema_state[n].mul_(0.995).add_(p.detach(), alpha=0.005)
+
         # 周期性输出
         if epoch % 50 == 0 or epoch == 1:
             elapsed_time = time.time() - start_time
@@ -1098,11 +1109,22 @@ def train_epoch_optimized(model, train_data, optim, args):
     print("Training completed. Running final test...")
     print("=" * 80)
 
+    # Swap in EMA weights for evaluation when available; restore live weights after
+    live = {n: p.detach().clone() for n, p in model.named_parameters()}
+    if ema_state is not None:
+        print(f"[ema-eval] Evaluating with EMA weights (decay 0.995, from epoch 50)")
+        for n, p in model.named_parameters():
+            p.data.copy_(ema_state[n])
+
     model.eval()
     true_value_one, true_value_zero, pre_value_one, pre_value_zero = test_optimized(
         model, train_data, concat_mi_tensor_view1, concat_dis_tensor_view1,
         G_mi_view1, G_mi_view2, G_dis_view1, G_dis_view2, hetero_data
     )
+
+    if ema_state is not None:
+        for n, p in model.named_parameters():
+            p.data.copy_(live[n])
 
     return true_value_one, true_value_zero, pre_value_one, pre_value_zero
 
