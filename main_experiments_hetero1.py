@@ -93,6 +93,8 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         self.alpha = args.alpha
         self.device = device
         self.loss_mode = getattr(args, 'loss_mode', 'two_head')
+        # type-raw-logits: keep model ref to read predictor's cached raw logits
+        self.model = model
 
         # Effective Number 类别权重 — chuyển dynamic theo dataset
         ds = getattr(args, 'dataset', 'v2.0_495m383D')
@@ -340,7 +342,13 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
 
         valid_indices = pos_indices[valid_mask]
         valid_type_indices = type_indices[valid_mask]
-        type_logits = type_pred[valid_indices[:, 0], valid_indices[:, 1], :]
+        # type-raw-logits: prefer predictor's cached pre-softmax logits so CE sees
+        # raw logits (proper gradients + class_weights/label_smoothing on right scale).
+        # Fall back to type_pred (post-softmax probs) when cache absent/misaligned.
+        raw = getattr(getattr(self.model, 'association_predictor', None), '_type_logits_raw', None)
+        type_logits = raw[valid_indices[:, 0], valid_indices[:, 1], :] \
+            if raw is not None and raw.shape[0] == type_pred.shape[0] \
+            else type_pred[valid_indices[:, 0], valid_indices[:, 1], :]
 
         return F.cross_entropy(
             type_logits, valid_type_indices,

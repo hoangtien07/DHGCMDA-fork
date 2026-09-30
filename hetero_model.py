@@ -584,6 +584,10 @@ class SimplifiedTypePredictor(nn.Module):
 
         # 🔥 关键修改: 使用temperature scaling (提高多分类准确性)
         # 避免所有类型概率都接近0.25
+        # type-raw-logits: cache pre-softmax logits so the loss can apply
+        # F.cross_entropy to raw logits instead of probabilities (double-softmax fix).
+        # Eval path unchanged — scores still carry probabilities.
+        self._type_logits_raw = type_logits / temperature
         type_probs = F.softmax(type_logits / temperature, dim=2)
 
         # 组合结果
