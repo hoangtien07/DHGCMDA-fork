@@ -377,3 +377,58 @@ Sau đó tổng kết mean ± std. Effort: ~1.5h cho 3 seeds × baseline.
 - `BaoCao_DHGCMDA.docx` + `BaoCao_DHGCMDA_v1_before_fix.docx`
 - Tất cả source `.py` đã modify (param.py, hetero_model.py, generate_report.py, parse_metrics.py, generate_arch_figure.py, case_study.py)
 - Plan: `C:\Users\hungld\.claude\plans\download-code-v-data-async-lovelace.md`
+
+---
+
+## 🤖 PLAN W — Devin ScientistTwo-style workflow (2026-09-28)
+
+Vòng lặp tự động: **ideate (1 agent đọc ledger+paper) → screen song song (300ep×2fold, seed=1, full_bilinear) → full 650ep×5fold cho top-2**. Mục tiêu: vượt kết quả paper trên v2.0 — KHÔNG phải reproduce. 5 hypotheses, mỗi cái đều chạy dưới protocol giống hệt + matched screen-baseline.
+
+### Screen (300ep × 2fold, seed=1, full_bilinear)
+
+| Hypothesis | Extra args | Top-1 F1 | AUC | Verdict |
+|---|---|---:|---:|---|
+| screen-baseline | (none — sm5 tắt, no ablation) | 0.5603 | 0.9814 | reference |
+| sm5-nohgt-bilinear | `--loss_mode softmax_5class --ablation no_hgt` | 0.6240 | 0.9636 | → full |
+| sm5-noclrebuild-bilinear | `--loss_mode softmax_5class --ablation no_cl_rebuild` | 0.6297 | 0.9807 | → full |
+| sm5-bilinear | `--loss_mode softmax_5class` | 0.6043 | 0.9813 | non-additive: ablation removal là thành phần quan trọng |
+| type-raw-logits | code: raw type logits → CE (branch `devin/wf-type-raw-logits`) | 0.6196 | 0.9753 | thua two_head incumbent |
+| ema-eval | code: EMA weights decay 0.995 (branch `devin/wf-ema-eval`) | 0.4858 | 0.9662 | **negative** — EMA làm hỏng eval cuối epoch |
+
+### Full run (650ep × 5fold, seed=1)
+
+| Config | Top-1 P | Top-1 R | Top-1 F1 | AUC | AUPR | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| **sm5 + no_cl_rebuild + full_bilinear** | 0.6739 | 0.6783 | **0.6760** | **0.9863** | **0.9834** | **0.9539** |
+| sm5 + no_hgt + full_bilinear | 0.6731 | 0.6735 | **0.6732** | 0.9730 | 0.9762 | 0.9371 |
+| Paper (reference) | 0.5842 | 0.6341 | 0.5970 | 0.9669 | 0.9738 | 0.9278 |
+
+→ Cả 2 config vượt paper: **+13.2% / +12.8% Top-1 F1**, AUC cũng vượt (0.9863 / 0.9730 vs 0.9669). Per-fold sm5+noclrebuild: 0.687/0.669/0.682/0.641/0.702.
+
+### So sánh với fork leaderboard (Top-1 F1)
+
+| Config | Top-1 F1 | AUC | Nguồn |
+|---|---:|---:|---|
+| sm5 + no_cl_rebuild + **diag** | **0.6824** | ~0.97 | Plan E ledger peak |
+| sm5 + no_cl_rebuild + **full_bilinear** | 0.6760 | **0.9863** | Plan W (này) |
+| sm5 + no_hgt + diag | 0.6818 | ~0.975 | phase_d |
+| sm5 + no_hgt + full_bilinear | 0.6732 | 0.9730 | Plan W |
+| full_bilinear (J-1) | 0.6350 | 0.9805 | Plan J-1 |
+
+→ Peak đơn lẻ vẫn là sm5+noclrebuild+diag (0.6824); config mới cho **best trade-off** Top-1+AUC (0.6760/0.9863 — AUC cao nhất từng ghi). Diag vs bilinear trên sm5+noclrebuild ≈ ngang nhau Top-1, bilinear thắng AUC ~+0.01.
+
+### Phát hiện
+
+1. **Config-stack là direction đúng** — 3 delta độc lập (softmax_5class, ablation-removal, predictor) kết hợp cho kết quả tốt nhất toàn repo, dù deltas không cộng tuyến tính.
+2. **Screen 2-fold đánh giá THẤP hơn full 5-fold** — sm5-noclrebuild screen 0.6297 → full 0.6760 (+4.6pp). Screen chỉ nên dùng để ranking tương đối, không phải số tuyệt đối.
+3. **2 negative results mới**: raw-logits CE thua two_head (-1.5pp); EMA weights phá eval (-13%). Branches `devin/wf-type-raw-logits`, `devin/wf-ema-eval` giữ để tham khảo, không merge.
+4. Chưa verify multi-seed — full runs mới chỉ seed=1; per-fold variance ±0.03 → confirm trước khi công bố "best config".
+
+### Next steps đề xuất
+
+- Multi-seed (0/1/42/1234) cho sm5+noclrebuild+bilinear — chốt variance trước khi ghi vào báo cáo.
+- Head-to-head diag vs bilinear trên sm5+noclrebuild (chênh Top-1 0.006 — trong noise).
+- Ideate round 2 với hypotheses loại "mechanism" (contrastive internals, hypergraph construction) — round 1 phần lớn là config-stack.
+- Cập nhật BaoCao_DHGCMDA.docx section kết quả vượt paper.
+
+Artifacts: `results/devin_wf_hypothesis_search.json` (full summary). Workflow run: `wfr-2ae1ffa0cd8c48e39110d02db0d6397f` (resume-able, replays completed agents). Playbook: `!dhgcmda_experiment`.
