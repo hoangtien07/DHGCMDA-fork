@@ -645,6 +645,7 @@ class HeterogenousGraphCLAMIR(nn.Module):
         # 🆕 添加跨模态视图间对比学习
         self.enable_inter_view_cl = getattr(args, 'enable_inter_view_cl', True)
         self.inter_view_weight = getattr(args, 'inter_view_weight', 0.3)
+        self.restore_inter_view_cl = getattr(args, 'restore_inter_view_cl', False)
         if self.enable_inter_view_cl:
             # 跨模态对比学习：miRNA vs Disease
             self.inter_view_cl = InterViewContrastiveLoss(
@@ -847,7 +848,7 @@ class HeterogenousGraphCLAMIR(nn.Module):
             # 🆕 跨模态视图间对比学习（miRNA vs Disease）
             # Plan E: disable inter-view CL khi no_cl_rebuild để full bypass contrastive
             inter_view_loss = torch.tensor(0.0, device=target_device)
-            if self.enable_inter_view_cl and self.training and self.ablation_mode != 'no_cl_rebuild':
+            if self.enable_inter_view_cl and self.training and (self.ablation_mode != 'no_cl_rebuild' or self.restore_inter_view_cl):
                 # 直接从concat_mi_tensor的前dis_num列提取关联矩阵
                 # 但要确保数值在合理范围内（0或正数）
                 association_matrix_extracted = concat_mi_tensor[:, :self.dis_num].clone()

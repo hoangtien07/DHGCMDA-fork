@@ -114,6 +114,10 @@ def parameter_parser():
                         default=0.3,
                         help='Weight for inter-view contrastive loss.')
 
+    parser.add_argument('--restore_inter_view_cl',
+                        action='store_true',
+                        help='Keep inter-view CL active even under --ablation no_cl_rebuild (intra-view stays off).')
+
     parser.add_argument('--inter_view_temperature',
                         type=float,
                         default=0.5,
