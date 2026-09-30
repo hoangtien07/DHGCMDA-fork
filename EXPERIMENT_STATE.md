@@ -432,3 +432,55 @@ Vòng lặp tự động: **ideate (1 agent đọc ledger+paper) → screen song
 - Cập nhật BaoCao_DHGCMDA.docx section kết quả vượt paper.
 
 Artifacts: `results/devin_wf_hypothesis_search.json` (full summary). Workflow run: `wfr-2ae1ffa0cd8c48e39110d02db0d6397f` (resume-able, replays completed agents). Playbook: `!dhgcmda_experiment`.
+
+---
+
+## 🤖 PLAN X — Round 2: multi-seed confirm + mechanism hypotheses (2026-09-30)
+
+Hai phần: (a) **multi-seed confirmation** cho winner Plan W — chốt variance trước khi công bố; (b) **round 2 ideate** — 6 hypotheses loại *mechanism* (không phải config-stack) đánh giá như delta TRÊN NỀN winner (`sm5 + no_cl_rebuild + full_bilinear`).
+
+### (a) Multi-seed confirm — winner config, 650ep × 5fold
+
+| Seed | Top-1 P | Top-1 R | Top-1 F1 | AUC | AUPR | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| 0 | 0.6903 | 0.7052 | 0.6976 | 0.9849 | 0.9825 | 0.9504 |
+| 1 | 0.6739 | 0.6783 | 0.6760 | 0.9863 | 0.9834 | 0.9539 |
+| 42 | 0.6896 | 0.6971 | 0.6933 | 0.9845 | 0.9829 | 0.9493 |
+| 1234 | 0.6604 | 0.6730 | 0.6666 | 0.9845 | 0.9834 | 0.9531 |
+| **mean** | 0.6786 | 0.6884 | **0.6834** | **0.9851** | **0.9831** | **0.9517** |
+
+→ **Claim CONFIRMED**: mọi seed vượt paper ≥ +11.6% Top-1 F1 (min 0.6666 vs 0.5970). Std ~0.013 — per-seed variance thật nhưng không đe claim. AUC ổn định 0.984–0.986.
+
+### (b) Round-2 screens (300ep × 2fold, seed=1, trên nền winner)
+
+Screen baseline = winner cfg → **0.6297 / 0.9807 — tái hiện CHÍNH XÁC số round 1** (determinism verified).
+
+| Hypothesis | Delta so với winner | Top-1 F1 | AUC | Verdict |
+|---|---|---:|---:|---|
+| interview-cl-restore | restore inter-view CL (flag mới `--restore_inter_view_cl`, branch `devin/wf-r2-interview-cl-restore`) | 0.6288 | 0.9810 | neutral → full |
+| wd-wired-5e-4 | nối `--weight_decay`+`--lr` vào AdamW (trước là dead flags, branch `devin/wf-r2-wd-wired`) | 0.6318 | 0.9802 | neutral → full |
+| dropout-45 | `--dropout 0.45` | 0.5858 | 0.9757 | negative |
+| nlayer-1 | `--nlayer 1` | 0.6282 | 0.9705 | neutral Top-1, AUC -0.01 |
+| freeze-graph | `--update_graph_frequency 1000` (đóng băng dynamic-graph rebuild) | 0.6192 | 0.9798 | negative |
+| recon-off | `--recon_weight_override 0.0` | 0.6129 | 0.9750 | **negative — recon MSE là load-bearing**, phủ nhận giả thuyết "auxiliaries đều noise" |
+
+### (b') Full validation 2 candidates gần-neutral nhất (650ep × 5fold, seed=1)
+
+| Config | Top-1 F1 | AUC | Δ vs winner (0.6760/0.9863) |
+|---|---:|---:|---|
+| winner + restore inter-view CL | 0.6652 | 0.9864 | **-1.1pp → NEGATIVE**: inter-view CL cũng là noise, không chỉ intra-view — củng cố hướng "gỡ bớt, không thêm lại" |
+| winner + wd=5e-4 (wired) | 0.6771 | 0.9860 | +0.001 → **NEUTRAL (noise)**. Đáng merge như code hygiene: `--weight_decay`/`--lr` trước là flag chết không bao giờ tới optimizer |
+
+### Verdict round 2
+
+**Không cải thiện thêm được** — 6/6 mechanism hypotheses neutral hoặc negative; winner nằm ở local optimum trong họ mechanism đã test. Hai phát hiện đáng giữ:
+1. `devin/wf-r2-wd-wired` — wiring dead flags vào optimizer (additive, default-giữ-nguyên). Nên merge vào main độc lập kết quả.
+2. Inter-view CL restore giảm 1.1pp → lần đầu chứng minh *cả hai* nửa contrastive đều có hại trên v2.0, không chỉ phần intra.
+
+### Next steps
+
+- Merge `devin/wf-r2-wd-wired` (code hygiene) nếu muốn flag sống; `devin/wf-r2-interview-cl-restore` giữ làm negative reference, không merge.
+- Direction còn lại chưa test: data-level (feature curation, similarity source thêm), ensemble multi-seed voting, calibration/predictor-head variants.
+- Cập nhật BaoCao_DHGCMDA.docx: kết quả vượt paper đã multi-seed confirmed (mean 0.6834, min 0.6666 vs 0.5970).
+
+Artifacts: `results/devin_wf_hypothesis_search_r2.json`. Workflow run: `wfr-d1d2de250fcb401c9f37b5bdab7e271c` (screens bổ sung chạy on-box do cap SWE-2, cùng protocol/seed).
