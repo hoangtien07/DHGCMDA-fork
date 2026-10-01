@@ -1,0 +1,18 @@
+{
+  "aggregate": {
+    "legacy_top1_precision": 0.5094447624499141,
+    "legacy_micro_recall": 0.3788900375366211,
+    "legacy_macro_recall": 0.40000563859939575,
+    "legacy_f1": 0.4481140077114105,
+    "macro_AUPR": 0.35311772877960024,
+    "micro_AUPR": 0.46566162104018316,
+    "Hit@1": 0.5094447624499141,
+    "Recall@3": 0.8857447504997253
+  },
+  "folds": [
+    {
+      "n_pairs": 1747,
+      "n_pos": 2319,
+      "TP": 941.0,
+      "legacy_top1_precision": 0.5386376645678306,
+      "legacy_micro_recall": 
