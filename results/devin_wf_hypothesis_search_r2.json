@@ -1,0 +1,32 @@
+{
+  "run": "wfr-d1d2de250fcb401c9f37b5bdab7e271c + on-box completion",
+  "round": 2,
+  "base_args": "--loss_mode softmax_5class --ablation no_cl_rebuild --predictor_mode full_bilinear",
+  "screen_protocol": "--epoch 300 --validation 2 --seed 1",
+  "full_protocol": "--epoch 650 --validation 5 --seed 1",
+  "multiseed_winner_confirm": {
+    "protocol": "650ep x 5fold, winner config",
+    "seeds": {"0": {"top1_f1": 0.6976, "top1_p": 0.6903, "top1_r": 0.7052, "auc": 0.9849, "aupr": 0.9825, "f1": 0.9504},
+              "1": {"top1_f1": 0.6760, "top1_p": 0.6739, "top1_r": 0.6783, "auc": 0.9863, "aupr": 0.9834, "f1": 0.9539},
+              "42": {"top1_f1": 0.6933, "top1_p": 0.6896, "top1_r": 0.6971, "auc": 0.9845, "aupr": 0.9829, "f1": 0.9493},
+              "1234": {"top1_f1": 0.6666, "top1_p": 0.6604, "top1_r": 0.6730, "auc": 0.9845, "aupr": 0.9834, "f1": 0.9531}},
+    "mean": {"top1_f1": 0.6834, "auc": 0.9851, "aupr": 0.9831, "f1": 0.9517},
+    "all_seeds_beat_paper": true
+  },
+  "screen_baseline": {"top1_f1": 0.6297, "auc": 0.9807, "note": "exact reproduction of round-1 winner screen number — determinism confirmed"},
+  "screens": [
+    {"id": "interview-cl-restore", "args": "--inter_view_weight 0.3 --restore_inter_view_cl", "branch": "devin/wf-r2-interview-cl-restore", "top1_f1": 0.6288, "auc": 0.9810, "verdict": "neutral at screen"},
+    {"id": "wd-wired-5e-4", "args": "--weight_decay 5e-4", "branch": "devin/wf-r2-wd-wired", "top1_f1": 0.6318, "auc": 0.9802, "verdict": "neutral at screen"},
+    {"id": "dropout-45", "args": "--dropout 0.45", "branch": "main", "top1_f1": 0.5858, "auc": 0.9757, "verdict": "negative"},
+    {"id": "nlayer-1", "args": "--nlayer 1", "branch": "main", "top1_f1": 0.6282, "auc": 0.9705, "verdict": "neutral Top-1, -0.01 AUC"},
+    {"id": "freeze-graph", "args": "--update_graph_frequency 1000", "branch": "main", "top1_f1": 0.6192, "auc": 0.9798, "verdict": "negative"},
+    {"id": "recon-off", "args": "--recon_weight_override 0.0", "branch": "main", "top1_f1": 0.6129, "auc": 0.9750, "verdict": "negative — recon MSE is load-bearing"}
+  ],
+  "fulls": [
+    {"id": "interview-cl-restore", "top1_f1": 0.6652, "top1_p": 0.6657, "top1_r": 0.6648, "auc": 0.9864, "aupr": 0.9833, "f1": 0.9557, "delta_vs_winner": -0.0108, "verdict": "NEGATIVE — inter-view CL is also noise, not just intra-view"},
+    {"id": "wd-wired-5e-4", "top1_f1": 0.6771, "top1_p": 0.6754, "top1_r": 0.6788, "auc": 0.9860, "aupr": 0.9829, "f1": 0.9539, "delta_vs_winner": 0.0011, "verdict": "NEUTRAL (noise) — mergeable as code hygiene: --weight_decay/--lr were dead flags"}
+  ],
+  "reference_paper": {"top1_f1": 0.5970, "auc": 0.9669, "aupr": 0.9738, "f1": 0.9278},
+  "reference_winner_r1": {"top1_f1": 0.6760, "auc": 0.9863},
+  "conclusion": "Round 2 found no improvement over the round-1 winner: all 6 mechanism-level hypotheses neutral-or-negative at screen; the 2 best validated at full protocol landed at noise (-0.011 / +0.001). Winner config is at a local optimum under the tested mechanism family. Multi-seed (4 seeds) confirms the headline claim: mean Top-1 F1 0.6834, every seed > paper by >=11.6%."
+}
