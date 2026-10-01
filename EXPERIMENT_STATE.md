@@ -627,3 +627,14 @@ Ens 3 seeds = **0.6954 / 0.9894**. Courbe confirmée (matched 3-seed): 10→0.69
 **Reste à creuser (non-exploré, in-repo)**: décontamination du pool négatif (3,932 vrais positifs de mirna-disease.txt échantillonnés comme négatifs — ~2.1% de chaque train/eval set), dataset auxiliaire v3.2_filtered_495m383D (3,938 typed assoc, mêmes indices d'entités), cible multilabel (181 lignes multi-type collapsées), K_neigs re-sweep sous winner, ensemble pondéré cross-fitted.
 
 Artifacts: `results/devin_wf_r5_stacked.json`; negr7 preds `/home/ubuntu/preds_r5_full/negr7/`; replication `/home/ubuntu/preds_s42/` sur `folds_s42.pt` (0/5 folds identiques à folds_s1 — split réellement différent).
+
+### Replication sur split indépendant (folds_s42.pt, 0/5 folds identiques à s1)
+
+| Recipe | s1 split | **s42 split (indépendant)** | Biais sélection |
+|---|---:|---:|---:|
+| stack×4 + nohgt_s1 + diag_s42 | 0.7083 / 0.9910 | **0.7041 / 0.9899** | +0.42pp / +0.11pp |
+| stack×4 seul | 0.6937 / 0.9908 | 0.6977 / 0.9897 | −0.4pp (généralise) |
+
+**Verdict replication**: la recette 6-member généralise — 0.7041 sur split jamais utilisé pour la sélection. Le chiffre honnête à publier: **~0.70 Top-1 / ~0.99 AUC ensemble** (et **0.6923/+16.0% en like-for-like single-model**). L'écart +18.6% vs paper reste directionnellement sûr même en comptant tout le biais.
+
+Artifacts: `folds_s42.pt`, preds `/home/ubuntu/preds_s42/{stack,nohgt,diag}/`.
