@@ -523,3 +523,118 @@ Per-fold all-4: 0.7098 / 0.6758 / 0.6994 / 0.6681 / 0.7102.
 - Tooling nằm ở `devin/wf-r3-ensemble-tools` — cần merge để tái sử dụng; fold file tái tạo bằng 1 smoke run (`--epoch 3 --validation 5 --seed 1 --dump_folds folds_s1.pt`).
 
 Artifacts: `results/devin_wf_ensemble_r3.json`; preds (không commit, ~10MB/fold-set) tại `/home/ubuntu/preds_s{0,1,42,1234}/`.
+
+## 🤖 PLAN Z — Round 4: ensemble-based screening (2026-10-01)
+
+Idea: screen giờ đủ rẻ để chạy **3-seed prob-ensemble ngay tại screen** (fixed 2-fold split `folds_s1_v2.pt`, 300ep) → mỗi hypothesis được đo bằng ensemble metric thay vì single-seed (noise ±0.005-0.01). Ideate qua 1 child session (SWE-2), compute chạy trên máy chính.
+
+### Tools mới (branch `devin/wf-r4-tools`, additive)
+
+- `--lr_schedule {none,cosine,step}` — scheduler thật (ReduceLROnPlateau cũ là dead code, không bao giờ step).
+- `--edge_drop_rate` — DropEdge-style: mask ngẫu nhiên assoc khỏi input features + associates edges mỗi epoch, target giữ nguyên; restore full-A trước eval.
+- `--neg_ratio` (default 10) — negative sampling ratio; `class_weights_5` cập nhật `neg_count` tương ứng.
+- `--similarity_threshold` (default 0.5) — **flag chết thứ 2** được nối: `create_hetero_data_optimized` hardcode 0.5 + `model.similarity_threshold` hardcode 0.5.
+- `eval_ensemble.py` — auto-detect số fold từ file, không còn hardcode 5.
+
+### Screen results (baseline winner cfg 3-seed ens = Top-1 0.6070 / AUC 0.9836)
+
+| Candidate | Top-1 ens | AUC ens | Δ vs base | Verdict |
+|---|---:|---:|---:|---|
+| config-ensemble (win_s0 + nohgt_s1 + diag_s42) | 0.6242 | 0.9818 | +1.7pp / −0.2pp | **PASS** |
+| `--neg_ratio 5` | 0.6245 | 0.9848 | +1.8pp / +0.1pp | **PASS** |
+| `--similarity_threshold 0.7` | 0.6195 | 0.9851 | +1.3pp / +0.2pp | **PASS** |
+| `--edge_drop_rate 0.1` | 0.5915 | 0.9816 | −1.6pp | FAIL |
+| `--lr_schedule cosine` | 0.5396 | 0.9774 | −6.7pp | FAIL |
+
+Members đơn lẻ (same split): nohgt s1 0.6171, sm5only s1 0.5879, diag s42 0.5600, plain s1 0.3970.
+
+### Full validation (650ep × 5fold, fixed `folds_s1.pt`)
+
+| Config | Members | Top-1 F1 | AUC | AUPR | F1 | vs all-4 baseline 0.6926/0.9890 |
+|---|---|---:|---:|---:|---:|---|
+| **`--neg_ratio 5`** | 4 seeds | **0.7042** | **0.9896** | 0.9871 | 0.9601 | **+1.2pp / +0.06pp — NEW REPO BEST** |
+| config-ensemble | win all-4 + nohgt + diag (6) | 0.7016 | 0.9894 | 0.9874 | 0.9587 | +0.9pp / +0.04pp |
+| config-ensemble | win_s0 + nohgt + diag (3) | 0.7001 | 0.9881 | 0.9861 | 0.9538 | +0.84pp vs matched 3-member (0.6917) |
+| config-ensemble | win s0/1/42 + nohgt + diag (5) | 0.6960 | 0.9893 | — | — | mixed |
+| `--similarity_threshold 0.7` | 4 seeds | 0.6914 | **0.9903** | 0.9879 | 0.9623 | Top-1 neutral (−0.1pp), **BEST AUC repo** |
+
+negr single-seed: s0 0.7003, s1 0.6914, s42 0.6932, s1234 0.6844 → mean **0.6923** ≈ winner all-4 ensemble (mọi seed ≥ +14% vs paper).
+simt single-seed mean 0.6771/0.9870. nohgt_s1 full: 0.6775/0.9728; diag_s42 full: 0.6319/0.9775.
+
+### Kết luận
+
+1. **`--neg_ratio 5` = single best mechanism delta từ trước tới nay**: halving no-assoc gradient mass (10→5) + rebalance class_weights_5 → 0.7042/0.9896 (+18% Top-1 / +2.3% AUC vs paper). Interpretation: negatives đang "chìm" type signal; existence boundary lỏng ra cho Top-1 ranking.
+2. **Config-diversity > seed-diversity ở cùng member count**: 3-member khác config (0.7001) > 3-seed cùng config (0.6917). Ensemble nên mix cấu hình orthogonal (ablation axis + head axis), không chỉ seeds.
+3. Screen protocol (3-seed ens, 2-fold) rank ĐÚNG cả 3/3 pass — mặc dù underestimate ~8pp.
+4. Fail sạch: cosine LR phá nặng (−6.7pp — model cần LR cao ở late epochs?), edge dropout −1.6pp (assoc input không phải shortcut chính).
+5. sim_threshold 0.7 = AUC specialist (0.9903 best repo) nhưng Top-1 neutral — candidate cho AUC-led ensemble hoặc stack với negr.
+
+Next candidates (round 5): stack `negr 5 + simt 0.7`, config-ensemble kèm negr/simt members, neg_ratio 3-4 sweep, `--view_mode both` (chưa implement — cần tham số hoá CL_HGCN in_size).
+
+Artifacts: `results/devin_wf_r4_ensemble_screen.json`; preds tại `/home/ubuntu/preds_r4_full/{negr,simt,nohgt,diag}/`; screen preds `/home/ubuntu/preds_r4_{base,div,lrcos,edrop,simt,negr}/`.
+
+## 🤖 PLAN Z2 — Round 5: stacked mechanisms + neg_ratio sweep (2026-10-01)
+
+### Setup
+Same full protocol: 650ep × 5-fold fixed `folds_s1.pt`, prob-ensemble. Winner base (`sm5 + no_cl_rebuild + full_bilinear`).
+
+**stack** = `--neg_ratio 5 --similarity_threshold 0.7` × seeds {0,1,42,1234}; **negr3** = `--neg_ratio 3` × seeds {0,1,42}.
+
+### Results (full)
+
+| Config | Single-seed Top-1 mean | Ens Top-1 F1 | Ens AUC | AUPR |
+|---|---:|---:|---:|---:|
+| stack (negr5+simt0.7) | 0.6771 (0.6805/0.6741/0.6777/0.6761) | 0.6937 | **0.9908** | 0.9881 |
+| negr3 | 0.6904 (0.6949/0.6841/0.6923) | 0.6993 | 0.9896 | 0.9870 |
+| negr5 (3-seed matched, ref) | — | 0.7014 | 0.9893 | 0.9866 |
+
+**Cross-config ensembles:**
+| Members | Top-1 F1 | AUC | AUPR | vs prev best |
+|---|---:|---:|---:|---|
+| **stack×4 + nohgt_s1 + diag_s42 (6)** | **0.7083** | **0.9910** | **0.9891** | **+0.10pp / +0.10pp — NEW REPO BEST (both metrics)** |
+| negr×4 + nohgt_s1 + diag_s42 (6) | 0.7073 | 0.9900 | — | (prev best) |
+| negr×4 + stack×4 (8) | 0.6973 | 0.9905 | 0.9881 | −1.0pp vs negr4 alone |
+
+### Kết luận
+
+1. **Repo best mới: stack4+nohgt+diag = 0.7083/0.9910** (+18.6% Top-1 / +2.4% AUC vs paper 0.5970/0.9669) — combo đầu tiên giữ kỷ lục cả hai metric đồng thời.
+2. **Stack solo thua negr5 trên Top-1** (−1.5pp mean, −1.05pp ens): simt0.7 kéo giảm ranking capacity; nhưng stack AUC 0.9908 = best của mọi config đơn.
+3. **Stack members > negr members trong config-ensemble** (+0.10pp): members mang 2 mechanisms decorrelate tốt hơn với nohgt/diag → diversity giá trị hơn strength đơn lẻ của member.
+4. **neg_ratio optimum = 5 confirmed**: 10→0.6917 / 5→0.7014 / 3→0.6993 (matched 3-seed). Đỉnh phẳng quanh 5, không phải monotonic.
+5. **Mixing correlated mechanism families hurts**: negr4+stack4 (0.6973) < cả hai đơn lẻ — 8 members cùng "negr family" triệt tiêu diversity gain.
+
+Next (nếu tiếp): negr7 rerun (killed for capacity); config-ens kèm nhiều axis hơn (nohgt+diag+edrop?); `--view_mode both` chưa implement.
+
+Artifacts: `results/devin_wf_r5_stacked.json`; preds `/home/ubuntu/preds_r5_full/{stack,negr3}/`.
+
+## 🤖 COUNCIL REVIEW + Round 5b: negr7 + replication split (2026-10-01)
+
+### negr7 (sweep neg_ratio complété)
+Ens 3 seeds = **0.6954 / 0.9894**. Courbe confirmée (matched 3-seed): 10→0.6917, 7→0.6954, **5→0.7014 (optimum)**, 3→0.6993 — plateau autour de 5.
+
+### Council review (5 lens indépendants, lecture du ledger complet)
+
+| Lens | Plafond | Stratégie | Point clé |
+|---|---|---|---|
+| Statistical rigor | near_reached | mostly_on_track | +0.10pp member-swap = **noise** (< 0.1× SE fold); headline 0.7083 = argmax de ~10-11 evals sur UN split → honnêtement ~0.70-0.71 |
+| ML methodology | near_reached | on_track | Mechanism space convergé; headroom réaliste restant ~+1-2pp (K_neigs re-sweep, ensemble pondéré, view_mode both) |
+| Adversarial skeptic | near_reached | mostly_on_track | Claim correct en direction mais PAS like-for-like: ensemble vs single-model paper. **Like-for-like = negr5 single-seed mean 0.6923 = +16.0%** (min seed +14.4%) |
+| Data avenues | **not_reached** | on_track | Famille data JAMAIS testée sur v2.0 — bug réel trouvé: 3,932 vrais positifs dans le pool négatif (~2.1% mislabeled); +1-4pp plausible |
+| Strategy ROI | near_reached | mostly_on_track | Plan I "ceiling 62-68%" = axe reproduction-fidelity ≠ axe improvement — pas de contradiction. PIVOT bulletproof → STOP |
+
+**Synthèse**: plafond quasi atteint dans l'espace config/ensemble (derniers deltas sous le noise floor); la stratégie (screen→full→ledger) a bien fonctionné. MAIS deux corrections d'honnêteté: (1) le chiffre à publier côté "like-for-like" est **0.6923 single-model (+16.0%)**, l'ensemble 0.7083 est un gain système séparé; (2) replication sur split indépendant requise avant tout chiffre publié → **folds_s42.pt en cours**.
+
+**Reste à creuser (non-exploré, in-repo)**: décontamination du pool négatif (3,932 vrais positifs de mirna-disease.txt échantillonnés comme négatifs — ~2.1% de chaque train/eval set), dataset auxiliaire v3.2_filtered_495m383D (3,938 typed assoc, mêmes indices d'entités), cible multilabel (181 lignes multi-type collapsées), K_neigs re-sweep sous winner, ensemble pondéré cross-fitted.
+
+Artifacts: `results/devin_wf_r5_stacked.json`; negr7 preds `/home/ubuntu/preds_r5_full/negr7/`; replication `/home/ubuntu/preds_s42/` sur `folds_s42.pt` (0/5 folds identiques à folds_s1 — split réellement différent).
+
+### Replication sur split indépendant (folds_s42.pt, 0/5 folds identiques à s1)
+
+| Recipe | s1 split | **s42 split (indépendant)** | Biais sélection |
+|---|---:|---:|---:|
+| stack×4 + nohgt_s1 + diag_s42 | 0.7083 / 0.9910 | **0.7041 / 0.9899** | +0.42pp / +0.11pp |
+| stack×4 seul | 0.6937 / 0.9908 | 0.6977 / 0.9897 | −0.4pp (généralise) |
+
+**Verdict replication**: la recette 6-member généralise — 0.7041 sur split jamais utilisé pour la sélection. Le chiffre honnête à publier: **~0.70 Top-1 / ~0.99 AUC ensemble** (et **0.6923/+16.0% en like-for-like single-model**). L'écart +18.6% vs paper reste directionnellement sûr même en comptant tout le biais.
+
+Artifacts: `folds_s42.pt`, preds `/home/ubuntu/preds_s42/{stack,nohgt,diag}/`.

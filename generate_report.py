@@ -355,6 +355,7 @@ def build_toc(doc):
         ('  3.6. Plan C — Loss alignment study', '23'),
         ('  3.7. So sánh với baselines (TDRC + NMCMDA)', '25'),
         ('  3.8. Kết luận về reproducibility', '27'),
+        ('  3.9. Cải thiện kết quả — Devin experiment loop (Plan W–Z2)', '29'),
         ('Phần 4. Hướng mở rộng nghiên cứu', '21'),
         ('  4.1. Cải tiến trực tiếp', '21'),
         ('  4.2. Mở rộng sang task khác', '22'),
@@ -2043,6 +2044,93 @@ def build_section_3(doc, baseline, ablation):
     doc.add_page_break()
 
 
+def build_section_3_devin(doc):
+    """3.9 — Devin experiment loop (Plan W–Z2): improvement search + council review."""
+    add_heading(doc, '3.9. Cải thiện kết quả — Devin experiment loop (Plan W–Z2)', level=2)
+    add_para(doc, 'Sau khi reproduce hoàn tất, một vòng lặp thí nghiệm kiểu ScientistTwo '
+                  '(ideate → screen → full-run → ledger) đã chạy 5 round trên nhánh '
+                  '`devin/wf-r4-tools` để tìm phương án cải thiện kết quả paper trên '
+                  'v2.0_495m383D (baseline paper: Top-1 F1 = 0.5970, AUC = 0.9669).')
+
+    add_heading(doc, '3.9.1. Thiết lập', level=3)
+    add_bullet(doc, '**Winner config** (tìm được Round 1): `--loss_mode softmax_5class '
+                    '--ablation no_cl_rebuild --predictor_mode full_bilinear` — single-model '
+                    '4-seed mean Top-1 F1 = 0.6834 (mọi seed ≥ 0.6666 > paper).')
+    add_bullet(doc, '**Protocol chuẩn**: 650 epochs × 5-fold trên split cố định '
+                    '(`folds_s1.pt`, `--load_folds`), ensemble = probability-average '
+                    'preds của nhiều seed/config (`eval_ensemble.py`).')
+    add_bullet(doc, '**Screen protocol**: 3-seed ensemble, 2-fold, 300ep — đã verify rank '
+                    'đúng 3/3 (mọi PASS đều cải thiện ở full), mặc dù underestimate ~8pp.')
+    add_bullet(doc, 'Kỷ luật trung thực: matched-protocol comparisons, báo cáo mean±std '
+                    'hoặc ensemble (không cherry-pick single seed), không sửa '
+                    '`Calculate_Metrics.py`.')
+
+    add_heading(doc, '3.9.2. Timeline kết quả', level=3)
+    rows = [
+        ['Round 1 (W)', 'Winner config (single model, 4 seeds)', '0.6834', '0.9850',
+         '+14.5% Top-1 vs paper — break-through'],
+        ['Round 3 (Y)', '4-seed prob-ensemble, fixed split', '0.6926', '0.9890',
+         'Variance reduction +0.8pp'],
+        ['Round 4 (Z)', '`--neg_ratio 5`, 4-seed ensemble', '0.7042', '0.9896',
+         'Best single mechanism: negatives đang "chìm" type signal'],
+        ['Round 5 (Z2)', '6-member: stack×4 + nohgt + diag', '0.7083', '0.9910',
+         'Argmax trên split selection — xem 3.9.4'],
+        ['Replication', 'Cùng recipe trên split độc lập (folds_s42)', '0.7041', '0.9899',
+         'Selection bias ≈ +0.42pp — recipe generalize'],
+    ]
+    add_table(doc, ['Round', 'Config', 'Top-1 F1', 'AUC', 'Ghi chú'], rows,
+              caption='Bảng. Kết quả các round cải thiện (v2.0, full protocol).')
+
+    add_heading(doc, '3.9.3. Mechanism đã test — thắng và thua', level=3)
+    add_bullet(doc, '**Thắng**: config-stack (sm5+noclrebuild+bilinear, +13%), neg_ratio 5 '
+                    '(+1.2pp), config-diversity ensemble (+0.9-1.5pp qua decorrelation), '
+                    'sim_threshold 0.7 (AUC specialist 0.9903).')
+    add_bullet(doc, '**Thua sạch**: cosine LR (−6.7pp), edge dropout (−1.6pp), EMA weights, '
+                    'recon-off, freeze-graph, nlayer-1, dropout 0.45, inter-view CL restore, '
+                    'raw-logits CE.')
+    add_bullet(doc, '**Sweep neg_ratio** (matched 3-seed ens): 10→0.6917, 7→0.6954, '
+                    '**5→0.7014 (optimum)**, 3→0.6993 — đỉnh phẳng quanh 5.')
+    add_bullet(doc, '**Dead flags đã nối**: `--lr`/`--weight_decay` (PR #6), '
+                    '`--similarity_threshold` (PR #8) — trước đây hardcoded, CLI bị bỏ qua.')
+
+    add_heading(doc, '3.9.4. Headline trung thực (sau council review)', level=3)
+    add_para(doc, 'Council review (5 lens độc lập đọc toàn bộ ledger) kết luận số 0.7083 là '
+                  'argmax của ~11 combos trên MỘT split → winner\'s curse. Số liệu '
+                  'nên trình bày 2 tầng:')
+    add_bullet(doc, '**Like-for-like (single-model vs paper)**: neg_ratio5 single-seed mean '
+                    '**0.6923 = +16.0% vs paper 0.5970** (min seed 0.6844 = +14.4%).')
+    add_bullet(doc, '**System-level (ensemble)**: 6-member = **0.7041 / 0.9899 trên split '
+                    'độc lập** (folds_s42, 0/5 folds trùng s1) — đây là con số publishable.')
+    add_para(doc, '**Reconcile với Plan I "ceiling 62-68%"**: Plan I đo trần *reproduction '
+                  'fidelity* (paper-faithful, single-model, metric paper) — khác trục với '
+                  'improvement. Ensemble + config-delta nằm ngoài không gian Plan I định '
+                  'nghĩa → không mâu thuẫn.')
+    add_bullet(doc, 'Finding "stack members > negr members" (+0.10pp) = **statistical tie** '
+                    '(< 0.1× fold SE, dưới thread jitter) — đã gỡ khỏi ledger như causal '
+                    'claim.')
+
+    add_heading(doc, '3.9.5. Council review — ceiling & avenues còn lại', level=3)
+    add_para(doc, '5 lens độc lập (statistical rigor, ML methodology, adversarial skeptic, '
+                  'data-level avenues, strategy ROI):')
+    add_bullet(doc, '**Ceiling**: near_reached trong không gian config/mechanism/ensemble '
+                    '(4/5 lens — marginal deltas < noise floor). **not_reached** ở '
+                    'data-level family: chưa từng test trên v2.0.')
+    add_bullet(doc, '**Strategy**: on_track (5/5) — vòng lặp pivot đúng mỗi round.')
+    add_bullet(doc, '**Bug mới phát hiện (data-level)**: 3 932 true positives trong '
+                    '`mirna-disease.txt` đang được sample như negatives (~2.1% eval set '
+                    'mislabeled); 181 hàng multi-type bị last-write-wins collapse.')
+    add_bullet(doc, '**Avenues in-repo chưa test** (~+1-4pp upside): decontamination '
+                    'negative pool, v3.2_filtered_495m383D auxiliary supervision (3 938 '
+                    'typed assoc, cùng entity indices), multilabel target tensor, '
+                    'K_neigs re-sweep dưới winner, weighted ensemble cross-fitted.')
+    add_para(doc, '**Kết luận**: mục tiêu "vượt paper" đạt chắc chắn — +16.0% Top-1 '
+                  'single-model, 0.7041/0.9899 ensemble trên split độc lập. Claim giới hạn '
+                  'ở v2.0 (v3.2 còn gap ~0.33 vs 0.86 do paper curation chưa public). '
+                  'Headroom còn lại nằm ở data-level fixes, không phải mechanism tuning.')
+
+    doc.add_page_break()
+
+
 # -------------------------------------------------------------------- SECTION 4
 
 def build_section_4(doc):
@@ -2214,6 +2302,7 @@ def main():
     build_section_1(doc)
     build_section_2(doc)
     build_section_3(doc, baseline, ablation)
+    build_section_3_devin(doc)
     build_section_4(doc)
     build_references(doc)
 

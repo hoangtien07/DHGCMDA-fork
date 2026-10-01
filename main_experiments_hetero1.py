@@ -127,7 +127,7 @@ class SimplifiedMultiTypeAssociationLoss(nn.Module):
         # Plan D: 5-class weights cho softmax_5class mode.
         # neg_count xấp xỉ 10× positive (alpha=10 ratio sampling typical).
         # Tổng positive ~1498, neg sampled ~14980. neg weight nhỏ hơn types để minority types không bị neg ăn hết signal.
-        neg_count = sum(counts) * 10  # ratio sampling mặc định
+        neg_count = sum(counts) * getattr(args, 'neg_ratio', 10)  # ratio sampling mặc định
         counts_5 = [neg_count] + counts  # [neg, circ, epi, target, genetic]
         effective_nums_5 = [(1 - beta ** n) / (1 - beta) for n in counts_5]
         raw_weights_5 = [1.0 / en for en in effective_nums_5]
@@ -483,7 +483,21 @@ def create_hetero_data_cached(train_data_key, mi_sim_key=None, dis_sim_key=None)
     pass
 
 
-def create_hetero_data_optimized(train_data, mi_sim_recon=None, dis_sim_recon=None):
+def _set_assoc_edges(hetero_data, A):
+    """(Re)build only the 'associates' edge types in hetero_data from matrix A,
+    leaving 'similar' edges untouched (used for per-epoch edge dropout)."""
+    md_indices = torch.nonzero(A > 0, as_tuple=True)
+    if len(md_indices[0]) > 0:
+        md_edges = torch.stack(md_indices).t()
+        md_edge_attr = A[md_indices].unsqueeze(1)
+        hetero_data['miRNA', 'associates', 'disease'].edge_index = md_edges.t()
+        hetero_data['miRNA', 'associates', 'disease'].edge_attr = md_edge_attr
+        dm_edges = torch.stack([md_indices[1], md_indices[0]]).t()
+        hetero_data['disease', 'associates', 'miRNA'].edge_index = dm_edges.t()
+        hetero_data['disease', 'associates', 'miRNA'].edge_attr = md_edge_attr
+
+
+def create_hetero_data_optimized(train_data, mi_sim_recon=None, dis_sim_recon=None, threshold=0.5):
     """优化的异构图数据创建 - 设备兼容版本"""
     try:
         # 快速数据提取
@@ -512,7 +526,6 @@ def create_hetero_data_optimized(train_data, mi_sim_recon=None, dis_sim_recon=No
         mi_num = mi_sim.shape[0]
         dis_num = dis_sim.shape[0]
 
-        threshold = 0.5
 
         if TORCH_GEOMETRIC_AVAILABLE:
             hetero_data = HeteroData()
@@ -860,7 +873,7 @@ def train_epoch_optimized(model, train_data, optim, args):
     print(f"Original negative index shape: {zero_index_tensor.shape}")
 
     # 负采样优化
-    neg_sample_ratio = 10
+    neg_sample_ratio = getattr(args, 'neg_ratio', 10)
     if zero_index_tensor.shape[0] > one_index_tensor.shape[0] * neg_sample_ratio:
         perm = torch.randperm(zero_index_tensor.shape[0], device=device)
         sampled_indices = perm[:one_index_tensor.shape[0] * neg_sample_ratio]
@@ -971,11 +984,36 @@ def train_epoch_optimized(model, train_data, optim, args):
 
     # 创建初始异构图
     train_data_list = [dis_sem_data, mi_fun_data, None, None, association_matrix]
-    hetero_data = create_hetero_data_optimized(train_data_list)
+    hetero_data = create_hetero_data_optimized(
+        train_data_list, threshold=getattr(args, 'similarity_threshold', 0.5))
+
+    # Optional per-epoch LR schedule (the ReduceLROnPlateau instantiated in the
+    # fold loop below is dead code — it is never stepped).
+    lr_sched = None
+    _lr_sched = getattr(args, 'lr_schedule', 'none')
+    if _lr_sched == 'cosine':
+        lr_sched = torch.optim.lr_scheduler.CosineAnnealingLR(optim, T_max=args.epoch)
+    elif _lr_sched == 'step':
+        lr_sched = torch.optim.lr_scheduler.StepLR(optim, step_size=max(1, args.epoch // 4), gamma=0.5)
+
+    _edge_drop = float(getattr(args, 'edge_drop_rate', 0.0))
 
     # 训练循环
     start_time = time.time()
     for epoch in range(1, args.epoch + 1):
+        # DropEdge-style input augmentation: hide a random fraction of observed
+        # associations from the model's INPUT (features + associates edges);
+        # loss targets still see the full matrix.
+        # NOTE: the G_* KNN hypergraph inputs were built once from the full
+        # concat matrices and stay unmasked — rebuilding KNN per epoch is too
+        # expensive, so dropout covers only the direct feature/edge paths.
+        if _edge_drop > 0:
+            drop_mask = (torch.rand(association_matrix.shape, device=device) < _edge_drop) & (association_matrix > 0)
+            A_in = association_matrix.masked_fill(drop_mask, 0.0)
+            concat_mi_tensor_view1[:, :dis_num] = A_in
+            concat_dis_tensor_view1[:, :mi_num] = A_in.t()
+            _set_assoc_edges(hetero_data, A_in)
+
         # 前向传播 - 使用真正的双视图
         score, mi_cl_loss, dis_cl_loss, mi_sim_recon, dis_sim_recon = model(
             concat_mi_tensor_view1, concat_dis_tensor_view1,
@@ -990,7 +1028,11 @@ def train_epoch_optimized(model, train_data, optim, args):
         # Dynamic hypergraph update — every args.update_graph_frequency epochs (paper: 5)
         update_graph = (epoch > 0 and epoch % args.update_graph_frequency == 0)
         if update_graph:
-            hetero_data = create_hetero_data_optimized(train_data_list, mi_sim_recon, dis_sim_recon)
+            hetero_data = create_hetero_data_optimized(
+                train_data_list, mi_sim_recon, dis_sim_recon,
+                threshold=getattr(args, 'similarity_threshold', 0.5))
+            if _edge_drop > 0:
+                _set_assoc_edges(hetero_data, A_in)
             if epoch <= 50 or epoch % 50 == 0:
                 print(f"[INFO] Hypergraph updated at epoch {epoch}")
 
@@ -1061,6 +1103,8 @@ def train_epoch_optimized(model, train_data, optim, args):
 
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optim.step()
+        if lr_sched is not None:
+            lr_sched.step()
 
         # 周期性输出
         if epoch % 50 == 0 or epoch == 1:
@@ -1097,6 +1141,13 @@ def train_epoch_optimized(model, train_data, optim, args):
     print("\n" + "=" * 80)
     print("Training completed. Running final test...")
     print("=" * 80)
+
+    # Restore unmasked association inputs before eval (edge_drop masks only
+    # applied during training epochs).
+    if _edge_drop > 0:
+        concat_mi_tensor_view1[:, :dis_num] = association_matrix
+        concat_dis_tensor_view1[:, :mi_num] = association_matrix.t()
+        _set_assoc_edges(hetero_data, association_matrix)
 
     model.eval()
     true_value_one, true_value_zero, pre_value_one, pre_value_zero = test_optimized(

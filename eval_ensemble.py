@@ -5,6 +5,7 @@ as the training runs, no reimplementation.
 
 Usage: .venv/bin/python /home/ubuntu/eval_ensemble.py /home/ubuntu/preds_s0 /home/ubuntu/preds_s1 ...
 """
+import os
 import sys
 import torch
 import numpy as np
@@ -13,7 +14,7 @@ sys.path.insert(0, '/home/ubuntu/repos/DHGCMDA-fork')
 from main_experiments_hetero1 import evaluate_optimized_with_comprehensive_metrics
 
 dirs = sys.argv[1:]
-NFOLDS = 5
+NFOLDS = len([f for f in os.listdir(dirs[0]) if f.startswith('fold') and f.endswith('.pt')])
 
 top1_sum = {'top1_precision': 0.0, 'top1_recall': 0.0, 'top1_f1': 0.0}
 binary_sum = np.zeros(7)

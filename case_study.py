@@ -159,7 +159,8 @@ def train_full_data(args):
     G_dis_view2 = G_dis_view2.to(device).float()
 
     train_data_list = [dis_sem_data, mi_fun_data, None, None, association_matrix]
-    hetero_data = create_hetero_data_optimized(train_data_list)
+    hetero_data = create_hetero_data_optimized(
+        train_data_list, threshold=getattr(args, 'similarity_threshold', 0.5))
 
     # Init model — match signature từ main_experiments_hetero1.py:1376
     args.mi_num = association_matrix.shape[0]
@@ -189,7 +190,9 @@ def train_full_data(args):
 
         # Dynamic graph update
         if epoch > 0 and epoch % args.update_graph_frequency == 0:
-            hetero_data = create_hetero_data_optimized(train_data_list, mi_sim_recon, dis_sim_recon)
+            hetero_data = create_hetero_data_optimized(
+                train_data_list, mi_sim_recon, dis_sim_recon,
+                threshold=getattr(args, 'similarity_threshold', 0.5))
 
         mi_recon_loss = F.mse_loss(mi_sim_recon, mi_fun_data)
         dis_recon_loss = F.mse_loss(dis_sim_recon, dis_sem_data)
