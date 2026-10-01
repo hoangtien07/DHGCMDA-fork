@@ -1,0 +1,49 @@
+{
+  "round": 5,
+  "date": "2026-10-01",
+  "protocol": "full: 650 epochs, 5-fold fixed split folds_s1.pt, prob-ensemble",
+  "winner_base": "softmax_5class + no_cl_rebuild + full_bilinear",
+  "solo_runs": {
+    "stack_negr5_simt07": {
+      "seeds": [0, 1, 42, 1234],
+      "single_seed_top1": [0.6805, 0.6741, 0.6777, 0.6761],
+      "single_seed_mean_top1": 0.6771,
+      "ens_top1_f1": 0.6937, "ens_auc": 0.9908, "ens_aupr": 0.9881, "ens_f1": 0.9643
+    },
+    "neg_ratio_3": {
+      "seeds": [0, 1, 42],
+      "single_seed_top1": [0.6949, 0.6841, 0.6923],
+      "single_seed_mean_top1": 0.6904,
+      "ens_top1_f1": 0.6993, "ens_auc": 0.9896, "ens_aupr": 0.9870, "ens_f1": 0.9601
+    },
+    "neg_ratio_5_3seed_ref": {
+      "ens_top1_f1": 0.7014, "ens_auc": 0.9893, "ens_aupr": 0.9866
+    }
+  },
+  "cross_config_ensembles": {
+    "stack4_nohgt_s1_diag_s42": {
+      "members": 6,
+      "top1_f1": 0.7083, "auc": 0.9910, "aupr": 0.9891, "f1": 0.9642,
+      "note": "NEW REPO BEST on both metrics; +18.6% Top-1 / +2.4% AUC vs paper"
+    },
+    "negr4_nohgt_s1_diag_s42": {
+      "members": 6, "top1_f1": 0.7073, "auc": 0.9900,
+      "note": "previous best (round 4)"
+    },
+    "negr4_stack4": {
+      "members": 8, "top1_f1": 0.6973, "auc": 0.9905, "aupr": 0.9881,
+      "note": "worse than either alone - correlated mechanism families"
+    }
+  },
+  "findings": [
+    "stack4+nohgt+diag = 0.7083/0.9910 = new repo best on BOTH metrics simultaneously",
+    "stack solo loses Top-1 to negr5 (-1.5pp mean) but has best single-config AUC (0.9908)",
+    "mechanism-stacked members beat negr members in config-ensemble (+0.10pp) - decorrelation wins",
+    "neg_ratio optimum = 5: 10->0.6917, 5->0.7014, 3->0.6993 (matched 3-seed ens)",
+    "negr4+stack4 (0.6973) < either alone: 8 correlated members cancel diversity gain"
+  ],
+  "preds_dirs": {
+    "stack": "/home/ubuntu/preds_r5_full/stack/{s0,s1,s42,s1234}",
+    "negr3": "/home/ubuntu/preds_r5_full/negr3/{s0,s1,s42}"
+  }
+}

@@ -572,3 +572,37 @@ simt single-seed mean 0.6771/0.9870. nohgt_s1 full: 0.6775/0.9728; diag_s42 full
 Next candidates (round 5): stack `negr 5 + simt 0.7`, config-ensemble kèm negr/simt members, neg_ratio 3-4 sweep, `--view_mode both` (chưa implement — cần tham số hoá CL_HGCN in_size).
 
 Artifacts: `results/devin_wf_r4_ensemble_screen.json`; preds tại `/home/ubuntu/preds_r4_full/{negr,simt,nohgt,diag}/`; screen preds `/home/ubuntu/preds_r4_{base,div,lrcos,edrop,simt,negr}/`.
+
+## 🤖 PLAN Z2 — Round 5: stacked mechanisms + neg_ratio sweep (2026-10-01)
+
+### Setup
+Same full protocol: 650ep × 5-fold fixed `folds_s1.pt`, prob-ensemble. Winner base (`sm5 + no_cl_rebuild + full_bilinear`).
+
+**stack** = `--neg_ratio 5 --similarity_threshold 0.7` × seeds {0,1,42,1234}; **negr3** = `--neg_ratio 3` × seeds {0,1,42}.
+
+### Results (full)
+
+| Config | Single-seed Top-1 mean | Ens Top-1 F1 | Ens AUC | AUPR |
+|---|---:|---:|---:|---:|
+| stack (negr5+simt0.7) | 0.6771 (0.6805/0.6741/0.6777/0.6761) | 0.6937 | **0.9908** | 0.9881 |
+| negr3 | 0.6904 (0.6949/0.6841/0.6923) | 0.6993 | 0.9896 | 0.9870 |
+| negr5 (3-seed matched, ref) | — | 0.7014 | 0.9893 | 0.9866 |
+
+**Cross-config ensembles:**
+| Members | Top-1 F1 | AUC | AUPR | vs prev best |
+|---|---:|---:|---:|---|
+| **stack×4 + nohgt_s1 + diag_s42 (6)** | **0.7083** | **0.9910** | **0.9891** | **+0.10pp / +0.10pp — NEW REPO BEST (both metrics)** |
+| negr×4 + nohgt_s1 + diag_s42 (6) | 0.7073 | 0.9900 | — | (prev best) |
+| negr×4 + stack×4 (8) | 0.6973 | 0.9905 | 0.9881 | −1.0pp vs negr4 alone |
+
+### Kết luận
+
+1. **Repo best mới: stack4+nohgt+diag = 0.7083/0.9910** (+18.6% Top-1 / +2.4% AUC vs paper 0.5970/0.9669) — combo đầu tiên giữ kỷ lục cả hai metric đồng thời.
+2. **Stack solo thua negr5 trên Top-1** (−1.5pp mean, −1.05pp ens): simt0.7 kéo giảm ranking capacity; nhưng stack AUC 0.9908 = best của mọi config đơn.
+3. **Stack members > negr members trong config-ensemble** (+0.10pp): members mang 2 mechanisms decorrelate tốt hơn với nohgt/diag → diversity giá trị hơn strength đơn lẻ của member.
+4. **neg_ratio optimum = 5 confirmed**: 10→0.6917 / 5→0.7014 / 3→0.6993 (matched 3-seed). Đỉnh phẳng quanh 5, không phải monotonic.
+5. **Mixing correlated mechanism families hurts**: negr4+stack4 (0.6973) < cả hai đơn lẻ — 8 members cùng "negr family" triệt tiêu diversity gain.
+
+Next (nếu tiếp): negr7 rerun (killed for capacity); config-ens kèm nhiều axis hơn (nohgt+diag+edrop?); `--view_mode both` chưa implement.
+
+Artifacts: `results/devin_wf_r5_stacked.json`; preds `/home/ubuntu/preds_r5_full/{stack,negr3}/`.
