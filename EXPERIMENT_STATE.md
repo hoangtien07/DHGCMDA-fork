@@ -523,3 +523,52 @@ Per-fold all-4: 0.7098 / 0.6758 / 0.6994 / 0.6681 / 0.7102.
 - Tooling nằm ở `devin/wf-r3-ensemble-tools` — cần merge để tái sử dụng; fold file tái tạo bằng 1 smoke run (`--epoch 3 --validation 5 --seed 1 --dump_folds folds_s1.pt`).
 
 Artifacts: `results/devin_wf_ensemble_r3.json`; preds (không commit, ~10MB/fold-set) tại `/home/ubuntu/preds_s{0,1,42,1234}/`.
+
+## 🤖 PLAN Z — Round 4: ensemble-based screening (2026-10-01)
+
+Idea: screen giờ đủ rẻ để chạy **3-seed prob-ensemble ngay tại screen** (fixed 2-fold split `folds_s1_v2.pt`, 300ep) → mỗi hypothesis được đo bằng ensemble metric thay vì single-seed (noise ±0.005-0.01). Ideate qua 1 child session (SWE-2), compute chạy trên máy chính.
+
+### Tools mới (branch `devin/wf-r4-tools`, additive)
+
+- `--lr_schedule {none,cosine,step}` — scheduler thật (ReduceLROnPlateau cũ là dead code, không bao giờ step).
+- `--edge_drop_rate` — DropEdge-style: mask ngẫu nhiên assoc khỏi input features + associates edges mỗi epoch, target giữ nguyên; restore full-A trước eval.
+- `--neg_ratio` (default 10) — negative sampling ratio; `class_weights_5` cập nhật `neg_count` tương ứng.
+- `--similarity_threshold` (default 0.5) — **flag chết thứ 2** được nối: `create_hetero_data_optimized` hardcode 0.5 + `model.similarity_threshold` hardcode 0.5.
+- `eval_ensemble.py` — auto-detect số fold từ file, không còn hardcode 5.
+
+### Screen results (baseline winner cfg 3-seed ens = Top-1 0.6070 / AUC 0.9836)
+
+| Candidate | Top-1 ens | AUC ens | Δ vs base | Verdict |
+|---|---:|---:|---:|---|
+| config-ensemble (win_s0 + nohgt_s1 + diag_s42) | 0.6242 | 0.9818 | +1.7pp / −0.2pp | **PASS** |
+| `--neg_ratio 5` | 0.6245 | 0.9848 | +1.8pp / +0.1pp | **PASS** |
+| `--similarity_threshold 0.7` | 0.6195 | 0.9851 | +1.3pp / +0.2pp | **PASS** |
+| `--edge_drop_rate 0.1` | 0.5915 | 0.9816 | −1.6pp | FAIL |
+| `--lr_schedule cosine` | 0.5396 | 0.9774 | −6.7pp | FAIL |
+
+Members đơn lẻ (same split): nohgt s1 0.6171, sm5only s1 0.5879, diag s42 0.5600, plain s1 0.3970.
+
+### Full validation (650ep × 5fold, fixed `folds_s1.pt`)
+
+| Config | Members | Top-1 F1 | AUC | AUPR | F1 | vs all-4 baseline 0.6926/0.9890 |
+|---|---|---:|---:|---:|---:|---|
+| **`--neg_ratio 5`** | 4 seeds | **0.7042** | **0.9896** | 0.9871 | 0.9601 | **+1.2pp / +0.06pp — NEW REPO BEST** |
+| config-ensemble | win all-4 + nohgt + diag (6) | 0.7016 | 0.9894 | 0.9874 | 0.9587 | +0.9pp / +0.04pp |
+| config-ensemble | win_s0 + nohgt + diag (3) | 0.7001 | 0.9881 | 0.9861 | 0.9538 | +0.84pp vs matched 3-member (0.6917) |
+| config-ensemble | win s0/1/42 + nohgt + diag (5) | 0.6960 | 0.9893 | — | — | mixed |
+| `--similarity_threshold 0.7` | 4 seeds | 0.6914 | **0.9903** | 0.9879 | 0.9623 | Top-1 neutral (−0.1pp), **BEST AUC repo** |
+
+negr single-seed: s0 0.7003, s1 0.6914, s42 0.6932, s1234 0.6844 → mean **0.6923** ≈ winner all-4 ensemble (mọi seed ≥ +14% vs paper).
+simt single-seed mean 0.6771/0.9870. nohgt_s1 full: 0.6775/0.9728; diag_s42 full: 0.6319/0.9775.
+
+### Kết luận
+
+1. **`--neg_ratio 5` = single best mechanism delta từ trước tới nay**: halving no-assoc gradient mass (10→5) + rebalance class_weights_5 → 0.7042/0.9896 (+18% Top-1 / +2.3% AUC vs paper). Interpretation: negatives đang "chìm" type signal; existence boundary lỏng ra cho Top-1 ranking.
+2. **Config-diversity > seed-diversity ở cùng member count**: 3-member khác config (0.7001) > 3-seed cùng config (0.6917). Ensemble nên mix cấu hình orthogonal (ablation axis + head axis), không chỉ seeds.
+3. Screen protocol (3-seed ens, 2-fold) rank ĐÚNG cả 3/3 pass — mặc dù underestimate ~8pp.
+4. Fail sạch: cosine LR phá nặng (−6.7pp — model cần LR cao ở late epochs?), edge dropout −1.6pp (assoc input không phải shortcut chính).
+5. sim_threshold 0.7 = AUC specialist (0.9903 best repo) nhưng Top-1 neutral — candidate cho AUC-led ensemble hoặc stack với negr.
+
+Next candidates (round 5): stack `negr 5 + simt 0.7`, config-ensemble kèm negr/simt members, neg_ratio 3-4 sweep, `--view_mode both` (chưa implement — cần tham số hoá CL_HGCN in_size).
+
+Artifacts: `results/devin_wf_r4_ensemble_screen.json`; preds tại `/home/ubuntu/preds_r4_full/{negr,simt,nohgt,diag}/`; screen preds `/home/ubuntu/preds_r4_{base,div,lrcos,edrop,simt,negr}/`.

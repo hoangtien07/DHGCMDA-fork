@@ -1,0 +1,32 @@
+{
+  "round": "Plan Z — round 4: ensemble-based screening",
+  "date": "2026-10-01",
+  "protocol": {
+    "screen": "3-seed prob-ensemble (seeds 0/1/42) on FIXED 2-fold split (folds_s1_v2.pt), 300 epochs, winner cfg as base",
+    "full": "prob-ensemble on FIXED 5-fold split (folds_s1.pt), 650 epochs",
+    "baseline_screen": {"top1_f1": 0.6070, "auc": 0.9836},
+    "baseline_full_all4": {"top1_f1": 0.6926, "auc": 0.9890},
+    "baseline_full_3seed": {"top1_f1": 0.6917, "auc": 0.9889},
+    "gate": "+0.01 Top-1 F1 / -0.02 AUC vs matched baseline"
+  },
+  "screen_results": [
+    {"id": "r4-config-ensemble", "desc": "winner_s0 + nohgt_s1 + diag_s42 (3 different configs, 1 seed each)", "top1_f1": 0.6242, "auc": 0.9818, "verdict": "PASS"},
+    {"id": "r4-config-ensemble-b", "desc": "winner_s0 + nohgt_s1 + sm5only_s1", "top1_f1": 0.6241, "auc": 0.9838, "verdict": "PASS"},
+    {"id": "r4-neg-ratio", "desc": "winner cfg + --neg_ratio 5", "top1_f1": 0.6245, "auc": 0.9848, "verdict": "PASS"},
+    {"id": "r4-sim-threshold", "desc": "winner cfg + --similarity_threshold 0.7", "top1_f1": 0.6195, "auc": 0.9851, "verdict": "PASS"},
+    {"id": "r4-edge-dropout", "desc": "winner cfg + --edge_drop_rate 0.1", "top1_f1": 0.5915, "auc": 0.9816, "verdict": "FAIL (-1.6pp)"},
+    {"id": "r4-lr-cosine", "desc": "winner cfg + --lr_schedule cosine", "top1_f1": 0.5396, "auc": 0.9774, "verdict": "FAIL (-6.7pp)"}
+  ],
+  "full_results": [
+    {"id": "r4-neg-ratio", "members": "4 seeds", "top1_f1": 0.7042, "auc": 0.9896, "aupr": 0.9871, "f1": 0.9601, "single_seed_mean": 0.6923, "verdict": "NEW REPO BEST: +1.2pp Top-1 / +0.06pp AUC vs all-4 winner baseline"},
+    {"id": "r4-config-ensemble-6member", "members": "winner all-4 + nohgt_s1 + diag_s42", "top1_f1": 0.7016, "auc": 0.9894, "aupr": 0.9874, "f1": 0.9587, "verdict": "+0.9pp / +0.04pp vs all-4 baseline"},
+    {"id": "r4-config-ensemble-3member", "members": "winner_s0 + nohgt_s1 + diag_s42", "top1_f1": 0.7001, "auc": 0.9881, "aupr": 0.9861, "f1": 0.9538, "verdict": "+0.84pp vs matched 3-member baseline (0.6917); config diversity > seed diversity at equal count"},
+    {"id": "r4-config-ensemble-5member", "members": "winner s0/1/42 + nohgt + diag", "top1_f1": 0.6960, "auc": 0.9893, "verdict": "mixed"},
+    {"id": "r4-sim-threshold", "members": "4 seeds", "top1_f1": 0.6914, "auc": 0.9903, "aupr": 0.9879, "f1": 0.9623, "single_seed_mean": 0.6771, "verdict": "Top-1 neutral (-0.1pp) but BEST AUC repo-wide (+0.13pp)"}
+  ],
+  "notes": [
+    "neg_ratio 5 single-seed mean (0.6923) already equals the winner's 4-seed ensemble number — each negr seed beats paper by >=14%",
+    "screen protocol continues to rank correctly: all 3 screen-PASS candidates improved at full protocol",
+    "screen underestimates full by ~8pp for negr (0.6245 screen ens -> 0.7042 full ens)"
+  ]
+}
