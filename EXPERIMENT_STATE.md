@@ -606,3 +606,24 @@ Same full protocol: 650ep × 5-fold fixed `folds_s1.pt`, prob-ensemble. Winner b
 Next (nếu tiếp): negr7 rerun (killed for capacity); config-ens kèm nhiều axis hơn (nohgt+diag+edrop?); `--view_mode both` chưa implement.
 
 Artifacts: `results/devin_wf_r5_stacked.json`; preds `/home/ubuntu/preds_r5_full/{stack,negr3}/`.
+
+## 🤖 COUNCIL REVIEW + Round 5b: negr7 + replication split (2026-10-01)
+
+### negr7 (sweep neg_ratio complété)
+Ens 3 seeds = **0.6954 / 0.9894**. Courbe confirmée (matched 3-seed): 10→0.6917, 7→0.6954, **5→0.7014 (optimum)**, 3→0.6993 — plateau autour de 5.
+
+### Council review (5 lens indépendants, lecture du ledger complet)
+
+| Lens | Plafond | Stratégie | Point clé |
+|---|---|---|---|
+| Statistical rigor | near_reached | mostly_on_track | +0.10pp member-swap = **noise** (< 0.1× SE fold); headline 0.7083 = argmax de ~10-11 evals sur UN split → honnêtement ~0.70-0.71 |
+| ML methodology | near_reached | on_track | Mechanism space convergé; headroom réaliste restant ~+1-2pp (K_neigs re-sweep, ensemble pondéré, view_mode both) |
+| Adversarial skeptic | near_reached | mostly_on_track | Claim correct en direction mais PAS like-for-like: ensemble vs single-model paper. **Like-for-like = negr5 single-seed mean 0.6923 = +16.0%** (min seed +14.4%) |
+| Data avenues | **not_reached** | on_track | Famille data JAMAIS testée sur v2.0 — bug réel trouvé: 3,932 vrais positifs dans le pool négatif (~2.1% mislabeled); +1-4pp plausible |
+| Strategy ROI | near_reached | mostly_on_track | Plan I "ceiling 62-68%" = axe reproduction-fidelity ≠ axe improvement — pas de contradiction. PIVOT bulletproof → STOP |
+
+**Synthèse**: plafond quasi atteint dans l'espace config/ensemble (derniers deltas sous le noise floor); la stratégie (screen→full→ledger) a bien fonctionné. MAIS deux corrections d'honnêteté: (1) le chiffre à publier côté "like-for-like" est **0.6923 single-model (+16.0%)**, l'ensemble 0.7083 est un gain système séparé; (2) replication sur split indépendant requise avant tout chiffre publié → **folds_s42.pt en cours**.
+
+**Reste à creuser (non-exploré, in-repo)**: décontamination du pool négatif (3,932 vrais positifs de mirna-disease.txt échantillonnés comme négatifs — ~2.1% de chaque train/eval set), dataset auxiliaire v3.2_filtered_495m383D (3,938 typed assoc, mêmes indices d'entités), cible multilabel (181 lignes multi-type collapsées), K_neigs re-sweep sous winner, ensemble pondéré cross-fitted.
+
+Artifacts: `results/devin_wf_r5_stacked.json`; negr7 preds `/home/ubuntu/preds_r5_full/negr7/`; replication `/home/ubuntu/preds_s42/` sur `folds_s42.pt` (0/5 folds identiques à folds_s1 — split réellement différent).
