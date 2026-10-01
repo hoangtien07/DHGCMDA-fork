@@ -1582,7 +1582,8 @@ def main_optimized(args):
             param.data = param.data.float()
 
         # 优化器(使用AdamW和学习率调度)
-        optimizer = optim.AdamW(model.parameters(), lr=0.0001, weight_decay=1e-5)
+        optimizer = optim.AdamW(model.parameters(), lr=args.lr,
+                                weight_decay=args.weight_decay if args.weight_decay is not None else 1e-5)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.8, patience=50)
 
         # 训练模型
