@@ -180,6 +180,22 @@ def parameter_parser():
                         default=0.5,
                         help='Threshold for adaptive similarity in hypergraph.')
 
+    parser.add_argument('--lr_schedule',
+                        type=str,
+                        default='none',
+                        choices=['none', 'cosine', 'step'],
+                        help='LR schedule: none (constant, default), cosine, or step.')
+
+    parser.add_argument('--edge_drop_rate',
+                        type=float,
+                        default=0.0,
+                        help='DropEdge-style rate: per-epoch random masking of observed associations from INPUT features and associates edges (targets unchanged). 0.0 disables.')
+
+    parser.add_argument('--neg_ratio',
+                        type=int,
+                        default=10,
+                        help='Negative:positive sampling ratio cap (default 10).')
+
     # Advanced loss options
     parser.add_argument('--use_focal_loss',
                         type=bool,

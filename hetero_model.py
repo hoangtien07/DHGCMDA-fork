@@ -626,7 +626,7 @@ class HeterogenousGraphCLAMIR(nn.Module):
 
         # 缓存和优化参数
         self.edge_index_cache = {}
-        self.similarity_threshold = 0.5
+        self.similarity_threshold = getattr(args, 'similarity_threshold', 0.5)
         self.graph_update_frequency = 5
         self.current_epoch = 0
 
