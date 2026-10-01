@@ -189,7 +189,7 @@ def parameter_parser():
     parser.add_argument('--edge_drop_rate',
                         type=float,
                         default=0.0,
-                        help='DropEdge-style rate: per-epoch random masking of observed associations from INPUT features and associates edges (targets unchanged). 0.0 disables.')
+                        help='DropEdge-style rate: per-epoch random masking of observed associations from INPUT features and associates edges (targets unchanged; KNN hypergraph inputs stay unmasked). 0.0 disables.')
 
     parser.add_argument('--neg_ratio',
                         type=int,

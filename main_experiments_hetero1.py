@@ -1004,6 +1004,9 @@ def train_epoch_optimized(model, train_data, optim, args):
         # DropEdge-style input augmentation: hide a random fraction of observed
         # associations from the model's INPUT (features + associates edges);
         # loss targets still see the full matrix.
+        # NOTE: the G_* KNN hypergraph inputs were built once from the full
+        # concat matrices and stay unmasked — rebuilding KNN per epoch is too
+        # expensive, so dropout covers only the direct feature/edge paths.
         if _edge_drop > 0:
             drop_mask = (torch.rand(association_matrix.shape, device=device) < _edge_drop) & (association_matrix > 0)
             A_in = association_matrix.masked_fill(drop_mask, 0.0)
