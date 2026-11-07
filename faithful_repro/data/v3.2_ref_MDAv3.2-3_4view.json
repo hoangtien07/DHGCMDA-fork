@@ -1,0 +1,40 @@
+{
+ "name": "v3.2_ref_MDAv3.2-3_4view",
+ "n_mir": 411,
+ "n_dis": 271,
+ "n_types": 5,
+ "triplets": 11748,
+ "pairs": 8735,
+ "per_type": {
+  "genetics": 1155,
+  "epigenetics": 403,
+  "circulation": 2293,
+  "target": 3997,
+  "tissue": 3900
+ },
+ "min_mir_pair_deg": 1,
+ "min_dis_pair_deg": 2,
+ "sim_m1": "(411, 411) mean_offdiag=0.2763",
+ "sim_m2": "(411, 411) mean_offdiag=0.3129",
+ "sim_d1": "(271, 271) mean_offdiag=0.0803",
+ "sim_d2": "(271, 271) mean_offdiag=0.0603",
+ "view_m1": "m_ss NW miRBase mature (match1 mismatch-1 gapopen-2 ext-1, max over arms, minmax)",
+ "view_d1": "d_gs Cheng2014 FunSim CTD curated marker/mechanism + HumanNet-XC LLS minmax",
+ "mss_covered": 371,
+ "dgs_covered": 245,
+ "hn_lls_range": [
+  1.46032056982131,
+  6.04482781584784
+ ],
+ "nw_raw_range": [
+  -17.0,
+  24.0
+ ],
+ "sources": {
+  "mirbase": "https://www.mirbase.org/download/mature.fa",
+  "ctd": "http://ctdbase.org/reports/CTD_curated_genes_diseases.tsv.gz",
+  "humannet": "https://www.inetbio.org/humannetv3/networks/HumanNet-XC.tsv"
+ },
+ "mesh_name_mapped": 271,
+ "mesh_name_mapping": "MeSH 2025 MH/ENTRY/PRINT ENTRY exact case-insensitive unique-name match"
+}

@@ -1,0 +1,195 @@
+{
+ "args": {
+  "data": "v3.2_ref_MDAv3.2-3",
+  "protocol": "type",
+  "seed": 1234,
+  "out": "/home/ubuntu/dhg_runs/faithful/results_r5/B7_tdrc_v3.2_ref_MDAv3.2-3_type_s1234.json",
+  "max_iter": 500,
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "only_fold": -1,
+  "folds": 5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "n_neg_draws": 10,
+  "ablation": "TDRC",
+  "recon_reduction": "sum",
+  "diag_leak": 0
+ },
+ "deviations": {
+  "validation": "validation entries remain in the TDRC training tensor; no early stopping",
+  "prediction": "TDRC predict_tensor is scored directly"
+ },
+ "folds": [
+  {
+   "top1_precision": 0.5168860904407556,
+   "top1_recall": 0.26781368060729904,
+   "top1_f1": 0.35282071294800643,
+   "top1_recall_micro": 0.38181818181818183,
+   "top1_f1_micro": 0.43920233463035024,
+   "n": 1747,
+   "per_type_recall": [
+    0.0,
+    0.012987012987012988,
+    0.4421906693711968,
+    0.7020725388601037,
+    0.18181818181818182
+   ],
+   "pred_hist": [
+    5,
+    19,
+    426,
+    1064,
+    233
+   ],
+   "fold": 0,
+   "train_time_s": 41.5,
+   "iterations": 132,
+   "converged": true,
+   "last_relative_error": 9.059663340118648e-07
+  },
+  {
+   "top1_precision": 0.48883800801373783,
+   "top1_recall": 0.25536551400934815,
+   "top1_f1": 0.33547911421967597,
+   "top1_recall_micro": 0.36985708098744047,
+   "top1_f1_micro": 0.4211045364891519,
+   "n": 1747,
+   "per_type_recall": [
+    0.0136986301369863,
+    0.013333333333333334,
+    0.38789237668161436,
+    0.7099236641221374,
+    0.15197956577266922
+   ],
+   "pred_hist": [
+    32,
+    31,
+    340,
+    1127,
+    217
+   ],
+   "fold": 1,
+   "train_time_s": 37.2,
+   "iterations": 134,
+   "converged": true,
+   "last_relative_error": 9.422687048227457e-07
+  },
+  {
+   "top1_precision": 0.5850028620492272,
+   "top1_recall": 0.2819097114877748,
+   "top1_f1": 0.38047201781133483,
+   "top1_recall_micro": 0.4269005847953216,
+   "top1_f1_micro": 0.4936005795701521,
+   "n": 1747,
+   "per_type_recall": [
+    0.00847457627118644,
+    0.023255813953488372,
+    0.29069767441860467,
+    0.6225728155339806,
+    0.46454767726161367
+   ],
+   "pred_hist": [
+    15,
+    16,
+    228,
+    886,
+    602
+   ],
+   "fold": 2,
+   "train_time_s": 43.3,
+   "iterations": 130,
+   "converged": true,
+   "last_relative_error": 9.89350379943683e-07
+  },
+  {
+   "top1_precision": 0.5163136805953062,
+   "top1_recall": 0.264553496332206,
+   "top1_f1": 0.3498484593579428,
+   "top1_recall_micro": 0.38812392426850256,
+   "top1_f1_micro": 0.4431343650208794,
+   "n": 1747,
+   "per_type_recall": [
+    0.0,
+    0.02531645569620253,
+    0.37554585152838427,
+    0.6425902864259029,
+    0.27931488801054016
+   ],
+   "pred_hist": [
+    13,
+    23,
+    340,
+    1015,
+    356
+   ],
+   "fold": 3,
+   "train_time_s": 40.2,
+   "iterations": 133,
+   "converged": true,
+   "last_relative_error": 9.465162458552534e-07
+  },
+  {
+   "top1_precision": 0.4962793360045793,
+   "top1_recall": 0.2516688147203362,
+   "top1_f1": 0.3339751081446383,
+   "top1_recall_micro": 0.36799660441426146,
+   "top1_f1_micro": 0.42261759688033146,
+   "n": 1747,
+   "per_type_recall": [
+    0.0,
+    0.0,
+    0.4356223175965665,
+    0.7463054187192119,
+    0.0764163372859025
+   ],
+   "pred_hist": [
+    1,
+    29,
+    438,
+    1154,
+    125
+   ],
+   "fold": 4,
+   "train_time_s": 37.6,
+   "iterations": 133,
+   "converged": true,
+   "last_relative_error": 9.233338642434116e-07
+  }
+ ],
+ "summary": {
+  "top1_precision": [
+   0.5206639954207212,
+   0.03400056662301163
+  ],
+  "top1_recall": [
+   0.2642622434313928,
+   0.010600725486278783
+  ],
+  "top1_f1": [
+   0.35051908249631963,
+   0.016750100329412237
+  ],
+  "top1_recall_micro": [
+   0.3869392752567416,
+   0.021331485607085237
+  ],
+  "top1_f1_micro": [
+   0.443931882518173,
+   0.02632630100566024
+  ]
+ },
+ "model": "TDRC",
+ "tdrc_params": {
+  "r": 4,
+  "alpha": 0.125,
+  "beta": 0.25,
+  "lam": 0.001,
+  "tol": 1e-06,
+  "max_iter": 500
+ },
+ "similarity_sources": {
+  "S_d_key": "sim_d2",
+  "S_d": "DSSM",
+  "S_m": "TDRC GetData.get_functional_sim(train_matrix), with dis_sim=S_d"
+ }
+}

@@ -1,0 +1,210 @@
+{
+ "args": {
+  "data": "v3.2_cuilab_deg2",
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "protocol": "type",
+  "seed": 1,
+  "n_neg_draws": 10,
+  "folds": 5,
+  "only_fold": -1,
+  "epochs": 650,
+  "K": 13,
+  "hidden": 256,
+  "proj": 64,
+  "heads": 4,
+  "nlayer": 2,
+  "dropout": 0.3,
+  "t": 0.5,
+  "lam1": 1.0,
+  "lam2": 0.3,
+  "lam3": 1.0,
+  "margin": 0.5,
+  "margin_w": 0.1,
+  "exist_w": 0.3,
+  "neg_w": 0.5,
+  "beta": 0.99999,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "neg_ratio": 10,
+  "update_every": 5,
+  "theta": 0.5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "eval_every": 10,
+  "patience": 10,
+  "ablation": "none",
+  "recon_reduction": "sum",
+  "diag_leak": 0,
+  "threads": 1,
+  "out": "/home/ubuntu/dhg_runs/faithful/results_r4/v3.2_cuilab_deg2_type_none_s1.json"
+ },
+ "deviations": {
+  "leakage": "association matrix used in features/graphs/losses = training pairs only (released code used the full matrix incl. test pairs)",
+  "gip": "miRNA view-1 (released file M_GSM = GIP of full HMDD v2.0 matrix) recomputed per fold from A_train",
+  "views": "branch v receives its own features X^(v)=[S^(v),A] (released code fed view-1 features to both branches) [Eq.1-2]",
+  "knn": "KNN hyperedges by cosine similarity, e_i = {v_i} U KNN(v_i,K) [Sec 2.3] (released: Euclidean)",
+  "avf": "attention gate + learnable beta [Eq.16-18] (released: fixed 0.6/0.4 sum)",
+  "recon": "Z_proj=W2 ReLU(W1 Z), S^=Z_proj Z_proj^T, L=||S-S^||_F^2 [Eq.19-21], lambda3=1 (released: cosine decoder, 0.15*MSE)",
+  "dyn_update": "every 5 epochs: S^ min-max to [0,1], edges S^>0.5, hypergraphs rebuilt by KNN on [S^,A] [Sec 2.8] (released: every epoch if MSE change>0.01, hypergraphs never rebuilt)",
+  "loss": "L = L_type + 1.0 L_intra + 0.3 L_inter + 1.0 L_recon [Eq.32] (+ released existence loss, paper does not define one); no label smoothing, no extra L2 term",
+  "type_loss": "multi-label weighted CE over all known types of a pair [Eq.33], effective-number weights from training counts [Eq.34]",
+  "hgt": "2 layers, 4 heads, x=LayerNorm(x+Dropout(HGT(x))) [Eq.29] (released default 8 heads)",
+  "optim": "Adam [Sec 2.9] (released AdamW); early stopping on a validation split carved from training data",
+  "protocol": "CV_triplet and CV_type as two separate 5-fold protocols [Sec 3.2] (released: one pair split, 10% dropped)",
+  "types": "number of association types C read from data (released: hardcoded 4)"
+ },
+ "folds": [
+  {
+   "top1_precision": 0.2841033102946526,
+   "top1_recall": 0.22528295018902628,
+   "top1_f1": 0.2512970484946891,
+   "top1_recall_micro": 0.21827836780324203,
+   "top1_f1_micro": 0.2468784574047732,
+   "n": 2749,
+   "per_type_recall": [
+    0.0025906735751295338,
+    0.5153846153846153,
+    0.009216589861751152,
+    0.00974025974025974,
+    0.5894826123833757
+   ],
+   "pred_hist": [
+    2,
+    922,
+    23,
+    39,
+    1763
+   ],
+   "best_epoch": 40,
+   "best_val": 0.2528648749482184,
+   "train_time_s": 263.0,
+   "fold": 0
+  },
+  {
+   "top1_precision": 0.3008366678792288,
+   "top1_recall": 0.23801642825799033,
+   "top1_f1": 0.2657647128352597,
+   "top1_recall_micro": 0.2360159817351598,
+   "top1_f1_micro": 0.26451303374380297,
+   "n": 2749,
+   "per_type_recall": [
+    0.0,
+    0.5565217391304348,
+    0.004754358161648178,
+    0.040229885057471264,
+    0.5885761589403974
+   ],
+   "pred_hist": [
+    10,
+    905,
+    7,
+    92,
+    1735
+   ],
+   "best_epoch": 50,
+   "best_val": 0.2600596602140306,
+   "train_time_s": 314.5,
+   "fold": 1
+  },
+  {
+   "top1_precision": 0.27428155692979267,
+   "top1_recall": 0.240465005426837,
+   "top1_f1": 0.2562624829339161,
+   "top1_recall_micro": 0.21469248291571755,
+   "top1_f1_micro": 0.24085609327583454,
+   "n": 2749,
+   "per_type_recall": [
+    0.022443890274314215,
+    0.5204081632653061,
+    0.16531604538087522,
+    0.02921535893155259,
+    0.46494156928213687
+   ],
+   "pred_hist": [
+    84,
+    760,
+    500,
+    78,
+    1327
+   ],
+   "best_epoch": 40,
+   "best_val": 0.25709468584265177,
+   "train_time_s": 309.9,
+   "fold": 2
+  },
+  {
+   "top1_precision": 0.2964714441615133,
+   "top1_recall": 0.23741080961288952,
+   "top1_f1": 0.2636743405044122,
+   "top1_recall_micro": 0.23219373219373218,
+   "top1_f1_micro": 0.26042498801725517,
+   "n": 2749,
+   "per_type_recall": [
+    0.22413793103448276,
+    0.3360655737704918,
+    0.06616541353383458,
+    0.11391375101708706,
+    0.4467713787085515
+   ],
+   "pred_hist": [
+    518,
+    330,
+    150,
+    368,
+    1383
+   ],
+   "best_epoch": 40,
+   "best_val": 0.24406845743665012,
+   "train_time_s": 386.0,
+   "fold": 3
+  },
+  {
+   "top1_precision": 0.45087336244541487,
+   "top1_recall": 0.2089474654739146,
+   "top1_f1": 0.285558874004472,
+   "top1_recall_micro": 0.35369683128746787,
+   "top1_f1_micro": 0.3964165733482643,
+   "n": 2748,
+   "per_type_recall": [
+    0.0,
+    0.0,
+    0.03686635944700461,
+    0.28924914675767915,
+    0.7186218211648893
+   ],
+   "pred_hist": [
+    0,
+    0,
+    122,
+    596,
+    2030
+   ],
+   "best_epoch": 10,
+   "best_val": 0.27984849460349115,
+   "train_time_s": 472.8,
+   "fold": 4
+  }
+ ],
+ "summary": {
+  "top1_precision": [
+   0.32131326834212043,
+   0.06545042129040637
+  ],
+  "top1_recall": [
+   0.23002453179213153,
+   0.01178266794545979
+  ],
+  "top1_f1": [
+   0.26451149175454985,
+   0.011729717320191931
+  ],
+  "top1_recall_micro": [
+   0.25097547918706387,
+   0.05198802491486439
+  ],
+  "top1_f1_micro": [
+   0.28181782915798603,
+   0.05794584587591497
+  ]
+ }
+}

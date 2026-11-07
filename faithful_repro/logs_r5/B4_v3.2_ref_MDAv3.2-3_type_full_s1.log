@@ -1,0 +1,13 @@
+args {'data': 'v3.2_ref_MDAv3.2-3', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'type', 'seed': 1, 'n_neg_draws': 10, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'predictor': 'full', 'cap_threads': 0, 'recon_reduction': 'sum', 'diag_leak': 0, 'threads': 1, 'out': '/home/ubuntu/dhg_runs/faithful/results_r5/B4_v3.2_ref_MDAv3.2-3_type_full_s1.json'}
+data v3.2_ref_MDAv3.2-3 Y(411, 271, 5) triplets 11748
+  ep 1 loss 9486.7676 type 1.0578 ex 0.2629 intra 13.3211 inter 5.5685 rec 9470.64 mm_edges 13412 dd_edges 832 1s
+  ep 50 loss 3514.3965 type 1.0350 ex 0.0570 intra 12.8059 inter 5.6067 rec 3498.86 mm_edges 8128 dd_edges 312 34s
+  ep 100 loss 3152.7661 type 1.0248 ex 0.0504 intra 12.3486 inter 5.5273 rec 3137.72 mm_edges 80452 dd_edges 290 67s
+  ep 150 loss 3132.6895 type 1.0206 ex 0.0501 intra 11.9589 inter 5.5108 rec 3118.04 mm_edges 61062 dd_edges 4434 132s
+  ep 200 loss 2994.6057 type 1.0270 ex 0.0504 intra 11.5026 inter 5.5050 rec 2980.41 mm_edges 42090 dd_edges 4130 265s
+  ep 250 loss 2823.1602 type 1.0179 ex 0.0486 intra 11.0364 inter 5.4981 rec 2809.44 mm_edges 45304 dd_edges 6758 361s
+  ep 300 loss 2773.9866 type 1.0134 ex 0.0488 intra 10.7685 inter 5.4978 rec 2760.54 mm_edges 44044 dd_edges 2220 499s
+  ep 350 loss 2771.8645 type 1.0176 ex 0.0487 intra 10.7252 inter 5.4906 rec 2758.46 mm_edges 60196 dd_edges 3412 630s
+  early stop at ep 370, best val top1_f1=0.3569 @ep 270
+FOLD 0 {"top1_precision": 0.38637664567830565, "top1_recall": 0.3045259822318053, "top1_f1": 0.3406029237217621, "top1_recall_micro": 0.29132498921018557, "top1_f1_micro": 0.3321850393700787, "n": 1747, "best_epoch": 270, "best_val": 0.35690968860204436, "train_time_s": 671.2, "fold": 0}
+  ep 1 loss 7536.9409 type 1.0853 ex 0.2163 intra 13.3603 inter 5.5625 rec 7520.76 mm_edges 13412 dd_edges 832 1s

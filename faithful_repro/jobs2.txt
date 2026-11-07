@@ -1,0 +1,10 @@
+--data v2.0 --protocol type --seed 1234 --recon_reduction mean
+--data v2.0 --protocol triplet --seed 1234 --recon_reduction mean
+--data v3.2_cuilab_deg2 --protocol type --seed 1234 --recon_reduction mean
+--data v3.2_cuilab_deg2 --protocol triplet --seed 1234 --recon_reduction mean
+--data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --recon_reduction mean
+--data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --recon_reduction mean
+--data v2.0 --protocol type --seed 1234 --diag_leak 1
+--data v2.0 --protocol triplet --seed 1234 --diag_leak 1
+--data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --diag_leak 1
+--data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --diag_leak 1

@@ -1,0 +1,11 @@
+args {'data': 'v3.2_cuilab_deg2', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'triplet', 'seed': 1, 'n_neg_draws': 10, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'predictor': 'full', 'cap_threads': 0, 'recon_reduction': 'sum', 'diag_leak': 0, 'threads': 1, 'out': '/home/ubuntu/dhg_runs/faithful/results_r5/B4_v3.2_cuilab_deg2_triplet_full_s1.json'}
+data v3.2_cuilab_deg2 Y(721, 609, 5) triplets 17607
+  ep 1 loss 32934.5664 type 0.9746 ex 0.3788 intra 14.7555 inter 6.3946 rec 32916.80 mm_edges 20668 dd_edges 1104 2s
+  ep 50 loss 10167.8916 type 0.9480 ex 0.0563 intra 14.2810 inter 6.4491 rec 10150.71 mm_edges 13058 dd_edges 290 157s
+  ep 100 loss 9328.4854 type 0.9455 ex 0.0477 intra 14.0493 inter 6.4970 rec 9311.53 mm_edges 43390 dd_edges 326 257s
+  ep 150 loss 8850.1934 type 0.9413 ex 0.0466 intra 13.6221 inter 6.5039 rec 8833.67 mm_edges 65852 dd_edges 382 364s
+  ep 200 loss 8754.5049 type 0.9477 ex 0.0470 intra 13.2584 inter 6.4848 rec 8738.34 mm_edges 78566 dd_edges 1060 585s
+  ep 250 loss 8766.7236 type 0.9391 ex 0.0470 intra 12.9636 inter 6.4794 rec 8750.86 mm_edges 86886 dd_edges 1130 861s
+  early stop at ep 260, best val aupr=0.8980 @ep 160
+FOLD 0 {"auc": 0.9097085497470108, "aupr": 0.9014585369857585, "f1": 0.8370754438111927, "n": 7044, "f1_valthr": 0.8358296782444719, "auc_draw0": 0.9068656946955633, "aupr_draw0": 0.895987028638124, "f1_draw0": 0.8355013550135502, "f1_valthr_draw0": 0.8346242696018481, "n_neg_draws": 10, "best_epoch": 160, "best_val": 0.8979717299272227, "train_time_s": 921.2, "fold": 0}
+  ep 1 loss 32005.3535 type 0.9775 ex 0.4820 intra 14.5813 inter 6.4253 rec 31987.72 mm_edges 20668 dd_edges 1104 1s

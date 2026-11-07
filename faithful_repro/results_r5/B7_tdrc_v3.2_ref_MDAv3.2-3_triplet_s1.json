@@ -1,0 +1,139 @@
+{
+ "args": {
+  "data": "v3.2_ref_MDAv3.2-3",
+  "protocol": "triplet",
+  "seed": 1,
+  "out": "/home/ubuntu/dhg_runs/faithful/results_r5/B7_tdrc_v3.2_ref_MDAv3.2-3_triplet_s1.json",
+  "max_iter": 500,
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "only_fold": -1,
+  "folds": 5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "n_neg_draws": 10,
+  "ablation": "TDRC",
+  "recon_reduction": "sum",
+  "diag_leak": 0
+ },
+ "deviations": {
+  "validation": "validation entries remain in the TDRC training tensor; no early stopping",
+  "prediction": "TDRC predict_tensor is scored directly"
+ },
+ "folds": [
+  {
+   "auc": 0.896424083295609,
+   "aupr": 0.9059558834756973,
+   "f1": 0.8322638131567445,
+   "n": 4700,
+   "auc_draw0": 0.8953732910819375,
+   "aupr_draw0": 0.9022620806886106,
+   "f1_draw0": 0.8327183271832718,
+   "n_neg_draws": 10,
+   "fold": 0,
+   "train_time_s": 48.4,
+   "iterations": 131,
+   "converged": true,
+   "last_relative_error": 9.312585295293824e-07
+  },
+  {
+   "auc": 0.89274290629244,
+   "aupr": 0.9038041091204704,
+   "f1": 0.8266119216924492,
+   "n": 4700,
+   "auc_draw0": 0.8922194658216388,
+   "aupr_draw0": 0.9031932255098915,
+   "f1_draw0": 0.8259975318798848,
+   "n_neg_draws": 10,
+   "fold": 1,
+   "train_time_s": 41.3,
+   "iterations": 133,
+   "converged": true,
+   "last_relative_error": 9.48677606603728e-07
+  },
+  {
+   "auc": 0.8918534902670892,
+   "aupr": 0.9038683261714452,
+   "f1": 0.8328594036347287,
+   "n": 4700,
+   "auc_draw0": 0.8906401086464464,
+   "aupr_draw0": 0.9036044177734125,
+   "f1_draw0": 0.8307756117793448,
+   "n_neg_draws": 10,
+   "fold": 2,
+   "train_time_s": 42.2,
+   "iterations": 131,
+   "converged": true,
+   "last_relative_error": 9.814393243194843e-07
+  },
+  {
+   "auc": 0.8971375553413399,
+   "aupr": 0.9043324128237662,
+   "f1": 0.8271544520681531,
+   "n": 4698,
+   "auc_draw0": 0.8993026388592122,
+   "aupr_draw0": 0.9080134121379486,
+   "f1_draw0": 0.8283390410958903,
+   "n_neg_draws": 10,
+   "fold": 3,
+   "train_time_s": 40.3,
+   "iterations": 133,
+   "converged": true,
+   "last_relative_error": 9.116095460656882e-07
+  },
+  {
+   "auc": 0.8974623405229728,
+   "aupr": 0.9067220053860352,
+   "f1": 0.8294590249863031,
+   "n": 4698,
+   "auc_draw0": 0.8980162568385487,
+   "aupr_draw0": 0.9071263265472282,
+   "f1_draw0": 0.8301415487094089,
+   "n_neg_draws": 10,
+   "fold": 4,
+   "train_time_s": 36.4,
+   "iterations": 131,
+   "converged": true,
+   "last_relative_error": 9.854506779522821e-07
+  }
+ ],
+ "summary": {
+  "auc": [
+   0.89512407514389,
+   0.002348544196669494
+  ],
+  "aupr": [
+   0.9049365473954827,
+   0.0011845166010989686
+  ],
+  "f1": [
+   0.8296697231076756,
+   0.0025543882493822495
+  ],
+  "auc_draw0": [
+   0.8951103522495567,
+   0.0032993631972750223
+  ],
+  "aupr_draw0": [
+   0.9048398925314182,
+   0.0022883195255933328
+  ],
+  "f1_draw0": [
+   0.8295944121295602,
+   0.0022789006242110717
+  ]
+ },
+ "model": "TDRC",
+ "tdrc_params": {
+  "r": 4,
+  "alpha": 0.125,
+  "beta": 0.25,
+  "lam": 0.001,
+  "tol": 1e-06,
+  "max_iter": 500
+ },
+ "similarity_sources": {
+  "S_d_key": "sim_d2",
+  "S_d": "DSSM",
+  "S_m": "TDRC GetData.get_functional_sim(train_matrix), with dis_sim=S_d"
+ }
+}

@@ -1,0 +1,79 @@
+===== miRNA: 1151 candidates, 411 in ref
+                   False  True 
+deg_trip            2.52  44.22
+deg_pair            2.44  33.95
+deg_genetics        0.22   4.25
+deg_epigenetics     0.04   1.40
+deg_circulation     0.40   8.57
+deg_target          0.90  15.66
+deg_tissue          0.97  14.35
+n_pmid              2.57  59.67
+n_rows_alldata      3.16  80.65
+in_v3               0.86   1.00
+in_old              0.31   0.83
+in_misim            0.80   1.00
+in_mature           0.71   0.82
+is_arm_or_cluster   0.12   0.15
+-- depth 2: train acc 0.966, FP 22, FN 17
+-- depth 3: train acc 0.973, FP 25, FN 6
+-- depth 5: train acc 0.983, FP 15, FN 4
+|--- n_pmid <= 5.50
+|   |--- deg_target <= 2.50
+|   |   |--- deg_circulation <= 2.50
+|   |   |   |--- class: False
+|   |   |--- deg_circulation >  2.50
+|   |   |   |--- class: True
+|   |--- deg_target >  2.50
+|   |   |--- deg_circulation <= 0.50
+|   |   |   |--- class: False
+|   |   |--- deg_circulation >  0.50
+|   |   |   |--- class: True
+|--- n_pmid >  5.50
+|   |--- deg_circulation <= 0.50
+|   |   |--- class: False
+|   |--- deg_circulation >  0.50
+|   |   |--- deg_circulation <= 1.50
+|   |   |   |--- class: True
+|   |   |--- deg_circulation >  1.50
+|   |   |   |--- class: True
+
+===== disease: 802 candidates, 271 in ref
+                 False  True 
+deg_trip         13.38  47.73
+deg_pair         11.09  36.42
+deg_genetics      1.23   4.63
+deg_epigenetics   0.34   1.55
+deg_circulation   2.53   9.13
+deg_target        5.05  16.31
+deg_tissue        4.24  16.10
+n_pmid            9.67  34.68
+n_rows_alldata   22.35  86.56
+in_v3             0.93   0.98
+in_old            0.09   0.57
+mesh_mh           0.26   0.76
+mesh_any          0.51   1.00
+has_C_tree        0.48   1.00
+unspecific        0.05   0.00
+-- depth 2: train acc 0.825, FP 17, FN 123
+-- depth 3: train acc 0.889, FP 89, FN 0
+-- depth 5: train acc 0.913, FP 15, FN 55
+|--- in_old <= 0.50
+|   |--- has_C_tree <= 0.50
+|   |   |--- class: False
+|   |--- has_C_tree >  0.50
+|   |   |--- deg_pair <= 2.50
+|   |   |   |--- class: False
+|   |   |--- deg_pair >  2.50
+|   |   |   |--- class: True
+|--- in_old >  0.50
+|   |--- deg_trip <= 4.50
+|   |   |--- deg_target <= 2.50
+|   |   |   |--- class: False
+|   |   |--- deg_target >  2.50
+|   |   |   |--- class: True
+|   |--- deg_trip >  4.50
+|   |   |--- has_C_tree <= 0.50
+|   |   |   |--- class: False
+|   |   |--- has_C_tree >  0.50
+|   |   |   |--- class: True
+

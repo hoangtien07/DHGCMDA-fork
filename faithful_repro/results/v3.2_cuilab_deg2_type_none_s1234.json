@@ -1,0 +1,189 @@
+{
+ "args": {
+  "data": "v3.2_cuilab_deg2",
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "protocol": "type",
+  "seed": 1234,
+  "folds": 5,
+  "only_fold": -1,
+  "epochs": 650,
+  "K": 13,
+  "hidden": 256,
+  "proj": 64,
+  "heads": 4,
+  "nlayer": 2,
+  "dropout": 0.3,
+  "t": 0.5,
+  "lam1": 1.0,
+  "lam2": 0.3,
+  "lam3": 1.0,
+  "margin": 0.5,
+  "margin_w": 0.1,
+  "exist_w": 0.3,
+  "neg_w": 0.5,
+  "beta": 0.99999,
+  "lr": 0.0001,
+  "wd": 1e-05,
+  "neg_ratio": 10,
+  "update_every": 5,
+  "theta": 0.5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "eval_every": 10,
+  "patience": 10,
+  "ablation": "none",
+  "threads": 1,
+  "out": ""
+ },
+ "deviations": {
+  "leakage": "association matrix used in features/graphs/losses = training pairs only (released code used the full matrix incl. test pairs)",
+  "gip": "miRNA view-1 (released file M_GSM = GIP of full HMDD v2.0 matrix) recomputed per fold from A_train",
+  "views": "branch v receives its own features X^(v)=[S^(v),A] (released code fed view-1 features to both branches) [Eq.1-2]",
+  "knn": "KNN hyperedges by cosine similarity, e_i = {v_i} U KNN(v_i,K) [Sec 2.3] (released: Euclidean)",
+  "avf": "attention gate + learnable beta [Eq.16-18] (released: fixed 0.6/0.4 sum)",
+  "recon": "Z_proj=W2 ReLU(W1 Z), S^=Z_proj Z_proj^T, L=||S-S^||_F^2 [Eq.19-21], lambda3=1 (released: cosine decoder, 0.15*MSE)",
+  "dyn_update": "every 5 epochs: S^ min-max to [0,1], edges S^>0.5, hypergraphs rebuilt by KNN on [S^,A] [Sec 2.8] (released: every epoch if MSE change>0.01, hypergraphs never rebuilt)",
+  "loss": "L = L_type + 1.0 L_intra + 0.3 L_inter + 1.0 L_recon [Eq.32] (+ released existence loss, paper does not define one); no label smoothing, no extra L2 term",
+  "type_loss": "multi-label weighted CE over all known types of a pair [Eq.33], effective-number weights from training counts [Eq.34]",
+  "hgt": "2 layers, 4 heads, x=LayerNorm(x+Dropout(HGT(x))) [Eq.29] (released default 8 heads)",
+  "optim": "Adam [Sec 2.9] (released AdamW); early stopping on a validation split carved from training data",
+  "protocol": "CV_triplet and CV_type as two separate 5-fold protocols [Sec 3.2] (released: one pair split, 10% dropped)",
+  "types": "number of association types C read from data (released: hardcoded 4)"
+ },
+ "folds": [
+  {
+   "top1_precision": 0.24154237904692616,
+   "top1_recall": 0.26380079742735835,
+   "top1_f1": 0.25218138948522184,
+   "n": 2749,
+   "per_type_recall": [
+    0.027624309392265192,
+    0.5163934426229508,
+    0.6234939759036144,
+    0.03541315345699832,
+    0.11607910576096303
+   ],
+   "pred_hist": [
+    52,
+    745,
+    1508,
+    116,
+    328
+   ],
+   "best_epoch": 380,
+   "best_val": 0.25920205595404683,
+   "train_time_s": 1058.1,
+   "fold": 0
+  },
+  {
+   "top1_precision": 0.2881047653692252,
+   "top1_recall": 0.2255964142838099,
+   "top1_f1": 0.25304750925148695,
+   "n": 2749,
+   "per_type_recall": [
+    0.0027247956403269754,
+    0.5135135135135135,
+    0.0,
+    0.6033333333333334,
+    0.008410428931875526
+   ],
+   "pred_hist": [
+    5,
+    859,
+    0,
+    1862,
+    23
+   ],
+   "best_epoch": 20,
+   "best_val": 0.25996555754280326,
+   "train_time_s": 293.2,
+   "fold": 1
+  },
+  {
+   "top1_precision": 0.2961076755183703,
+   "top1_recall": 0.16449360913380193,
+   "top1_f1": 0.2114966755901242,
+   "n": 2749,
+   "per_type_recall": [
+    0.0026595744680851063,
+    0.009174311926605505,
+    0.29187396351575456,
+    0.5187601957585645,
+    0.0
+   ],
+   "pred_hist": [
+    6,
+    98,
+    956,
+    1689,
+    0
+   ],
+   "best_epoch": 10,
+   "best_val": 0.2212315298743887,
+   "train_time_s": 198.5,
+   "fold": 2
+  },
+  {
+   "top1_precision": 0.23972353583121134,
+   "top1_recall": 0.24912862090130233,
+   "top1_f1": 0.2443356055883858,
+   "n": 2749,
+   "per_type_recall": [
+    0.0625,
+    0.5151515151515151,
+    0.4268104776579353,
+    0.012325390304026294,
+    0.22885572139303484
+   ],
+   "pred_hist": [
+    138,
+    794,
+    1115,
+    20,
+    682
+   ],
+   "best_epoch": 30,
+   "best_val": 0.25075382420177605,
+   "train_time_s": 282.3,
+   "fold": 3
+  },
+  {
+   "top1_precision": 0.25800582241630277,
+   "top1_recall": 0.24440092284673626,
+   "top1_f1": 0.2510191660160201,
+   "n": 2748,
+   "per_type_recall": [
+    0.014492753623188406,
+    0.31683168316831684,
+    0.7160686427457098,
+    0.1737704918032787,
+    0.0008410428931875525
+   ],
+   "pred_hist": [
+    62,
+    465,
+    1839,
+    374,
+    8
+   ],
+   "best_epoch": 30,
+   "best_val": 0.26113080379113024,
+   "train_time_s": 190.9,
+   "fold": 4
+  }
+ ],
+ "summary": {
+  "top1_precision": [
+   0.26469683563640717,
+   0.023405709805484808
+  ],
+  "top1_recall": [
+   0.22948407291860176,
+   0.03471291555273644
+  ],
+  "top1_f1": [
+   0.2424160691862478,
+   0.015761318433531547
+  ]
+ }
+}

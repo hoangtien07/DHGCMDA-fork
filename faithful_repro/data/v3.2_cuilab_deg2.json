@@ -1,0 +1,30 @@
+{
+ "name": "v3.2_cuilab_deg2",
+ "n_mir": 721,
+ "n_dis": 609,
+ "n_types": 5,
+ "triplets": 17607,
+ "pairs": 13744,
+ "per_type": {
+  "genetics": 1818,
+  "epigenetics": 575,
+  "circulation": 3215,
+  "target": 6049,
+  "tissue": 5950
+ },
+ "min_mir_pair_deg": 1,
+ "min_dis_pair_deg": 1,
+ "sim_m1": "GIP(per-fold A_train)",
+ "sim_m2": "(721, 721) mean_offdiag=0.2022",
+ "sim_d1": "(609, 609) mean_offdiag=0.0216",
+ "sim_d2": "(609, 609) mean_offdiag=0.0169",
+ "raw_rows": 24360,
+ "raw_mir": 1049,
+ "raw_dis": 758,
+ "raw_triplets": 18084,
+ "raw_pairs": 14217,
+ "min_deg": 2,
+ "mesh_covered": 496,
+ "misim_covered": 720,
+ "paper_target": "411 mir x 271 dis x 11748 triplets"
+}

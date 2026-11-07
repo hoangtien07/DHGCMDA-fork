@@ -1,0 +1,28 @@
+FOLD 0 start: protocol=triplet, test=3522, train_tensor=(721, 609, 5)
+/home/ubuntu/dhg_runs/lit/TDRC/data.py:61: RuntimeWarning: invalid value encountered in scalar divide
+  mir_fun_sim_matrix[m1, m2] = (m1_max_sum + m2_max_sum) / (m1_link_num + m2_link_num)
+/home/ubuntu/dhg_runs/lit/TDRC/data.py:62: RuntimeWarning: invalid value encountered in scalar divide
+  mir_fun_sim_matrix[m2, m1] = (m1_max_sum + m2_max_sum) / (m1_link_num + m2_link_num)
+  S_m computed in 747.8s
+Traceback (most recent call last):
+  File "/home/ubuntu/dhg_runs/faithful/code/tdrc_baseline.py", line 226, in <module>
+    main()
+  File "/home/ubuntu/dhg_runs/faithful/code/tdrc_baseline.py", line 147, in main
+    prediction, iteration_stats, tdrc_params = predict_with_iteration_stats(
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dhg_runs/faithful/code/tdrc_baseline.py", line 90, in predict_with_iteration_stats
+    prediction = model()(train_tensor, S_d, S_m, **params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dhg_runs/lit/TDRC/method.py", line 55, in TDRC
+    G = np.mat(tl.tenalg.khatri_rao([P, D]))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dhg_runs/venv_np1/lib/python3.12/site-packages/tensorly/backend/__init__.py", line 203, in wrapped_backend_method
+    return getattr(
+           ^^^^^^^^
+  File "/home/ubuntu/dhg_runs/venv_np1/lib/python3.12/site-packages/tensorly/tenalg/core_tenalg/_khatri_rao.py", line 105, in khatri_rao
+    res = T.reshape(a * b, (-1, n_columns))
+                    ~~^~~
+  File "/home/ubuntu/dhg_runs/venv_np1/lib/python3.12/site-packages/numpy/matrixlib/defmatrix.py", line 219, in __mul__
+    return N.dot(self, asmatrix(other))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: shapes (609,4) and (5,4) not aligned: 4 (dim 1) != 5 (dim 0)

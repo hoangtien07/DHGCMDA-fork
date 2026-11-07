@@ -1,0 +1,8 @@
+args {'data': 'v3.2_cuilab_deg2', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'triplet', 'seed': 2, 'n_neg_draws': 10, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'predictor': 'full', 'cap_threads': 0, 'recon_reduction': 'sum', 'diag_leak': 0, 'threads': 1, 'out': '/home/ubuntu/dhg_runs/faithful/results_r5/B4_v3.2_cuilab_deg2_triplet_full_s2.json'}
+data v3.2_cuilab_deg2 Y(721, 609, 5) triplets 17607
+  ep 1 loss 32102.8027 type 0.9568 ex 0.5140 intra 14.5738 inter 6.4238 rec 32085.19 mm_edges 20668 dd_edges 1104 2s
+  ep 50 loss 10234.6670 type 0.9344 ex 0.0542 intra 14.2748 inter 6.5106 rec 10217.49 mm_edges 5300 dd_edges 276 165s
+  ep 100 loss 9464.8906 type 0.9321 ex 0.0466 intra 14.0811 inter 6.5469 rec 9447.90 mm_edges 36700 dd_edges 288 233s
+  ep 150 loss 8877.1836 type 0.9279 ex 0.0461 intra 13.7092 inter 6.5412 rec 8860.57 mm_edges 74164 dd_edges 358 365s
+  ep 200 loss 8814.6963 type 0.9267 ex 0.0459 intra 13.3237 inter 6.5198 rec 8798.48 mm_edges 53524 dd_edges 944 572s
+  ep 250 loss 8521.3311 type 0.9207 ex 0.0454 intra 12.9419 inter 6.4970 rec 8505.51 mm_edges 43844 dd_edges 2844 767s

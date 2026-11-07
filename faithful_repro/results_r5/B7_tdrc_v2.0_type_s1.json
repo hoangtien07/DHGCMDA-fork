@@ -1,0 +1,185 @@
+{
+ "args": {
+  "data": "v2.0",
+  "protocol": "type",
+  "seed": 1,
+  "out": "/home/ubuntu/dhg_runs/faithful/results_r5/B7_tdrc_v2.0_type_s1.json",
+  "max_iter": 500,
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "only_fold": -1,
+  "folds": 5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "n_neg_draws": 10,
+  "ablation": "TDRC",
+  "recon_reduction": "sum",
+  "diag_leak": 0
+ },
+ "deviations": {
+  "validation": "validation entries remain in the TDRC training tensor; no early stopping",
+  "prediction": "TDRC predict_tensor is scored directly"
+ },
+ "folds": [
+  {
+   "top1_precision": 0.5166666666666667,
+   "top1_recall": 0.32272897897897895,
+   "top1_f1": 0.39729371166215743,
+   "top1_recall_micro": 0.46130952380952384,
+   "top1_f1_micro": 0.4874213836477988,
+   "n": 300,
+   "per_type_recall": [
+    0.5,
+    0.0,
+    0.02702702702702703,
+    0.7638888888888888
+   ],
+   "pred_hist": [
+    97,
+    5,
+    5,
+    193
+   ],
+   "fold": 0,
+   "train_time_s": 98.3,
+   "iterations": 152,
+   "converged": true,
+   "last_relative_error": 9.235932313448701e-07
+  },
+  {
+   "top1_precision": 0.44333333333333336,
+   "top1_recall": 0.32999805541063676,
+   "top1_f1": 0.37836079080232826,
+   "top1_recall_micro": 0.39820359281437123,
+   "top1_f1_micro": 0.4195583596214511,
+   "n": 300,
+   "per_type_recall": [
+    0.0851063829787234,
+    0.047619047619047616,
+    0.515625,
+    0.6716417910447762
+   ],
+   "pred_hist": [
+    33,
+    17,
+    68,
+    182
+   ],
+   "fold": 1,
+   "train_time_s": 119.1,
+   "iterations": 136,
+   "converged": true,
+   "last_relative_error": 9.532368865227833e-07
+  },
+  {
+   "top1_precision": 0.5133333333333333,
+   "top1_recall": 0.3629238355210387,
+   "top1_f1": 0.4252196931585849,
+   "top1_recall_micro": 0.463855421686747,
+   "top1_f1_micro": 0.4873417721518987,
+   "n": 300,
+   "per_type_recall": [
+    0.0449438202247191,
+    0.0,
+    0.6153846153846154,
+    0.7913669064748201
+   ],
+   "pred_hist": [
+    14,
+    2,
+    63,
+    221
+   ],
+   "fold": 2,
+   "train_time_s": 103.3,
+   "iterations": 145,
+   "converged": true,
+   "last_relative_error": 9.258115909150378e-07
+  },
+  {
+   "top1_precision": 0.4983277591973244,
+   "top1_recall": 0.35169939971491065,
+   "top1_f1": 0.4123669977680589,
+   "top1_recall_micro": 0.44879518072289154,
+   "top1_f1_micro": 0.4722662440570523,
+   "n": 299,
+   "per_type_recall": [
+    0.037037037037037035,
+    0.020833333333333332,
+    0.5606060606060606,
+    0.7883211678832117
+   ],
+   "pred_hist": [
+    9,
+    5,
+    72,
+    213
+   ],
+   "fold": 3,
+   "train_time_s": 85.7,
+   "iterations": 143,
+   "converged": true,
+   "last_relative_error": 9.932297172491122e-07
+  },
+  {
+   "top1_precision": 0.4816053511705686,
+   "top1_recall": 0.3286586406808627,
+   "top1_f1": 0.39069676464006375,
+   "top1_recall_micro": 0.41739130434782606,
+   "top1_f1_micro": 0.44720496894409945,
+   "n": 299,
+   "per_type_recall": [
+    0.11827956989247312,
+    0.05263157894736842,
+    0.3563218390804598,
+    0.7874015748031497
+   ],
+   "pred_hist": [
+    25,
+    23,
+    52,
+    199
+   ],
+   "fold": 4,
+   "train_time_s": 95.1,
+   "iterations": 149,
+   "converged": true,
+   "last_relative_error": 9.815785633506152e-07
+  }
+ ],
+ "summary": {
+  "top1_precision": [
+   0.49065328874024533,
+   0.026724599546712656
+  ],
+  "top1_recall": [
+   0.33920178206128554,
+   0.015402246090616035
+  ],
+  "top1_f1": [
+   0.4007875916062386,
+   0.016419522609063705
+  ],
+  "top1_recall_micro": [
+   0.437911004676272,
+   0.02583333280161979
+  ],
+  "top1_f1_micro": [
+   0.46275854568446,
+   0.02611955877727016
+  ]
+ },
+ "model": "TDRC",
+ "tdrc_params": {
+  "r": 4,
+  "alpha": 0.125,
+  "beta": 0.25,
+  "lam": 0.001,
+  "tol": 1e-06,
+  "max_iter": 500
+ },
+ "similarity_sources": {
+  "S_d_key": "sim_d2",
+  "S_d": "D_SSM1, MeSH semantic disease similarity",
+  "S_m": "TDRC GetData.get_functional_sim(train_matrix), with dis_sim=S_d"
+ }
+}

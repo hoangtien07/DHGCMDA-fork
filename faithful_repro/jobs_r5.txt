@@ -1,0 +1,165 @@
+B2_v3.2_ref_MDAv3.2-3_4view_type_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol type --seed 1234
+B2_v3.2_ref_MDAv3.2-3_4view_type_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol type --seed 1
+B2_v3.2_ref_MDAv3.2-3_4view_type_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol type --seed 2
+B2_v3.2_ref_MDAv3.2-3_4view_triplet_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol triplet --seed 1234
+B2_v3.2_ref_MDAv3.2-3_4view_triplet_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol triplet --seed 1
+B2_v3.2_ref_MDAv3.2-3_4view_triplet_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3_4view --protocol triplet --seed 2
+B7_tdrc_v2.0_type_s1234 tdrc_baseline.py --data v2.0 --protocol type --seed 1234
+B7_tdrc_v2.0_type_s1 tdrc_baseline.py --data v2.0 --protocol type --seed 1
+B7_tdrc_v2.0_type_s2 tdrc_baseline.py --data v2.0 --protocol type --seed 2
+B7_tdrc_v2.0_triplet_s1234 tdrc_baseline.py --data v2.0 --protocol triplet --seed 1234
+B7_tdrc_v2.0_triplet_s1 tdrc_baseline.py --data v2.0 --protocol triplet --seed 1
+B7_tdrc_v2.0_triplet_s2 tdrc_baseline.py --data v2.0 --protocol triplet --seed 2
+B7_tdrc_v3.2_cuilab_deg2_type_s1234 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol type --seed 1234
+B7_tdrc_v3.2_cuilab_deg2_type_s1 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol type --seed 1
+B7_tdrc_v3.2_cuilab_deg2_type_s2 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol type --seed 2
+B7_tdrc_v3.2_cuilab_deg2_triplet_s1234 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol triplet --seed 1234
+B7_tdrc_v3.2_cuilab_deg2_triplet_s1 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol triplet --seed 1
+B7_tdrc_v3.2_cuilab_deg2_triplet_s2 tdrc_baseline.py --data v3.2_cuilab_deg2 --protocol triplet --seed 2
+B7_tdrc_v3.2_ref_MDAv3.2-3_type_s1234 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234
+B7_tdrc_v3.2_ref_MDAv3.2-3_type_s1 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1
+B7_tdrc_v3.2_ref_MDAv3.2-3_type_s2 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2
+B7_tdrc_v3.2_ref_MDAv3.2-3_triplet_s1234 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234
+B7_tdrc_v3.2_ref_MDAv3.2-3_triplet_s1 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1
+B7_tdrc_v3.2_ref_MDAv3.2-3_triplet_s2 tdrc_baseline.py --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2
+B3_v2.0_type_rmean_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --recon_reduction mean
+B3_v2.0_type_rmean_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --recon_reduction mean
+B3_v2.0_type_rmean_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --recon_reduction mean
+B3_v2.0_triplet_rmean_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --recon_reduction mean
+B3_v2.0_triplet_rmean_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --recon_reduction mean
+B3_v2.0_triplet_rmean_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --recon_reduction mean
+B3_v3.2_cuilab_deg2_type_rmean_s1234 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 1234 --recon_reduction mean
+B3_v3.2_cuilab_deg2_type_rmean_s1 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 1 --recon_reduction mean
+B3_v3.2_cuilab_deg2_type_rmean_s2 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 2 --recon_reduction mean
+B3_v3.2_cuilab_deg2_triplet_rmean_s1234 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 1234 --recon_reduction mean
+B3_v3.2_cuilab_deg2_triplet_rmean_s1 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 1 --recon_reduction mean
+B3_v3.2_cuilab_deg2_triplet_rmean_s2 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 2 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_type_rmean_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_type_rmean_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_type_rmean_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_triplet_rmean_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_triplet_rmean_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --recon_reduction mean
+B3_v3.2_ref_MDAv3.2-3_triplet_rmean_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --recon_reduction mean
+B4_v2.0_type_full_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --predictor full
+B4_v2.0_type_full_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --predictor full
+B4_v2.0_type_full_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --predictor full
+B4_v2.0_triplet_full_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --predictor full
+B4_v2.0_triplet_full_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --predictor full
+B4_v2.0_triplet_full_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --predictor full
+B4_v3.2_cuilab_deg2_type_full_s1234 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 1234 --predictor full
+B4_v3.2_cuilab_deg2_type_full_s1 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 1 --predictor full
+B4_v3.2_cuilab_deg2_type_full_s2 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol type --seed 2 --predictor full
+B4_v3.2_cuilab_deg2_triplet_full_s1234 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 1234 --predictor full
+B4_v3.2_cuilab_deg2_triplet_full_s1 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 1 --predictor full
+B4_v3.2_cuilab_deg2_triplet_full_s2 faithful.py --threads 1 --data v3.2_cuilab_deg2 --protocol triplet --seed 2 --predictor full
+B4_v3.2_ref_MDAv3.2-3_type_full_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --predictor full
+B4_v3.2_ref_MDAv3.2-3_type_full_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --predictor full
+B4_v3.2_ref_MDAv3.2-3_type_full_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --predictor full
+B4_v3.2_ref_MDAv3.2-3_triplet_full_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --predictor full
+B4_v3.2_ref_MDAv3.2-3_triplet_full_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --predictor full
+B4_v3.2_ref_MDAv3.2-3_triplet_full_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --predictor full
+B9a_v2.0_type_no_cl_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --ablation no_cl
+B9a_v2.0_type_no_cl_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --ablation no_cl
+B9a_v2.0_type_no_cl_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --ablation no_cl
+B9a_v2.0_triplet_no_cl_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --ablation no_cl
+B9a_v2.0_triplet_no_cl_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --ablation no_cl
+B9a_v2.0_triplet_no_cl_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_type_no_cl_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_type_no_cl_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_type_no_cl_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_cl_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_cl_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --ablation no_cl
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_cl_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --ablation no_cl
+B9a_v2.0_type_no_hgcn_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --ablation no_hgcn
+B9a_v2.0_type_no_hgcn_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --ablation no_hgcn
+B9a_v2.0_type_no_hgcn_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --ablation no_hgcn
+B9a_v2.0_triplet_no_hgcn_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --ablation no_hgcn
+B9a_v2.0_triplet_no_hgcn_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --ablation no_hgcn
+B9a_v2.0_triplet_no_hgcn_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgcn_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgcn_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgcn_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgcn_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgcn_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --ablation no_hgcn
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgcn_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --ablation no_hgcn
+B9a_v2.0_type_no_avf_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --ablation no_avf
+B9a_v2.0_type_no_avf_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --ablation no_avf
+B9a_v2.0_type_no_avf_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --ablation no_avf
+B9a_v2.0_triplet_no_avf_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --ablation no_avf
+B9a_v2.0_triplet_no_avf_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --ablation no_avf
+B9a_v2.0_triplet_no_avf_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_type_no_avf_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_type_no_avf_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_type_no_avf_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_avf_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_avf_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --ablation no_avf
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_avf_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --ablation no_avf
+B9a_v2.0_type_no_hgt_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --ablation no_hgt
+B9a_v2.0_type_no_hgt_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --ablation no_hgt
+B9a_v2.0_type_no_hgt_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --ablation no_hgt
+B9a_v2.0_triplet_no_hgt_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --ablation no_hgt
+B9a_v2.0_triplet_no_hgt_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --ablation no_hgt
+B9a_v2.0_triplet_no_hgt_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgt_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgt_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_type_no_hgt_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgt_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgt_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --ablation no_hgt
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_hgt_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --ablation no_hgt
+B9a_v2.0_type_no_dv_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --ablation no_dv
+B9a_v2.0_type_no_dv_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --ablation no_dv
+B9a_v2.0_type_no_dv_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --ablation no_dv
+B9a_v2.0_triplet_no_dv_s1234 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1234 --ablation no_dv
+B9a_v2.0_triplet_no_dv_s1 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 1 --ablation no_dv
+B9a_v2.0_triplet_no_dv_s2 faithful.py --threads 1 --data v2.0 --protocol triplet --seed 2 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_type_no_dv_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_type_no_dv_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 1 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_type_no_dv_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol type --seed 2 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_dv_s1234 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_dv_s1 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1 --ablation no_dv
+B9a_v3.2_ref_MDAv3.2-3_triplet_no_dv_s2 faithful.py --threads 1 --data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2 --ablation no_dv
+B9b_v2.0_type_K1_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 1
+B9b_v2.0_type_K1_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 1
+B9b_v2.0_type_K1_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 1
+B9b_v2.0_type_K3_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 3
+B9b_v2.0_type_K3_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 3
+B9b_v2.0_type_K3_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 3
+B9b_v2.0_type_K5_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 5
+B9b_v2.0_type_K5_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 5
+B9b_v2.0_type_K5_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 5
+B9b_v2.0_type_K7_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 7
+B9b_v2.0_type_K7_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 7
+B9b_v2.0_type_K7_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 7
+B9b_v2.0_type_K9_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 9
+B9b_v2.0_type_K9_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 9
+B9b_v2.0_type_K9_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 9
+B9b_v2.0_type_K11_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 11
+B9b_v2.0_type_K11_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 11
+B9b_v2.0_type_K11_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 11
+B9b_v2.0_type_K15_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --K 15
+B9b_v2.0_type_K15_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --K 15
+B9b_v2.0_type_K15_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --K 15
+B9c_v2.0_type_t0.5_l0.1_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 0.5 --lam2 0.1
+B9c_v2.0_type_t0.5_l0.1_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 0.5 --lam2 0.1
+B9c_v2.0_type_t0.5_l0.1_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 0.5 --lam2 0.1
+B9c_v2.0_type_t0.5_l0.5_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 0.5 --lam2 0.5
+B9c_v2.0_type_t0.5_l0.5_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 0.5 --lam2 0.5
+B9c_v2.0_type_t0.5_l0.5_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 0.5 --lam2 0.5
+B9c_v2.0_type_t1.0_l0.1_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 1.0 --lam2 0.1
+B9c_v2.0_type_t1.0_l0.1_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 1.0 --lam2 0.1
+B9c_v2.0_type_t1.0_l0.1_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 1.0 --lam2 0.1
+B9c_v2.0_type_t1.0_l0.3_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 1.0 --lam2 0.3
+B9c_v2.0_type_t1.0_l0.3_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 1.0 --lam2 0.3
+B9c_v2.0_type_t1.0_l0.3_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 1.0 --lam2 0.3
+B9c_v2.0_type_t1.0_l0.5_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 1.0 --lam2 0.5
+B9c_v2.0_type_t1.0_l0.5_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 1.0 --lam2 0.5
+B9c_v2.0_type_t1.0_l0.5_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 1.0 --lam2 0.5
+B9c_v2.0_type_t3.0_l0.1_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 3.0 --lam2 0.1
+B9c_v2.0_type_t3.0_l0.1_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 3.0 --lam2 0.1
+B9c_v2.0_type_t3.0_l0.1_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 3.0 --lam2 0.1
+B9c_v2.0_type_t3.0_l0.3_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 3.0 --lam2 0.3
+B9c_v2.0_type_t3.0_l0.3_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 3.0 --lam2 0.3
+B9c_v2.0_type_t3.0_l0.3_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 3.0 --lam2 0.3
+B9c_v2.0_type_t3.0_l0.5_s1234 faithful.py --threads 1 --data v2.0 --protocol type --seed 1234 --t 3.0 --lam2 0.5
+B9c_v2.0_type_t3.0_l0.5_s1 faithful.py --threads 1 --data v2.0 --protocol type --seed 1 --t 3.0 --lam2 0.5
+B9c_v2.0_type_t3.0_l0.5_s2 faithful.py --threads 1 --data v2.0 --protocol type --seed 2 --t 3.0 --lam2 0.5

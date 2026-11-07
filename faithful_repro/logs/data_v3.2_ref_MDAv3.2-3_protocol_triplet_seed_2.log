@@ -1,0 +1,31 @@
+args {'data': 'v3.2_ref_MDAv3.2-3', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'triplet', 'seed': 2, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'recon_reduction': 'sum', 'diag_leak': 0, 'threads': 1, 'out': ''}
+data v3.2_ref_MDAv3.2-3 Y(411, 271, 5) triplets 11748
+  ep 1 loss 7467.5830 type 1.0010 ex 0.2122 intra 13.3681 inter 5.5360 rec 7451.49 mm_edges 13412 dd_edges 832 1s
+  ep 50 loss 3261.9714 type 0.9898 ex 0.0554 intra 12.7499 inter 5.5302 rec 3246.56 mm_edges 18356 dd_edges 304 24s
+  ep 100 loss 3170.8796 type 0.9848 ex 0.0563 intra 12.4086 inter 5.5145 rec 3155.81 mm_edges 14364 dd_edges 736 71s
+  early stop at ep 140, best val aupr=0.8849 @ep 40
+FOLD 0 {"auc": 0.8829787234042552, "aupr": 0.8732609385782547, "f1": 0.8156139662612788, "n": 4700, "best_epoch": 40, "best_val": 0.8848814839076619, "train_time_s": 107.0, "fold": 0}
+  ep 1 loss 8246.4990 type 1.0163 ex 0.2861 intra 13.2912 inter 5.5655 rec 8230.44 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3192.4255 type 1.0033 ex 0.0594 intra 12.7711 inter 5.5829 rec 3176.96 mm_edges 16188 dd_edges 286 21s
+  ep 100 loss 2900.7622 type 0.9956 ex 0.0530 intra 12.2667 inter 5.5275 rec 2885.83 mm_edges 54012 dd_edges 618 57s
+  ep 150 loss 2900.2056 type 0.9953 ex 0.0530 intra 11.7571 inter 5.5137 rec 2885.78 mm_edges 36492 dd_edges 3468 97s
+  early stop at ep 170, best val aupr=0.8616 @ep 70
+FOLD 1 {"auc": 0.8754882752376641, "aupr": 0.8552932832006648, "f1": 0.8078973346495557, "n": 4700, "best_epoch": 70, "best_val": 0.8616010036186912, "train_time_s": 115.8, "fold": 1}
+  ep 1 loss 7101.3276 type 1.0119 ex 0.2064 intra 13.3870 inter 5.5072 rec 7085.21 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3392.6743 type 1.0002 ex 0.0581 intra 12.7382 inter 5.4832 rec 3377.27 mm_edges 10212 dd_edges 382 22s
+  ep 100 loss 3026.9355 type 0.9936 ex 0.0559 intra 12.2725 inter 5.4348 rec 3012.02 mm_edges 26668 dd_edges 1414 56s
+  early stop at ep 140, best val aupr=0.8857 @ep 40
+FOLD 2 {"auc": 0.8742640108646447, "aupr": 0.8689718596468594, "f1": 0.8011491894110403, "n": 4700, "best_epoch": 40, "best_val": 0.8857077935825415, "train_time_s": 89.2, "fold": 2}
+  ep 1 loss 9211.1377 type 1.0023 ex 0.3662 intra 13.2075 inter 5.4829 rec 9195.17 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3341.4856 type 0.9943 ex 0.0584 intra 12.7559 inter 5.5441 rec 3326.05 mm_edges 2678 dd_edges 320 21s
+  ep 100 loss 3128.9895 type 0.9877 ex 0.0547 intra 12.3033 inter 5.5099 rec 3114.03 mm_edges 28596 dd_edges 1184 57s
+  ep 150 loss 2931.9250 type 0.9825 ex 0.0524 intra 11.6248 inter 5.4932 rec 2917.65 mm_edges 52540 dd_edges 2442 102s
+  early stop at ep 180, best val aupr=0.8732 @ep 80
+FOLD 3 {"auc": 0.8831925979208021, "aupr": 0.8649007008310454, "f1": 0.81807180314643, "n": 4698, "best_epoch": 80, "best_val": 0.8731911475838211, "train_time_s": 141.9, "fold": 3}
+  ep 1 loss 7071.5352 type 1.0107 ex 0.7699 intra 13.1988 inter 5.4474 rec 7055.46 mm_edges 13412 dd_edges 832 1s
+  ep 50 loss 3217.1604 type 1.0007 ex 0.0600 intra 12.7618 inter 5.5237 rec 3201.72 mm_edges 8522 dd_edges 350 23s
+  ep 100 loss 2983.5913 type 0.9947 ex 0.0583 intra 12.4457 inter 5.5060 rec 2968.48 mm_edges 27940 dd_edges 598 53s
+  ep 150 loss 2878.7351 type 0.9922 ex 0.0570 intra 12.0360 inter 5.5026 rec 2864.04 mm_edges 45850 dd_edges 3036 94s
+  early stop at ep 150, best val aupr=0.8719 @ep 50
+FOLD 4 {"auc": 0.8799514516743174, "aupr": 0.8703928889847785, "f1": 0.8101959132083422, "n": 4698, "best_epoch": 50, "best_val": 0.8719221891231663, "train_time_s": 94.5, "fold": 4}
+SUMMARY {"auc": [0.8791750118203367, 0.0037127358040119716], "aupr": [0.8665639342483207, 0.006246643683327778], "f1": [0.8105856413353294, 0.0059624185695414805]}

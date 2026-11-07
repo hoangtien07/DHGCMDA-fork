@@ -1,0 +1,34 @@
+args {'data': 'v2.0', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'triplet', 'seed': 1234, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'recon_reduction': 'mean', 'diag_leak': 0, 'threads': 1, 'out': ''}
+data v2.0 Y(495, 383, 4) triplets 1679
+  ep 1 loss 16.9554 type 1.2342 ex 0.8526 intra 13.6268 inter 5.8952 rec 0.07 mm_edges 5386 dd_edges 258 1s
+  ep 50 loss 15.7408 type 1.2196 ex 0.0355 intra 12.9367 inter 5.1604 rec 0.03 mm_edges 72302 dd_edges 62832 129s
+  ep 100 loss 14.7499 type 1.1970 ex 0.0347 intra 11.9692 inter 5.1669 rec 0.02 mm_edges 17302 dd_edges 4100 247s
+  ep 150 loss 14.2032 type 1.1254 ex 0.0403 intra 11.5245 inter 5.0619 rec 0.02 mm_edges 6160 dd_edges 6028 265s
+  early stop at ep 190, best val aupr=0.9585 @ep 90
+FOLD 0 {"auc": 0.9319019274376416, "aupr": 0.932716138080965, "f1": 0.8683473389355743, "n": 672, "best_epoch": 90, "best_val": 0.9585433012825058, "train_time_s": 286.8, "fold": 0}
+  ep 1 loss 17.0646 type 1.2451 ex 1.1349 intra 13.6055 inter 5.9877 rec 0.08 mm_edges 5386 dd_edges 258 0s
+  ep 50 loss 15.9768 type 1.2299 ex 0.0325 intra 13.2007 inter 5.0351 rec 0.03 mm_edges 44330 dd_edges 61892 129s
+  ep 100 loss 14.8044 type 1.2084 ex 0.0322 intra 12.0245 inter 5.1274 rec 0.02 mm_edges 17312 dd_edges 3500 199s
+  ep 150 loss 14.3600 type 1.1621 ex 0.0345 intra 11.6473 inter 5.0572 rec 0.02 mm_edges 8654 dd_edges 4618 217s
+  ep 200 loss 14.0326 type 1.0846 ex 0.0346 intra 11.4093 inter 5.0196 rec 0.02 mm_edges 7094 dd_edges 4626 234s
+  ep 250 loss 13.7773 type 1.0272 ex 0.0321 intra 11.2124 inter 5.0204 rec 0.02 mm_edges 7292 dd_edges 5368 250s
+  ep 300 loss 13.5195 type 0.9834 ex 0.0317 intra 11.0048 inter 5.0009 rec 0.02 mm_edges 9366 dd_edges 2740 269s
+  early stop at ep 310, best val aupr=0.9561 @ep 210
+FOLD 1 {"auc": 0.9432397959183673, "aupr": 0.9321027430887212, "f1": 0.8918128654970761, "n": 672, "best_epoch": 210, "best_val": 0.9561358648825237, "train_time_s": 272.8, "fold": 1}
+  ep 1 loss 16.8605 type 1.2467 ex 0.1488 intra 13.6877 inter 5.9861 rec 0.09 mm_edges 5386 dd_edges 258 0s
+  ep 50 loss 15.9525 type 1.2298 ex 0.0325 intra 13.1718 inter 5.0504 rec 0.03 mm_edges 70640 dd_edges 63132 102s
+  ep 100 loss 14.8145 type 1.1932 ex 0.0360 intra 12.0610 inter 5.0847 rec 0.02 mm_edges 13894 dd_edges 2940 186s
+  early stop at ep 140, best val aupr=0.9401 @ep 40
+FOLD 2 {"auc": 0.9279159580498867, "aupr": 0.9271903564902251, "f1": 0.8543140028288543, "n": 672, "best_epoch": 40, "best_val": 0.9400658311239642, "train_time_s": 200.6, "fold": 2}
+  ep 1 loss 16.8245 type 1.2416 ex 0.2881 intra 13.6271 inter 5.9536 rec 0.08 mm_edges 5386 dd_edges 258 0s
+  ep 50 loss 15.8521 type 1.2263 ex 0.0350 intra 13.0839 inter 5.0185 rec 0.03 mm_edges 73708 dd_edges 77244 124s
+  ep 100 loss 14.8197 type 1.1945 ex 0.0373 intra 12.0569 inter 5.1126 rec 0.02 mm_edges 11894 dd_edges 2860 177s
+  early stop at ep 130, best val aupr=0.9257 @ep 30
+FOLD 3 {"auc": 0.9318399234693877, "aupr": 0.9373888078037379, "f1": 0.8685376661742983, "n": 672, "best_epoch": 30, "best_val": 0.9257452748653272, "train_time_s": 188.5, "fold": 3}
+  ep 1 loss 16.8984 type 1.2439 ex 0.4500 intra 13.6229 inter 6.0017 rec 0.10 mm_edges 5386 dd_edges 258 0s
+  ep 50 loss 15.8809 type 1.2242 ex 0.0336 intra 13.1042 inter 5.0536 rec 0.03 mm_edges 77148 dd_edges 88378 122s
+  ep 100 loss 14.7977 type 1.1888 ex 0.0389 intra 12.0394 inter 5.1144 rec 0.02 mm_edges 7548 dd_edges 1930 200s
+  ep 150 loss 14.3342 type 1.1537 ex 0.0369 intra 11.6166 inter 5.1006 rec 0.02 mm_edges 1674 dd_edges 5410 221s
+  early stop at ep 150, best val aupr=0.9369 @ep 50
+FOLD 4 {"auc": 0.9349431944753841, "aupr": 0.936409443296085, "f1": 0.8656294200848657, "n": 670, "best_epoch": 50, "best_val": 0.9368822218467632, "train_time_s": 222.9, "fold": 4}
+SUMMARY {"auc": [0.9339681598701335, 0.005144740635015214], "aupr": [0.9331614977519468, 0.003616438446110646], "f1": [0.8697282587041336, 0.012210274930512934]}

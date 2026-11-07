@@ -1,0 +1,14 @@
+== miRNA: ref min per-type deg {'genetics': 0, 'epigenetics': 0, 'circulation': 1, 'target': 0, 'tissue': 0} frac ref with type>=1 {'genetics': 0.696, 'epigenetics': 0.455, 'circulation': 1.0, 'target': 0.971, 'tissue': 0.971}
+  errors 85 types ('circulation', 'target', 'tissue') min per type 1 min total 0 selected 450 FP 62 FN 23
+  errors 85 types ('circulation', 'target', 'tissue') min per type 1 min total 3 selected 450 FP 62 FN 23
+  errors 87 types ('circulation', 'target') min per type 2 min total 0 selected 336 FP 6 FN 81
+  errors 87 types ('circulation', 'target') min per type 2 min total 3 selected 336 FP 6 FN 81
+  errors 90 types ('circulation', 'target') min per type 1 min total 3 selected 477 FP 78 FN 12
+  errors 100 types ('circulation',) min per type 2 min total 3 selected 381 FP 35 FN 65
+== disease: ref min per-type deg {'genetics': 0, 'epigenetics': 0, 'circulation': 0, 'target': 0, 'tissue': 0} frac ref with type>=1 {'genetics': 0.513, 'epigenetics': 0.236, 'circulation': 0.642, 'target': 0.764, 'tissue': 0.779}
+  errors 122 types ('tissue',) min per type 3 min total 0 selected 219 FP 35 FN 87
+  errors 122 types ('tissue',) min per type 3 min total 3 selected 219 FP 35 FN 87
+  errors 123 types ('tissue',) min per type 2 min total 3 selected 246 FP 49 FN 74
+  errors 128 types ('tissue',) min per type 1 min total 3 selected 279 FP 68 FN 60
+  errors 137 types ('target',) min per type 1 min total 3 selected 280 FP 73 FN 64
+  errors 138 types ('tissue',) min per type 2 min total 0 selected 261 FP 64 FN 74

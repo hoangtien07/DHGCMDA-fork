@@ -1,0 +1,29 @@
+args {'data': 'v3.2_ref_MDAv3.2-3', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'triplet', 'seed': 1234, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'recon_reduction': 'sum', 'diag_leak': 1, 'threads': 1, 'out': ''}
+data v3.2_ref_MDAv3.2-3 Y(411, 271, 5) triplets 11748
+  ep 1 loss 7916.5010 type 1.0262 ex 0.2157 intra 13.3568 inter 5.5475 rec 7900.39 mm_edges 13412 dd_edges 832 1s
+  ep 50 loss 3298.9832 type 1.0101 ex 0.0559 intra 12.6562 inter 5.5453 rec 3283.64 mm_edges 3838 dd_edges 260 16s
+  ep 100 loss 2821.7114 type 1.0009 ex 0.0518 intra 12.0320 inter 5.5430 rec 2807.00 mm_edges 18166 dd_edges 2030 34s
+  early stop at ep 140, best val aupr=0.8893 @ep 40
+FOLD 0 {"auc": 0.8873990040742418, "aupr": 0.8718748072785597, "f1": 0.8197511039743075, "n": 4700, "best_epoch": 40, "best_val": 0.8893039311623749, "train_time_s": 62.9, "fold": 0}
+  ep 1 loss 9868.3418 type 1.0272 ex 0.8700 intra 13.4557 inter 5.5204 rec 9851.94 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3479.5767 type 1.0166 ex 0.0619 intra 12.8012 inter 5.4677 rec 3464.10 mm_edges 2096 dd_edges 320 22s
+  ep 100 loss 2888.3262 type 1.0067 ex 0.0531 intra 12.2225 inter 5.4648 rec 2873.44 mm_edges 16728 dd_edges 2198 45s
+  ep 150 loss 2751.2573 type 1.0068 ex 0.0529 intra 11.5588 inter 5.4463 rec 2737.04 mm_edges 31056 dd_edges 4982 85s
+  early stop at ep 170, best val aupr=0.8758 @ep 70
+FOLD 1 {"auc": 0.8957961068356722, "aupr": 0.8831258167685834, "f1": 0.8254096702407444, "n": 4700, "best_epoch": 70, "best_val": 0.8758105898873504, "train_time_s": 104.5, "fold": 1}
+  ep 1 loss 8656.3418 type 1.0221 ex 0.2122 intra 13.3639 inter 5.5887 rec 8640.22 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3367.2439 type 1.0102 ex 0.0583 intra 12.7500 inter 5.5198 rec 3351.81 mm_edges 2788 dd_edges 352 15s
+  ep 100 loss 2817.7432 type 1.0051 ex 0.0538 intra 12.2221 inter 5.4891 rec 2802.85 mm_edges 27588 dd_edges 1446 31s
+  early stop at ep 140, best val aupr=0.8947 @ep 40
+FOLD 2 {"auc": 0.8963235853327296, "aupr": 0.882344731814316, "f1": 0.8222402597402597, "n": 4700, "best_epoch": 40, "best_val": 0.8946510287035871, "train_time_s": 55.9, "fold": 2}
+  ep 1 loss 7541.0000 type 1.0255 ex 0.1979 intra 13.3498 inter 5.4874 rec 7524.92 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3341.8582 type 1.0129 ex 0.0606 intra 12.7031 inter 5.5006 rec 3326.47 mm_edges 3544 dd_edges 394 15s
+  ep 100 loss 2825.4939 type 1.0050 ex 0.0568 intra 12.0676 inter 5.4793 rec 2810.76 mm_edges 20228 dd_edges 876 31s
+  early stop at ep 140, best val aupr=0.8751 @ep 40
+FOLD 3 {"auc": 0.8885463611319073, "aupr": 0.879774538756849, "f1": 0.815289256198347, "n": 4698, "best_epoch": 40, "best_val": 0.8751310762634604, "train_time_s": 56.9, "fold": 3}
+  ep 1 loss 7796.4897 type 1.0036 ex 0.3637 intra 13.2526 inter 5.4805 rec 7780.48 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 3259.6572 type 0.9924 ex 0.0602 intra 12.7291 inter 5.5224 rec 3244.26 mm_edges 6116 dd_edges 460 19s
+  ep 100 loss 2784.7927 type 0.9843 ex 0.0552 intra 12.0999 inter 5.5091 rec 2770.04 mm_edges 33856 dd_edges 1280 44s
+  early stop at ep 140, best val aupr=0.8730 @ep 40
+FOLD 4 {"auc": 0.890230546552875, "aupr": 0.8884274113151565, "f1": 0.8178939034045921, "n": 4698, "best_epoch": 40, "best_val": 0.8730359089245874, "train_time_s": 78.7, "fold": 4}
+SUMMARY {"auc": [0.8916591207854851, 0.0037081147362069996], "aupr": [0.881109461186693, 0.005407491620621695], "f1": [0.8201168387116502, 0.003490092797056548]}

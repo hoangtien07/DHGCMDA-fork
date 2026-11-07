@@ -1,0 +1,70 @@
+args {'data': 'v3.2_ref_MDAv3.2-3', 'data_dir': '/home/ubuntu/dhg_runs/faithful/data', 'protocol': 'type', 'seed': 1234, 'folds': 5, 'only_fold': -1, 'epochs': 650, 'K': 13, 'hidden': 256, 'proj': 64, 'heads': 4, 'nlayer': 2, 'dropout': 0.3, 't': 0.5, 'lam1': 1.0, 'lam2': 0.3, 'lam3': 1.0, 'margin': 0.5, 'margin_w': 0.1, 'exist_w': 0.3, 'neg_w': 0.5, 'beta': 0.99999, 'lr': 0.0001, 'wd': 1e-05, 'neg_ratio': 10, 'update_every': 5, 'theta': 0.5, 'early_stop': 1, 'val_frac': 0.1, 'eval_every': 10, 'patience': 10, 'ablation': 'none', 'recon_reduction': 'mean', 'diag_leak': 0, 'threads': 1, 'out': ''}
+data v3.2_ref_MDAv3.2-3 Y(411, 271, 5) triplets 11748
+  ep 1 loss 16.2179 type 1.0730 ex 0.2014 intra 13.3565 inter 5.5480 rec 0.06 mm_edges 13412 dd_edges 832 2s
+  ep 50 loss 14.6064 type 1.0592 ex 0.0506 intra 12.0027 inter 4.9831 rec 0.03 mm_edges 1102 dd_edges 232 47s
+  ep 100 loss 13.5627 type 1.0529 ex 0.0474 intra 10.9682 inter 4.9887 rec 0.03 mm_edges 3866 dd_edges 296 70s
+  ep 150 loss 13.2447 type 1.0438 ex 0.0475 intra 10.6844 inter 4.9110 rec 0.03 mm_edges 32768 dd_edges 322 90s
+  ep 200 loss 13.0604 type 1.0336 ex 0.0472 intra 10.5210 inter 4.8790 rec 0.03 mm_edges 38538 dd_edges 392 140s
+  ep 250 loss 12.8082 type 1.0156 ex 0.0481 intra 10.2848 inter 4.8866 rec 0.03 mm_edges 19424 dd_edges 606 180s
+  ep 300 loss 12.6396 type 0.9958 ex 0.0469 intra 10.1277 inter 4.9157 rec 0.03 mm_edges 31424 dd_edges 1582 212s
+  ep 350 loss 12.4995 type 0.9793 ex 0.0477 intra 10.0017 inter 4.9245 rec 0.03 mm_edges 34178 dd_edges 2720 251s
+  ep 400 loss 12.3434 type 0.9538 ex 0.0469 intra 9.8787 inter 4.9011 rec 0.03 mm_edges 27928 dd_edges 1512 291s
+  ep 450 loss 12.2419 type 0.9377 ex 0.0460 intra 9.7957 inter 4.8957 rec 0.03 mm_edges 43470 dd_edges 804 359s
+  ep 500 loss 12.1380 type 0.9193 ex 0.0469 intra 9.7100 inter 4.8971 rec 0.03 mm_edges 45930 dd_edges 678 407s
+  ep 550 loss 12.0957 type 0.9067 ex 0.0464 intra 9.6788 inter 4.9033 rec 0.03 mm_edges 60854 dd_edges 1894 458s
+  early stop at ep 550, best val top1_f1=0.4137 @ep 450
+FOLD 0 {"top1_precision": 0.4344590726960504, "top1_recall": 0.33521459980275525, "top1_f1": 0.3784383678128439, "n": 1747, "best_epoch": 450, "best_val": 0.4137068815314673, "train_time_s": 458.4, "fold": 0}
+  ep 1 loss 16.5449 type 1.1134 ex 0.8677 intra 13.4258 inter 5.5456 rec 0.08 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 14.7279 type 1.0973 ex 0.0541 intra 12.0885 inter 4.9697 rec 0.03 mm_edges 1742 dd_edges 268 24s
+  ep 100 loss 13.6770 type 1.0947 ex 0.0475 intra 11.0464 inter 4.9702 rec 0.03 mm_edges 12182 dd_edges 404 37s
+  ep 150 loss 13.3127 type 1.0892 ex 0.0463 intra 10.7080 inter 4.9078 rec 0.03 mm_edges 37174 dd_edges 458 65s
+  ep 200 loss 13.1586 type 1.0818 ex 0.0471 intra 10.5709 inter 4.8775 rec 0.03 mm_edges 50558 dd_edges 392 114s
+  ep 250 loss 12.9094 type 1.0653 ex 0.0509 intra 10.3322 inter 4.8960 rec 0.03 mm_edges 45526 dd_edges 798 161s
+  ep 300 loss 12.6590 type 1.0467 ex 0.0479 intra 10.0997 inter 4.9035 rec 0.03 mm_edges 58782 dd_edges 1818 208s
+  ep 350 loss 12.4625 type 1.0308 ex 0.0472 intra 9.9170 inter 4.9133 rec 0.03 mm_edges 60024 dd_edges 2702 262s
+  early stop at ep 360, best val top1_f1=0.3564 @ep 260
+FOLD 1 {"top1_precision": 0.37950772753291356, "top1_recall": 0.3250635676316932, "top1_f1": 0.3501821226674421, "n": 1747, "best_epoch": 260, "best_val": 0.3564144442742175, "train_time_s": 275.5, "fold": 1}
+  ep 1 loss 16.2516 type 1.0818 ex 0.2132 intra 13.3528 inter 5.5857 rec 0.08 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 14.7610 type 1.0682 ex 0.0518 intra 12.1424 inter 5.0013 rec 0.03 mm_edges 3302 dd_edges 300 26s
+  ep 100 loss 13.5936 type 1.0617 ex 0.0474 intra 10.9892 inter 4.9943 rec 0.03 mm_edges 4738 dd_edges 254 42s
+  ep 150 loss 13.2084 type 1.0554 ex 0.0475 intra 10.6348 inter 4.9183 rec 0.03 mm_edges 41446 dd_edges 286 74s
+  ep 200 loss 13.0067 type 1.0434 ex 0.0479 intra 10.4493 inter 4.9064 rec 0.03 mm_edges 84034 dd_edges 896 130s
+  ep 250 loss 12.8713 type 1.0177 ex 0.0486 intra 10.3404 inter 4.9038 rec 0.03 mm_edges 63804 dd_edges 1916 192s
+  ep 300 loss 12.6827 type 1.0017 ex 0.0488 intra 10.1649 inter 4.9132 rec 0.03 mm_edges 35626 dd_edges 1856 252s
+  ep 350 loss 12.5192 type 0.9848 ex 0.0483 intra 10.0174 inter 4.9183 rec 0.03 mm_edges 57504 dd_edges 2614 306s
+  ep 400 loss 12.3678 type 0.9551 ex 0.0471 intra 9.9005 inter 4.9066 rec 0.03 mm_edges 65522 dd_edges 1534 364s
+  ep 450 loss 12.2825 type 0.9425 ex 0.0475 intra 9.8301 inter 4.8995 rec 0.03 mm_edges 56982 dd_edges 1884 423s
+  ep 500 loss 12.2128 type 0.9274 ex 0.0477 intra 9.7746 inter 4.9012 rec 0.03 mm_edges 54018 dd_edges 1338 484s
+  ep 550 loss 12.1510 type 0.9120 ex 0.0474 intra 9.7317 inter 4.8922 rec 0.03 mm_edges 47216 dd_edges 826 551s
+  ep 600 loss 12.1030 type 0.9032 ex 0.0471 intra 9.6901 inter 4.8996 rec 0.03 mm_edges 54606 dd_edges 1798 616s
+  early stop at ep 600, best val top1_f1=0.4397 @ep 500
+FOLD 2 {"top1_precision": 0.4785346307956497, "top1_recall": 0.3614945059937994, "top1_f1": 0.4118610471573617, "n": 1747, "best_epoch": 500, "best_val": 0.43969274615959464, "train_time_s": 616.6, "fold": 2}
+  ep 1 loss 16.2172 type 1.1011 ex 0.2013 intra 13.3350 inter 5.5014 rec 0.07 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 14.7247 type 1.0827 ex 0.0530 intra 12.1010 inter 4.9764 rec 0.03 mm_edges 3076 dd_edges 240 32s
+  ep 100 loss 13.6519 type 1.0796 ex 0.0476 intra 11.0349 inter 4.9780 rec 0.03 mm_edges 11930 dd_edges 344 49s
+  ep 150 loss 13.3034 type 1.0740 ex 0.0468 intra 10.7143 inter 4.9088 rec 0.03 mm_edges 26418 dd_edges 296 73s
+  ep 200 loss 13.1345 type 1.0637 ex 0.0473 intra 10.5659 inter 4.8788 rec 0.03 mm_edges 47612 dd_edges 324 109s
+  ep 250 loss 12.8836 type 1.0426 ex 0.0497 intra 10.3368 inter 4.8737 rec 0.03 mm_edges 40502 dd_edges 608 143s
+  ep 300 loss 12.7120 type 1.0252 ex 0.0469 intra 10.1816 inter 4.8785 rec 0.03 mm_edges 32428 dd_edges 820 179s
+  ep 350 loss 12.5377 type 1.0156 ex 0.0465 intra 10.0174 inter 4.8791 rec 0.03 mm_edges 36814 dd_edges 938 223s
+  ep 400 loss 12.4495 type 1.0056 ex 0.0468 intra 9.9357 inter 4.8917 rec 0.03 mm_edges 47386 dd_edges 1592 265s
+  ep 450 loss 12.3350 type 0.9867 ex 0.0478 intra 9.8419 inter 4.8844 rec 0.03 mm_edges 46406 dd_edges 1918 306s
+  ep 500 loss 12.2540 type 0.9694 ex 0.0476 intra 9.7813 inter 4.8751 rec 0.03 mm_edges 50588 dd_edges 762 351s
+  early stop at ep 510, best val top1_f1=0.4018 @ep 410
+FOLD 3 {"top1_precision": 0.48941041785918715, "top1_recall": 0.33770607930375046, "top1_f1": 0.3996459360985944, "n": 1747, "best_epoch": 410, "best_val": 0.4018253706807401, "train_time_s": 361.8, "fold": 3}
+  ep 1 loss 16.1648 type 1.0822 ex 0.3767 intra 13.2525 inter 5.4913 rec 0.07 mm_edges 13412 dd_edges 832 0s
+  ep 50 loss 14.7402 type 1.0682 ex 0.0535 intra 12.1248 inter 4.9902 rec 0.03 mm_edges 1846 dd_edges 212 28s
+  ep 100 loss 13.6574 type 1.0662 ex 0.0481 intra 11.0432 inter 5.0112 rec 0.03 mm_edges 6408 dd_edges 260 45s
+  ep 150 loss 13.2973 type 1.0597 ex 0.0476 intra 10.7110 inter 4.9459 rec 0.03 mm_edges 29122 dd_edges 302 74s
+  ep 200 loss 13.1794 type 1.0529 ex 0.0482 intra 10.6137 inter 4.9018 rec 0.03 mm_edges 27610 dd_edges 420 114s
+  ep 250 loss 12.9933 type 1.0413 ex 0.0488 intra 10.4414 inter 4.8950 rec 0.03 mm_edges 47652 dd_edges 1236 156s
+  ep 300 loss 12.8083 type 1.0187 ex 0.0496 intra 10.2615 inter 4.9542 rec 0.03 mm_edges 42888 dd_edges 1484 204s
+  ep 350 loss 12.6633 type 1.0031 ex 0.0480 intra 10.1440 inter 4.9163 rec 0.03 mm_edges 48884 dd_edges 1702 256s
+  ep 400 loss 12.5115 type 0.9831 ex 0.0483 intra 10.0155 inter 4.9078 rec 0.03 mm_edges 62912 dd_edges 1408 310s
+  ep 450 loss 12.3636 type 0.9631 ex 0.0489 intra 9.8883 inter 4.9031 rec 0.03 mm_edges 57148 dd_edges 1098 365s
+  ep 500 loss 12.2871 type 0.9583 ex 0.0493 intra 9.8221 inter 4.8862 rec 0.03 mm_edges 53024 dd_edges 2470 415s
+  ep 550 loss 12.2301 type 0.9370 ex 0.0469 intra 9.7843 inter 4.8959 rec 0.03 mm_edges 39800 dd_edges 4018 472s
+  ep 600 loss 12.1851 type 0.9249 ex 0.0475 intra 9.7499 inter 4.9004 rec 0.03 mm_edges 60716 dd_edges 4724 522s
+  ep 650 loss 12.1405 type 0.9061 ex 0.0471 intra 9.7247 inter 4.8991 rec 0.03 mm_edges 56588 dd_edges 4678 586s
+FOLD 4 {"top1_precision": 0.4350314825414997, "top1_recall": 0.37414889982882615, "top1_f1": 0.4022997940385419, "n": 1747, "best_epoch": 570, "best_val": 0.4269720115847892, "train_time_s": 587.1, "fold": 4}
+SUMMARY {"top1_precision": [0.44338866628506013, 0.0389450765488381], "top1_recall": [0.34672553051216487, 0.018183819638282004], "top1_f1": [0.3884854535549568, 0.022044953340190392]}

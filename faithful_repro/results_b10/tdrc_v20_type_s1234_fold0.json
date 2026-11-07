@@ -1,0 +1,85 @@
+{
+ "args": {
+  "data": "v2.0",
+  "protocol": "type",
+  "seed": 1234,
+  "out": "/home/ubuntu/dhg_runs/faithful/results_b10/tdrc_v20_type_s1234_fold0.json",
+  "max_iter": 500,
+  "data_dir": "/home/ubuntu/dhg_runs/faithful/data",
+  "only_fold": 0,
+  "folds": 5,
+  "early_stop": 1,
+  "val_frac": 0.1,
+  "n_neg_draws": 10,
+  "ablation": "TDRC",
+  "recon_reduction": "sum",
+  "diag_leak": 0
+ },
+ "deviations": {
+  "validation": "validation entries remain in the TDRC training tensor; no early stopping",
+  "prediction": "TDRC predict_tensor is scored directly"
+ },
+ "folds": [
+  {
+   "top1_precision": 0.44666666666666666,
+   "top1_recall": 0.32581928838951313,
+   "top1_f1": 0.3767903209840629,
+   "top1_recall_micro": 0.4072948328267477,
+   "top1_f1_micro": 0.4260731319554849,
+   "n": 300,
+   "per_type_recall": [
+    0.0449438202247191,
+    0.0,
+    0.525,
+    0.7333333333333333
+   ],
+   "pred_hist": [
+    21,
+    7,
+    77,
+    195
+   ],
+   "fold": 0,
+   "train_time_s": 75.1,
+   "iterations": 140,
+   "converged": true,
+   "last_relative_error": 9.694052070030886e-07
+  }
+ ],
+ "summary": {
+  "top1_precision": [
+   0.44666666666666666,
+   0.0
+  ],
+  "top1_recall": [
+   0.32581928838951313,
+   0.0
+  ],
+  "top1_f1": [
+   0.3767903209840629,
+   0.0
+  ],
+  "top1_recall_micro": [
+   0.4072948328267477,
+   0.0
+  ],
+  "top1_f1_micro": [
+   0.4260731319554849,
+   0.0
+  ]
+ },
+ "model": "TDRC",
+ "tdrc_params": {
+  "r": 4,
+  "alpha": 0.125,
+  "beta": 0.25,
+  "lam": 0.001,
+  "tol": 1e-06,
+  "max_iter": 500
+ },
+ "similarity_sources": {
+  "S_d_key": "sim_d2",
+  "S_d": "D_SSM1, MeSH semantic disease similarity",
+  "S_m": "TDRC GetData.get_functional_sim(train_matrix), with dis_sim=S_d"
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "name": "v3.2_ref_MDAv3.2-3",
+ "n_mir": 411,
+ "n_dis": 271,
+ "n_types": 5,
+ "triplets": 11748,
+ "pairs": 8735,
+ "per_type": {
+  "genetics": 1155,
+  "epigenetics": 403,
+  "circulation": 2293,
+  "target": 3997,
+  "tissue": 3900
+ },
+ "min_mir_pair_deg": 1,
+ "min_dis_pair_deg": 2,
+ "sim_m1": "GIP(per-fold A_train)",
+ "sim_m2": "(411, 411) mean_offdiag=0.3129",
+ "sim_d1": "GIP(per-fold A_train)",
+ "sim_d2": "(271, 271) mean_offdiag=0.0603"
+}

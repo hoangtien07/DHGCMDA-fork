@@ -1,0 +1,20 @@
+{
+ "name": "v2.0",
+ "n_mir": 495,
+ "n_dis": 383,
+ "n_types": 4,
+ "triplets": 1679,
+ "pairs": 1498,
+ "per_type": {
+  "circulation": 443,
+  "epigenetics": 199,
+  "target": 356,
+  "genetics": 681
+ },
+ "min_mir_pair_deg": 0,
+ "min_dis_pair_deg": 0,
+ "sim_m1": "GIP(per-fold A_train)",
+ "sim_m2": "(495, 495) mean_offdiag=0.0517",
+ "sim_d1": "(383, 383) mean_offdiag=0.0315",
+ "sim_d2": "(383, 383) mean_offdiag=0.0228"
+}

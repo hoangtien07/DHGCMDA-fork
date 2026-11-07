@@ -1,0 +1,23 @@
+--data v2.0 --protocol type --seed 1234
+--data v2.0 --protocol triplet --seed 1234
+--data v3.2_cuilab_deg2 --protocol type --seed 1234
+--data v3.2_cuilab_deg2 --protocol triplet --seed 1234
+--data v3.2_ref_MDAv3.2-3 --protocol type --seed 1234
+--data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1234
+--data v2.0 --protocol type --seed 1
+--data v2.0 --protocol triplet --seed 1
+--data v2.0 --protocol type --seed 2
+--data v2.0 --protocol triplet --seed 2
+--data v2.0 --protocol type --seed 1234 --ablation no_cl
+--data v2.0 --protocol type --seed 1234 --ablation no_hgcn
+--data v2.0 --protocol type --seed 1234 --ablation no_avf
+--data v2.0 --protocol type --seed 1234 --ablation no_hgt
+--data v2.0 --protocol type --seed 1234 --ablation no_dv
+--data v3.2_cuilab_deg2 --protocol type --seed 1
+--data v3.2_cuilab_deg2 --protocol triplet --seed 1
+--data v3.2_ref_MDAv3.2-3 --protocol type --seed 1
+--data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 1
+--data v3.2_cuilab_deg2 --protocol type --seed 2
+--data v3.2_cuilab_deg2 --protocol triplet --seed 2
+--data v3.2_ref_MDAv3.2-3 --protocol type --seed 2
+--data v3.2_ref_MDAv3.2-3 --protocol triplet --seed 2

@@ -1,0 +1,13 @@
+Subject: Request for HMDD v3.2 preprocessing details — DHGCMDA (BMC Bioinformatics 2026, doi:10.1186/s12859-026-06436-w)
+
+Dear Prof. Shang and Prof. Liu,
+
+We are reproducing DHGCMDA with the code at https://github.com/CDMBlab/DHGCMDA (commit 06f9ba3). The HMDD v3.2 dataset (411 miRNAs, 271 diseases, 11,748 typed associations; Table 2) is not in the repository. We found that all 11,748 triplets are contained in the current CUILab HMDD category files (genetics/epigenetics/circulation/target/tissue.txt), and the per-type counts in Table 2 match. However, applying the filtering described in the paper (removing entities with fewer than 2 associations) gives 721 miRNAs × 609 diseases (v3_* files) or about 1,151 × 802 entities before filtering (category files), not 411 × 271.
+
+Could you share:
+1. the list of the 411 miRNAs and 271 diseases, or the preprocessing script that selects them;
+2. the four similarity matrices for v3.2 (miRNA sequence/functional, disease semantic/gene), or the scripts and parameters used to build them (Needleman-Wunsch scoring, gene source);
+3. the evaluation script used for the CV_type Top-1 metrics on five types. The released Calculate_Metrics.py handles only four types, and the reported R > P implies macro-averaged recall;
+4. the exact form of the existence loss, the margin m, the number of negatives in inter-modality CL, and whether ||·||_F^2 in Eq. 21 is a sum or a mean.
+
+Thank you very much.
