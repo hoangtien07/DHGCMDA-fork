@@ -1,0 +1,115 @@
+{
+  "status": "PASS",
+  "scope": "fresh sibling namespace preflight on separate handoff worktree, same Windows host; no training, not a Linux test",
+  "probe_preflight_sha256": "46ba3031e0810158851b609d95ef8315b387c5a1a297c87c96b7bce629430d84",
+  "protocol_sha256": "aaf6c6119029f89483e4d4a15809cdfdb409658a21911304e1c3eea9c9dc62e3",
+  "train_script_sha256": "cd334723510dfa1abdca9019b92b2e2df17a90241a6e4b3f796ba12457f3ec16",
+  "preflight_script_sha256": "f5e4492579ee46b57aeab5631d2cd0323db3a984f162dc072d8fd9e8309dface",
+  "entries": [
+    {
+      "key": "fold0_seed1234",
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "old_manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f",
+      "cfg_sha256": "51d028e6c1c40261dcc8c9213525d188e40062c0ef613467c6de946ca9c76ae2",
+      "bank_sha256": "b2a5d1a81220277178e6c7bf787653143bf57ec3f3e31e54735088ec5ba84db1"
+    },
+    {
+      "key": "fold0_seed42",
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "old_manifest_sha256": "29c84729d4a94175aaeb153d83778915908e6271403a365e1cd94874ea0dcb4c",
+      "cfg_sha256": "94e970a09425cc7ebc44d67b3b95347c52a721d039bd6ec7da11842287b853fb",
+      "bank_sha256": "9bf0bc240fee85b7467522451263c5940631c912a72d3b9a6e654c23a4cd6103"
+    },
+    {
+      "key": "fold0_seed2025",
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "old_manifest_sha256": "52949562300d266eb319130d65429dfa7e59d55b479e087e4c622f39de4cdfea",
+      "cfg_sha256": "bb5706905dded8a94b388bf39840e8319d94706fe39cae541d10c50be5c3b24d",
+      "bank_sha256": "992ad9aeab83789e841e8aa329f4a0579b676b1f5c55a7d8271a736d65efd802"
+    },
+    {
+      "key": "fold1_seed1234",
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "old_manifest_sha256": "97adef57d36b6af64a9f1061933a7040cbd4a3e27c708787805a295e5292d6b1",
+      "cfg_sha256": "51d028e6c1c40261dcc8c9213525d188e40062c0ef613467c6de946ca9c76ae2",
+      "bank_sha256": "25d147766c6c1007391782ef6023945c5a9ab22dd171d4ca6d8cb71bec8b47e0"
+    },
+    {
+      "key": "fold1_seed42",
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "old_manifest_sha256": "a1397ef7b3503ac9884502272780a901052648607730e33c520b5ac9376f8460",
+      "cfg_sha256": "94e970a09425cc7ebc44d67b3b95347c52a721d039bd6ec7da11842287b853fb",
+      "bank_sha256": "cd6da7001180e925235f80a15cf433fa100f20d3bb3911c3f28dc8f23b5edb0b"
+    },
+    {
+      "key": "fold1_seed2025",
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "old_manifest_sha256": "60d56aba412bd5ad75ca617baa651f78050b75a4562086a2750d4e7a2dc8d5fb",
+      "cfg_sha256": "bb5706905dded8a94b388bf39840e8319d94706fe39cae541d10c50be5c3b24d",
+      "bank_sha256": "b310bc2828e72bf24129ed5c970afdb53b2bd5f20559f00934e42d234ec8b939"
+    },
+    {
+      "key": "fold2_seed1234",
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "old_manifest_sha256": "0c702998dd2805bd1584ecfca408586f5a42edc602370bf0e07a8ca3262eb121",
+      "cfg_sha256": "51d028e6c1c40261dcc8c9213525d188e40062c0ef613467c6de946ca9c76ae2",
+      "bank_sha256": "c1dc5047c8d407cd076d2ca2ca03692dc787cf7f43ff8a91e485130d481cee18"
+    },
+    {
+      "key": "fold2_seed42",
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "old_manifest_sha256": "f64a8cd0cd9be4d1bdb653dbe0ff69268f7a389a90d5f2fe7c31cb9b4a000d4e",
+      "cfg_sha256": "94e970a09425cc7ebc44d67b3b95347c52a721d039bd6ec7da11842287b853fb",
+      "bank_sha256": "b8054ea3c0aa815dbc33cf97ace30234e76a8484952b7b8a45aa9fc3aa453a11"
+    },
+    {
+      "key": "fold2_seed2025",
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "old_manifest_sha256": "f75d9fd5b7b36f3e9ca9b198a7dd4f3256766f3a6395148eb2f5aa7e962605ec",
+      "cfg_sha256": "bb5706905dded8a94b388bf39840e8319d94706fe39cae541d10c50be5c3b24d",
+      "bank_sha256": "f9ec3e9fe0416ee368a28cabfc53838a85e72b709247cae56c8024122073f144"
+    },
+    {
+      "key": "fold3_seed1234",
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "old_manifest_sha256": "468d59d45f46f2f8579df8101b54f198d51a065e2da91ec23d68d9e27666fc99",
+      "cfg_sha256": "51d028e6c1c40261dcc8c9213525d188e40062c0ef613467c6de946ca9c76ae2",
+      "bank_sha256": "e162ba67326222f64cfc4acec3d7aef70708d5b7c5c10ac9a56ddaaedf7bfae1"
+    },
+    {
+      "key": "fold3_seed42",
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "old_manifest_sha256": "2c44fb1324831ba388c70a54e0acc5116c2bb1035b76cec4670d23e7ef4f7284",
+      "cfg_sha256": "94e970a09425cc7ebc44d67b3b95347c52a721d039bd6ec7da11842287b853fb",
+      "bank_sha256": "5b62e3922e472196d5be454ff28824b26dd18f6e64a3776c53ede64909cfbe5e"
+    },
+    {
+      "key": "fold3_seed2025",
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "old_manifest_sha256": "4de9484221f5d1465475392884e5ad347918edeac8a6b41c50170a92c23c91ac",
+      "cfg_sha256": "bb5706905dded8a94b388bf39840e8319d94706fe39cae541d10c50be5c3b24d",
+      "bank_sha256": "426792a0de9869cf460300d8e3274511299be697b705b66430c70561dfe86069"
+    },
+    {
+      "key": "fold4_seed1234",
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "old_manifest_sha256": "303e87be0f5d834a3eb164f05d99bc84dd3f02272f9afc3669ac03a8e3696f34",
+      "cfg_sha256": "51d028e6c1c40261dcc8c9213525d188e40062c0ef613467c6de946ca9c76ae2",
+      "bank_sha256": "813cafe98c3f51a50f667d9c6b87c9f5e7d7c14ed97935e61fc0fac0619e6a84"
+    },
+    {
+      "key": "fold4_seed42",
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "old_manifest_sha256": "9612f99604dabc8777f9ea844b1191fac6a55dee659863648c6af609b2cea473",
+      "cfg_sha256": "94e970a09425cc7ebc44d67b3b95347c52a721d039bd6ec7da11842287b853fb",
+      "bank_sha256": "51b92d0e620d7ed166716f4a032cc1f8a3e0fd17a6632a905ed7911bfb4656a3"
+    },
+    {
+      "key": "fold4_seed2025",
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "old_manifest_sha256": "d16c6997eb975d7f332775ce3bc2e69003f670c79e0006ad5b2839fc393baf30",
+      "cfg_sha256": "bb5706905dded8a94b388bf39840e8319d94706fe39cae541d10c50be5c3b24d",
+      "bank_sha256": "fb39027eb74977bac5e1f23c5a87841f226aeecfc6d6eb34fc2ec641b91da4bc"
+    }
+  ]
+}
