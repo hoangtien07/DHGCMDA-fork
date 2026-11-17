@@ -1,0 +1,19 @@
+{
+ "stage": "U1",
+ "exports_from": "best",
+ "lam_intra": 1.0,
+ "intra_temperature": 0.5,
+ "intra_alpha": 0.5,
+ "lam_inter": 0.3,
+ "inter_temperature": 0.5,
+ "inter_margin": 0.5,
+ "inter_margin_coef": 0.1,
+ "lam_recon": 1.0,
+ "reduction": "declared normalized engineering units, not paper-literal lambda equivalence",
+ "neg_bank_sha": "992ad9aeab83789e841e8aa329f4a0579b676b1f5c55a7d8271a736d65efd802",
+ "neg_bank_assumed": "A_train-zero cells, not verified negatives (false-negative risk disclosed)",
+ "best_epoch": 560,
+ "val_macro_f1": 0.4452894204947569,
+ "split": "val",
+ "npz_sha256": "cd3a7f59392289af9a65ff5ea50d4a31a11195a95cfe006433dd2e029542a2b5"
+}
