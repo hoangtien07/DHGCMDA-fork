@@ -1,0 +1,9 @@
+# Đối chứng đồ thị tại epoch 226, seed 42
+
+Đây là chẩn đoán sau khi đã thấy đỉnh seed42 epoch226, không phải thí nghiệm mù hay chọn recipe mới. Tái chạy U1 nguyên nguồn pin trên cùng fold0, seed42 và negative bank, 230 epoch; nhịp eval và refresh giữ như lượt 650. Dùng trace chỉ quan sát locals của hàm train: ngay trước refresh epoch225 lưu đồ thị cũ; ngay trước forward epoch226 dùng state weights sau optimizer epoch225, đồ thị mới, đồ thị cũ và cùng trạng thái RNG bắt đầu.
+
+Hai nhánh chỉ forward/backward trên **hai bản sao model** và không optimizer step: cùng inputs, weights, targets, bank và RNG đầu vào, thay toàn bộ `G`/`edge_index_dict` theo refresh. Dùng thêm nhánh đồ thị mới lặp lại để kiểm tra loss/gradient trùng chính xác. Khôi phục RNG sau probe; bảo vệ state/model/đồ thị và tiếp tục runner không thay đổi. Dropout dùng cùng trạng thái RNG bắt đầu; topology khác có thể làm thứ tự/số lượng random draws khác nhau — lưu RNG cuối để kiểm tra và nêu giới hạn. Không đọc validation/test trong probe; runner 230 vẫn đánh giá inner-validation theo lịch như lượt gốc, không chấm outer-test.
+
+Điều kiện: source/config, bundle và negative bank pin; đường loss gốc epoch1–230 và graph input/output hash epoch225 phải khớp lượt seed42 650 trong sai số float công bố. Branch đồ thị mới phải khớp loss và gradient epoch226 gốc; nếu không, báo probe invalid, không kết luận hiệu ứng. Tính reconstruction contribution theo reduction cuối; ghi total/type/intra/inter/recon/gradient, thay đổi topology và kết quả deterministic control. Hai đồ thị thay đồng thời nên không quy riêng cho HGT hay hypergraph; một state, một seed, chỉ độ nhạy cục bộ; không kết luận hiệu năng mô hình hay metric paper.
+
+Probe được quyết định sau khi thấy spike và dùng cùng dữ liệu phát triển. Không chọn ngưỡng hay mô hình mới, không chấm outer-test. Test RNG/weights và repeat-control trên toy dropout trước khi chạy thật. Tất cả artifact lưu mới riêng; source pin không chỉnh.

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "folds": [
+    {
+      "fold": 1,
+      "feature_sha256": "c8cdc525fb1dbceefb9a560deb33bb8b617c12eb1b07b5209a106d7085668d6a",
+      "n_zero_degree_mirnas": 205,
+      "n_test_pairs_with_zero_degree_mirna": 22,
+      "n_test_pairs": 268,
+      "scalar_top1_accuracy_cold": 0.2727272727272727,
+      "scalar_top1_accuracy_other": 0.5,
+      "mean_abs_diff_from_release_feature": 0.06650608777999878
+    },
+    {
+      "fold": 2,
+      "feature_sha256": "c003fc4ff4ce5529597138da7e89e44d4e8624ee7a7a199aaab17d9366359ec0",
+      "n_zero_degree_mirnas": 206,
+      "n_test_pairs_with_zero_degree_mirna": 24,
+      "n_test_pairs": 268,
+      "scalar_top1_accuracy_cold": 0.25,
+      "scalar_top1_accuracy_other": 0.47540983606557374,
+      "mean_abs_diff_from_release_feature": 0.06840017437934875
+    },
+    {
+      "fold": 3,
+      "feature_sha256": "19421d60d372f6c23ac4ca70aa7aecaa5e1ead031355bfe85746df151599abaa",
+      "n_zero_degree_mirnas": 209,
+      "n_test_pairs_with_zero_degree_mirna": 28,
+      "n_test_pairs": 268,
+      "scalar_top1_accuracy_cold": 0.39285714285714285,
+      "scalar_top1_accuracy_other": 0.475,
+      "mean_abs_diff_from_release_feature": 0.06629013270139694
+    },
+    {
+      "fold": 4,
+      "feature_sha256": "2de2bd0097628b66b1bdbdd4764b8d0cf6d621bae9a156968d6f55e0cb8b92bd",
+      "n_zero_degree_mirnas": 215,
+      "n_test_pairs_with_zero_degree_mirna": 31,
+      "n_test_pairs": 268,
+      "scalar_top1_accuracy_cold": 0.2903225806451613,
+      "scalar_top1_accuracy_other": 0.5274261603375527,
+      "mean_abs_diff_from_release_feature": 0.06590136140584946
+    },
+    {
+      "fold": 5,
+      "feature_sha256": "789f29c939bad66fdf999ece934f45f45712e6f71ef2bea46323ee25819148fe",
+      "n_zero_degree_mirnas": 214,
+      "n_test_pairs_with_zero_degree_mirna": 33,
+      "n_test_pairs": 268,
+      "scalar_top1_accuracy_cold": 0.2727272727272727,
+      "scalar_top1_accuracy_other": 0.5319148936170213,
+      "mean_abs_diff_from_release_feature": 0.0635245144367218
+    }
+  ],
+  "interpretation": "Stratified scalar accuracy is descriptive; not a randomized estimate of cold-start effect."
+}

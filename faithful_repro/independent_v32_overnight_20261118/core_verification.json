@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "scope": "integrity and cross-check of local evidence; not independent reproduction",
+  "script_sha256": "58374f0864e1d113ccd4032d05c86331a0e679e301351beabeb74f5904a46299",
+  "checked": [
+    "diagnostics",
+    "strata",
+    "negative_overlap",
+    "bank_size",
+    "canary",
+    "data_audit",
+    "triplet_audit",
+    "triplet_baseline",
+    "triplet_verify",
+    "coverage",
+    "split_audit",
+    "upstream_graph_fixture"
+  ]
+}

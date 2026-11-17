@@ -1,0 +1,110 @@
+{
+  "audit_existing.py": {
+    "size": 2992,
+    "sha256": "910af87fbbe33f8655a8368853a5857da288e9a813685dafbc606af56ac23d1d"
+  },
+  "feature_oracle.py": {
+    "size": 2050,
+    "sha256": "56c6b803869369898cafa7e05bbbb9ab1ba208c5d9ddf0e22fa2b81e9938f03a"
+  },
+  "label_collapse.py": {
+    "size": 2238,
+    "sha256": "eeaeafaf12d012339fb2d341553f92309781ed11c900dc758b55655b57149484"
+  },
+  "prepare_release.py": {
+    "size": 1942,
+    "sha256": "029b2453c7ae412482378851c13880454d552d3ca2589a2da966ff10102c78bc"
+  },
+  "reconstruct_split.py": {
+    "size": 3063,
+    "sha256": "485f900021121aa663345ea700efb3eb5910fd56d22faef21926f208b64287a6"
+  },
+  "run_release.py": {
+    "size": 7240,
+    "sha256": "a516ca51823e936e1c0b46e3210983f70785b2a10e8c8b29c02a1eb6346e2868"
+  },
+  "score_folds.py": {
+    "size": 4904,
+    "sha256": "8e2a299b1c1ef33294a3d4c2e227d3a9b91eeb2252b8317079a50e8adc7a2f13"
+  },
+  "score_partial.py": {
+    "size": 1877,
+    "sha256": "b5db9be1b8a1293f6cf2099f6d8a5dd2f84e51ab63401d2e2fcab7ed1445fd8f"
+  },
+  "seal_evidence.py": {
+    "size": 1080,
+    "sha256": "a6919a2684cd207404ed3fe4d4575f1aec25e95ebf769ab1c4cbcd0ed0865a83"
+  },
+  "PROTOCOL.md": {
+    "size": 3430,
+    "sha256": "b904355916c1f9fd9ee89d2b9832e60144682f19a3121a73f0364f2f9b11d913"
+  },
+  "INVENTORY.md": {
+    "size": 4908,
+    "sha256": "2e833cb06287964e632b5baf247d88c6383c0072b0be0bf7bb690d4a7b8d8a69"
+  },
+  "REPORT.md": {
+    "size": 5043,
+    "sha256": "fe8be24d09862079265462889658e6e418efaae340f9d2a34037c65012beefd2"
+  },
+  "source_manifest.json": {
+    "size": 4644,
+    "sha256": "92939e48af1799355154c190f683d92e1566857bae185e8dcb66e1063b27746d"
+  },
+  "existing_baseline_audit.json": {
+    "size": 4484,
+    "sha256": "ca4dfd0109fb4b52359fe26a7ee4b3bed0d2a3e8cc3d5c17f2fe6f37c5637d39"
+  },
+  "split_audit.json": {
+    "size": 1890,
+    "sha256": "e9117f871b0ebe9f027a30a62eb7c71dd4afda4483828e1e13007a22f2bc2744"
+  },
+  "label_collapse_audit.json": {
+    "size": 1519,
+    "sha256": "3dcd0210f7d1301090e454ac9a7661d733a90ee43a559105026d24c45c5a4642"
+  },
+  "feature_oracle.json": {
+    "size": 2345,
+    "sha256": "f0e921d6bcbe691c75403f201865fe59e3550f33dec5b9b204a4c145e8b90eb7"
+  },
+  "runs/full/contract.json": {
+    "size": 2119,
+    "sha256": "a077b46c4e977cb9fca3a027aa0a5a30cad1df65bebebb096038d221516d7741"
+  },
+  "runs/full/completion.json": {
+    "size": 1165,
+    "sha256": "cf85cdec63888eacaf9a6f903b1d76b1a0052332572caf785e7c97580f859284"
+  },
+  "runs/full/console.log": {
+    "size": 72309,
+    "sha256": "907a7229489c731e3784730b2557a17ba84e0046486f8e62ba41125d5ce9f6bf"
+  },
+  "runs/full/metric_audit.json": {
+    "size": 5534,
+    "sha256": "cd10a8bfbd995c0a670680dc2b901853ad4793e5296c06bf93515e78df3e4c8e"
+  },
+  "runs/full/partial_metric_audit.json": {
+    "size": 2615,
+    "sha256": "3a1f75702d136ca536b2b74c5ef2fa40a5b5087a2de87067ebfdebfa10517b69"
+  },
+  "runs/full/fold_1.npz": {
+    "size": 1240288,
+    "sha256": "4676fd9a1e1ed0c141046fe01127bfecd558000d79cecb3bf99c28cf9772cbe0"
+  },
+  "runs/full/fold_2.npz": {
+    "size": 1243267,
+    "sha256": "9bbfbad24d286a7f562ddfbd4d856dc4a390119f3e99298e9f8e09f6698fffa1"
+  },
+  "runs/full/fold_3.npz": {
+    "size": 1243717,
+    "sha256": "22cab68875268abea0d9a1e89b6b08154b9c92a4cf60f8c03116fc27bc7b55a0"
+  },
+  "runs/full/fold_4.npz": {
+    "size": 1243579,
+    "sha256": "f1eabf5350e85d0942200308bea32d0e7da0b4ad68d3ea8501e17127a9154db6"
+  },
+  "runs/full/fold_5.npz": {
+    "size": 1244949,
+    "sha256": "08a2c97f05c096000f30c4ac71b83ffbe2ff8d958239cd49cd165485ee732bf3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "stage": "U1_HORIZON650_SUCCESS",
+  "precontract_sha256": "7125eb6007797a04222cce8ce5c457a17f0a7aa56a355567469dd775d555b2cb",
+  "manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f",
+  "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+  "best_epoch": 650,
+  "final_epoch": 650,
+  "aborted": null,
+  "epoch200_delta_vs_original": {
+    "train_macro_f1": 0.0,
+    "val_macro_f1": 0.0,
+    "train_micro_f1": 0.0,
+    "val_micro_f1": 0.0
+  },
+  "epoch200_paired_within_1e-6": true
+}

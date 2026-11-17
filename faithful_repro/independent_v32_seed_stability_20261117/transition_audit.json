@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "retrospective per-step adjacency, threshold specified after observing spikes",
+  "runs": [
+    {
+      "seed": 1234,
+      "manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f",
+      "groups": {
+        "after_refresh": {
+          "n": 129,
+          "ratio_gt_2": 1,
+          "ratio_gt_5": 1,
+          "median_ratio": 0.9992052952863305,
+          "max_ratio": 5.687340142674064
+        },
+        "other": {
+          "n": 520,
+          "ratio_gt_2": 0,
+          "ratio_gt_5": 0,
+          "median_ratio": 0.9990499535426624,
+          "max_ratio": 1.1029367569646187
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "manifest_sha256": "29c84729d4a94175aaeb153d83778915908e6271403a365e1cd94874ea0dcb4c",
+      "groups": {
+        "after_refresh": {
+          "n": 129,
+          "ratio_gt_2": 1,
+          "ratio_gt_5": 1,
+          "median_ratio": 0.9995379967842563,
+          "max_ratio": 19.059400340751914
+        },
+        "other": {
+          "n": 520,
+          "ratio_gt_2": 0,
+          "ratio_gt_5": 0,
+          "median_ratio": 0.9993123655501711,
+          "max_ratio": 1.048277943897846
+        }
+      }
+    },
+    {
+      "seed": 2025,
+      "manifest_sha256": "52949562300d266eb319130d65429dfa7e59d55b479e087e4c622f39de4cdfea",
+      "groups": {
+        "after_refresh": {
+          "n": 129,
+          "ratio_gt_2": 2,
+          "ratio_gt_5": 0,
+          "median_ratio": 0.9995211345268432,
+          "max_ratio": 4.524354540806456
+        },
+        "other": {
+          "n": 520,
+          "ratio_gt_2": 0,
+          "ratio_gt_5": 0,
+          "median_ratio": 0.9990504452475186,
+          "max_ratio": 1.143970457668872
+        }
+      }
+    }
+  ],
+  "limits": "Temporal association only; comparison is observational and does not establish that refresh causes spikes."
+}

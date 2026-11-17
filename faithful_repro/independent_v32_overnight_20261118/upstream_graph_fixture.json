@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "scope": "direct AST-extracted graph constructor fixture, not full trainer",
+  "source_commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "source_sha256": "79013e518720fe272a1a3a05068ae4e980669932026df8f91cd28e320204300f",
+  "protocol_sha256": "1739145d5f40efc6a1cb2ee012c9d2884e37d59c7a429ccbcd6fb224818ccbbe",
+  "script_sha256": "7b0264b4a147b4f963a2125d1b20869f010800c91f57ad2475d8cdd82757ad74",
+  "baseline_mi_edges": [],
+  "reconstructed_mi_edges": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      0
+    ]
+  ],
+  "association_edges_unchanged": true,
+  "call_site_note": "trainer lines ~789-802 may rebuild HGT data using reconstructed similarities after epoch1 when MSE changes; G input computed before training and passed unchanged by trainer",
+  "old_audit_correction": "statement that published code ignored reconstructed similarities is too broad and false for this pinned path; whether HGCN G refreshes is separate"
+}

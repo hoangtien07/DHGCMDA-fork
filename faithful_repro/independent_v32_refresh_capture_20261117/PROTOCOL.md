@@ -1,0 +1,7 @@
+﻿# Giao thức bắt spike và checkpoint
+
+Mục tiêu chẩn đoán: chạy U1 fold0 candidate seed42, 650 epoch, cùng bundle và source đã pin; train CPU 2 thread, evaluate mỗi 10 epoch, không chấm outer-test. Không giả định tái tạo quỹ đạo trước.
+
+Trace trước refresh chụp G và edge_index cũ. Ở đầu epoch liền sau refresh, trước forward, chụp model, optimizer, G và cạnh mới, trạng thái torch/Python/NumPy RNG và đầu vào/target/bank. Đây là thời điểm sau optimizer của epoch refresh và sau eval (nếu có), không gọi là trước optimizer của refresh. Giữ ảnh trong RAM. Sau forward, trước backward, lưu ảnh nếu loss hiện tại lớn hơn hai lần loss epoch ngay trước; ngưỡng kế thừa khảo sát hồi cứu, không phải tiêu chuẩn có ý nghĩa thống kê. Lưu thêm epoch 6 làm control để kiểm tra khả năng đọc và tái tạo loss; không thay state/optimizer. Đánh dấu sự kiện và tiếp tục đủ 650 epoch nếu không lỗi. Ghi các hash, đường chạy và môi trường; trace có thể đổi quỹ đạo, không dùng lượt này so ngang kết quả F1.
+
+Nếu có spike, dùng ảnh của chính sự kiện đối chiếu G/cạnh cũ và mới với cùng model, input, RNG, không optimizer; nhánh mới phải khớp loss ghi tại sự kiện trong dung sai 1e-5 và thử lặp gradient trong dung sai 1e-4, RNG cuối bằng nhau. Đối chứng một state không chứng minh phổ biến hay F1, và spike/epoch phát hiện theo tiêu chí quan sát. Nếu không có spike, kiểm tra control và báo cáo không phát hiện theo ngưỡng, không kết luận không thể xảy ra.

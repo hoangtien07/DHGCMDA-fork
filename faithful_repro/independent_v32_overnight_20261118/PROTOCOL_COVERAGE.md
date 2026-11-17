@@ -1,0 +1,3 @@
+﻿# Phân tầng theo coverage và độ mơ hồ sequence — predeclared
+
+Sử dụng ledger mapping đã chốt của strict v3.2, ba nhóm rule `gff3-parent-exact`, `gff3-parent-locus-variant`, `name-not-in-mirbase-gff3`. Xác minh ledger hash trong manifest strict và tên/thứ tự so với bundle gốc, số nhóm 338/33/40. Với các cặp inner-validation đã lưu ở 5 fold × 3 seed, tính n, any-hit của U1 và disease/product prior trong từng nhóm; báo số validation pairs và unique miRNA. Nhóm 33 là union các locus, không mặc định bản thân nhãn sai; nhóm 40 không mapping theo recipe này, không khẳng định sequence sinh học không tồn tại. Không đọc outer-test và không suy nhân quả từ khác biệt nhóm.

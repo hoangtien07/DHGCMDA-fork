@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "scope": "post-hoc inner validation; mapping uncertainty is not model error or author coverage",
+  "protocol_sha256": "fbf7dc940c019e215aca552d0e394233626e7eadb7e076b64d52a6508d9d24fe",
+  "script_sha256": "dca8d9c77af31db59c335b3d4a9ae93128b974f5badb1b7da4a61f9cab0b5974",
+  "ledger_sha256": "42d7baceafb0bac37b7df4b496511dc616219ffdfcebd4f8bac305b3b58c00ae",
+  "rows": [
+    {
+      "seed": 1234,
+      "rule": "gff3-parent-exact",
+      "unique_mirnas": 324,
+      "n_val_pair_occurrences": 2922,
+      "model_hit": 0.5746064339493497,
+      "product_hit": 0.6125941136208076,
+      "disease_hit": 0.6358658453114305
+    },
+    {
+      "seed": 1234,
+      "rule": "gff3-parent-locus-variant",
+      "unique_mirnas": 33,
+      "n_val_pair_occurrences": 380,
+      "model_hit": 0.5,
+      "product_hit": 0.6447368421052632,
+      "disease_hit": 0.6157894736842106
+    },
+    {
+      "seed": 1234,
+      "rule": "name-not-in-mirbase-gff3",
+      "unique_mirnas": 38,
+      "n_val_pair_occurrences": 200,
+      "model_hit": 0.485,
+      "product_hit": 0.585,
+      "disease_hit": 0.57
+    },
+    {
+      "seed": 42,
+      "rule": "gff3-parent-exact",
+      "unique_mirnas": 324,
+      "n_val_pair_occurrences": 2922,
+      "model_hit": 0.5588637919233401,
+      "product_hit": 0.6125941136208076,
+      "disease_hit": 0.6358658453114305
+    },
+    {
+      "seed": 42,
+      "rule": "gff3-parent-locus-variant",
+      "unique_mirnas": 33,
+      "n_val_pair_occurrences": 380,
+      "model_hit": 0.5342105263157895,
+      "product_hit": 0.6447368421052632,
+      "disease_hit": 0.6157894736842106
+    },
+    {
+      "seed": 42,
+      "rule": "name-not-in-mirbase-gff3",
+      "unique_mirnas": 38,
+      "n_val_pair_occurrences": 200,
+      "model_hit": 0.46,
+      "product_hit": 0.585,
+      "disease_hit": 0.57
+    },
+    {
+      "seed": 2025,
+      "rule": "gff3-parent-exact",
+      "unique_mirnas": 324,
+      "n_val_pair_occurrences": 2922,
+      "model_hit": 0.5574948665297741,
+      "product_hit": 0.6125941136208076,
+      "disease_hit": 0.6358658453114305
+    },
+    {
+      "seed": 2025,
+      "rule": "gff3-parent-locus-variant",
+      "unique_mirnas": 33,
+      "n_val_pair_occurrences": 380,
+      "model_hit": 0.5052631578947369,
+      "product_hit": 0.6447368421052632,
+      "disease_hit": 0.6157894736842106
+    },
+    {
+      "seed": 2025,
+      "rule": "name-not-in-mirbase-gff3",
+      "unique_mirnas": 38,
+      "n_val_pair_occurrences": 200,
+      "model_hit": 0.48,
+      "product_hit": 0.585,
+      "disease_hit": 0.57
+    }
+  ]
+}

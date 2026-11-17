@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checkpoint_sha256": "9b6a13f10f3802f25406843938f1f2c1b8c068deddd426e072503f80d30f694b",
+  "script_sha256": "1a585fc59358cdc3eb09b3c623eb1359c11a62f4d61cbc3b72e55fe22cfb082a",
+  "protocol_sha256": "a5f482299859a407249b8ecc46d5aa8c329d7dfb3941215a29779f635b4ce4da",
+  "tied_centers": 29,
+  "changed_incidence_columns": 29,
+  "changed_incidence_entries": 76,
+  "G_relative_change": 0.14515477624869721,
+  "results": {
+    "ascending": {
+      "residual_sum": 592021.1348865787,
+      "projection_norm": 28.67016105410761,
+      "max_degree": 411.0,
+      "degree_top13_share": 0.8948557376861572
+    },
+    "descending": {
+      "residual_sum": 600012.3777712164,
+      "projection_norm": 28.761755785335886,
+      "max_degree": 411.0,
+      "degree_top13_share": 0.8948557376861572
+    }
+  }
+}

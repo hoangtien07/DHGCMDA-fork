@@ -1,0 +1,5 @@
+﻿# Giao thức lưu producer và incidence khi spike
+
+Chạy lại U1 candidate fold0 seed42, 650 epoch, cùng source và bundle đã pin, hai CPU thread, trace chẩn đoán; không outer-test và không giả định quỹ đạo giống trước. Ở refresh, lưu trong RAM Gram miRNA/bệnh được sinh bởi forward trước optimizer; sau refresh lưu normalized similarity, incidence H và G. Ở đầu epoch sau refresh, lưu model, optimizer, RNG, graph cũ/mới và input/target. Chỉ ghi tất cả xuống đĩa khi loss sau refresh >2 lần epoch trước; lưu thêm epoch6 để kiểm tra công cụ. Dùng ngưỡng có nguồn gốc hồi cứu, không suy ra xác suất spike. Chạy đủ 650 epoch nếu không có lỗi. Trace có thể đổi quỹ đạo.
+
+Với mỗi checkpoint, kiểm tra hash của Gram producer, normalized similarity, H và G đối chiếu dynamic_history của chính lượt; tính lại normalization, incidence và G từ Gram bằng code gốc đã pin, kiểm tra bằng nhau. Đối chứng đồ thị cũ/mới tại cùng state qua evaluator sẵn có, loss mới phải khớp sự kiện; nghiệm H và tie-break chỉ được báo cáo sau khi các kiểm tra đạt. Không dùng H của lượt khác hoặc giả định trace không thay đổi quỹ đạo.

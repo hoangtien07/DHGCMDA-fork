@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "runs": [
+    {
+      "seed": 1234,
+      "manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f",
+      "max_loss_epoch": 276,
+      "max_loss": 30.243858337402344,
+      "median_loss": 7.121875524520874,
+      "recontribution": 25.686657330997257,
+      "recontribution_fraction": 0.8493181340963619,
+      "mirna_recon_sum": 109629.5234375,
+      "disease_recon_sum": 427.1660461425781,
+      "grad_norm_at_max_loss": 1547.9013667590586,
+      "max_grad_norm": 1547.9013667590586,
+      "graph_epoch_at_max_loss": 275,
+      "refresh_logged_at_max_loss": false,
+      "refresh_logged_previous_epoch": true,
+      "previous_loss": 5.317750930786133
+    },
+    {
+      "seed": 42,
+      "manifest_sha256": "29c84729d4a94175aaeb153d83778915908e6271403a365e1cd94874ea0dcb4c",
+      "max_loss_epoch": 226,
+      "max_loss": 103.75593566894531,
+      "median_loss": 7.170013189315796,
+      "recontribution": 99.06451208546375,
+      "recontribution_fraction": 0.9547840462983196,
+      "mirna_recon_sum": 424080.875,
+      "disease_recon_sum": 369.51971435546875,
+      "grad_norm_at_max_loss": 3512.310531959169,
+      "max_grad_norm": 3512.310531959169,
+      "graph_epoch_at_max_loss": 225,
+      "refresh_logged_at_max_loss": false,
+      "refresh_logged_previous_epoch": true,
+      "previous_loss": 5.443819522857666
+    },
+    {
+      "seed": 2025,
+      "manifest_sha256": "52949562300d266eb319130d65429dfa7e59d55b479e087e4c622f39de4cdfea",
+      "max_loss_epoch": 501,
+      "max_loss": 21.99196434020996,
+      "median_loss": 7.174129486083984,
+      "recontribution": 17.871057156375723,
+      "recontribution_fraction": 0.812617594313774,
+      "mirna_recon_sum": 76254.875,
+      "disease_recon_sum": 315.20343017578125,
+      "grad_norm_at_max_loss": 1128.0309326179615,
+      "max_grad_norm": 1128.0309326179615,
+      "graph_epoch_at_max_loss": 500,
+      "refresh_logged_at_max_loss": false,
+      "refresh_logged_previous_epoch": true,
+      "previous_loss": 4.860795974731445
+    }
+  ],
+  "limits": "Observed telemetry and timing only; refresh/loss association is not proof of cause; seeds and platforms differ across runs."
+}

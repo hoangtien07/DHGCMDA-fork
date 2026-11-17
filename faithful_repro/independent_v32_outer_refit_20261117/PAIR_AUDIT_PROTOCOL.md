@@ -1,0 +1,3 @@
+﻿# Kiểm tra cặp refit trước scoring
+
+Sau khi quan sát cặp đầu và trước khi có test, kiểm tra từng cặp dynamic/static cùng fold/seed: config chỉ khác dynamic_enabled; data/view hash, negative-bank và reconstruction metadata bằng nhau; G và edge ban đầu của dynamic (trước refresh epoch5) bằng G/edge cuối của static; 5 epoch đầu không có khác biệt tính toán chính sách trong forward, do refresh xảy ra sau optimizer epoch5. So sánh train_loss, grad_norm, update_norm với sai lệch chuẩn hóa <=1e-4 để cho phép sai số CPU, không yêu cầu bitwise. Ngưỡng chọn sau khi thấy cặp đầu, là gate kỹ thuật không phải kiểm định thống kê. Nếu sai, ghi lại và dừng trước scoring để điều tra; không loại cặp hoặc chọn kết quả. Kiểm tra không đọc outer-test.

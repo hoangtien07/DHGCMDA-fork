@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "207c7609448d22ca7d937c6215093cd9a3b0deee9aa8eb154a30bd49c8a0b0bd",
+  "script_sha256": "f56e9d076e047826ca0568f23d2cdc3bc530188804959804be52283ad77f2269",
+  "hypergraph_sha256": "c09a160a04809183aae26e1350f016c23ddd07ba0d14ccb6d41f602da9003497",
+  "runs": [
+    {
+      "epoch": 226,
+      "checkpoint_sha256": "0e83732ca8b678411902c4929ae85ab694bb52b43fadd3a18aa0bf3af32e17e8",
+      "results": {
+        "old": {
+          "residual_sum": 3448.7326690584387,
+          "projection_norm": 9.53228045193391,
+          "asymmetry_norm": 0.0,
+          "gates": [
+            0.7840648889541626,
+            0.7945347428321838
+          ]
+        },
+        "old_plus_rows": {
+          "residual_sum": 99455.96856169733,
+          "projection_norm": 18.81331580834542,
+          "asymmetry_norm": 0.5534780253557988,
+          "gates": [
+            0.8165964484214783,
+            0.8285771012306213
+          ]
+        },
+        "new_minus_rows": {
+          "residual_sum": 5212.267357179935,
+          "projection_norm": 10.757844032394068,
+          "asymmetry_norm": 0.5534780253557988,
+          "gates": [
+            0.7680292725563049,
+            0.778299868106842
+          ]
+        },
+        "new": {
+          "residual_sum": 109323.29405361218,
+          "projection_norm": 19.31687324334212,
+          "asymmetry_norm": 0.0,
+          "gates": [
+            0.8024128079414368,
+            0.8144584894180298
+          ]
+        }
+      }
+    },
+    {
+      "epoch": 591,
+      "checkpoint_sha256": "830ed9ca82ea28a5e587cbfd7a5a30e16855a59123363519d526d0e510b549e4",
+      "results": {
+        "old": {
+          "residual_sum": 4443.760239692752,
+          "projection_norm": 8.922320136519753,
+          "asymmetry_norm": 0.0,
+          "gates": [
+            0.8925012946128845,
+            0.8621994256973267
+          ]
+        },
+        "old_plus_rows": {
+          "residual_sum": 132898.97121909505,
+          "projection_norm": 19.981090967365045,
+          "asymmetry_norm": 0.36177794612816117,
+          "gates": [
+            0.939013659954071,
+            0.9170753359794617
+          ]
+        },
+        "new_minus_rows": {
+          "residual_sum": 3122.064677270968,
+          "projection_norm": 9.706434719151773,
+          "asymmetry_norm": 0.36177794612816117,
+          "gates": [
+            0.7757588624954224,
+            0.7654255628585815
+          ]
+        },
+        "new": {
+          "residual_sum": 117620.78653939578,
+          "projection_norm": 19.64999853810816,
+          "asymmetry_norm": 0.0,
+          "gates": [
+            0.8653621077537537,
+            0.8526386618614197
+          ]
+        }
+      }
+    }
+  ]
+}

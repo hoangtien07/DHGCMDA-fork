@@ -1,0 +1,43 @@
+{
+  "shape": [
+    411,
+    271,
+    5
+  ],
+  "types": [
+    "genetics",
+    "epigenetics",
+    "circulation",
+    "target",
+    "tissue"
+  ],
+  "per_type": [
+    1155,
+    403,
+    2293,
+    3997,
+    3900
+  ],
+  "triplets": 11748,
+  "pairs": 8735,
+  "multitype_pairs": 2110,
+  "min_mirna_pair_degree": 1,
+  "min_disease_pair_degree": 2,
+  "min_mirna_typed_degree": 1,
+  "single_typed_link_mirnas": [
+    "hsa-mir-1179",
+    "hsa-mir-1244"
+  ],
+  "csv_snapshot_reference_strict_labels_equal": true,
+  "ordered_names_equal": {
+    "mir_names": {
+      "n": 411,
+      "ordered_sha256": "4bc7ebf0b79b9c6f58064cd218a2258526cf81da3d1fdc55dc5ff52b8aaf01bb"
+    },
+    "dis_names": {
+      "n": 271,
+      "ordered_sha256": "dc083a200d66f6d1e4bb7360c40602ac664ce46713b709b889f061e251f32e10"
+    }
+  },
+  "DHGCMDA_author_tensor_identity": "unknown: payload is recovered SPLD lineage, not a DHGCMDA v3.2 release"
+}

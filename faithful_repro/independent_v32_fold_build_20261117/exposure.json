@@ -1,0 +1,91 @@
+{
+  "status": "PASS",
+  "split_sha256": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040",
+  "folds": [
+    {
+      "target_outer_fold": 0,
+      "n_pairs": 1747,
+      "membership_in_fold0_selection": {
+        "test": 1747
+      },
+      "membership_in_fold1_selection": {
+        "inner_train": 1553,
+        "inner_val": 194
+      },
+      "joint_membership": {
+        "test|inner_train": 1553,
+        "test|inner_val": 194
+      }
+    },
+    {
+      "target_outer_fold": 1,
+      "n_pairs": 1747,
+      "membership_in_fold0_selection": {
+        "inner_train": 1583,
+        "inner_val": 164
+      },
+      "membership_in_fold1_selection": {
+        "test": 1747
+      },
+      "joint_membership": {
+        "inner_train|test": 1583,
+        "inner_val|test": 164
+      }
+    },
+    {
+      "target_outer_fold": 2,
+      "n_pairs": 1747,
+      "membership_in_fold0_selection": {
+        "inner_val": 164,
+        "inner_train": 1583
+      },
+      "membership_in_fold1_selection": {
+        "inner_val": 183,
+        "inner_train": 1564
+      },
+      "joint_membership": {
+        "inner_val|inner_val": 22,
+        "inner_train|inner_train": 1422,
+        "inner_val|inner_train": 142,
+        "inner_train|inner_val": 161
+      }
+    },
+    {
+      "target_outer_fold": 3,
+      "n_pairs": 1747,
+      "membership_in_fold0_selection": {
+        "inner_train": 1565,
+        "inner_val": 182
+      },
+      "membership_in_fold1_selection": {
+        "inner_train": 1588,
+        "inner_val": 159
+      },
+      "joint_membership": {
+        "inner_train|inner_train": 1423,
+        "inner_val|inner_train": 165,
+        "inner_train|inner_val": 142,
+        "inner_val|inner_val": 17
+      }
+    },
+    {
+      "target_outer_fold": 4,
+      "n_pairs": 1747,
+      "membership_in_fold0_selection": {
+        "inner_train": 1562,
+        "inner_val": 185
+      },
+      "membership_in_fold1_selection": {
+        "inner_train": 1582,
+        "inner_val": 165
+      },
+      "joint_membership": {
+        "inner_train|inner_train": 1421,
+        "inner_train|inner_val": 141,
+        "inner_val|inner_val": 24,
+        "inner_val|inner_train": 161
+      }
+    }
+  ],
+  "interpretation": "Pair membership only: prior inclusion in training/validation does not establish individual manual inspection or disqualify ordinary CV; it limits independence of subsequent research selection after observed outcomes. No test labels or predictions read."
+}

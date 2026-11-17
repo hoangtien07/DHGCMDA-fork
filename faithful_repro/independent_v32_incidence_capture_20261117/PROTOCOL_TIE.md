@@ -1,0 +1,3 @@
+﻿# Đối chứng hậu nghiệm phá hòa điểm top-k tại epoch 231
+
+Sau khi thấy 29 hàng hòa điểm chính xác ở ranh giới top-k, giữ normalized similarity, k, self-inclusion, weights, input và target; dựng H thứ hai với thứ tự node giảm dần thay vì tăng dần chỉ khi score bằng nhau. Tái dựng G theo cùng công thức đã pin; xác nhận kích thước cột, mọi lựa chọn top-k hợp lệ và các tâm không có hòa điểm ranh giới có cùng tập node. Giữ G bệnh cũ theo new snapshot, chỉ thay G miRNA; đo tổng residual miRNA, không optimizer, không đánh giá F1. Hai luật là can thiệp cục bộ hợp lệ cho tie-break tại một checkpoint được chọn hậu nghiệm, không chứng minh nguyên nhân mọi spike hay tính trung thực với paper. Baseline phải khớp residual đối chứng checkpoint <=1e-5.

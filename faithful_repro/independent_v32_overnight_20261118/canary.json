@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "scope": "pure build_flat with train-derived functional/semantic inputs held fixed; NOT a full static-feature lineage audit",
+  "protocol_sha256": "6f36a24bd1fa74f718433bdec71a5cc3157ed7405d06585da2b647c97ae8fe15",
+  "script_sha256": "08aa9f7758d3e19a05db2b49d00afc59d40fb9b39482cfdf2eb47488a024a22c",
+  "builder_sha256": "2afa0ed5750fcaa52df9f13e3789b6a064b79c8620d002d0288852f534fcb098",
+  "strict_sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "rows": [
+    {
+      "fold": 0,
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "val_pairs": 695,
+      "changed_val_labels": 693,
+      "unchanged_output_keys": [
+        "view_mi_v1",
+        "view_mi_v2",
+        "view_dis_v1",
+        "view_dis_v2",
+        "train_mask",
+        "train_pairs",
+        "y_train",
+        "val_pairs"
+      ],
+      "verified_train_mask_calls": 2
+    },
+    {
+      "fold": 1,
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "val_pairs": 701,
+      "changed_val_labels": 700,
+      "unchanged_output_keys": [
+        "view_mi_v1",
+        "view_mi_v2",
+        "view_dis_v1",
+        "view_dis_v2",
+        "train_mask",
+        "train_pairs",
+        "y_train",
+        "val_pairs"
+      ],
+      "verified_train_mask_calls": 2
+    },
+    {
+      "fold": 2,
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "val_pairs": 702,
+      "changed_val_labels": 699,
+      "unchanged_output_keys": [
+        "view_mi_v1",
+        "view_mi_v2",
+        "view_dis_v1",
+        "view_dis_v2",
+        "train_mask",
+        "train_pairs",
+        "y_train",
+        "val_pairs"
+      ],
+      "verified_train_mask_calls": 2
+    },
+    {
+      "fold": 3,
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "val_pairs": 704,
+      "changed_val_labels": 702,
+      "unchanged_output_keys": [
+        "view_mi_v1",
+        "view_mi_v2",
+        "view_dis_v1",
+        "view_dis_v2",
+        "train_mask",
+        "train_pairs",
+        "y_train",
+        "val_pairs"
+      ],
+      "verified_train_mask_calls": 2
+    },
+    {
+      "fold": 4,
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "val_pairs": 700,
+      "changed_val_labels": 698,
+      "unchanged_output_keys": [
+        "view_mi_v1",
+        "view_mi_v2",
+        "view_dis_v1",
+        "view_dis_v2",
+        "train_mask",
+        "train_pairs",
+        "y_train",
+        "val_pairs"
+      ],
+      "verified_train_mask_calls": 2
+    }
+  ]
+}

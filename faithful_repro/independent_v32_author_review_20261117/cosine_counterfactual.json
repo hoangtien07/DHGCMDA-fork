@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "scope": "post-hoc frozen-state normalization only, not author-code replay or training",
+  "protocol_sha256": "8b005de9a70e84eceb22a228239da5e35bd055c32d2018cd7f9d15694344ae75",
+  "script_sha256": "3a5c06637a928e0a42d487b48727dafab2e2fc88bf510bc4c251e84629dfef82",
+  "cases": [
+    {
+      "seed": 42,
+      "epoch": 231,
+      "checkpoint_sha256": "9b6a13f10f3802f25406843938f1f2c1b8c068deddd426e072503f80d30f694b",
+      "raw": {
+        "loss": 143.58135986328125,
+        "grad_norm": 4979.06387877745,
+        "rng_end_sha256": "7f674f6c252adf98b5f9c462b2480f6a5606c7ab9a09247cbd15f9d8206e4455",
+        "recontribution": 138.71420288085938
+      },
+      "cosine": {
+        "loss": 43.06824493408203,
+        "grad_norm": 5.2728150643208505,
+        "rng_end_sha256": "7f674f6c252adf98b5f9c462b2480f6a5606c7ab9a09247cbd15f9d8206e4455",
+        "recontribution": 38.20109176635742
+      },
+      "cosine_repeat_grad_relative_difference": 1.1934143132501942e-07
+    },
+    {
+      "seed": 2025,
+      "epoch": 221,
+      "checkpoint_sha256": "e025be70540de81652507f063c04e12fef145fbfd1da7d47942fb01b7237a0ae",
+      "raw": {
+        "loss": 19.547487258911133,
+        "grad_norm": 743.8256483709835,
+        "rng_end_sha256": "d51bd0b0a552236846944c92959ee17a1ac738ad8b982ef9f09b44c9e3daed15",
+        "recontribution": 14.931221008300781
+      },
+      "cosine": {
+        "loss": 42.781768798828125,
+        "grad_norm": 3.9489837861289274,
+        "rng_end_sha256": "d51bd0b0a552236846944c92959ee17a1ac738ad8b982ef9f09b44c9e3daed15",
+        "recontribution": 38.16550064086914
+      },
+      "cosine_repeat_grad_relative_difference": 8.967352741148482e-08
+    },
+    {
+      "seed": 2025,
+      "epoch": 481,
+      "checkpoint_sha256": "b74e264ef1e40c2432f781b84cb383f4361ca18fe2a448c0b598c5910c859542",
+      "raw": {
+        "loss": 70.98995971679688,
+        "grad_norm": 2996.408170913472,
+        "rng_end_sha256": "13ae8db0d8b4188f238ded4e612682f27296f902aca53e6ec2a2042883954aa5",
+        "recontribution": 66.72591400146484
+      },
+      "cosine": {
+        "loss": 42.300758361816406,
+        "grad_norm": 7.852541083177148,
+        "rng_end_sha256": "13ae8db0d8b4188f238ded4e612682f27296f902aca53e6ec2a2042883954aa5",
+        "recontribution": 38.03670883178711
+      },
+      "cosine_repeat_grad_relative_difference": 4.817604692182079e-08
+    },
+    {
+      "seed": 1234,
+      "epoch": 211,
+      "checkpoint_sha256": "e649b53766951e1a85c02e7a95f59ba035aad5a7493dbaa8478cd2d719b9cbc7",
+      "raw": {
+        "loss": 139.65069580078125,
+        "grad_norm": 4309.882234699682,
+        "rng_end_sha256": "b66ba6e23e9d4478507077d3c2fb893c85e4da57a7a393916219902c21f5369f",
+        "recontribution": 134.90670776367188
+      },
+      "cosine": {
+        "loss": 42.75990676879883,
+        "grad_norm": 7.748320781837193,
+        "rng_end_sha256": "b66ba6e23e9d4478507077d3c2fb893c85e4da57a7a393916219902c21f5369f",
+        "recontribution": 38.015926361083984
+      },
+      "cosine_repeat_grad_relative_difference": 4.4215159617834895e-08
+    }
+  ]
+}

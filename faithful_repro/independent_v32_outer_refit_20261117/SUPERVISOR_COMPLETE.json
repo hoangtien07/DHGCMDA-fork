@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "refits": 30,
+  "score": "evaluation/results.json",
+  "verification": "evaluation/verification.json",
+  "report": "REPORT.md"
+}

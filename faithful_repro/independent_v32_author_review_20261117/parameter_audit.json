@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "scope": "checkpoint architecture counts and dimension-only v2 counterfactual; paper param config unspecified",
+  "checkpoint_sha256": "01504fe43fc97970c2883d65f3d2be975441ed6c4f0aa630ff0b4e9e43892189",
+  "cfg": {
+    "hidden": 256,
+    "readout": 128,
+    "proj": 64,
+    "hgt_layers": 2,
+    "hgt_heads": 4
+  },
+  "v32_dims": {
+    "mi_v1": [
+      411,
+      682
+    ],
+    "mi_v2": [
+      411,
+      682
+    ],
+    "dis_v1": [
+      271,
+      682
+    ],
+    "dis_v2": [
+      271,
+      682
+    ]
+  },
+  "v32_actual": {
+    "total_trainable": 2445355,
+    "total_all_parameters": 2445355,
+    "groups": {
+      "mi_view": 415747,
+      "dis_view": 415747,
+      "mi_proj_head": 33088,
+      "dis_proj_head": 33088,
+      "hgt": 1316900,
+      "readout": 66945,
+      "recon": 163840
+    }
+  },
+  "v2_dim_only_counterfactual": {
+    "total_trainable": 2645931,
+    "total_all_parameters": 2645931,
+    "groups": {
+      "mi_view": 516099,
+      "dis_view": 516099,
+      "mi_proj_head": 33088,
+      "dis_proj_head": 33088,
+      "hgt": 1316900,
+      "readout": 66817,
+      "recon": 163840
+    }
+  },
+  "paper_reported_approx": 2550000,
+  "script_sha256": "68d8b4e15fb479356c713aff9af2c3eb7ab049979f59498cf3d665341b9eb317"
+}

@@ -1,0 +1,96 @@
+{
+  "status": "PASS",
+  "folds": [
+    {
+      "fold": 2,
+      "status": "PASS",
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "train_pairs": 6286,
+      "val_pairs": 702,
+      "outer_test_pairs": 1747,
+      "heldout_entries_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        824,
+        278,
+        1685,
+        2878,
+        2801
+      ],
+      "val_type_support": [
+        92,
+        36,
+        177,
+        335,
+        302
+      ],
+      "functional_nonempty_mirnas": 409,
+      "semantic_covered_diseases": 262,
+      "functional_and_semantic_rebuild_elementwise_equal": true,
+      "static_seq_gene_equal_strict": true,
+      "meta_array_hashes_verified": true,
+      "test_labels_read_for_scoring": false
+    },
+    {
+      "fold": 3,
+      "status": "PASS",
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "train_pairs": 6284,
+      "val_pairs": 704,
+      "outer_test_pairs": 1747,
+      "heldout_entries_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        817,
+        288,
+        1669,
+        2848,
+        2787
+      ],
+      "val_type_support": [
+        100,
+        36,
+        183,
+        317,
+        312
+      ],
+      "functional_nonempty_mirnas": 411,
+      "semantic_covered_diseases": 262,
+      "functional_and_semantic_rebuild_elementwise_equal": true,
+      "static_seq_gene_equal_strict": true,
+      "meta_array_hashes_verified": true,
+      "test_labels_read_for_scoring": false
+    },
+    {
+      "fold": 4,
+      "status": "PASS",
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "train_pairs": 6288,
+      "val_pairs": 700,
+      "outer_test_pairs": 1747,
+      "heldout_entries_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        818,
+        270,
+        1627,
+        2877,
+        2847
+      ],
+      "val_type_support": [
+        93,
+        47,
+        181,
+        327,
+        290
+      ],
+      "functional_nonempty_mirnas": 409,
+      "semantic_covered_diseases": 262,
+      "functional_and_semantic_rebuild_elementwise_equal": true,
+      "static_seq_gene_equal_strict": true,
+      "meta_array_hashes_verified": true,
+      "test_labels_read_for_scoring": false
+    }
+  ],
+  "limitations": "Selection inputs only; no training, checkpoint, predictions or test score; disease, sequence and gene provenance differs from unrecovered paper recipe."
+}

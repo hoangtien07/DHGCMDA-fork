@@ -1,0 +1,61 @@
+{
+  "retrieved_utc": "2026-11-16T04:44:39.762515+00:00",
+  "commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "files": [
+    {
+      "file": "github_commit.json",
+      "url": "https://api.github.com/repos/CDMBlab/DHGCMDA/commits/06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+      "sha256": "c31eb68275701099e9ab1f8a76f8c201446b7e8ecfea033290299006566a00a2",
+      "bytes": 296189
+    },
+    {
+      "file": "github_tree.json",
+      "url": "https://api.github.com/repos/CDMBlab/DHGCMDA/git/trees/06f9ba3eed92e334d9a2b8003fc06d83596e5614?recursive=1",
+      "sha256": "bfa86aac3fd0d08eaf16c1ccb6004a516d9af82fb77a03a725454ed69da56a16",
+      "bytes": 8549
+    },
+    {
+      "file": "Calculate_Metrics.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/Calculate_Metrics.py",
+      "sha256": "b034aa568b7fc19dfdb2ff70334155c96dac42538af6ce56db4021c72c081d68",
+      "bytes": 28566
+    },
+    {
+      "file": "hetero_model.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/hetero_model.py",
+      "sha256": "5b3fe86ce819a140806f9fff9d36bd7a32c7275be29d0fc929eb11457660461b",
+      "bytes": 33234
+    },
+    {
+      "file": "main_experiments_hetero1.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/main_experiments_hetero1.py",
+      "sha256": "79013e518720fe272a1a3a05068ae4e980669932026df8f91cd28e320204300f",
+      "bytes": 64128
+    },
+    {
+      "file": "prepareData.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/prepareData.py",
+      "sha256": "c1632b50c77d971f953dc1bfa229118fa071ebb1579a2d18a268d64f83cdfadc",
+      "bytes": 17129
+    },
+    {
+      "file": "param.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/param.py",
+      "sha256": "075b182a329ace9dcef3c4ae85103ff06aa526f37269e7df44b0451702da2182",
+      "bytes": 14359
+    },
+    {
+      "file": "README.md",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/README.md",
+      "sha256": "e335ff90611d4bf78c2e825d641d51364164255c400bc15f1b633a9bf2addd21",
+      "bytes": 8368
+    },
+    {
+      "file": "trainData.py",
+      "url": "https://raw.githubusercontent.com/CDMBlab/DHGCMDA/06f9ba3eed92e334d9a2b8003fc06d83596e5614/trainData.py",
+      "sha256": "ae40078cbac0e6e5e452feab0f6e0f112e25060b95c5ad2b6445b544c2569899",
+      "bytes": 13717
+    }
+  ],
+  "scope": "public main tree, not private branches or author machine"
+}

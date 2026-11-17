@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "scope": "three instrumented training runs on same fold; seed and inter_seed change together; not independent splits",
+  "runs": [
+    {
+      "seed": 42,
+      "manifest_sha256": "8335ddd471024095362fafb64368766beb563a0ab99b0fe0932a0e4471d89ae9",
+      "events": [
+        {
+          "epoch": 231,
+          "previous_loss": 5.480781078338623,
+          "observed_loss": 143.58135986328125,
+          "old_graph_loss": 5.493960857391357,
+          "new_graph_loss": 143.58135986328125,
+          "old_recontribution": 0.9644076228141785,
+          "new_recontribution": 138.71420288085938,
+          "old_grad_norm": 14.199068853977732,
+          "new_grad_norm": 4979.063878743904,
+          "incidence_top13_share": 0.8948557376861572,
+          "boundary_ties": 29
+        }
+      ]
+    },
+    {
+      "seed": 2025,
+      "manifest_sha256": "d2a2c552dfacd1b9416ee414663ad696aeb1d157f6bf1bbf61fb893d281bf03d",
+      "events": [
+        {
+          "epoch": 221,
+          "previous_loss": 5.548352241516113,
+          "observed_loss": 19.547487258911133,
+          "old_graph_loss": 5.487887859344482,
+          "new_graph_loss": 19.547487258911133,
+          "old_recontribution": 0.929801344871521,
+          "new_recontribution": 14.931221008300781,
+          "old_grad_norm": 9.877369153421876,
+          "new_grad_norm": 743.8256483665068,
+          "incidence_top13_share": 0.8783454895019531,
+          "boundary_ties": 398
+        },
+        {
+          "epoch": 481,
+          "previous_loss": 4.933338165283203,
+          "observed_loss": 70.98995971679688,
+          "old_graph_loss": 4.924942493438721,
+          "new_graph_loss": 70.98995971679688,
+          "old_recontribution": 0.8108824491500854,
+          "new_recontribution": 66.72590637207031,
+          "old_grad_norm": 11.615045287290878,
+          "new_grad_norm": 2996.408170830144,
+          "incidence_top13_share": 0.9089329242706299,
+          "boundary_ties": 398
+        }
+      ]
+    },
+    {
+      "seed": 1234,
+      "manifest_sha256": "e3d35e71b21404cbdf2dd01f0ea4023d2c4bb7d4440ca94d2e13c6286fc94dde",
+      "events": [
+        {
+          "epoch": 211,
+          "previous_loss": 5.647102355957031,
+          "observed_loss": 139.65069580078125,
+          "old_graph_loss": 5.724199295043945,
+          "new_graph_loss": 139.65069580078125,
+          "old_recontribution": 1.1273117065429688,
+          "new_recontribution": 134.90670776367188,
+          "old_grad_norm": 15.208512560238514,
+          "new_grad_norm": 4309.8822346777915,
+          "incidence_top13_share": 0.9082377552986145,
+          "boundary_ties": 13
+        }
+      ]
+    }
+  ]
+}

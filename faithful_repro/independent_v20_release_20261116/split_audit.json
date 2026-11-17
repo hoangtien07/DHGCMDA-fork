@@ -1,0 +1,90 @@
+{
+  "source_csv_sha256": "affdaf46cb7ddb1912a6e10815acb3511aeb0f89ce0585eff2ab90a286a8e70e",
+  "scope": "Exact release split matched against smoke captures; no training or scoring.",
+  "split_seed": 0,
+  "full_positive_pairs": 1498,
+  "full_negative_pairs": 188087,
+  "folds": [
+    {
+      "fold": 1,
+      "positive": 268,
+      "negative": 33854,
+      "multitype": 32,
+      "type_exposed_in_association_features": 268
+    },
+    {
+      "fold": 2,
+      "positive": 268,
+      "negative": 33854,
+      "multitype": 25,
+      "type_exposed_in_association_features": 268
+    },
+    {
+      "fold": 3,
+      "positive": 268,
+      "negative": 33854,
+      "multitype": 32,
+      "type_exposed_in_association_features": 268
+    },
+    {
+      "fold": 4,
+      "positive": 268,
+      "negative": 33854,
+      "multitype": 29,
+      "type_exposed_in_association_features": 268
+    },
+    {
+      "fold": 5,
+      "positive": 268,
+      "negative": 33854,
+      "multitype": 31,
+      "type_exposed_in_association_features": 268
+    }
+  ],
+  "cv_positive_test_union": 1340,
+  "cv_negative_test_union": 169270,
+  "independent_positive": 149,
+  "independent_negative": 18808,
+  "positive_excluded_from_both_cv_and_independent": 9,
+  "independent_and_leftover_interpretation": "Original code ignores these remainder pairs in CV; independent test is defined but not scored by main_optimized.",
+  "unassigned_positive_indices_0based": [
+    [
+      71,
+      58
+    ],
+    [
+      179,
+      64
+    ],
+    [
+      164,
+      281
+    ],
+    [
+      18,
+      60
+    ],
+    [
+      327,
+      323
+    ],
+    [
+      124,
+      363
+    ],
+    [
+      127,
+      309
+    ],
+    [
+      35,
+      15
+    ],
+    [
+      6,
+      52
+    ]
+  ],
+  "full_positive_typed_labels": 1679,
+  "full_multitype_pairs": 161
+}

@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "4b9220abe7b0f9016b10e875a889eb1794ac2393f5ea61c8bc2fae30288cc170",
+  "script_sha256": "2fba3630319c1d88fa64969f36b44daf13cfb342b694b495ba55b69f17e634d5",
+  "reference_trace_sha256": "9b83bc44f868d531286246d72b8408dd51e36f598629f32a8c194ec52c72546f",
+  "runs": [
+    {
+      "epoch": 226,
+      "checkpoint_sha256": "0e83732ca8b678411902c4929ae85ab694bb52b43fadd3a18aa0bf3af32e17e8",
+      "results": {
+        "oldmag_oldgate": {
+          "residual_sum": 3448.7326690584387,
+          "active_norm": 11.75300045997762,
+          "projection_norm": 9.53228045193391,
+          "projection_row_max": 1.0561858136214535
+        },
+        "oldmag_newgate": {
+          "residual_sum": 3451.4533222804457,
+          "active_norm": 11.752985885736068,
+          "projection_norm": 9.535523273571496,
+          "projection_row_max": 1.0588130434509404
+        },
+        "newmag_oldgate": {
+          "residual_sum": 106518.28924085124,
+          "active_norm": 14.707340729310886,
+          "projection_norm": 19.20820191128101,
+          "projection_row_max": 5.573418789219465
+        },
+        "newmag_newgate": {
+          "residual_sum": 109323.29405361218,
+          "active_norm": 14.730630331074037,
+          "projection_norm": 19.31687324334212,
+          "projection_row_max": 5.573253133338166
+        }
+      },
+      "diagnostics": {
+        "changed_sign_fraction": 0.0038302159367396595,
+        "positive_fraction_old": 0.6107626216545012,
+        "positive_fraction_new": 0.611057253649635,
+        "activation_norm_old": 11.75300045997762,
+        "activation_norm_new": 14.730630331074037,
+        "preactivation_norm_old": 15.377233044820384,
+        "preactivation_norm_new": 18.349784839973918,
+        "fused_cosine": 0.737823904021187,
+        "preactivation_cosine": 0.7305112689183767,
+        "projection_cosine": 0.7924297441479199,
+        "projection_diff_norm": 13.121725425314024
+      }
+    },
+    {
+      "epoch": 591,
+      "checkpoint_sha256": "830ed9ca82ea28a5e587cbfd7a5a30e16855a59123363519d526d0e510b549e4",
+      "results": {
+        "oldmag_oldgate": {
+          "residual_sum": 4443.760239692752,
+          "active_norm": 13.188067409168125,
+          "projection_norm": 8.922320136519753,
+          "projection_row_max": 1.4579200543639041
+        },
+        "oldmag_newgate": {
+          "residual_sum": 24907.205936449114,
+          "active_norm": 14.268889845924967,
+          "projection_norm": 13.725804850039797,
+          "projection_row_max": 5.443096163042313
+        },
+        "newmag_oldgate": {
+          "residual_sum": 195124.36575826863,
+          "active_norm": 14.312322928325862,
+          "projection_norm": 22.020419564623577,
+          "projection_row_max": 6.176763737221599
+        },
+        "newmag_newgate": {
+          "residual_sum": 117620.78653939578,
+          "active_norm": 13.970390564495235,
+          "projection_norm": 19.64999853810816,
+          "projection_row_max": 4.628033127131317
+        }
+      },
+      "diagnostics": {
+        "changed_sign_fraction": 0.027647886253041362,
+        "positive_fraction_old": 0.5113005626520681,
+        "positive_fraction_new": 0.5302235401459854,
+        "activation_norm_old": 13.188067409168125,
+        "activation_norm_new": 13.970390564495235,
+        "preactivation_norm_old": 20.274159667569958,
+        "preactivation_norm_new": 18.62555466140818,
+        "fused_cosine": 0.17733203280035026,
+        "preactivation_cosine": 0.18663064851809943,
+        "projection_cosine": 0.7695773994361496,
+        "projection_diff_norm": 13.995717676755453
+      }
+    }
+  ]
+}

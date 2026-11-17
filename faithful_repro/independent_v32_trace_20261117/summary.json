@@ -1,0 +1,296 @@
+{
+  "status": "PASS",
+  "input_sha256": {
+    "faithful_repro/data/v3.2_ref_MDAv3.2-3.npz": "135e20502a73e18c0b0017f880c163fad3bfcc2c35345dae63a9d0515e18321c",
+    "faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+    "faithful_repro/paper_guided/candidate_fold0_selection_rev1/candidate_fold_data.npz": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+    "faithful_repro/paper_guided/candidate_fold0_selection_rev1/candidate_fold_data.meta.json": "5d0e6bac75bc10ea83684488278cc0407c31f97df2469cba19fb562099816329",
+    "faithful_repro/paper_guided/u1_horizon650_fold0_rev1/expected.json": "99c942a95affaad4d6d6803dbb82d4dbd4687a92beac319ba1ba2c60c13f8284",
+    "faithful_repro/paper_guided/u1_horizon650_fold0_rev1/driver.py": "6f5ba8105ec79cd5a1f1984894eea7baaf08bac0cd980c98e8f6292eaacbb9a0",
+    "faithful_repro/audit_v32_identity/misim_overlap/source_archive/eval_vs_curated_pairs.csv": "d6b27aa62d58e6fddea7520004dcdecb9a3a117e90af04d9150c4967d7cc8953",
+    "faithful_repro/colab_package_f0_selection_20261115/inputs/pair_split_candidate.csv": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040",
+    "faithful_repro/colab_package_f0_selection_20261115/inputs/candidate_manifest.json": "1459f74d836980f2073f399c70f6183081c927b05bcd2ef7435739f4cb1d8606",
+    "faithful_repro/paper_guided/candidate_fold1_selection_rev1/candidate_fold_data.npz": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+    "faithful_repro/paper_guided/candidate_fold1_selection_rev1/candidate_fold_data.meta.json": "f37533be961563fd3aa572ac2f03546fdd07d3b6ec493d4bc2c187c8f6142839",
+    "faithful_repro/paper_guided/u1_fold1_650_selection_rev1/expected.json": "0dd98cb1108ed1ffbd22deb2ab6c16ded2ccc71ca5251f828c33191b01ae4f09",
+    "v3.2_spld_paper/Y_multilabel.npy": "49b47f1bbe056b324f3bc261b2bac6cdd27064a5f96688eb1b62df9ca84a806b",
+    "v3.2_spld_paper/triplets.csv": "65729020d1eb49328eac75fb67181c8928be00501421780d00e05ffefe52c290",
+    "v3.2_spld_paper/miRNA_names.txt": "08afc1f28035ae3f97ba70af9258ef99d82b40daf26ce9a5942be0f50b6ecdd9",
+    "v3.2_spld_paper/disease_names.txt": "b0fd5fade5fba28543c798ce1cd208115b01afccdc3ce1da51a3527decc75615",
+    "v3.2_spld_paper/M_MISIM.npy": "3fdae4f5b77aee12e0a11d825c76880bc0e3722ef66d9a48fcd07442d326b02d",
+    "v3.2_spld_paper/D_MESH.npy": "ff7e43995d7f7ab61c436315f0b9fbe967e48cd94dd622947fd45c043a8eb844"
+  },
+  "source_limits": "SPLD lineage snapshot identity to DHGCMDA author tensor not established; no author v3.2 tensor inspected",
+  "dataset": {
+    "shape": [
+      411,
+      271,
+      5
+    ],
+    "typed_triplets": 11748,
+    "unique_pairs": 8735,
+    "per_type": {
+      "genetics": 1155,
+      "epigenetics": 403,
+      "circulation": 2293,
+      "target": 3997,
+      "tissue": 3900
+    },
+    "multi_type_pairs": 2110,
+    "mirna_unique_pair_degree_one": [
+      "hsa-mir-1179",
+      "hsa-mir-1244"
+    ],
+    "mirna_typed_degree_one": [
+      "hsa-mir-1179",
+      "hsa-mir-1244"
+    ],
+    "triplet_csv_equal_tensor": true,
+    "ref_strict_names_order_and_tensor_equal_snapshot": true
+  },
+  "u1_fold0_selection": {
+    "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+    "hashes_match_driver_meta_expected": true,
+    "segment_counts": {
+      "train": 6293,
+      "outer_test_complement": 1747,
+      "val": 695
+    },
+    "train_val_test_disjoint": true,
+    "train_mask_nonzero": 6293,
+    "heldout_positive_entries_in_mask": 0,
+    "all_four_association_blocks_match_train_mask": true,
+    "seq_gene_match_strict": true,
+    "recomputed_functional_equals_stored_misim": false,
+    "func_misim_mean_abs_diff": 0.12105503678321838,
+    "semantic_equals_stored_mesh": false,
+    "zero_offdiagonal_rows": {
+      "S_seq": 40,
+      "S_gene": 26,
+      "S_func_train": 6,
+      "S_sem": 9
+    },
+    "misim_source_pair_tiers": {
+      "train": {
+        "exact_raw_record": 5584,
+        "unmatched_mir_only": 128,
+        "unmatched": 260,
+        "heuristic_family": 277,
+        "same_mesh_ui": 44
+      },
+      "outer_test_complement": {
+        "exact_raw_record": 1565,
+        "unmatched": 61,
+        "heuristic_family": 69,
+        "unmatched_mir_only": 42,
+        "same_mesh_ui": 10
+      },
+      "val": {
+        "exact_raw_record": 621,
+        "unmatched": 27,
+        "heuristic_family": 25,
+        "unmatched_mir_only": 16,
+        "same_mesh_ui": 6
+      }
+    },
+    "candidate_grouped_split": [
+      {
+        "fold": 0,
+        "pair_counts": {
+          "inner_train": 6293,
+          "test": 1747,
+          "inner_val": 695
+        },
+        "group_counts": {
+          "inner_train": 6154,
+          "test": 1712,
+          "inner_val": 684
+        },
+        "typed_support": {
+          "inner_train": {
+            "genetics": 865,
+            "epigenetics": 295,
+            "circulation": 1627,
+            "target": 2908,
+            "tissue": 2815
+          },
+          "test": {
+            "genetics": 201,
+            "epigenetics": 74,
+            "circulation": 471,
+            "target": 788,
+            "tissue": 772
+          },
+          "inner_val": {
+            "genetics": 89,
+            "epigenetics": 34,
+            "circulation": 195,
+            "target": 301,
+            "tissue": 313
+          }
+        },
+        "cross_segment_groups": 0
+      },
+      {
+        "fold": 1,
+        "pair_counts": {
+          "test": 1747,
+          "inner_train": 6287,
+          "inner_val": 701
+        },
+        "group_counts": {
+          "test": 1715,
+          "inner_train": 6151,
+          "inner_val": 684
+        },
+        "typed_support": {
+          "test": {
+            "genetics": 233,
+            "epigenetics": 75,
+            "circulation": 465,
+            "target": 800,
+            "tissue": 767
+          },
+          "inner_train": {
+            "genetics": 839,
+            "epigenetics": 294,
+            "circulation": 1640,
+            "target": 2884,
+            "tissue": 2819
+          },
+          "inner_val": {
+            "genetics": 83,
+            "epigenetics": 34,
+            "circulation": 188,
+            "target": 313,
+            "tissue": 314
+          }
+        },
+        "cross_segment_groups": 0
+      },
+      {
+        "fold": 2,
+        "pair_counts": {
+          "inner_train": 6286,
+          "test": 1747,
+          "inner_val": 702
+        },
+        "group_counts": {
+          "inner_train": 6165,
+          "test": 1699,
+          "inner_val": 686
+        },
+        "typed_support": {
+          "inner_train": {
+            "genetics": 824,
+            "epigenetics": 278,
+            "circulation": 1685,
+            "target": 2878,
+            "tissue": 2801
+          },
+          "test": {
+            "genetics": 239,
+            "epigenetics": 89,
+            "circulation": 431,
+            "target": 784,
+            "tissue": 797
+          },
+          "inner_val": {
+            "genetics": 92,
+            "epigenetics": 36,
+            "circulation": 177,
+            "target": 335,
+            "tissue": 302
+          }
+        },
+        "cross_segment_groups": 0
+      },
+      {
+        "fold": 3,
+        "pair_counts": {
+          "inner_train": 6284,
+          "test": 1747,
+          "inner_val": 704
+        },
+        "group_counts": {
+          "inner_train": 6156,
+          "test": 1710,
+          "inner_val": 684
+        },
+        "typed_support": {
+          "inner_train": {
+            "genetics": 817,
+            "epigenetics": 288,
+            "circulation": 1669,
+            "target": 2848,
+            "tissue": 2787
+          },
+          "test": {
+            "genetics": 238,
+            "epigenetics": 79,
+            "circulation": 441,
+            "target": 832,
+            "tissue": 801
+          },
+          "inner_val": {
+            "genetics": 100,
+            "epigenetics": 36,
+            "circulation": 183,
+            "target": 317,
+            "tissue": 312
+          }
+        },
+        "cross_segment_groups": 0
+      },
+      {
+        "fold": 4,
+        "pair_counts": {
+          "inner_train": 6288,
+          "test": 1747,
+          "inner_val": 700
+        },
+        "group_counts": {
+          "inner_train": 6152,
+          "test": 1714,
+          "inner_val": 684
+        },
+        "typed_support": {
+          "inner_train": {
+            "genetics": 818,
+            "epigenetics": 270,
+            "circulation": 1627,
+            "target": 2877,
+            "tissue": 2847
+          },
+          "test": {
+            "genetics": 244,
+            "epigenetics": 86,
+            "circulation": 485,
+            "target": 793,
+            "tissue": 763
+          },
+          "inner_val": {
+            "genetics": 93,
+            "epigenetics": 47,
+            "circulation": 181,
+            "target": 327,
+            "tissue": 290
+          }
+        },
+        "cross_segment_groups": 0
+      }
+    ]
+  },
+  "u1_fold1_selection": {
+    "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+    "hashes_match_driver_meta_expected": true,
+    "train_pairs": 6287,
+    "val_pairs": 701,
+    "outer_test_pairs": 1747,
+    "heldout_positive_entries_in_mask": 0,
+    "all_four_association_blocks_match_train_mask": true,
+    "seq_gene_match_strict": true,
+    "functional_equals_stored_misim": false
+  },
+  "limits": "Outer test segment identified by complement for provenance only, no predictions or scores read. MISIM presence is pair-level; not proof of a type label or causal score effect. Candidate U1 inner selection, not author fold."
+}

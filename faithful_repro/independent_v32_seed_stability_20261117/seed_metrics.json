@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "scope": "one candidate fold0; validation selected checkpoint; no outer-test",
+  "completed_seeds": 3,
+  "seeds": [
+    {
+      "seed": 1234,
+      "environment": "Linux/Colab",
+      "best_epoch": 650,
+      "best_metrics": {
+        "macro_f1": 0.47076166654349405,
+        "micro_f1": 0.5039950829748002,
+        "any_hit": 0.5899280575539568,
+        "first_label_hybrid_f1": 0.5147190173398533,
+        "ties": 0,
+        "per_class": {
+          "genetics": {
+            "tp": 36,
+            "fp": 52,
+            "fn": 53,
+            "f1": 0.4067796610169492,
+            "support": 89,
+            "predicted": 88
+          },
+          "epigenetics": {
+            "tp": 19,
+            "fp": 49,
+            "fn": 15,
+            "f1": 0.37254901960784315,
+            "support": 34,
+            "predicted": 68
+          },
+          "circulation": {
+            "tp": 94,
+            "fp": 62,
+            "fn": 101,
+            "f1": 0.5356125356125356,
+            "support": 195,
+            "predicted": 156
+          },
+          "target": {
+            "tp": 106,
+            "fp": 60,
+            "fn": 195,
+            "f1": 0.4539614561027837,
+            "support": 301,
+            "predicted": 166
+          },
+          "tissue": {
+            "tp": 155,
+            "fp": 62,
+            "fn": 158,
+            "f1": 0.5849056603773585,
+            "support": 313,
+            "predicted": 217
+          }
+        }
+      },
+      "validation_macro_at_epochs": {
+        "200": 0.36807236071214805,
+        "400": 0.4168885551651525,
+        "650": 0.47076166654349405
+      },
+      "prediction_sha256": "2b2270251f4ac02e1c3094585c9cb123d5bdd2ca31468fd705f8d4f7633c4b6b",
+      "manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f"
+    },
+    {
+      "seed": 42,
+      "environment": "Windows CPU",
+      "best_epoch": 630,
+      "best_metrics": {
+        "macro_f1": 0.4474099086787934,
+        "micro_f1": 0.48186846957590657,
+        "any_hit": 0.5640287769784172,
+        "first_label_hybrid_f1": 0.4819835916401298,
+        "ties": 0,
+        "per_class": {
+          "genetics": {
+            "tp": 32,
+            "fp": 53,
+            "fn": 57,
+            "f1": 0.367816091954023,
+            "support": 89,
+            "predicted": 85
+          },
+          "epigenetics": {
+            "tp": 18,
+            "fp": 52,
+            "fn": 16,
+            "f1": 0.34615384615384615,
+            "support": 34,
+            "predicted": 70
+          },
+          "circulation": {
+            "tp": 94,
+            "fp": 68,
+            "fn": 101,
+            "f1": 0.5266106442577031,
+            "support": 195,
+            "predicted": 162
+          },
+          "target": {
+            "tp": 105,
+            "fp": 76,
+            "fn": 196,
+            "f1": 0.43568464730290457,
+            "support": 301,
+            "predicted": 181
+          },
+          "tissue": {
+            "tp": 143,
+            "fp": 54,
+            "fn": 170,
+            "f1": 0.5607843137254902,
+            "support": 313,
+            "predicted": 197
+          }
+        }
+      },
+      "validation_macro_at_epochs": {
+        "200": 0.3489298985645671,
+        "400": 0.3840828263432691,
+        "650": 0.4224456233780026
+      },
+      "prediction_sha256": "4eb22f5d4cb0536e11d4ab4cc1841a5463a1e161fce44a3557861875d7330187",
+      "manifest_sha256": "29c84729d4a94175aaeb153d83778915908e6271403a365e1cd94874ea0dcb4c"
+    },
+    {
+      "seed": 2025,
+      "environment": "Windows CPU",
+      "best_epoch": 610,
+      "best_metrics": {
+        "macro_f1": 0.47105420012125326,
+        "micro_f1": 0.5064535955746773,
+        "any_hit": 0.5928057553956835,
+        "first_label_hybrid_f1": 0.5078930192661187,
+        "ties": 0,
+        "per_class": {
+          "genetics": {
+            "tp": 27,
+            "fp": 28,
+            "fn": 62,
+            "f1": 0.375,
+            "support": 89,
+            "predicted": 55
+          },
+          "epigenetics": {
+            "tp": 20,
+            "fp": 46,
+            "fn": 14,
+            "f1": 0.4,
+            "support": 34,
+            "predicted": 66
+          },
+          "circulation": {
+            "tp": 100,
+            "fp": 90,
+            "fn": 95,
+            "f1": 0.5194805194805194,
+            "support": 195,
+            "predicted": 190
+          },
+          "target": {
+            "tp": 120,
+            "fp": 70,
+            "fn": 181,
+            "f1": 0.48879837067209775,
+            "support": 301,
+            "predicted": 190
+          },
+          "tissue": {
+            "tp": 145,
+            "fp": 49,
+            "fn": 168,
+            "f1": 0.571992110453649,
+            "support": 313,
+            "predicted": 194
+          }
+        }
+      },
+      "validation_macro_at_epochs": {
+        "200": 0.3109593281692072,
+        "400": 0.4132493782612223,
+        "650": 0.43345603491610907
+      },
+      "prediction_sha256": "53f5b795315e4f36ae162de93080d6f2dedb50151eb1278216903d34dc7833df",
+      "manifest_sha256": "52949562300d266eb319130d65429dfa7e59d55b479e087e4c622f39de4cdfea"
+    }
+  ],
+  "limits": "Different training seed and negative-bank seed together; seed1234 platform differs; exploratory and no CI/generalization claim.",
+  "macro_best_mean": 0.46307525844784686,
+  "macro_best_range": [
+    0.4474099086787934,
+    0.47105420012125326
+  ]
+}

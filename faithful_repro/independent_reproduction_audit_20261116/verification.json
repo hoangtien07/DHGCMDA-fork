@@ -1,0 +1,126 @@
+{
+  "fixtures": {
+    "released_4_types_perfect": 1.0,
+    "released_5_types_perfect": {
+      "f1": 0.0,
+      "valid": 0
+    },
+    "multihot_hand_fixture": {
+      "n_pairs": 2,
+      "n_typed_positives": 3,
+      "multitype_pairs": 1,
+      "ties_for_max": 0,
+      "first_label_hybrid": {
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5
+      },
+      "any_hit_hybrid": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6666666666666666
+      },
+      "macro_f1": 0.5,
+      "micro_f1": 0.8,
+      "pair_average": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8333333333333333
+      },
+      "any_hit": 1.0,
+      "per_class": {
+        "tp": [
+          0,
+          2
+        ],
+        "fp": [
+          0,
+          0
+        ],
+        "fn": [
+          1,
+          0
+        ],
+        "precision": [
+          0.0,
+          1.0
+        ],
+        "recall": [
+          0.0,
+          1.0
+        ],
+        "f1": [
+          0.0,
+          1.0
+        ],
+        "support": [
+          1,
+          2
+        ],
+        "predicted": [
+          0,
+          2
+        ]
+      }
+    },
+    "generalization_agrees_released_K4": "30 randomized multihot fixtures passed",
+    "simultaneous_permutation_changes_first_label_only": true,
+    "objective_weight_scaling_hand_fixture": true
+  },
+  "source_checks": {
+    "commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+    "recursive_tree_complete": true,
+    "paths": [
+      "Calculate_Metrics.py",
+      "ConstructHW.py",
+      "HMDD_data",
+      "HMDD_data/MDAv2.0",
+      "HMDD_data/MDAv2.0/d_gs.xlsx",
+      "HMDD_data/MDAv2.0/dis_sem_sim_2.0.csv",
+      "HMDD_data/MDAv2.0/m_ss.xlsx",
+      "HMDD_data/MDAv2.0/mi_dis_mat_2.0.csv",
+      "HMDD_data/MDAv2.0/mi_fun_sim_2.0.csv",
+      "README.md",
+      "check_v2.0_495m383D.py",
+      "create_hetero_data.py",
+      "hetero_model.py",
+      "hypergraph_construct_KNN.py",
+      "hypergraph_construct_kmeans.py",
+      "layers.py",
+      "main_experiments_hetero1.py",
+      "param.py",
+      "prepareData.py",
+      "trainData.py",
+      "utils.py",
+      "v2.0_495m383D",
+      "v2.0_495m383D/D_GSM.txt",
+      "v2.0_495m383D/D_SSM1.txt",
+      "v2.0_495m383D/D_SSM2.txt",
+      "v2.0_495m383D/M_FSM.txt",
+      "v2.0_495m383D/M_GSM.txt",
+      "v2.0_495m383D/all_mirna_disease_pairs.csv",
+      "v2.0_495m383D/disease name.xls",
+      "v2.0_495m383D/miRNA name.xls",
+      "v2.0_495m383D/mirna-disease.txt",
+      "v2.0_495m383D/multi2_all_mirna_disease_pairs.csv",
+      "v2.0_495m383D/multi_all_mirna_disease_pairs_without_negative.csv",
+      "v2.0_495m383D/multi_all_mirna_disease_pairs_without_negative_forcasestudy.csv",
+      "v2.0_495m383D/介绍.txt",
+      "wieghts.py"
+    ],
+    "v32_named_paths": [],
+    "released_metric_same_AST_as_local": true
+  },
+  "all_export_hash_pair_label_metric_checks_passed": true,
+  "no_pipeline_source_changed_during_run": true,
+  "numpy_version": "1.26.4",
+  "python": "3.12.15 (main, Oct  9 2026, 15:21:55) [MSC v.1944 64 bit (AMD64)]",
+  "scored_exports": [
+    "u1_horizon650_fold0_rev1/train",
+    "u1_horizon650_fold0_rev1/val",
+    "u1_horizon650_fold0_rev1/disease_prior_val",
+    "u1_fold1_650_selection_rev1/train",
+    "u1_fold1_650_selection_rev1/val",
+    "u1_fold1_650_selection_rev1/disease_prior_val"
+  ]
+}

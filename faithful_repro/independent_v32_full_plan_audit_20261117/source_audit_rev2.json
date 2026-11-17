@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "author_commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "local_metric_sha256": "dd4e1df7f0f567caec006b2a8384972c5fd02c6daa73b732379d9fda0a56a20c",
+  "upstream_metric_sha256": "b034aa568b7fc19dfdb2ff70334155c96dac42538af6ce56db4021c72c081d68",
+  "local_equals_upstream_bytes": false,
+  "local_equals_upstream_normalized_newlines": true,
+  "snapshot_sha256": "49b47f1bbe056b324f3bc261b2bac6cdd27064a5f96688eb1b62df9ca84a806b",
+  "ref_sha256": "135e20502a73e18c0b0017f880c163fad3bfcc2c35345dae63a9d0515e18321c",
+  "shape": [
+    411,
+    271,
+    5
+  ],
+  "typed_count": 11748,
+  "unique_pairs": 8735,
+  "multitype_pairs": 2110,
+  "slice_counts": [
+    1155,
+    403,
+    2293,
+    3997,
+    3900
+  ],
+  "metric_6_scores": {
+    "valid_samples": 0.0,
+    "correct_predictions": 0.0,
+    "top1_f1": 0.0
+  },
+  "metric_5_direct_scores": {
+    "valid_samples": 1.0,
+    "correct_predictions": 0.0,
+    "top1_f1": 0.0
+  }
+}

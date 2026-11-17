@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "files": [
+    {
+      "file": "author.pdf",
+      "pages": 7,
+      "sha256": "360a1c5d6e3bc2009d32ae20c085e9151798dc9077f86f884d755d86606cc9c1",
+      "text_sha256": "a075e9ff1cc8de062fc95db2bb959e1395a441d3a15121fb6848994221119550"
+    },
+    {
+      "file": "r1_v0.pdf",
+      "pages": 1,
+      "sha256": "c3712d3f3237c99a08de7666d4d3e54c7b073d6e2bffae5b7b7a98c110e13a29",
+      "text_sha256": "7ead63e0905db9ceb4636ee0eb827ffdc150ffbb9cd33f6418cee11a47fad0ac"
+    },
+    {
+      "file": "r1_v1.pdf",
+      "pages": 1,
+      "sha256": "c3017f5574c2fc09fb1f61a52781548350b905db44e663ed1d1f86130054e9e1",
+      "text_sha256": "7b191b3398362dcd9e4d02a0882c1b87532e13b97e86a934331f1b6ba12f9370"
+    },
+    {
+      "file": "r2_v0.pdf",
+      "pages": 1,
+      "sha256": "6636af0a4076a460e0c081e49d7b99cb209dfa357a5886b2ad14cf7d64977fbb",
+      "text_sha256": "3289c8ab24b4c39aad1a930df82ab8ab652db41b58786787bf1ba27b499b583a"
+    },
+    {
+      "file": "r2_v1.pdf",
+      "pages": 1,
+      "sha256": "bd7666aec0f6e0948425d8fb9416071ea6d70ebc611462bbbf0ebf63a5be9325",
+      "text_sha256": "6a368ee3a53a6a557c0b23a1981cc0d805a80287937b581fdc07c9b438917b18"
+    },
+    {
+      "file": "r3_v0.pdf",
+      "pages": 1,
+      "sha256": "97a57c35e0a7dc28edd96233d3be76d2ef19151cc9d41c2c1d07da3160ea3d49",
+      "text_sha256": "5e9fa65e41471407105a7652b1018ecf8f91f47d49244356f89239158e3bf52f"
+    },
+    {
+      "file": "r3_v1.pdf",
+      "pages": 1,
+      "sha256": "36cbf40ba76b57a60b5a22209c8cdaaeca062a649606e9f3af4ccfcc6138fefa",
+      "text_sha256": "95ae4548f4cae93a7a9f3b3cd39d18577af9d866521300e28f8bb8d5730f5a38"
+    }
+  ]
+}

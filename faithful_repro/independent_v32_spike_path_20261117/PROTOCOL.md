@@ -1,0 +1,3 @@
+﻿# Giao thức truy vết hai spike
+
+Hai checkpoint 226 và 591 được chọn do đã quan sát spike trong cùng một lượt, không độc lập. Dùng nguyên model, inputs, target, RNG; so sánh đồ thị cũ với đồ thị mới. Hook đọc đầu ra conv1/conv2, AVF, hai tầng decoder miRNA và fused embedding, cùng Gram thô và residual có mask. Không chỉnh trọng số, không optimizer, không thay target. Tính phân phối norm theo node, gate, norm và khoảng giá trị Gram, tổng bình phương residual; xác định tỷ trọng sai số tập trung vào các hàng và đường chéo. Tất cả chỉ mô tả checkpoint và phép can thiệp G+cạnh, không chứng minh nút nào gây ra spike. Kiểm tra tổng residual khớp đối chứng đã lưu trong dung sai 1e-5 và nhánh lặp lại khớp thống kê trong dung sai 1e-5. Không sử dụng outer-test.

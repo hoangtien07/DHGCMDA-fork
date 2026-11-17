@@ -1,0 +1,5 @@
+﻿# Đối chứng reconstruction raw Gram và cosine tại checkpoint spike
+
+Sau khi đọc code tác giả commit 06f9ba3e, thử trên bốn spike đã quan sát: seed42 epoch231, seed2025 epoch221/481, seed1234 epoch211. Giữ đúng model, trọng số, graph mới, input, target, mask, objective còn lại, RNG và reduction common-mass; thay duy nhất Gram raw `P Pᵀ` thành `normalize(P) normalize(P)ᵀ` cho cả hai nhánh reconstruction và tính lại loss, backward trên clone, không optimizer. Cách này chỉ kiểm tra normalization tại state cố định; KHÔNG phải chạy nguyên decoder tác giả (tác giả còn có hidden width, ReLU, dropout, bias và MSE/coefficient khác), không thay đổi G đã có, không chứng minh hiệu năng hoặc quỹ đạo huấn luyện. Không dùng outer-test.
+
+Góc raw phải tái tạo loss của paired checkpoint trước trong dung sai 1e-5. Nhánh cosine lặp hai lần cùng RNG, sai số loss <=1e-5, norm sai khác gradient / max(1,norm) <=1e-4, RNG cuối bằng nhau. Lưu từng component, gradient, hash source/checkpoint. Hai event seed2025 cùng một lượt không độc lập.

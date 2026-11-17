@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "binary_csv_git_blob": "3b1a253895ce800bddaabea96017510218a543e7",
+  "binary_pairs": 5430,
+  "gip_max_abs_difference": 4.440892098500626e-16,
+  "folds": [
+    {
+      "fold": 1,
+      "test_positive_pairs_in_full_binary_input": 268
+    },
+    {
+      "fold": 2,
+      "test_positive_pairs_in_full_binary_input": 268
+    },
+    {
+      "fold": 3,
+      "test_positive_pairs_in_full_binary_input": 268
+    },
+    {
+      "fold": 4,
+      "test_positive_pairs_in_full_binary_input": 268
+    },
+    {
+      "fold": 5,
+      "test_positive_pairs_in_full_binary_input": 268
+    }
+  ]
+}

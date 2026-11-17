@@ -1,0 +1,8 @@
+# Preserve exact bytes for research artifacts whose source and data SHA-256 are pinned.
+faithful_repro/independent_v*/** -text
+faithful_repro/independent_reproduction_audit_20261116/** -text
+faithful_repro/paper_guided/** -text
+faithful_repro/colab_package_f0_selection_20261115/** -text
+faithful_repro/audit_v32_identity/** -text
+faithful_repro/data/*.npz -text
+v3.2_spld_paper/** -text

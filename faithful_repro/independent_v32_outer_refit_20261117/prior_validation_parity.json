@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "bf2778317479b7d7d2d1b1ea030c21b9c941c9b9828042085a48b52fc3ff146c",
+  "prior_sha256": "bc06e84e390f7b0e5f1fc11847bb87eb4555591a6b7bb87ee0fdf502f33dff24",
+  "script_sha256": "009e8c1bfab90270b82a6785b380566677b8e8d771f27ec519552ad4be4b38f5",
+  "scope": "reproduce preexisting validation baseline, no outer test",
+  "folds": [
+    {
+      "fold": 0,
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "methods": [
+        "disease",
+        "global",
+        "mirna",
+        "product_laplace1"
+      ]
+    },
+    {
+      "fold": 1,
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "methods": [
+        "disease",
+        "global",
+        "mirna",
+        "product_laplace1"
+      ]
+    },
+    {
+      "fold": 2,
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "methods": [
+        "disease",
+        "global",
+        "mirna",
+        "product_laplace1"
+      ]
+    },
+    {
+      "fold": 3,
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "methods": [
+        "disease",
+        "global",
+        "mirna",
+        "product_laplace1"
+      ]
+    },
+    {
+      "fold": 4,
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "methods": [
+        "disease",
+        "global",
+        "mirna",
+        "product_laplace1"
+      ]
+    }
+  ]
+}

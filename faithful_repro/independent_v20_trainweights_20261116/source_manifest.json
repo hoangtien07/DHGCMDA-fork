@@ -1,0 +1,121 @@
+{
+  "source_commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "source_tree": "faithful_repro/independent_reproduction_audit_20261116/sources/github_tree.json",
+  "git_object_command": "git cat-file blob <sha>; independently verified Git blob hashes",
+  "files": [
+    {
+      "path": "Calculate_Metrics.py",
+      "git_blob_sha1": "46baaec351f5bd5a03981f0d8f34edc74c4d2439",
+      "sha256": "b034aa568b7fc19dfdb2ff70334155c96dac42538af6ce56db4021c72c081d68",
+      "bytes": 28566
+    },
+    {
+      "path": "ConstructHW.py",
+      "git_blob_sha1": "fefc1b7d552bf32098635a902543360e86f4c6bc",
+      "sha256": "1d402697eb630fbf3fe13b16f19244e8f58d86365c446908dc1df0a9da048e35",
+      "bytes": 666
+    },
+    {
+      "path": "check_v2.0_495m383D.py",
+      "git_blob_sha1": "79cbf9c59d47fc8254b1b159e10b039378bf2f76",
+      "sha256": "7cfd5cc7ac780365651dbae291cd2a9c0a58950b53572334ba1086d9640ec1e9",
+      "bytes": 9179
+    },
+    {
+      "path": "create_hetero_data.py",
+      "git_blob_sha1": "848626b46ca79511f855197c0b506b768a618209",
+      "sha256": "20b1436d4128ca6713f802a8e803d47ffef21d0af01adcdab722981922b28685",
+      "bytes": 13210
+    },
+    {
+      "path": "hetero_model.py",
+      "git_blob_sha1": "fd6f2a449d66c7840dde606458866df6c02ac9ee",
+      "sha256": "5b3fe86ce819a140806f9fff9d36bd7a32c7275be29d0fc929eb11457660461b",
+      "bytes": 33234
+    },
+    {
+      "path": "hypergraph_construct_KNN.py",
+      "git_blob_sha1": "c6e3e984047a018b5a3573898b31e5a71fb82ab9",
+      "sha256": "e746c9cdef4d4a9d9a0c709dd7ab00a307d03d646b951840cc98fb1c69bcfcaf",
+      "bytes": 4035
+    },
+    {
+      "path": "hypergraph_construct_kmeans.py",
+      "git_blob_sha1": "63c707b1505b82521df47180e0c084b1a95853aa",
+      "sha256": "feb951fc8afe57d82c02098bfae9ea3d988f7e1025ef5d6253f10e5efded5167",
+      "bytes": 2753
+    },
+    {
+      "path": "layers.py",
+      "git_blob_sha1": "59e389405211441dd1dcbd3edb46e6543e529d7b",
+      "sha256": "637bac6958f912fd7617607a65b15bf3e08f095ea994286c92d7c504e03ccd0c",
+      "bytes": 4902
+    },
+    {
+      "path": "main_experiments_hetero1.py",
+      "git_blob_sha1": "98d19b020b40d79acbdf4af8687cf6c2b4a8f500",
+      "sha256": "79013e518720fe272a1a3a05068ae4e980669932026df8f91cd28e320204300f",
+      "bytes": 64128
+    },
+    {
+      "path": "param.py",
+      "git_blob_sha1": "14e01fd8a0b7435c4ca418f9f8d218a82ed0df01",
+      "sha256": "075b182a329ace9dcef3c4ae85103ff06aa526f37269e7df44b0451702da2182",
+      "bytes": 14359
+    },
+    {
+      "path": "prepareData.py",
+      "git_blob_sha1": "7164fb9baf52a803dbfc6b31d2c7189d2d0824f7",
+      "sha256": "c1632b50c77d971f953dc1bfa229118fa071ebb1579a2d18a268d64f83cdfadc",
+      "bytes": 17129
+    },
+    {
+      "path": "trainData.py",
+      "git_blob_sha1": "8c5104cb3d3f6f8af2a06d66cfa83f0117eeb88e",
+      "sha256": "ae40078cbac0e6e5e452feab0f6e0f112e25060b95c5ad2b6445b544c2569899",
+      "bytes": 13717
+    },
+    {
+      "path": "utils.py",
+      "git_blob_sha1": "bdc5b97ed9be418b4d48b381a24464943fbf2fa6",
+      "sha256": "d428baab161364a65f195bc540019bad07f4e1e76b39fac32cb7ee0e8be8f7a5",
+      "bytes": 737
+    },
+    {
+      "path": "v2.0_495m383D/D_SSM1.txt",
+      "git_blob_sha1": "d376a6135e4c6906c0cadd10b0d371f0f80ca1e9",
+      "sha256": "aa46a442457a52575d57bf95d9389b1dc29a8a78a1ba9513a5bc1ec9f88cfa88",
+      "bytes": 828771
+    },
+    {
+      "path": "v2.0_495m383D/D_SSM2.txt",
+      "git_blob_sha1": "1a60740e9727a4e0afcd5038e1b734d50a6e74e6",
+      "sha256": "c923d664928973463811fd0e911da0f40003db3abb2f64fd84854bebc9db9efa",
+      "bytes": 832225
+    },
+    {
+      "path": "v2.0_495m383D/M_FSM.txt",
+      "git_blob_sha1": "5ce322deef0812603668877a70ec86435a0b231c",
+      "sha256": "f241f0c00734b8803d16c666266a26cb699d34721ef5746e9db1953ddb235f80",
+      "bytes": 1290827
+    },
+    {
+      "path": "v2.0_495m383D/M_GSM.txt",
+      "git_blob_sha1": "28dac096ce2836e77daed6dd3b4d261ebc94ae81",
+      "sha256": "d48b124ada07699c6c8665cc4b43f37c95db43a462b71cde0b6792532b22429a",
+      "bytes": 4476587
+    },
+    {
+      "path": "v2.0_495m383D/multi_all_mirna_disease_pairs_without_negative.csv",
+      "git_blob_sha1": "57e8189ec6622f3f33388dac129d65057fa95b1f",
+      "sha256": "affdaf46cb7ddb1912a6e10815acb3511aeb0f89ce0585eff2ab90a286a8e70e",
+      "bytes": 15223
+    },
+    {
+      "path": "wieghts.py",
+      "git_blob_sha1": "472a28d27adf1affe33b9598c0518f60fae6a139",
+      "sha256": "1dbec243739d5a2305ef009fe4fff0b706b2ff137b58106638013351736d3e53",
+      "bytes": 6762
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "script_sha256": "95356b76037bd2c7052cea2839506c9765f99743da3e02dbe090e964465c2e5d",
+  "protocol_sha256": "70aebf334c3d79a4bc26c62828c7e449b132bc296f2220b63ac344e134d260f2",
+  "checks": [
+    "cosine independent loss and gradients",
+    "raw graph grams",
+    "RNG unchanged",
+    "intervention changes loss"
+  ]
+}

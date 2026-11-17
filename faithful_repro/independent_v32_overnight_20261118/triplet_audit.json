@@ -1,0 +1,217 @@
+{
+  "status": "PASS",
+  "scope": "simulated CVtriplet pair overlap, not author folds",
+  "protocol_sha256": "1cfcfdcf5e9059f566705e28a42bb20d0705a4100b94e2ca665e5bfbf987ab3b",
+  "script_sha256": "38b8cfcd32e64f5d20aab7dbbaaae97a2c49c561cb2450161a6686581fec7eed",
+  "ref_sha256": "135e20502a73e18c0b0017f880c163fad3bfcc2c35345dae63a9d0515e18321c",
+  "possible_triplets": 556905,
+  "known_positive_triplets": 11748,
+  "unknown_triplets": 545157,
+  "unknown_triplets_known_pair_other_type": 31927,
+  "unknown_triplets_no_known_pair": 513230,
+  "overlap_fraction_mean_25_simulated_folds": 0.38232860338940067,
+  "overlap_fraction_min": 0.36909323116219667,
+  "overlap_fraction_max": 0.39633886760323545,
+  "rows": [
+    {
+      "seed": 0,
+      "fold": 0,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 907,
+      "fraction": 0.38595744680851063,
+      "distinct_test_pairs": 2181
+    },
+    {
+      "seed": 0,
+      "fold": 1,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 911,
+      "fraction": 0.38765957446808513,
+      "distinct_test_pairs": 2179
+    },
+    {
+      "seed": 0,
+      "fold": 2,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 884,
+      "fraction": 0.37617021276595747,
+      "distinct_test_pairs": 2190
+    },
+    {
+      "seed": 0,
+      "fold": 3,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 867,
+      "fraction": 0.36909323116219667,
+      "distinct_test_pairs": 2181
+    },
+    {
+      "seed": 0,
+      "fold": 4,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 902,
+      "fraction": 0.38399318859088977,
+      "distinct_test_pairs": 2214
+    },
+    {
+      "seed": 1,
+      "fold": 0,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 926,
+      "fraction": 0.39404255319148934,
+      "distinct_test_pairs": 2210
+    },
+    {
+      "seed": 1,
+      "fold": 1,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 884,
+      "fraction": 0.37617021276595747,
+      "distinct_test_pairs": 2194
+    },
+    {
+      "seed": 1,
+      "fold": 2,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 922,
+      "fraction": 0.3923404255319149,
+      "distinct_test_pairs": 2180
+    },
+    {
+      "seed": 1,
+      "fold": 3,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 867,
+      "fraction": 0.36909323116219667,
+      "distinct_test_pairs": 2188
+    },
+    {
+      "seed": 1,
+      "fold": 4,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 894,
+      "fraction": 0.38058748403575987,
+      "distinct_test_pairs": 2189
+    },
+    {
+      "seed": 2,
+      "fold": 0,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 896,
+      "fraction": 0.38127659574468087,
+      "distinct_test_pairs": 2190
+    },
+    {
+      "seed": 2,
+      "fold": 1,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 905,
+      "fraction": 0.3851063829787234,
+      "distinct_test_pairs": 2206
+    },
+    {
+      "seed": 2,
+      "fold": 2,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 889,
+      "fraction": 0.37829787234042556,
+      "distinct_test_pairs": 2183
+    },
+    {
+      "seed": 2,
+      "fold": 3,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 876,
+      "fraction": 0.37292464878671777,
+      "distinct_test_pairs": 2195
+    },
+    {
+      "seed": 2,
+      "fold": 4,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 931,
+      "fraction": 0.39633886760323545,
+      "distinct_test_pairs": 2197
+    },
+    {
+      "seed": 3,
+      "fold": 0,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 906,
+      "fraction": 0.38553191489361704,
+      "distinct_test_pairs": 2183
+    },
+    {
+      "seed": 3,
+      "fold": 1,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 917,
+      "fraction": 0.3902127659574468,
+      "distinct_test_pairs": 2197
+    },
+    {
+      "seed": 3,
+      "fold": 2,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 884,
+      "fraction": 0.37617021276595747,
+      "distinct_test_pairs": 2196
+    },
+    {
+      "seed": 3,
+      "fold": 3,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 895,
+      "fraction": 0.38101319710515114,
+      "distinct_test_pairs": 2186
+    },
+    {
+      "seed": 3,
+      "fold": 4,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 887,
+      "fraction": 0.3776074925500213,
+      "distinct_test_pairs": 2204
+    },
+    {
+      "seed": 4,
+      "fold": 0,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 896,
+      "fraction": 0.38127659574468087,
+      "distinct_test_pairs": 2182
+    },
+    {
+      "seed": 4,
+      "fold": 1,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 881,
+      "fraction": 0.3748936170212766,
+      "distinct_test_pairs": 2217
+    },
+    {
+      "seed": 4,
+      "fold": 2,
+      "test_positive_triplets": 2350,
+      "test_triplets_pair_seen_in_train": 911,
+      "fraction": 0.38765957446808513,
+      "distinct_test_pairs": 2194
+    },
+    {
+      "seed": 4,
+      "fold": 3,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 899,
+      "fraction": 0.38271604938271603,
+      "distinct_test_pairs": 2194
+    },
+    {
+      "seed": 4,
+      "fold": 4,
+      "test_positive_triplets": 2349,
+      "test_triplets_pair_seen_in_train": 921,
+      "fraction": 0.39208173690932313,
+      "distinct_test_pairs": 2189
+    }
+  ]
+}

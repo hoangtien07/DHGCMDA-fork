@@ -1,0 +1,60 @@
+{
+  "source_commit": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "static_matrices": {
+    "M_FSM.txt": {
+      "shape": [
+        495,
+        495
+      ],
+      "sha256": "f241f0c00734b8803d16c666266a26cb699d34721ef5746e9db1953ddb235f80",
+      "asymmetry_max": 0.00010000000000010001,
+      "all_finite": true
+    },
+    "M_GSM.txt": {
+      "shape": [
+        495,
+        495
+      ],
+      "sha256": "d48b124ada07699c6c8665cc4b43f37c95db43a462b71cde0b6792532b22429a",
+      "asymmetry_max": 0.0,
+      "all_finite": true
+    },
+    "D_SSM1.txt": {
+      "shape": [
+        383,
+        383
+      ],
+      "sha256": "aa46a442457a52575d57bf95d9389b1dc29a8a78a1ba9513a5bc1ec9f88cfa88",
+      "asymmetry_max": 0.0,
+      "all_finite": true
+    },
+    "D_SSM2.txt": {
+      "shape": [
+        383,
+        383
+      ],
+      "sha256": "c923d664928973463811fd0e911da0f40003db3abb2f64fd84854bebc9db9efa",
+      "asymmetry_max": 0.0,
+      "all_finite": true
+    }
+  },
+  "association_correlation": {
+    "binary_5430": {
+      "positive_pairs": 5430,
+      "pearson": 0.40400739580355066,
+      "spearman": 0.4477853546860902,
+      "similarity_mean_if_shared_disease": 0.09852761778367616,
+      "similarity_mean_if_no_shared_disease": 0.006065385173832378,
+      "n_mirna_pairs": 122265
+    },
+    "typed_1498": {
+      "positive_pairs": 1498,
+      "pearson": 0.2414197926226558,
+      "spearman": 0.3515456531784798,
+      "similarity_mean_if_shared_disease": 0.16072685298990005,
+      "similarity_mean_if_no_shared_disease": 0.03194072639833127,
+      "n_mirna_pairs": 122265
+    }
+  },
+  "limitation": "Correlation is descriptive and does not prove static feature was built using held-out associations."
+}

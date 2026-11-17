@@ -1,0 +1,16 @@
+{
+  "seed": 2025,
+  "inter_seed": 2025,
+  "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+  "meta_sha256": "b4c969512755ac6a813d43cc0fc99b5b822b12365ef0bfa23fbab974eff1e84b",
+  "audit_sha256": "7ed36536a5afbc7ba63465c8a1f8cd83bb7d91f2685da2e0a507248b977de33e",
+  "protocol_sha256": "3a019e2a201fa00babfa19c8fd8ae1551c0538b5ea9ffc050ea89f57ddda9478",
+  "runner_sha256": "9265b227fee4e7abf3a3004b09c2d9b85be6f5458d0924e41281e0d9bb0d029f",
+  "reference_manifest_sha256": "42cc23ccadb91660930fd16d40d733dad206ea83c30838bcc88a47349997ec9f",
+  "start_utc": "2026-11-17T03:16:26Z",
+  "scope": "exploratory inner-validation; no outer-test predictions",
+  "python": "3.12.15 (main, Oct  9 2026, 15:21:55) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.5.1+cpu",
+  "torch_geometric": "2.6.1",
+  "numpy": "1.26.4"
+}

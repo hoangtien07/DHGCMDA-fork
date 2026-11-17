@@ -1,0 +1,1058 @@
+{
+  "scope": "inner-validation only; 5 grouped folds; NOT outer-test or paper score",
+  "folds": [
+    {
+      "fold": 0,
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+      "train_pairs": 6293,
+      "validation_pairs": 695,
+      "unseen_disease_validation_pairs": 0,
+      "unseen_mirna_validation_pairs": 5,
+      "methods": {
+        "global": {
+          "macro_f1": 0.12088353413654618,
+          "micro_f1": 0.3700061462814997,
+          "any_hit": 0.4330935251798561,
+          "first_label_hybrid_f1": 0.2415954415954416,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 89,
+              "f1": 0.0,
+              "support": 89,
+              "predicted": 0
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 34,
+              "f1": 0.0,
+              "support": 34,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 195,
+              "f1": 0.0,
+              "support": 195,
+              "predicted": 0
+            },
+            "target": {
+              "tp": 301,
+              "fp": 394,
+              "fn": 0,
+              "f1": 0.6044176706827309,
+              "support": 301,
+              "predicted": 695
+            },
+            "tissue": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 313,
+              "f1": 0.0,
+              "support": 313,
+              "predicted": 0
+            }
+          }
+        },
+        "disease": {
+          "macro_f1": 0.35326883862095126,
+          "micro_f1": 0.5408727719729564,
+          "any_hit": 0.6330935251798561,
+          "first_label_hybrid_f1": 0.4122978137011755,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 3,
+              "fp": 7,
+              "fn": 86,
+              "f1": 0.06060606060606061,
+              "support": 89,
+              "predicted": 10
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 34,
+              "f1": 0.0,
+              "support": 34,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 77,
+              "fp": 43,
+              "fn": 118,
+              "f1": 0.4888888888888889,
+              "support": 195,
+              "predicted": 120
+            },
+            "target": {
+              "tp": 203,
+              "fp": 135,
+              "fn": 98,
+              "f1": 0.6353677621283255,
+              "support": 301,
+              "predicted": 338
+            },
+            "tissue": {
+              "tp": 157,
+              "fp": 70,
+              "fn": 156,
+              "f1": 0.5814814814814815,
+              "support": 313,
+              "predicted": 227
+            }
+          }
+        },
+        "mirna": {
+          "macro_f1": 0.24889530453420283,
+          "micro_f1": 0.3896742470805163,
+          "any_hit": 0.45611510791366905,
+          "first_label_hybrid_f1": 0.27906570659801927,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 11,
+              "fp": 12,
+              "fn": 78,
+              "f1": 0.19642857142857142,
+              "support": 89,
+              "predicted": 23
+            },
+            "epigenetics": {
+              "tp": 1,
+              "fp": 4,
+              "fn": 33,
+              "f1": 0.05128205128205128,
+              "support": 34,
+              "predicted": 5
+            },
+            "circulation": {
+              "tp": 6,
+              "fp": 14,
+              "fn": 189,
+              "f1": 0.05581395348837209,
+              "support": 195,
+              "predicted": 20
+            },
+            "target": {
+              "tp": 176,
+              "fp": 208,
+              "fn": 125,
+              "f1": 0.5138686131386861,
+              "support": 301,
+              "predicted": 384
+            },
+            "tissue": {
+              "tp": 123,
+              "fp": 140,
+              "fn": 190,
+              "f1": 0.4270833333333333,
+              "support": 313,
+              "predicted": 263
+            }
+          }
+        },
+        "product_laplace1": {
+          "macro_f1": 0.41558007580406164,
+          "micro_f1": 0.51259987707437,
+          "any_hit": 0.6,
+          "first_label_hybrid_f1": 0.44644511424024075,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 13,
+              "fp": 16,
+              "fn": 76,
+              "f1": 0.22033898305084745,
+              "support": 89,
+              "predicted": 29
+            },
+            "epigenetics": {
+              "tp": 8,
+              "fp": 26,
+              "fn": 26,
+              "f1": 0.23529411764705882,
+              "support": 34,
+              "predicted": 34
+            },
+            "circulation": {
+              "tp": 78,
+              "fp": 46,
+              "fn": 117,
+              "f1": 0.4890282131661442,
+              "support": 195,
+              "predicted": 124
+            },
+            "target": {
+              "tp": 149,
+              "fp": 107,
+              "fn": 152,
+              "f1": 0.5350089766606823,
+              "support": 301,
+              "predicted": 256
+            },
+            "tissue": {
+              "tp": 169,
+              "fp": 83,
+              "fn": 144,
+              "f1": 0.5982300884955752,
+              "support": 313,
+              "predicted": 252
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 1,
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+      "train_pairs": 6287,
+      "validation_pairs": 701,
+      "unseen_disease_validation_pairs": 0,
+      "unseen_mirna_validation_pairs": 0,
+      "methods": {
+        "global": {
+          "macro_f1": 0.12347140039447732,
+          "micro_f1": 0.3833435394978567,
+          "any_hit": 0.44650499286733236,
+          "first_label_hybrid_f1": 0.2464403066812705,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 83,
+              "f1": 0.0,
+              "support": 83,
+              "predicted": 0
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 34,
+              "f1": 0.0,
+              "support": 34,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 188,
+              "f1": 0.0,
+              "support": 188,
+              "predicted": 0
+            },
+            "target": {
+              "tp": 313,
+              "fp": 388,
+              "fn": 0,
+              "f1": 0.6173570019723866,
+              "support": 313,
+              "predicted": 701
+            },
+            "tissue": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 314,
+              "f1": 0.0,
+              "support": 314,
+              "predicted": 0
+            }
+          }
+        },
+        "disease": {
+          "macro_f1": 0.3349116887473052,
+          "micro_f1": 0.524188609920392,
+          "any_hit": 0.6105563480741797,
+          "first_label_hybrid_f1": 0.39280924302209247,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 3,
+              "fp": 5,
+              "fn": 80,
+              "f1": 0.06593406593406594,
+              "support": 83,
+              "predicted": 8
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 34,
+              "f1": 0.0,
+              "support": 34,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 61,
+              "fp": 47,
+              "fn": 127,
+              "f1": 0.41216216216216217,
+              "support": 188,
+              "predicted": 108
+            },
+            "target": {
+              "tp": 206,
+              "fp": 138,
+              "fn": 107,
+              "f1": 0.6270928462709284,
+              "support": 313,
+              "predicted": 344
+            },
+            "tissue": {
+              "tp": 158,
+              "fp": 83,
+              "fn": 156,
+              "f1": 0.5693693693693693,
+              "support": 314,
+              "predicted": 241
+            }
+          }
+        },
+        "mirna": {
+          "macro_f1": 0.27068082506723345,
+          "micro_f1": 0.40661359461114516,
+          "any_hit": 0.47360912981455067,
+          "first_label_hybrid_f1": 0.283046136618211,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 10,
+              "fp": 6,
+              "fn": 73,
+              "f1": 0.20202020202020202,
+              "support": 83,
+              "predicted": 16
+            },
+            "epigenetics": {
+              "tp": 2,
+              "fp": 3,
+              "fn": 32,
+              "f1": 0.10256410256410256,
+              "support": 34,
+              "predicted": 5
+            },
+            "circulation": {
+              "tp": 9,
+              "fp": 12,
+              "fn": 179,
+              "f1": 0.0861244019138756,
+              "support": 188,
+              "predicted": 21
+            },
+            "target": {
+              "tp": 177,
+              "fp": 198,
+              "fn": 136,
+              "f1": 0.5145348837209303,
+              "support": 313,
+              "predicted": 375
+            },
+            "tissue": {
+              "tp": 134,
+              "fp": 150,
+              "fn": 180,
+              "f1": 0.44816053511705684,
+              "support": 314,
+              "predicted": 284
+            }
+          }
+        },
+        "product_laplace1": {
+          "macro_f1": 0.3960139741484568,
+          "micro_f1": 0.5021432945499081,
+          "any_hit": 0.5848787446504993,
+          "first_label_hybrid_f1": 0.4234337125109941,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 11,
+              "fp": 28,
+              "fn": 72,
+              "f1": 0.18032786885245902,
+              "support": 83,
+              "predicted": 39
+            },
+            "epigenetics": {
+              "tp": 7,
+              "fp": 22,
+              "fn": 27,
+              "f1": 0.2222222222222222,
+              "support": 34,
+              "predicted": 29
+            },
+            "circulation": {
+              "tp": 69,
+              "fp": 59,
+              "fn": 119,
+              "f1": 0.43670886075949367,
+              "support": 188,
+              "predicted": 128
+            },
+            "target": {
+              "tp": 169,
+              "fp": 102,
+              "fn": 144,
+              "f1": 0.5787671232876712,
+              "support": 313,
+              "predicted": 271
+            },
+            "tissue": {
+              "tp": 154,
+              "fp": 80,
+              "fn": 160,
+              "f1": 0.5620437956204379,
+              "support": 314,
+              "predicted": 234
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07",
+      "train_pairs": 6286,
+      "validation_pairs": 702,
+      "unseen_disease_validation_pairs": 0,
+      "unseen_mirna_validation_pairs": 1,
+      "methods": {
+        "global": {
+          "macro_f1": 0.12921890067502412,
+          "micro_f1": 0.4075425790754258,
+          "any_hit": 0.4772079772079772,
+          "first_label_hybrid_f1": 0.25577812018489987,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 92,
+              "f1": 0.0,
+              "support": 92,
+              "predicted": 0
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 36,
+              "f1": 0.0,
+              "support": 36,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 177,
+              "f1": 0.0,
+              "support": 177,
+              "predicted": 0
+            },
+            "target": {
+              "tp": 335,
+              "fp": 367,
+              "fn": 0,
+              "f1": 0.6460945033751205,
+              "support": 335,
+              "predicted": 702
+            },
+            "tissue": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 302,
+              "f1": 0.0,
+              "support": 302,
+              "predicted": 0
+            }
+          }
+        },
+        "disease": {
+          "macro_f1": 0.38003497218966836,
+          "micro_f1": 0.5547445255474452,
+          "any_hit": 0.6495726495726496,
+          "first_label_hybrid_f1": 0.42893961640276634,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 8,
+              "fp": 8,
+              "fn": 84,
+              "f1": 0.14814814814814814,
+              "support": 92,
+              "predicted": 16
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 36,
+              "f1": 0.0,
+              "support": 36,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 79,
+              "fp": 41,
+              "fn": 98,
+              "f1": 0.531986531986532,
+              "support": 177,
+              "predicted": 120
+            },
+            "target": {
+              "tp": 213,
+              "fp": 112,
+              "fn": 122,
+              "f1": 0.6454545454545455,
+              "support": 335,
+              "predicted": 325
+            },
+            "tissue": {
+              "tp": 156,
+              "fp": 85,
+              "fn": 146,
+              "f1": 0.574585635359116,
+              "support": 302,
+              "predicted": 241
+            }
+          }
+        },
+        "mirna": {
+          "macro_f1": 0.2523214523987806,
+          "micro_f1": 0.3978102189781022,
+          "any_hit": 0.4658119658119658,
+          "first_label_hybrid_f1": 0.2806139770943577,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 9,
+              "fp": 10,
+              "fn": 83,
+              "f1": 0.16216216216216217,
+              "support": 92,
+              "predicted": 19
+            },
+            "epigenetics": {
+              "tp": 1,
+              "fp": 4,
+              "fn": 35,
+              "f1": 0.04878048780487805,
+              "support": 36,
+              "predicted": 5
+            },
+            "circulation": {
+              "tp": 11,
+              "fp": 21,
+              "fn": 166,
+              "f1": 0.10526315789473684,
+              "support": 177,
+              "predicted": 32
+            },
+            "target": {
+              "tp": 182,
+              "fp": 182,
+              "fn": 153,
+              "f1": 0.5207439198855508,
+              "support": 335,
+              "predicted": 364
+            },
+            "tissue": {
+              "tp": 124,
+              "fp": 158,
+              "fn": 178,
+              "f1": 0.4246575342465753,
+              "support": 302,
+              "predicted": 282
+            }
+          }
+        },
+        "product_laplace1": {
+          "macro_f1": 0.4438890246677055,
+          "micro_f1": 0.5437956204379562,
+          "any_hit": 0.6367521367521367,
+          "first_label_hybrid_f1": 0.45875406190057283,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 15,
+              "fp": 23,
+              "fn": 77,
+              "f1": 0.23076923076923078,
+              "support": 92,
+              "predicted": 38
+            },
+            "epigenetics": {
+              "tp": 9,
+              "fp": 22,
+              "fn": 27,
+              "f1": 0.26865671641791045,
+              "support": 36,
+              "predicted": 31
+            },
+            "circulation": {
+              "tp": 79,
+              "fp": 53,
+              "fn": 98,
+              "f1": 0.511326860841424,
+              "support": 177,
+              "predicted": 132
+            },
+            "target": {
+              "tp": 181,
+              "fp": 78,
+              "fn": 154,
+              "f1": 0.6094276094276094,
+              "support": 335,
+              "predicted": 259
+            },
+            "tissue": {
+              "tp": 163,
+              "fp": 79,
+              "fn": 139,
+              "f1": 0.5992647058823529,
+              "support": 302,
+              "predicted": 242
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+      "train_pairs": 6284,
+      "validation_pairs": 704,
+      "unseen_disease_validation_pairs": 0,
+      "unseen_mirna_validation_pairs": 0,
+      "methods": {
+        "global": {
+          "macro_f1": 0.12419196865817825,
+          "micro_f1": 0.3837772397094431,
+          "any_hit": 0.4502840909090909,
+          "first_label_hybrid_f1": 0.24518966465090705,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 100,
+              "f1": 0.0,
+              "support": 100,
+              "predicted": 0
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 36,
+              "f1": 0.0,
+              "support": 36,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 183,
+              "f1": 0.0,
+              "support": 183,
+              "predicted": 0
+            },
+            "target": {
+              "tp": 317,
+              "fp": 387,
+              "fn": 0,
+              "f1": 0.6209598432908913,
+              "support": 317,
+              "predicted": 704
+            },
+            "tissue": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 312,
+              "f1": 0.0,
+              "support": 312,
+              "predicted": 0
+            }
+          }
+        },
+        "disease": {
+          "macro_f1": 0.3661468915883595,
+          "micro_f1": 0.5423728813559322,
+          "any_hit": 0.6363636363636364,
+          "first_label_hybrid_f1": 0.4152449793498345,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 10,
+              "fp": 7,
+              "fn": 90,
+              "f1": 0.17094017094017094,
+              "support": 100,
+              "predicted": 17
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 36,
+              "f1": 0.0,
+              "support": 36,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 60,
+              "fp": 35,
+              "fn": 123,
+              "f1": 0.4316546762589928,
+              "support": 183,
+              "predicted": 95
+            },
+            "target": {
+              "tp": 224,
+              "fp": 139,
+              "fn": 93,
+              "f1": 0.6588235294117647,
+              "support": 317,
+              "predicted": 363
+            },
+            "tissue": {
+              "tp": 154,
+              "fp": 75,
+              "fn": 158,
+              "f1": 0.5693160813308688,
+              "support": 312,
+              "predicted": 229
+            }
+          }
+        },
+        "mirna": {
+          "macro_f1": 0.26920743260223723,
+          "micro_f1": 0.40314769975786924,
+          "any_hit": 0.47301136363636365,
+          "first_label_hybrid_f1": 0.28940029217335095,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 11,
+              "fp": 12,
+              "fn": 89,
+              "f1": 0.17886178861788618,
+              "support": 100,
+              "predicted": 23
+            },
+            "epigenetics": {
+              "tp": 3,
+              "fp": 4,
+              "fn": 33,
+              "f1": 0.13953488372093023,
+              "support": 36,
+              "predicted": 7
+            },
+            "circulation": {
+              "tp": 5,
+              "fp": 20,
+              "fn": 178,
+              "f1": 0.04807692307692308,
+              "support": 183,
+              "predicted": 25
+            },
+            "target": {
+              "tp": 175,
+              "fp": 181,
+              "fn": 142,
+              "f1": 0.5200594353640416,
+              "support": 317,
+              "predicted": 356
+            },
+            "tissue": {
+              "tp": 139,
+              "fp": 154,
+              "fn": 173,
+              "f1": 0.45950413223140496,
+              "support": 312,
+              "predicted": 293
+            }
+          }
+        },
+        "product_laplace1": {
+          "macro_f1": 0.4131261660423752,
+          "micro_f1": 0.5266343825665859,
+          "any_hit": 0.6178977272727273,
+          "first_label_hybrid_f1": 0.4221430429209568,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 19,
+              "fp": 18,
+              "fn": 81,
+              "f1": 0.2773722627737226,
+              "support": 100,
+              "predicted": 37
+            },
+            "epigenetics": {
+              "tp": 4,
+              "fp": 20,
+              "fn": 32,
+              "f1": 0.13333333333333333,
+              "support": 36,
+              "predicted": 24
+            },
+            "circulation": {
+              "tp": 72,
+              "fp": 47,
+              "fn": 111,
+              "f1": 0.4768211920529801,
+              "support": 183,
+              "predicted": 119
+            },
+            "target": {
+              "tp": 184,
+              "fp": 112,
+              "fn": 133,
+              "f1": 0.600326264274062,
+              "support": 317,
+              "predicted": 296
+            },
+            "tissue": {
+              "tp": 156,
+              "fp": 72,
+              "fn": 156,
+              "f1": 0.5777777777777777,
+              "support": 312,
+              "predicted": 228
+            }
+          }
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536",
+      "train_pairs": 6288,
+      "validation_pairs": 700,
+      "unseen_disease_validation_pairs": 3,
+      "unseen_mirna_validation_pairs": 1,
+      "methods": {
+        "global": {
+          "macro_f1": 0.12736124634858811,
+          "micro_f1": 0.3992673992673993,
+          "any_hit": 0.46714285714285714,
+          "first_label_hybrid_f1": 0.25106382978723407,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 93,
+              "f1": 0.0,
+              "support": 93,
+              "predicted": 0
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 47,
+              "f1": 0.0,
+              "support": 47,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 181,
+              "f1": 0.0,
+              "support": 181,
+              "predicted": 0
+            },
+            "target": {
+              "tp": 327,
+              "fp": 373,
+              "fn": 0,
+              "f1": 0.6368062317429406,
+              "support": 327,
+              "predicted": 700
+            },
+            "tissue": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 290,
+              "f1": 0.0,
+              "support": 290,
+              "predicted": 0
+            }
+          }
+        },
+        "disease": {
+          "macro_f1": 0.3428762489503548,
+          "micro_f1": 0.5299145299145299,
+          "any_hit": 0.62,
+          "first_label_hybrid_f1": 0.403821773254504,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 3,
+              "fp": 2,
+              "fn": 90,
+              "f1": 0.061224489795918366,
+              "support": 93,
+              "predicted": 5
+            },
+            "epigenetics": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 47,
+              "f1": 0.0,
+              "support": 47,
+              "predicted": 0
+            },
+            "circulation": {
+              "tp": 69,
+              "fp": 40,
+              "fn": 112,
+              "f1": 0.47586206896551725,
+              "support": 181,
+              "predicted": 109
+            },
+            "target": {
+              "tp": 236,
+              "fp": 157,
+              "fn": 91,
+              "f1": 0.6555555555555556,
+              "support": 327,
+              "predicted": 393
+            },
+            "tissue": {
+              "tp": 126,
+              "fp": 67,
+              "fn": 164,
+              "f1": 0.5217391304347826,
+              "support": 290,
+              "predicted": 193
+            }
+          }
+        },
+        "mirna": {
+          "macro_f1": 0.27587686322735694,
+          "micro_f1": 0.42002442002442003,
+          "any_hit": 0.49142857142857144,
+          "first_label_hybrid_f1": 0.28489305243659424,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 12,
+              "fp": 7,
+              "fn": 81,
+              "f1": 0.21428571428571427,
+              "support": 93,
+              "predicted": 19
+            },
+            "epigenetics": {
+              "tp": 2,
+              "fp": 2,
+              "fn": 45,
+              "f1": 0.0784313725490196,
+              "support": 47,
+              "predicted": 4
+            },
+            "circulation": {
+              "tp": 8,
+              "fp": 11,
+              "fn": 173,
+              "f1": 0.08,
+              "support": 181,
+              "predicted": 19
+            },
+            "target": {
+              "tp": 182,
+              "fp": 188,
+              "fn": 145,
+              "f1": 0.5222381635581061,
+              "support": 327,
+              "predicted": 370
+            },
+            "tissue": {
+              "tp": 140,
+              "fp": 148,
+              "fn": 150,
+              "f1": 0.4844290657439446,
+              "support": 290,
+              "predicted": 288
+            }
+          }
+        },
+        "product_laplace1": {
+          "macro_f1": 0.4573860483561159,
+          "micro_f1": 0.5409035409035409,
+          "any_hit": 0.6328571428571429,
+          "first_label_hybrid_f1": 0.4484420932991801,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 19,
+              "fp": 15,
+              "fn": 74,
+              "f1": 0.2992125984251969,
+              "support": 93,
+              "predicted": 34
+            },
+            "epigenetics": {
+              "tp": 13,
+              "fp": 24,
+              "fn": 34,
+              "f1": 0.30952380952380953,
+              "support": 47,
+              "predicted": 37
+            },
+            "circulation": {
+              "tp": 70,
+              "fp": 45,
+              "fn": 111,
+              "f1": 0.47297297297297297,
+              "support": 181,
+              "predicted": 115
+            },
+            "target": {
+              "tp": 182,
+              "fp": 88,
+              "fn": 145,
+              "f1": 0.609715242881072,
+              "support": 327,
+              "predicted": 270
+            },
+            "tissue": {
+              "tp": 159,
+              "fp": 85,
+              "fn": 131,
+              "f1": 0.5955056179775281,
+              "support": 290,
+              "predicted": 244
+            }
+          }
+        }
+      }
+    }
+  ],
+  "mean_unweighted_over_folds": {
+    "global": {
+      "macro_f1": 0.1250254100425628,
+      "micro_f1": 0.3887873807663249,
+      "any_hit": 0.45484668866142275
+    },
+    "disease": {
+      "macro_f1": 0.3554477280193278,
+      "micro_f1": 0.5384186637422511,
+      "any_hit": 0.6299172318380644
+    },
+    "mirna": {
+      "macro_f1": 0.26339637556596224,
+      "micro_f1": 0.40345403609041053,
+      "any_hit": 0.47199522772102415
+    },
+    "product_laplace1": {
+      "macro_f1": 0.42519905780374306,
+      "micro_f1": 0.5252153431064721,
+      "any_hit": 0.6144771503065013
+    }
+  },
+  "limitations": "Global/disease/miRNA/product rules are descriptive; recipe and checkpoints have previous development exposure; not a blinded confirmatory benchmark."
+}

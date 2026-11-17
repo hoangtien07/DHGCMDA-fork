@@ -1,0 +1,5 @@
+﻿# Giao thức truy vết hypergraph
+
+Dùng 13 node chọn hậu nghiệm theo norm projection mới ở mỗi checkpoint 226/591 (`rows.json`), không chọn lại bằng G. Với G miRNA cũ/mới, thống kê tổng hàng, tập hàng tổng lớn nhất, khối S×S/S×ngoài, và đầu ra trước activation của mỗi conv. Phân rã chính xác `G @ (XW+b)` thành đóng góp các cột thuộc S và không thuộc S, cùng model/input cố định; so sánh tổng khôi phục đầu ra conv trong sai số 1e-5. Đóng góp vector có thể cùng hướng hoặc triệt tiêu, norm không cộng được; phân rã này mô tả tính toán tại snapshot, không chứng minh từng node hay tín hiệu nguồn gây spike.
+
+Kiểm tra hash checkpoint, norm đầu ra conv và residual decoder với trace trước. Không đổi model hay đánh giá outer-test. Checkpoint chứa G sau refresh nhưng không lưu Gram producer trước optimizer hoặc incidence H; không thể khôi phục duy nhất top-k/tie/nguồn Gram từ G, không gán tên thực thể. Gốc k=13 và công thức H được đọc từ mã, nhưng trùng số 13 không tự chứng minh top-k là nguyên nhân.

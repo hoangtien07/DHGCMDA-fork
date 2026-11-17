@@ -1,0 +1,30 @@
+﻿# Ma trận tái hiện: paper, mã phát hành và U1 v3.2
+
+Ngày 2026-11-18. Các cột là ba đối tượng khác nhau: paper, repository tác giả tại commit `06f9ba3eed92e334d9a2b8003fc06d83596e5614` (v2.0) và U1 năm loại nội bộ. Xem file nguồn và kết quả được pin trong các audit dẫn bên dưới; khác biệt không tự động xác nhận nguyên nhân của điểm paper.
+
+| Thành phần | Paper / dữ kiện | Mã công khai v2.0 | U1 nội bộ v3.2 | Trạng thái và tác động |
+|---|---|---|---|---|
+| Dữ liệu và số loại | Table 1–2: v2.0 4 loại; v3.2 5 loại, thêm tissue; 411×271 và 11.748 liên kết theo loại | Repo main kiểm tra chỉ có bộ v2.0; predictor/metric 4 loại | SPLD local trùng reference và strict từng phần tử: 5 loại | 5 loại đúng mô tả v3.2; chưa xác minh cùng danh sách tác giả. `data_audit.json`, `SOURCE_REPORT.md`. |
+| Lọc dữ liệu | Mô tả loại thực thể ít hơn hai liên kết | Pipeline tiền xử lý ban đầu chưa có đủ để xác nhận | Hai miRNA trong tensor có một typed link | Đơn vị lọc hay thời điểm lọc chưa rõ; không tự loại để ép số. `data_audit.json`. |
+| CVtype | Chia theo cặp dương; văn bản trang 24 lại nói bốn score loại | Hàm Top-1 có nhánh 4 type hoặc existence + 4 type | 5 type, argmax one-hot vs truth multi-hot | Không chứng minh metric tương đương paper; 4 score trong văn bản chưa rõ áp dụng v3.2 ra sao. `SOURCE_REPORT.md`. |
+| CVtriplet | Chia triplet dương, test có số unknown tương đương | Có điểm existence + type, nhưng split và cài đặt cần đọc theo code v2 | Chưa có full DHGCMDA CVtriplet; có baseline count mới | Task khác CVtype. Chia triplet có thể để cùng pair ở hai phía; `triplet_audit.json`. Không dùng baseline làm điểm tái hiện. |
+| Dữ liệu đa nhãn | Nhiều type có thể cùng một cặp | Loader v2 ghi scalar và ghi đè type khi trùng pair | Truth giữ multi-hot, model chọn một type | Khác target và cách đánh giá; release v2 collapse 181 nhãn trên 161 cặp. `../independent_v20_release_20261116/REPORT.md`. |
+| Đặc trưng liên kết | Mô tả ma trận association và bốn view | Lượt release dùng ma trận đầy đủ trong feature/graph trước split; kiểm toán oracle đọc được type test | Association blocks và functional similarity được build lại từ train mask; static features giữ nguồn ngoài | V2 release có thông tin test trong input; U1 có hàng rào train nhưng nguồn sequence/gene/semantic chưa xác minh với paper. `../independent_v20_release_20261116/REPORT.md`, `canary.json`, `../independent_v32_fold_build_20261117/audit.json`. |
+| Xây hypergraph | KNN, K=13, dynamic update mô tả dựa similarity tái tạo | Các ma trận G được tạo trước vòng train; hetero HGT graph có thể cập nhật từ reconstruction theo ngưỡng thay đổi | Định kỳ 5 epoch tái dựng graph/H theo Gram và offdiag-minmax, θ=.5 | Quy trình khác nhau. Audit cũ nói release bỏ qua reconstructed similarity là **sai nếu hiểu cho HGT graph**: fixture AST cho thấy similarity mới thêm cạnh; `upstream_graph_fixture.json`. Kết luận đó không nói G HGCN được rebuild. |
+| Fusion | Adaptive attention mô tả theo view | Hàm phát hành pha cố định 0,6/0,4 | Gate học được | Các kiến trúc khác; không suy bằng nhau. `../independent_v32_author_review_20261117/upstream_hetero_model.py:257`. |
+| Reconstruction | Eq.19–21 Gram thô và Frobenius; response nêu λ3=1 | Decoder L2-normalize + MSE từng modality, coefficient 0,15 | Gram thô, mask coverage, tổng chia weighted positive mass, λ3 danh nghĩa 1 | Không thể so chỉ hệ số. `../independent_v32_author_review_20261117/REPORT.md`, `diagnostics.json`. |
+| Inter contrastive negatives | Nêu negatives; chi tiết sampler cụ thể cần xác nhận | Theo mã v2.0 công bố, không suy sang v3 | Sample train-zero, cap10, anchor-specific; không đọc validation | Trên 15 inner-validation folds, 508–535 cặp dương validation/lượt nằm trong bank. Đây là unknown giả định và xung đột nhãn quan sát hậu nghiệm, không phải nhãn validation đưa vào sampler. `negative_overlap.json`. |
+| HGT và readout | Nói bilinear predictor, presence và type; công thức loss chưa làm rõ presence term | `SimplifiedTypePredictor` diagonal bilinear, 4 loại và score tồn tại | Diagonal bilinear 5 type, pipeline hiện tại type-only trên pair dương | Có điểm tương đồng ở diagonal nhưng khác output/task; tồn tại và triplet chưa được tái hiện bằng U1. |
+| Training/evaluation | Paper nêu early stopping theo validation và 5-fold; fold và recipe chưa công bố | Repo có cách xây đầu vào, code/split cụ thể v2 | Inner-validation best-of-65 hoặc fixed650 trong outer refit | Các lượt nội bộ sau phát triển/exposure, không blind. Không đọc F1 0,8600 như tiêu chuẩn cùng metric. |
+
+## Sửa một kết luận cũ
+
+`../report/U1_FIDELITY_GAP_AUDIT_2026-11-15.md` ở hàng dynamic update viết official “ignored Ŝ”. Trong file tác giả đã pin, `create_hetero_data_optimized` dùng đối số `mi_sim_recon`, `dis_sim_recon` nếu có; trainer gọi nó khi reconstruction thay đổi đủ ngưỡng. Fixture hai node xác nhận thay similarity làm thay `edge_index` tương đồng trong graph HGT. Do đó câu “ignored Ŝ” tổng quát là không đúng với đường code này. Đồng thời, code quan sát được khởi tạo các ma trận hypergraph G trước vòng epoch rồi tiếp tục truyền chúng vào model; không coi thay HGT edges là bằng chứng G HGCN cũng được tính lại. Điều này điều chỉnh audit cũ, không xác minh mã v3.2 riêng tư hoặc hành vi mọi branch/runtime.
+
+## Giới hạn diễn giải
+
+Một số audit cũ gắn nhãn “MATCH” cho loss có reduction đã đổi và nói “không còn sai khác chứng minh được”; thực tế các công thức số học có thể khác dù thay đổi được khai báo. Cần đánh giá toàn bộ objective và reduction, không chỉ tên λ hay tính hợp lệ một module. Cả release-code track, equation-guided track và experiment train-only đều có giá trị, nhưng trả lời câu hỏi khác nhau.
+
+## Bổ sung nguồn dòng dữ liệu
+
+[EXTERNAL_LINEAGE.md](EXTERNAL_LINEAGE.md) đối chiếu nghiên cứu SPLD gốc: họ mô tả sáu nhóm tổng quát ở HMDD v3.2 nhưng bỏ `other` trong benchmark năm loại; MDAv3.2-3 có cùng thống kê 411 × 271, 11.748. Bằng chứng này chưa xác nhận danh sách tác giả DHGCMDA. Ngưỡng lọc SPLD nêu ba association còn DHGCMDA nêu hai, cần xác minh đơn vị đếm và thời điểm lọc.

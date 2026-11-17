@@ -1,0 +1,38 @@
+{
+  "PLAN.md": {
+    "sha256": "667a576c7276c9c882f6c6efbf7d3f93aa72448ffe93f059a89b498c2ce8fb59",
+    "bytes": 1435
+  },
+  "REPORT.md": {
+    "sha256": "417ae7016f21810a478972a978dbb52f3f50640af8f9f180fff56f222cac825c",
+    "bytes": 8207
+  },
+  "audit.py": {
+    "sha256": "5a1080f1702bf92e5f35b45a6ba3e6bb0068ebabf13ba20454be9b44e517ce6c",
+    "bytes": 10799
+  },
+  "rebuild_features.py": {
+    "sha256": "7177843a3c87780d401792864f61468164f356899365d5b3b91930b838e2e387",
+    "bytes": 3163
+  },
+  "verify.py": {
+    "sha256": "20d57cee14354e08329edbe34cf2e5e6ff097d9ff01fefa3e7d32cea1db16172",
+    "bytes": 1725
+  },
+  "summary.json": {
+    "sha256": "f7005a5b4d376d7e24face9c77209ab3703ee45d65ac00d77a2a249ea20aa44b",
+    "bytes": 9984
+  },
+  "feature_rebuild.json": {
+    "sha256": "3df25f595941f0a58eb1151db6f25151d45843887a4bd66bf45ff87bc6ef2e56",
+    "bytes": 2394
+  },
+  "pair_ledger.csv": {
+    "sha256": "927fe0e4cb9037fd53c67c8b60513eb209ed024aa0ef2c073ebe3260da155ee9",
+    "bytes": 667811
+  },
+  "triplet_ledger.csv": {
+    "sha256": "37ce6a08f9803d9f7363379ae2dde8889440bc7f76fb0ddb45c6bd71adce3b16",
+    "bytes": 884209
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "selection_manifest_sha256": "52949562300d266eb319130d65429dfa7e59d55b479e087e4c622f39de4cdfea",
+  "selected_epoch": 650,
+  "bundle_npz_sha256": "39c5fd4985ecc46c6272edf3ed48c8133ba19f887ef331bb97553b714b57d030",
+  "meta_sha256": "a032bce2bd81247871ae5f76f00c36bb84590a7780c826af55b61aca19ebadf5",
+  "audit_sha256": "7be08d0bbee45ffa1293cedef0c52ad70a53fb34c8791e3e9f0ebe258a0df258",
+  "fixed_horizon_rule": "fixed-final-650-not-best-validation",
+  "protocol_sha256": "bf2778317479b7d7d2d1b1ea030c21b9c941c9b9828042085a48b52fc3ff146c",
+  "fold": 0,
+  "seed": 2025,
+  "arm": "dynamic"
+}

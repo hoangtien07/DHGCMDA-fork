@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "scope": "read-only recomputation from held-out exports; historical exposure; 15 correlated cells",
+  "results_sha256": "a93779cb787ac0e8da635a681862ea9d2531c6c084bc06656b1624aeacb0f604",
+  "seal_sha256": "0faf2f842a94e62c27798606070b259f8beebd2b63eb3c42fae469e60bd9fd3b",
+  "means": {
+    "dynamic": {
+      "macro_f1": 0.40445780125744457,
+      "micro_f1": 0.434913431940535,
+      "any_hit": 0.5099026903262736
+    },
+    "static": {
+      "macro_f1": 0.4402816440274715,
+      "micro_f1": 0.47032583042309695,
+      "any_hit": 0.5513833237931692
+    }
+  },
+  "baselines": {
+    "product_laplace1": {
+      "macro_f1": 0.4295800959173451,
+      "micro_f1": 0.5385136381167542,
+      "any_hit": 0.6313680595306239
+    },
+    "disease": {
+      "macro_f1": 0.3631100865709063,
+      "micro_f1": 0.5539129530004342,
+      "any_hit": 0.6494562106468231
+    }
+  },
+  "static_wins_of_15": 14,
+  "script_sha256": "9824c7abc45ef702e1ff0d2930f2df2fdbcfef186ba5650eaaad44323b96846d"
+}

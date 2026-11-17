@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "original_sha256": "29c84729d4a94175aaeb153d83778915908e6271403a365e1cd94874ea0dcb4c",
+  "replay_sha256": "5ef0ab123572605688f5defad7e8cbf68fb3fd5bf57555462fb216ad7ccb7e2b",
+  "cfg_diff": {
+    "max_epochs": [
+      650,
+      230
+    ]
+  },
+  "first_exact_differences": {
+    "train_loss": {
+      "epoch": 16,
+      "historical": 7.890195846557617,
+      "replay": 7.890195369720459
+    },
+    "grad_norm": {
+      "epoch": 1,
+      "historical": 4.2111473747491255,
+      "replay": 4.2111473624009745
+    },
+    "update_norm": {
+      "epoch": 1,
+      "historical": 0.154631108045578,
+      "replay": 0.1546310931444168
+    }
+  },
+  "first_dynamic_hash_difference": {
+    "epoch": 5,
+    "fields": [
+      "normalized_mi_sha256",
+      "normalized_dis_sha256",
+      "producer_gram_mi_sha256",
+      "producer_gram_dis_sha256"
+    ]
+  },
+  "interpretation": "Descriptive comparison only; exact floats, no causal attribution."
+}

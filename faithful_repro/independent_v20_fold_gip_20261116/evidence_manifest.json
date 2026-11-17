@@ -1,0 +1,90 @@
+{
+  "compare_runs.py": {
+    "size": 1697,
+    "sha256": "74b491405eca004a25ef083d44601fdf367ed0f341294d95f782ee8a73a34675"
+  },
+  "mask.py": {
+    "size": 991,
+    "sha256": "14c1420f18d335d06e38535367d4c9c0e09b022638880825d5b334c31aff3c2a"
+  },
+  "run_masked.py": {
+    "size": 8703,
+    "sha256": "95b543274124be70a6453db242b73afe0990053d0a58f5867ededd01e6a6e126"
+  },
+  "score_masked.py": {
+    "size": 4976,
+    "sha256": "62c21c0e6bba247579ff092567f8cdbd3a3cd5b1bb3ff4d486db9b1c2cd36785"
+  },
+  "score_partial.py": {
+    "size": 1878,
+    "sha256": "17453c8839b03c087449302cfacb82c13e1e800f9c36b490f925152990a47728"
+  },
+  "test_gip.py": {
+    "size": 539,
+    "sha256": "597d59cf16c1c0a8e232fdf3a5f35310b7e4da69fcc16293fb0fbf9b4e61e912"
+  },
+  "test_mask.py": {
+    "size": 890,
+    "sha256": "ccf6ed7adcab5a806701808f10555d70fa1b100283a8d2ca85153e92874143f7"
+  },
+  "verify_and_seal.py": {
+    "size": 1562,
+    "sha256": "0cc91f7b2e91fd93c1c7a45aede3d0c9cd09e3d80cbd6e18c2becae1611466de"
+  },
+  "PLAN.md": {
+    "size": 1327,
+    "sha256": "d8d62cdfb9396a488e49d8e2d4f0c739b9164788c42b72bd9424b57169923f79"
+  },
+  "STATUS.md": {
+    "size": 1841,
+    "sha256": "04786d1352311f450ba1104ba471f957ef9cdb7ce564bd88c5aac65a1cd29462"
+  },
+  "REPORT.md": {
+    "size": 4344,
+    "sha256": "738ccd194fbf9ac3fea3a8bea095db0e980ade41a750f7d6d7b0422b45c218ad"
+  },
+  "source_manifest.json": {
+    "size": 4644,
+    "sha256": "92939e48af1799355154c190f683d92e1566857bae185e8dcb66e1063b27746d"
+  },
+  "comparison.json": {
+    "size": 3346,
+    "sha256": "13f16c081b4efbfa4ddd201ef845f507be32d6577ad3c11b6cb4a42df96c6bc5"
+  },
+  "runs/full/contract.json": {
+    "size": 2095,
+    "sha256": "d264162d9325af25c1639cf7cea8f4f30771acc44141930781cfc45137614019"
+  },
+  "runs/full/completion.json": {
+    "size": 1157,
+    "sha256": "2cfe1574a5c6d6860d82cd170d8ac0b5f2853143525c91654bff2e87a8d0d732"
+  },
+  "runs/full/console.log": {
+    "size": 72572,
+    "sha256": "b2080f7d11769c6451241d9b2e63fcf51bfadf3961ef810e2b15c73188944757"
+  },
+  "runs/full/metric_audit.json": {
+    "size": 5541,
+    "sha256": "5a94a66544615a7120158d4efe3d5e9ece320f2e71b2aa6bb61a5b85c9810e63"
+  },
+  "runs/full/fold_1.npz": {
+    "size": 1243281,
+    "sha256": "1c9a76bc12862f4be32229d469e83a85510bc5edde76a6e9e76b9eb5895f717e"
+  },
+  "runs/full/fold_2.npz": {
+    "size": 1243624,
+    "sha256": "84001b4e1fbfb49001df6f9549c993056cbfb41097b176dc12f24ff36f2d1ae0"
+  },
+  "runs/full/fold_3.npz": {
+    "size": 1239809,
+    "sha256": "545c609f78bc1c8d701b0c479c97382ea5fb043dfd0403a69677c20f62a1d53d"
+  },
+  "runs/full/fold_4.npz": {
+    "size": 1242006,
+    "sha256": "1a6ec47212d6dea70614f6c2809a47800c99fbac11569c0669e38cd58aeca6d9"
+  },
+  "runs/full/fold_5.npz": {
+    "size": 1244928,
+    "sha256": "f5b0404c1143c759071f923a4cee61ce33267c1fc54bd459155efdffabe1fbec"
+  }
+}

@@ -1,0 +1,28 @@
+• CVtriplet: All known miRNA-disease-type triplets were randomly partitioned into
+5 equal subsets. In each iteration, one subset combined with an equal number of
+randomly sampled unknown triplets served as the test set, while the remaining four
+subsets along with other unknown samples constituted the training set. Method
+performance was evaluated using the area under the precision-recall curve (AUPR),
+the area under the receiver operating characteristic curve (AUC), and F1-score.
+This evaluation setting assesses the capability of DHGCMDA in discovering novel
+miRNA-disease associations from the vast space of unexplored pairs.
+• CVtype: All miRNA-disease pairs with at least one known association type were
+identified and randomly divided into 5 subsets. In each fold, four subsets were used
+for training while the remaining subset was held out for testing. For each test pair,
+DHGCMDA generated prediction scores across all four association types, with the
+highest-scoring type selected as the final prediction. Top-1 precision, Top-1 recall,
+and Top-1 F1-score were calculated to evaluate discriminative performance. This
+evaluation setting focuses on the discriminative ability of DHGCMDA in identifying
+specific biological mechanisms underlying known associations.
+These two complementary evaluation settings assess performance from both asso-
+ciation discovery and mechanism identification perspectives, consistent with dual
+objectives emphasized in recent miRNA-disease association type prediction studies.
+All experiments were conducted on a workstation equipped with an NVIDIA
+GeForce RTX 4060 Ti GPU (16 GB VRAM) and 32 GB RAM, implemented
+using PyTorch 2.5.1 with CUDA 12.1. The total number of trainable parameters
+in DHGCMDA is approximately 2.55M. Under the 5-fold cross-validation setting on
+HMDD v2.0, the average training time per fold was approximately 3.16 minutes, with
+the total cross-validation completing in about 15.80 minutes. The peak GPU memory
+usage was 3.68 GB across all folds, indicating that DHGCMDA maintains moderate
+ARTICLE IN PRESS
+ARTICLE IN PRESS

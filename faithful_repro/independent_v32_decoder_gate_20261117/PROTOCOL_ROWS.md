@@ -1,0 +1,3 @@
+﻿# Can thiệp hậu nghiệm theo node
+
+Sau khi thấy norm projection tập trung ở 13–14 node và đối chứng ReLU, chọn 13 node có norm projection mới lớn nhất tại từng snapshot, rồi trộn hàng fused embedding: thay 13 hàng cũ bằng mới hoặc 13 hàng mới bằng cũ, giữ nguyên decoder, target và các hàng khác. Số 13 và tiêu chí chọn dựa trên kết quả đã thấy, không phải kiểm định tiền đăng ký. Tính residual toàn mask và phần residual của cặp có ít nhất một node thuộc tập; cùng trọng số, không optimizer. Tổ hợp trộn là nhân tạo và tương tác cặp trong Gram khiến không thể quy toàn bộ phần residual chạm nhóm là do riêng nhóm gây ra. Kiểm tra hai góc khớp checkpoint trong 1e-5 và tập chọn chứa đúng 13 node.

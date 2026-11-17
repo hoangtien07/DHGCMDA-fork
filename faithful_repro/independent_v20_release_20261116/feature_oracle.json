@@ -1,0 +1,70 @@
+{
+  "scope": "Intentional test-label reading from input feature, not a fitted model or legitimate generalization metric",
+  "n_exposed": 1340,
+  "n_test": 1340,
+  "folds": [
+    {
+      "fold": 1,
+      "n": 268,
+      "source_npz_sha256": "acc23b93970263245c0318c54e08f01db2a1677f70c882bcb996bf1dbc3ab8e1",
+      "exposed_labels_equal_truth": 268,
+      "released_precision": 1.0,
+      "released_recall": 1.0,
+      "released_f1": 1.0,
+      "multihot_macro_f1": 0.9045776205218929,
+      "multihot_micro_f1": 0.9354275741710296,
+      "multihot_any_hit": 1.0
+    },
+    {
+      "fold": 2,
+      "n": 268,
+      "source_npz_sha256": "4bc032dd6e7e21175a5d225aa6d7fcc2a6c4c42385743bde4e1e1994d3df36c2",
+      "exposed_labels_equal_truth": 268,
+      "released_precision": 1.0,
+      "released_recall": 1.0,
+      "released_f1": 1.0,
+      "multihot_macro_f1": 0.9321669074193161,
+      "multihot_micro_f1": 0.950354609929078,
+      "multihot_any_hit": 1.0
+    },
+    {
+      "fold": 3,
+      "n": 268,
+      "source_npz_sha256": "308e4067a702eabcd6b2747d84f543567ddc08c00f6e06ede927c8dae7455b2d",
+      "exposed_labels_equal_truth": 268,
+      "released_precision": 1.0,
+      "released_recall": 1.0,
+      "released_f1": 1.0,
+      "multihot_macro_f1": 0.9184660652134091,
+      "multihot_micro_f1": 0.9403508771929825,
+      "multihot_any_hit": 1.0
+    },
+    {
+      "fold": 4,
+      "n": 268,
+      "source_npz_sha256": "e02946f8e6550fd2c33fc32e7bacb3f317b9be733b1f7bea93ec5f241bb3e8aa",
+      "exposed_labels_equal_truth": 268,
+      "released_precision": 1.0,
+      "released_recall": 1.0,
+      "released_f1": 1.0,
+      "multihot_macro_f1": 0.9267492373398414,
+      "multihot_micro_f1": 0.9403508771929825,
+      "multihot_any_hit": 1.0
+    },
+    {
+      "fold": 5,
+      "n": 268,
+      "source_npz_sha256": "071371bd41976cedaae54127b820c66d12463007e80cc5037ceaca0c22051905",
+      "exposed_labels_equal_truth": 268,
+      "released_precision": 1.0,
+      "released_recall": 1.0,
+      "released_f1": 1.0,
+      "multihot_macro_f1": 0.9082524739079665,
+      "multihot_micro_f1": 0.9370629370629371,
+      "multihot_any_hit": 1.0
+    }
+  ],
+  "mean_released_f1": 1.0,
+  "mean_multihot_macro_f1": 0.918042460880485,
+  "mean_multihot_micro_f1": 0.9407093751098021
+}

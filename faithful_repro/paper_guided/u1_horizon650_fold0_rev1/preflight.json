@@ -1,0 +1,20 @@
+{
+  "stage": "U1_HORIZON650_PREFLIGHT",
+  "environment": [
+    "3.12.16",
+    "1.26.4",
+    "2.5.1+cpu",
+    "2.6.1"
+  ],
+  "input_pins": {
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_control_rev1/source.zip": "bdc56aae74cf1673548a8d0391b5632b70304b05757c6e2473866f321a0c1e93",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_rev1/candidate_fold_data.npz": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_rev1/recon_meta.json": "b4c969512755ac6a813d43cc0fc99b5b822b12365ef0bfa23fbab974eff1e84b",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_rev1/recon_audits.json": "7ed36536a5afbc7ba63465c8a1f8cd83bb7d91f2685da2e0a507248b977de33e",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_expected_rev1.json": "c60fc98caa583e7c6a55fcc01c58718322e2ac38025d24e13df276125f3d7cfd"
+  },
+  "config_sha256": "3693e2e7532d2c8bd6ed968c780d77acc1b89d3769e10e8bdd9af84a862120de",
+  "expected_sha256": "99c942a95affaad4d6d6803dbb82d4dbd4687a92beac319ba1ba2c60c13f8284",
+  "source_modules": 21,
+  "scope": "one 650 epoch selection fit; no outer-test input"
+}

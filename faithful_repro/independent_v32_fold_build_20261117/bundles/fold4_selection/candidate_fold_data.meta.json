@@ -1,0 +1,33 @@
+{
+ "stage": "CANDIDATE_FOLD_BUNDLE_REV3",
+ "fold": 4,
+ "phase": "selection",
+ "candidate_dir": "E:\\1.AppCode\\1.VSCode\\DHGCMDA-fork\\faithful_repro\\colab_package_f0_selection_20261115\\inputs",
+ "pins": {
+  "pair_split_candidate.csv": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040",
+  "candidate_manifest.json": "1459f74d836980f2073f399c70f6183081c927b05bcd2ef7435739f4cb1d8606",
+  "v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "semantic.py": "fb2a274fe2f891293c07ab61e39b9533620c4148b6c329c904a08a635ea523d1",
+  "functional.py": "9daea1a12c85a8a6eaf7e9a12f062c364de0e856d48f06316d9642753eb7ecea",
+  "contracts.py": "99565c47c4c3f2cde31b7b1015ccd38ca4b20f496735ae49c95017e8551bce19",
+  "HMDDv3.xlsx": "6e2a977e4e052e2a85d8df73972363722867a020021e71f2b8b6f81d68d89498",
+  "meshToID.csv": "ab34496224a1a88fc26623a9e0b89df0024f3823dcdb5ec6db677c5e59b43182",
+  "mtrees2019.bin": "e91914166058e0440a697930a04148482f39672f70ec6046ccbec8a8c7785c09"
+ },
+ "n_train": 6288,
+ "n_val": 700,
+ "dtypes": "views float32, y_* float64, mask int8, pairs int64 (sealed-builder parity)",
+ "heldout_absence_proof": "exported pairs set-equal pinned candidate non-test segments; outer-test Y never read",
+ "refit_consumer": "runner.load_data_npz + preflight",
+ "export_hashes": {
+  "view_mi_v1": "113115dff626537296655bcf228b8f063845471e9519e0d281488f508f98ffac",
+  "view_mi_v2": "be8e3ec199b8fd46cb023119330ec7dafdbcd99b6f5103e5d0e2aa2c2616ace0",
+  "view_dis_v1": "6f103c1c71c65d41845993b5f7d10a2ab6b80877d4b74cdd86f3ba8f7476a30b",
+  "view_dis_v2": "ad8d827561e925625e8af4d4b130f20cb1d061c5d81842b05fd5fb5f35353933",
+  "train_mask": "8ee901f2d8617a2ba41e5c57a58a578c555b492e18ef2d6b60031ec001f47ec6",
+  "train_pairs": "d40b75c1063747034818a9e0af0ec980a33dba8e4c17f22063d1b1b632d7eb14",
+  "y_train": "c35bc930bd61f6d7fada713f4a52b32647ef9affe1d056af77b7dfe39c56f7fe",
+  "val_pairs": "410e4a7ea6d6bd5b5696e8a681734a86c2de88f13797c2cad732a770946413ad",
+  "y_val": "9d6be9fbe9f23b52bcc2a4b4ea566146ab50b827a0296c81fa3cf7aa0551f12b"
+ }
+}

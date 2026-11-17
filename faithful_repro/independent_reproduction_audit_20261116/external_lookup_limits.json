@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-16",
+  "lookups": [
+    {
+      "url": "https://archive.softwareheritage.org/api/1/revision/ea5215ae9639b316a14c4797b49a34c43d018b88/",
+      "result": "Web tool could not access URL. Local recovered files were inspected, but independent online re-download of this archive was not established in this audit."
+    },
+    {
+      "url": "https://github.com/Ouyang-Dong/SPLDHyperAWNTF_Model",
+      "result": "Web tool returned 404. This does not independently prove the historical archive's authenticity."
+    }
+  ],
+  "DHGCMDA_public_main": "Successfully snapshotted by GitHub API and raw files at commit 06f9ba3eed92e334d9a2b8003fc06d83596e5614; see sources/inventory.json. No author contact was attempted."
+}

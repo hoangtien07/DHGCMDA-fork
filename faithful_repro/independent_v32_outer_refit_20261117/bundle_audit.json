@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "bf2778317479b7d7d2d1b1ea030c21b9c941c9b9828042085a48b52fc3ff146c",
+  "script_sha256": "7188c6e91b498a32c32d52eebf0abdfefbe6bb39f0c6d6805e1d4a313b539b56",
+  "folds": [
+    {
+      "fold": 0,
+      "status": "PASS",
+      "bundle_sha256": "39c5fd4985ecc46c6272edf3ed48c8133ba19f887ef331bb97553b714b57d030",
+      "train_pairs": 6988,
+      "outer_pair_count": 1747,
+      "heldout_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        954,
+        329,
+        1822,
+        3209,
+        3128
+      ],
+      "functional_semantic_rebuilt_equal": true,
+      "array_hashes_verified": true,
+      "test_labels_scored": false
+    },
+    {
+      "fold": 1,
+      "status": "PASS",
+      "bundle_sha256": "562ef6610412b84f493c85afa25ede31477d39b699394eaf709b6f2040023109",
+      "train_pairs": 6988,
+      "outer_pair_count": 1747,
+      "heldout_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        922,
+        328,
+        1828,
+        3197,
+        3133
+      ],
+      "functional_semantic_rebuilt_equal": true,
+      "array_hashes_verified": true,
+      "test_labels_scored": false
+    },
+    {
+      "fold": 2,
+      "status": "PASS",
+      "bundle_sha256": "26642e2c1c9c68e7abc4f41b2c6cbfb0a4da9e4992e2c3318a49f0bb0c99bae3",
+      "train_pairs": 6988,
+      "outer_pair_count": 1747,
+      "heldout_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        916,
+        314,
+        1862,
+        3213,
+        3103
+      ],
+      "functional_semantic_rebuilt_equal": true,
+      "array_hashes_verified": true,
+      "test_labels_scored": false
+    },
+    {
+      "fold": 3,
+      "status": "PASS",
+      "bundle_sha256": "5a0b3f74703d34036de3b430de6b7bde964d41a4d07a4a3a42be366b27bf938d",
+      "train_pairs": 6988,
+      "outer_pair_count": 1747,
+      "heldout_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        917,
+        324,
+        1852,
+        3165,
+        3099
+      ],
+      "functional_semantic_rebuilt_equal": true,
+      "array_hashes_verified": true,
+      "test_labels_scored": false
+    },
+    {
+      "fold": 4,
+      "status": "PASS",
+      "bundle_sha256": "a3fb24d70208763b400e62e4b981753af95b4e3d20a9423b743c3c67de04b294",
+      "train_pairs": 6988,
+      "outer_pair_count": 1747,
+      "heldout_in_mask": 0,
+      "group_crossings": 0,
+      "train_type_support": [
+        911,
+        317,
+        1808,
+        3204,
+        3137
+      ],
+      "functional_semantic_rebuilt_equal": true,
+      "array_hashes_verified": true,
+      "test_labels_scored": false
+    }
+  ]
+}

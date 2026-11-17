@@ -1,0 +1,163 @@
+{
+  "log_sha256": "3bb3ec39b2b1063a99434b30d5b990d049d7860063792db2b9ac13b8d144401f",
+  "metrics_json_sha256": "b315786acb4ca6a003c1f7fc956e4ee0bb7fd390768d47b6669bbfb93c4aaf3a",
+  "log_last_git_commit": "1cf27bda69d6af981115b62840b2fd8913a559fb 2026-05-08T07:27:35+07:00 fix",
+  "folds": [
+    {
+      "fold": 1,
+      "auc_displayed": 0.9746,
+      "top1_f1_displayed": 0.5531
+    },
+    {
+      "fold": 2,
+      "auc_displayed": 0.9773,
+      "top1_f1_displayed": 0.5664
+    },
+    {
+      "fold": 3,
+      "auc_displayed": 0.9729,
+      "top1_f1_displayed": 0.5364
+    },
+    {
+      "fold": 4,
+      "auc_displayed": 0.9728,
+      "top1_f1_displayed": 0.5643
+    },
+    {
+      "fold": 5,
+      "auc_displayed": 0.9786,
+      "top1_f1_displayed": 0.5404
+    }
+  ],
+  "metric_json": {
+    "AUC": 0.9752,
+    "AUPR": 0.9701,
+    "F1": 0.9297,
+    "Accuracy": 0.9278,
+    "Recall": 0.9536,
+    "Specificity": 0.9021,
+    "Precision": 0.9073,
+    "top1_precision": 0.5052,
+    "top1_recall": 0.609,
+    "top1_f1": 0.5521,
+    "fold_times_sec": [
+      862.29,
+      873.26,
+      862.93,
+      850.71,
+      850.37
+    ],
+    "avg_fold_time_sec": 859.9119999999999,
+    "total_execution_sec": 4300.07,
+    "_source": "logs\\baseline_v2.0_full.log"
+  },
+  "log_evidence": {
+    "epochs": 650,
+    "heads": 4,
+    "reported_seed": 1234,
+    "folds": 5,
+    "cache_used": true
+  },
+  "pinned_release_default_heads": 8,
+  "version_mismatch": "historical log used 4 heads; upstream commit defaults to 8",
+  "historical_commit_diff_from_release": "hetero_model.py             | 140 ++++++++++++++++++++++++++++++++++++++------\n main_experiments_hetero1.py |  66 ++++++++++++---------\n param.py                    |  11 +++-\n 3 files changed, 170 insertions(+), 47 deletions(-)",
+  "provenance_limit": "Commit containing the log is traceable, but log does not cryptographically bind its executing source, exact input data, cache content, fold membership, per-pair scores or environment.",
+  "reported_0_5570": "appears in retrospective markdown, not located in searched local logs/results; source not established",
+  "local_files_vs_release": [
+    {
+      "path": "Calculate_Metrics.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "ConstructHW.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "check_v2.0_495m383D.py",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "create_hetero_data.py",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "hetero_model.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "hypergraph_construct_KNN.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "hypergraph_construct_kmeans.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "layers.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "main_experiments_hetero1.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "param.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "prepareData.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "trainData.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "utils.py",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "v2.0_495m383D/D_SSM1.txt",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "v2.0_495m383D/D_SSM2.txt",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "v2.0_495m383D/M_FSM.txt",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "v2.0_495m383D/M_GSM.txt",
+      "local_exists": true,
+      "local_equal_release": true
+    },
+    {
+      "path": "v2.0_495m383D/multi_all_mirna_disease_pairs_without_negative.csv",
+      "local_exists": true,
+      "local_equal_release": false
+    },
+    {
+      "path": "wieghts.py",
+      "local_exists": true,
+      "local_equal_release": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "fold": 3,
+  "seed": 42,
+  "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf",
+  "meta_sha256": "1d3974595335304609036c4dca1aa42419d26acff0edbe3d5d13434b7231ee7c",
+  "audit_sha256": "7be08d0bbee45ffa1293cedef0c52ad70a53fb34c8791e3e9f0ebe258a0df258",
+  "protocol_sha256": "412198b503c817ee656204fb9ae22bfb1c94a495805399bf24e7d51ddde0b21d",
+  "runner_sha256": "24b1a643edbba988dbd6d2e70332cc997f61525005e5f2b8f211a843f45b75be",
+  "reference_manifest_sha256": "468d59d45f46f2f8579df8101b54f198d51a065e2da91ec23d68d9e27666fc99",
+  "python": "3.12.15 (main, Oct  9 2026, 15:21:55) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.5.1+cpu",
+  "pyg": "2.6.1",
+  "numpy": "1.26.4",
+  "start_utc": "2026-11-17T09:33:47Z",
+  "scope": "inner-validation only; no outer-test"
+}

@@ -1,0 +1,25 @@
+{
+  "stage": "U1_FOLD1_650_SUCCESS",
+  "precontract_sha256": "a079f5e8e37160809270cbe6aeb25de6b098ef40b4e974be201b922082199642",
+  "manifest_sha256": "97adef57d36b6af64a9f1061933a7040cbd4a3e27c708787805a295e5292d6b1",
+  "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+  "best_epoch": 620,
+  "final_epoch": 650,
+  "aborted": null,
+  "epoch200": {
+    "train_macro_f1": 0.39740043565785793,
+    "train_micro_f1": 0.4272844272844272,
+    "train_any_hit": 0.5016701129314458,
+    "val_macro_f1": 0.35993983232952226,
+    "val_micro_f1": 0.41028781383955903,
+    "val_any_hit": 0.47788873038516405
+  },
+  "best": {
+    "train_macro_f1": 0.5340453874580835,
+    "train_micro_f1": 0.5372891688681163,
+    "train_any_hit": 0.6308255129632575,
+    "val_macro_f1": 0.4332913135456488,
+    "val_micro_f1": 0.4666258420085732,
+    "val_any_hit": 0.543509272467903
+  }
+}

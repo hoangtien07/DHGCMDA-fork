@@ -1,0 +1,26 @@
+{
+  "CONTRACT.md": {
+    "bytes": 2202,
+    "sha256": "788450bc9eaed254b2c909f6717137b354c1efa59e77c628f7032a3d31bc653e"
+  },
+  "REPORT.md": {
+    "bytes": 3990,
+    "sha256": "5349b26774e261a61698bdbcf1f9f1de6094cc338cc7e1ce8eec04bf439faf2f"
+  },
+  "analyze.py": {
+    "bytes": 4895,
+    "sha256": "bf5ce3fd870ed575be9abc2e6b8ea75f5afd61edbd7dacf0de50cb10cfdf5961"
+  },
+  "verify.py": {
+    "bytes": 1303,
+    "sha256": "a8d3364f68e4a12661720a8089bab8dbb3c268b9afef805fa429406471fa1239"
+  },
+  "results.json": {
+    "bytes": 6388,
+    "sha256": "06bc3eac2af55c417426d5c5676c73c2194e389038988a214b32c62a98cc0edb"
+  },
+  "per_class.csv": {
+    "bytes": 1153,
+    "sha256": "ac3753d88c6cbf15d22389378ee5d10e490266396088c0b9c7c7f931e97bf686"
+  }
+}

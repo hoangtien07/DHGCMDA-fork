@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "scope": "association edges in initial PyG graph; static similarities not audited",
+  "folds": [
+    {
+      "fold": 1,
+      "train_edges": 1072,
+      "test_edges": 0,
+      "edge_attributes_equal_train_types": true
+    },
+    {
+      "fold": 2,
+      "train_edges": 1072,
+      "test_edges": 0,
+      "edge_attributes_equal_train_types": true
+    },
+    {
+      "fold": 3,
+      "train_edges": 1072,
+      "test_edges": 0,
+      "edge_attributes_equal_train_types": true
+    },
+    {
+      "fold": 4,
+      "train_edges": 1072,
+      "test_edges": 0,
+      "edge_attributes_equal_train_types": true
+    },
+    {
+      "fold": 5,
+      "train_edges": 1072,
+      "test_edges": 0,
+      "edge_attributes_equal_train_types": true
+    }
+  ]
+}

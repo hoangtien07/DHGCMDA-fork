@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "results_sha256": "a93779cb787ac0e8da635a681862ea9d2531c6c084bc06656b1624aeacb0f604",
+  "verifier_sha256": "ee83de6c5a61c9723942788d7ab96ad127fe26ba3a57c5145572a30dbdf6a0c0",
+  "seal_sha256": "0faf2f842a94e62c27798606070b259f8beebd2b63eb3c42fae469e60bd9fd3b",
+  "prediction_count": 30,
+  "baseline_count": 20
+}

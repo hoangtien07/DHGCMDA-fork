@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "scope": "rebuild U1 selection fold0 and fold1 feature blocks from pinned sources, no model scoring",
+  "all_source_pins_verified": true,
+  "semantic_block_elementwise_equal": true,
+  "functional_block_elementwise_equal": true,
+  "folds": [
+    {
+      "fold": 0,
+      "train_mask_nonzero": 6293,
+      "functional_nonempty_mirnas": 405,
+      "semantic_block_elementwise_equal": true,
+      "functional_block_elementwise_equal": true
+    },
+    {
+      "fold": 1,
+      "train_mask_nonzero": 6287,
+      "functional_nonempty_mirnas": 411,
+      "semantic_block_elementwise_equal": true,
+      "functional_block_elementwise_equal": true
+    }
+  ],
+  "semantic_covered_diseases": 262,
+  "input_sha256": {
+    "faithful_repro/paper_guided/u1_horizon650_fold0_rev1/source/semantic.py": "fb2a274fe2f891293c07ab61e39b9533620c4148b6c329c904a08a635ea523d1",
+    "faithful_repro/paper_guided/u1_horizon650_fold0_rev1/source/functional.py": "9daea1a12c85a8a6eaf7e9a12f062c364de0e856d48f06316d9642753eb7ecea",
+    "faithful_repro/colab_package_f0_selection_20261115/inputs/HMDDv3.xlsx": "6e2a977e4e052e2a85d8df73972363722867a020021e71f2b8b6f81d68d89498",
+    "faithful_repro/colab_package_f0_selection_20261115/inputs/meshToID.csv": "ab34496224a1a88fc26623a9e0b89df0024f3823dcdb5ec6db677c5e59b43182",
+    "faithful_repro/colab_package_f0_selection_20261115/inputs/mtrees2019.bin": "e91914166058e0440a697930a04148482f39672f70ec6046ccbec8a8c7785c09",
+    "faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+    "faithful_repro/paper_guided/candidate_fold0_selection_rev1/candidate_fold_data.npz": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677",
+    "faithful_repro/paper_guided/candidate_fold1_selection_rev1/candidate_fold_data.npz": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+    "faithful_repro/paper_guided/u1_fold1_650_selection_rev1/source/semantic.py": "fb2a274fe2f891293c07ab61e39b9533620c4148b6c329c904a08a635ea523d1",
+    "faithful_repro/paper_guided/u1_fold1_650_selection_rev1/source/functional.py": "9daea1a12c85a8a6eaf7e9a12f062c364de0e856d48f06316d9642753eb7ecea"
+  },
+  "limits": "Input source provenance verified; exact scientific equivalence to author DHGCMDA feature recipe not established."
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": {
+    "mir_names": true,
+    "dis_names": true,
+    "sim_m2": true,
+    "sim_d2": true
+  },
+  "files": {
+    "miRNA_names.txt": "08afc1f28035ae3f97ba70af9258ef99d82b40daf26ce9a5942be0f50b6ecdd9",
+    "disease_names.txt": "b0fd5fade5fba28543c798ce1cd208115b01afccdc3ce1da51a3527decc75615",
+    "M_MISIM.npy": "3fdae4f5b77aee12e0a11d825c76880bc0e3722ef66d9a48fcd07442d326b02d",
+    "D_MESH.npy": "ff7e43995d7f7ab61c436315f0b9fbe967e48cd94dd622947fd45c043a8eb844"
+  }
+}

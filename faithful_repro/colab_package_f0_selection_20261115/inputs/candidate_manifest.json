@@ -1,0 +1,135 @@
+{
+ "label": "PAIR-GROUP SPLIT CANDIDATE REV2 \u2014 deterministic, existence-only, fail-closed gates fixed; NOT an evaluation authorization",
+ "seeds": {
+  "outer": 1234,
+  "inner_base": 5678,
+  "inner_per_fold": "SEED_INNER+fold"
+ },
+ "prng": "random.Random(seed).shuffle over sorted() key strings",
+ "outer_rule": "fewest-positive-cells fold, tie -> lowest index",
+ "inner_rule": "first ceil(0.10*n_train_groups) of seeded shuffle",
+ "estimand": "pair-level CV_type; entities may straddle folds",
+ "mirna_policy": "singleton rows; ambiguous families NOT merged",
+ "disease_policy": "same-MeSH-UI merge; empty UI / duplicate index -> fail closed",
+ "universe_check": {
+  "positive_universe": 8735,
+  "orig_fold0_train": 6289,
+  "orig_fold0_val": 699,
+  "orig_fold0_train_plus_val": 6988,
+  "orig_fold0_test": 1747,
+  "delta_full_minus_f0_used": 1747,
+  "orig_f0_used_in_universe": 6988,
+  "orig_f0_used_outside_universe": 0,
+  "note": "archived pipeline fold0 used train+val only; test was held out; candidate covers the full positive universe"
+ },
+ "count_discrepancy": {
+  "ledger_multicell_groups": 3699,
+  "ledger_cells_all": 7398,
+  "ledger_cells_positive": 986,
+  "positive_universe_cells": 8735,
+  "positive_universe_groups": 8550,
+  "crossings_rows": 413,
+  "crossings_distinct_groups": 155,
+  "crossings_scope": "reconstructed cell-level archived split (make_splits seed=1234 replay), NOT the v2 proposal \u2014 v2 is pair-group-atomic under its declared key",
+  "note": "ledger covers all raw-cell pairs incl. untyped; positive universe is Y-existence cells only"
+ },
+ "source_sha256": "cb98f8a828f727feeac63bcfd5fa3f884b2dea110d0aca5ad787eb59df84e321",
+ "input_sha256": {
+  "dataset_strict": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "dataset_ref": "135e20502a73e18c0b0017f880c163fad3bfcc2c35345dae63a9d0515e18321c",
+  "mirna_ledger": "cc9cfea99cd7e5e564d59d03dcef73bec2bab2c5b424cdee0d416bf663cacd2d",
+  "disease_ledger": "6ca89116eb23dea930f6913816f08a68d017efcd204f0157e396a088f9476d1b",
+  "canonical_group_ledger": "39706da4e60737b15a3ea768e46b36e46ddea737fe7101211abc97569bef95fb",
+  "ambiguous_families": "5987e0d538cf413836272a05eac58e779088f2264f5b2c710528c1cfacc599b4",
+  "crossings": "7a27df2e60237d2583ef42e3e61f78d9dd1fb38b498edcb8a8724709a2190121"
+ },
+ "selftest": {
+  "dup/alias cells collapse to one group": true,
+  "deterministic outer rebuild": true,
+  "record+group disjoint (synthetic)": true,
+  "fail-injection gate[existence_mask_identical] blocks all output": true,
+  "fail-injection gate[deterministic_rebuild] blocks all output": true,
+  "fail-injection gate[record_group_disjoint] blocks all output": true,
+  "fail-injection gate[mir_ledger_covers] blocks all output": true,
+  "fail-injection gate[dis_ledger_covers] blocks all output": true,
+  "fail-injection gate[mir_index_unique] blocks all output": true,
+  "fail-injection gate[dis_index_unique] blocks all output": true,
+  "fail-injection gate[dis_ui_nonempty] blocks all output": true,
+  "fail-injection gate[coverage_all_positive] blocks all output": true,
+  "False-is-not-True regression": true
+ },
+ "bool_gates": {
+  "existence_mask_identical": true,
+  "mir_ledger_covers": true,
+  "dis_ledger_covers": true,
+  "mir_index_unique": true,
+  "dis_index_unique": true,
+  "dis_ui_nonempty": true,
+  "deterministic_rebuild": true,
+  "record_group_disjoint": true,
+  "coverage_all_positive": true,
+  "orig_f0_subset_of_universe": true,
+  "orig_f0_disjoint": true,
+  "deterministic_serialization": true
+ },
+ "stat_gates": {
+  "positive_universe": 8735,
+  "pair_groups_total": 8550,
+  "multi_cell_groups": 185,
+  "max_group_size": 2,
+  "inner_groups": {
+   "0": {
+    "train_groups": 6838,
+    "inner_val_groups": 684
+   },
+   "1": {
+    "train_groups": 6835,
+    "inner_val_groups": 684
+   },
+   "2": {
+    "train_groups": 6851,
+    "inner_val_groups": 686
+   },
+   "3": {
+    "train_groups": 6840,
+    "inner_val_groups": 684
+   },
+   "4": {
+    "train_groups": 6836,
+    "inner_val_groups": 684
+   }
+  },
+  "fold0_test_cells": 1747,
+  "fold1_test_cells": 1747,
+  "fold2_test_cells": 1747,
+  "fold3_test_cells": 1747,
+  "fold4_test_cells": 1747
+ },
+ "inner_counts": {
+  "0": {
+   "train_groups": 6838,
+   "inner_val_groups": 684
+  },
+  "1": {
+   "train_groups": 6835,
+   "inner_val_groups": 684
+  },
+  "2": {
+   "train_groups": 6851,
+   "inner_val_groups": 686
+  },
+  "3": {
+   "train_groups": 6840,
+   "inner_val_groups": 684
+  },
+  "4": {
+   "train_groups": 6836,
+   "inner_val_groups": 684
+  }
+ },
+ "all_gates_pass": true,
+ "output_sha256": {
+  "pair_split_candidate.csv": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040",
+  "pair_group_summary.csv": "5e0c8f62e7db2c0dfa0a8694c493ff4704c0738e3d27887f1eb83bb15a9c6c4d"
+ }
+}

@@ -1,0 +1,18 @@
+{
+  "stage": "U1_FOLD1_650_PRECONTRACT",
+  "input_pins": {
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold1_selection_rev1/candidate_fold_data.npz": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold1_selection_rev1/recon_meta.json": "c6fc0b13dd0eba6c9c48e24dd812349b04c0aa76caa456643fd5494be02c0324",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold1_selection_rev1/recon_audits.json": "7ed36536a5afbc7ba63465c8a1f8cd83bb7d91f2685da2e0a507248b977de33e",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold1_selection_build_ledger_rev1/success.json": "366fb5b297574b4dbd24584d5b02f1a33cd0c72250215ff7387f21ad9193700b",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold1_selection_build_ledger_rev1/independent_bundle_audit.json": "17c27cece0eb28d23bf7e82b7fa5eec955090b6be4b57187bf8339db36631de8",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_control_rev1/source.zip": "bdc56aae74cf1673548a8d0391b5632b70304b05757c6e2473866f321a0c1e93",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/candidate_fold0_selection_expected_rev1.json": "c60fc98caa583e7c6a55fcc01c58718322e2ac38025d24e13df276125f3d7cfd",
+    "/content/drive/MyDrive/paper_guided_task3_rev1/u1_horizon650_fold0_rev1/config.json": "3693e2e7532d2c8bd6ed968c780d77acc1b89d3769e10e8bdd9af84a862120de"
+  },
+  "cfg_sha256": "3693e2e7532d2c8bd6ed968c780d77acc1b89d3769e10e8bdd9af84a862120de",
+  "expected_sha256": "0dd98cb1108ed1ffbd22deb2ab6c16ded2ccc71ca5251f828c33191b01ae4f09",
+  "fold": 1,
+  "scope": "one inner-selection fit; no outer test score",
+  "utc_start": "2026-11-15T12:11:21Z"
+}

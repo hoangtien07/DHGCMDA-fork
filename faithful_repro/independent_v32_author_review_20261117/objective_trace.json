@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "5 trajectories, 3250 reduction identities; conditional accounting not paper-author-code identity",
+  "rows": [
+    {
+      "fold": 0,
+      "mass": 4768.03125,
+      "lambda3": 1.0,
+      "reciprocal_mass": 0.0002097301690294081,
+      "valid_mi": 166056,
+      "valid_dis": 68382,
+      "first_epoch_masked_recon_sum": 14578.343383789062,
+      "first_epoch_effective_recontribution": 3.05751850386136,
+      "max_scaled_identity_error": 9.163597785933076e-08,
+      "trajectory_sha256": "e8d85e04878937c255e0cbed51dd9577daf22e1350e14cc30aab15ee8767a070"
+    },
+    {
+      "fold": 1,
+      "mass": 4728.1142578125,
+      "lambda3": 1.0,
+      "reciprocal_mass": 0.00021150081099407652,
+      "valid_mi": 168510,
+      "valid_dis": 68382,
+      "first_epoch_masked_recon_sum": 14919.198181152344,
+      "first_epoch_effective_recontribution": 3.155422435848151,
+      "max_scaled_identity_error": 8.290229105168372e-08,
+      "trajectory_sha256": "5858d45715ae19a10f7882cc9a6870aaa0ef23ff07640b795dd44abd42fb2c12"
+    },
+    {
+      "fold": 2,
+      "mass": 4611.833984375,
+      "lambda3": 1.0,
+      "reciprocal_mass": 0.00021683347739489823,
+      "valid_mi": 167690,
+      "valid_dis": 68382,
+      "first_epoch_masked_recon_sum": 14232.954345703125,
+      "first_epoch_effective_recontribution": 3.086181005622695,
+      "max_scaled_identity_error": 9.395053920296586e-08,
+      "trajectory_sha256": "44329f587f741ba2210fa4c3e2971d0c5639d32267322a27fb984194003dcd3c"
+    },
+    {
+      "fold": 3,
+      "mass": 4689.9765625,
+      "lambda3": 1.0,
+      "reciprocal_mass": 0.00021322068173981412,
+      "valid_mi": 168510,
+      "valid_dis": 68382,
+      "first_epoch_masked_recon_sum": 14040.908447265625,
+      "first_epoch_effective_recontribution": 2.993811950602384,
+      "max_scaled_identity_error": 8.99058776834808e-08,
+      "trajectory_sha256": "eef8cedb7970f1460d9dbafc59bfea94626cb9da1dfe2a89417e22f828b0f7a7"
+    },
+    {
+      "fold": 4,
+      "mass": 4620.75,
+      "lambda3": 1.0,
+      "reciprocal_mass": 0.00021641508413136395,
+      "valid_mi": 167690,
+      "valid_dis": 68382,
+      "first_epoch_masked_recon_sum": 13943.939636230469,
+      "first_epoch_effective_recontribution": 3.017678920959411,
+      "max_scaled_identity_error": 8.682768422270609e-08,
+      "trajectory_sha256": "b3a9c41430f972edcfa427d1b9b8f28eddbe7e77ba9816bf31d277e54095c5e4"
+    }
+  ],
+  "script_sha256": "003c2c02a56994fd088cd14eba8ab76bfb270a9f1d5fa28a1b4c73851f2a0701"
+}

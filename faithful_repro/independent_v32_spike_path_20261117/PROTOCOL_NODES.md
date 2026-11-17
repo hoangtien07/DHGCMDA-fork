@@ -1,0 +1,3 @@
+﻿# Thăm dò tiếp: mức tập trung và khuếch đại theo node
+
+Sau khi xem trace.json cho thấy sai số tập trung theo hàng và decoder tăng mạnh ở một số node, kiểm tra G cũ/mới, hàng tổng và norm hàng, projection norm, số hàng lớn, tương quan Pearson giữa hàng tổng G và norm projection, phân rã chính xác bình phương residual (Gram bình phương, tích chéo, target bình phương). Dữ liệu tính trên hai checkpoint đã chọn hậu nghiệm; tương quan không chứng minh quan hệ nhân quả riêng cho từng node. Dùng cùng weights/inputs, G tương ứng, không optimizer; kiểm tra norm/sai số khớp trace.json. Không có G trung gian trước refresh ngoài checkpoint và không suy diễn incidence từ G.

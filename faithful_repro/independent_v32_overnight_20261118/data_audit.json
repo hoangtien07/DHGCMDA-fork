@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "scope": "local SPLD/ref/strict identity and pair-group split; author v3.2 identity unverified",
+  "protocol_sha256": "529b8a50307eb66207ce2b1521d62aa1b4b99b920ebbcbc636cafed6394e8186",
+  "script_sha256": "7033de6b34ee410a6ab348333de1963f0abdfe226ddbc39703540d46084196f3",
+  "ref_sha256": "135e20502a73e18c0b0017f880c163fad3bfcc2c35345dae63a9d0515e18321c",
+  "strict_sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "split_sha256": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040",
+  "snapshot_sha256": "49b47f1bbe056b324f3bc261b2bac6cdd27064a5f96688eb1b62df9ca84a806b",
+  "shape": [
+    411,
+    271,
+    5
+  ],
+  "typed_counts": [
+    1155,
+    403,
+    2293,
+    3997,
+    3900
+  ],
+  "n_pairs": 8735,
+  "n_multitype": 2110,
+  "n_pairs_by_type_count": {
+    "1": 6625,
+    "2": 1434,
+    "3": 473,
+    "4": 179,
+    "5": 24
+  },
+  "single_typed_link_mirnas": [
+    "hsa-mir-1179",
+    "hsa-mir-1244"
+  ],
+  "min_pair_degree": 1,
+  "folds": [
+    {
+      "fold": 0,
+      "train": 6293,
+      "val": 695,
+      "test": 1747,
+      "group_crossings": 0
+    },
+    {
+      "fold": 1,
+      "train": 6287,
+      "val": 701,
+      "test": 1747,
+      "group_crossings": 0
+    },
+    {
+      "fold": 2,
+      "train": 6286,
+      "val": 702,
+      "test": 1747,
+      "group_crossings": 0
+    },
+    {
+      "fold": 3,
+      "train": 6284,
+      "val": 704,
+      "test": 1747,
+      "group_crossings": 0
+    },
+    {
+      "fold": 4,
+      "train": 6288,
+      "val": 700,
+      "test": 1747,
+      "group_crossings": 0
+    }
+  ]
+}

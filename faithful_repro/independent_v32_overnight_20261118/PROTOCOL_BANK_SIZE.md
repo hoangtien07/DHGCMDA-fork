@@ -1,0 +1,3 @@
+﻿# Kiểm tra sensitivity kích thước negative bank — predeclared
+
+Giữ chính sampler và train mask/seed của 15 baseline; so sánh cap_multiplier=10 và 1, trong cả hai trường hợp không dùng nhãn validation để tạo bank. Sau khi bank cố định, đếm overlap với cặp dương inner-validation và kích thước bank, kiểm tra bank cap1 là tập con cap10, train overlap=0 và cap10 hash khớp manifest. Tỷ lệ này chỉ là hậu nghiệm trên các dương đã biết trong validation, không phải toàn bộ false negatives chưa được ghi nhận. Không xem outer-test và không coi giảm overlap là bằng chứng cải thiện hiệu năng. Chọn cap1 như đối chứng làm giảm số âm trên mỗi anchor, không khẳng định phù hợp hơn với paper; thay đổi cả số lượng và phân phối gradient của objective.

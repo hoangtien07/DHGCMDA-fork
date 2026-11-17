@@ -1,0 +1,20 @@
+﻿# Kế hoạch qua đêm sửa đổi: tái hiện DHGCMDA theo chuỗi bằng chứng
+
+## Mục tiêu
+
+Tiến gần đến khả năng tái hiện toàn bộ nghiên cứu, ưu tiên tìm và sửa các sai khác có thể tác động đến kết luận. Không tối ưu riêng F1; phân biệt (A) tái chạy mã phát hành trên v2.0, (B) diễn giải paper trên v3.2, và (C) đánh giá nội bộ hạn chế rò rỉ. Không tuyên bố A, B, C tương đương khi chưa có bằng chứng. Mọi phát hiện âm tính và lần chạy chưa hoàn thành đều được ghi.
+
+## Thứ tự và tiêu chí quyết định
+
+1. **Kiểm kê kết quả trước và nguồn gốc.** Lập bản đồ paper → mã tác giả commit cố định → dữ liệu v2/v3.2 → implementation nội bộ → kết quả có thể kiểm tra. Phân loại đã chứng minh, khác biệt xác định, giả định, chưa biết; lưu đường dẫn/hash. Xác nhận trực tiếp các điểm có ảnh hưởng, tránh chạy lại công việc đã hoàn tất.
+2. **Dữ liệu và labels.** Kiểm lại phiên bản, số thực thể, cặp, triplet, 4/5 loại, cặp nhiều nhãn và nguồn tên; rà soát chứng cứ trùng phần tử SPLD với tensor nội bộ và giới hạn đối với tập tác giả. Kiểm thử trực tiếp shape/nhãn, sự nhất quán thứ tự thực thể, các tập chia và duplicate/group. Truy nguồn công khai hoặc local hiện có khi có hướng cụ thể; dừng nếu không có nguồn mới, không đoán danh tính tác giả.
+3. **Kiểm toán chuỗi đặc trưng và rò rỉ.** Lập sơ đồ lineage bốn view, edge/hypergraph, reconstruction targets và negative bank; xác minh nguồn nào train-only, nguồn tĩnh nào chưa rõ, cutoff và coverage. Dùng canary/đối chứng phù hợp khi có thể cô lập; tách rò rỉ thực chứng khỏi nghi ngờ. Tận dụng các kiểm toán v2 và v3.2 đã có, không lặp thí nghiệm đã giải quyết.
+4. **Paper và mã phát hành.** Đối chiếu input, hypergraph/HGT, dynamic refresh, objective/reconstruction, loss weights, optimizer, split, kết quả và thuật ngữ metric; liên kết phương trình và dòng code. Xác định các khác biệt có khả năng đổi hành vi; viết test nhỏ cho mệnh đề mới, không diễn giải source v2.0 là code v3.2 chưa phát hành.
+5. **Kiểm tra tính hợp lệ đánh giá.** Audit split theo pair/entity và nguồn nhãn; phân biệt classification trên positive pairs, existence và bài toán đa nhãn. So sánh các baseline train-only theo macro/micro/any-hit và theo lớp; thẩm định điểm paper/v2 chỉ khi task, input và metric tương ứng. Không tái dùng outer-test đã lộ để chọn cấu hình hoặc gọi nó blind.
+6. **Phân tích lỗi và sức mạnh tín hiệu.** Khai thác dự đoán 5 fold × 3 seed đã lưu để đối chiếu model static/dynamic và count prior trên đúng cặp, theo tần suất, số nhãn, cold-start, lớp và nhóm. Kiểm tra hash và phép chấm; minh bạch phân tích hậu nghiệm và dữ liệu chia sẻ. Tìm nhóm/vấn đề mà thay đổi có khả năng cải thiện có ý nghĩa, không sweep F1 tùy tiện.
+7. **Can thiệp có mục đích, nếu có đủ bằng chứng.** Chỉ chọn 1–2 phép thử có thể phân biệt nguyên nhân thực tế từ bước 3–6, xác định trước hypothesis, control, fold/seed, horizon, metric/giới hạn và dừng nếu chi phí hoặc preflight không hợp lý. Ưu tiên thay thế thông tin rò rỉ, bảo toàn fidelity hoặc baseline rõ ràng hơn sweep hyperparameter. Lưu protocol trước khi chạy; so sánh paired trên validation, không giả định nhân quả cho thay đổi nhiều thành phần.
+8. **Xác minh và tổng hợp.** Tính lại con số từ artifact, kiểm tra hash/input/metric/test tương ứng, đảm bảo tiến trình lỗi không biến thành PASS. Viết báo cáo tiếng Việt: câu trả lời 4/5 loại và F1, tình trạng toàn pipeline, bảng evidence/uncertainty, kết quả mới, tác động, giới hạn, thứ tự việc tiếp theo; lưu trạng thái và log cho sáng mai.
+
+## Quy tắc tài nguyên và an toàn phân tích
+
+Không thay code gốc hoặc artifact cũ; thư mục mới, nguồn pin, log và completion riêng. Không gửi email, công bố, merge hay thay đổi hệ thống bên ngoài. Hạn chế huấn luyện vô ích: thí nghiệm hệ số/cosine 9 lượt đã hủy theo yêu cầu mở rộng; lần đầu dừng khi đang chạy, phần dở được giữ tại `runs/raw01_seed1234/`, trạng thái gốc ở `status_before_replan.json`. Một thử nghiệm mới phải trả lời rõ câu hỏi liên quan khả năng tái hiện hoặc đánh giá. Máy cần thức khi đang chạy dài, không thay đổi cấu hình điện lâu dài.

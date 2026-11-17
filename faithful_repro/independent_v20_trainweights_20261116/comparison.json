@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "paired_fold_count": 5,
+  "paired_metrics": [
+    {
+      "fold": 1,
+      "metric": "released.f1",
+      "baseline": 0.5548968925152038,
+      "train_weights": 0.5535916159980446,
+      "difference": -0.0013052765171591707
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5401062567500946,
+      "train_weights": 0.5410970942496514,
+      "difference": 0.0009908374995567515
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5445026178010471,
+      "train_weights": 0.5445026178010471,
+      "difference": 0.0
+    },
+    {
+      "fold": 2,
+      "metric": "released.f1",
+      "baseline": 0.48372354690088576,
+      "train_weights": 0.48897935372032525,
+      "difference": 0.00525580681943949
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.47312045765016064,
+      "train_weights": 0.47872164776445214,
+      "difference": 0.005601190114291499
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.4645390070921986,
+      "train_weights": 0.475177304964539,
+      "difference": 0.010638297872340441
+    },
+    {
+      "fold": 3,
+      "metric": "released.f1",
+      "baseline": 0.48812011872465066,
+      "train_weights": 0.48886959452432366,
+      "difference": 0.0007494757996729939
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.4629136971685117,
+      "train_weights": 0.46454385935523856,
+      "difference": 0.0016301621867268468
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.47017543859649125,
+      "train_weights": 0.47017543859649125,
+      "difference": 0.0
+    },
+    {
+      "fold": 4,
+      "metric": "released.f1",
+      "baseline": 0.5266464471403813,
+      "train_weights": 0.5047475688080144,
+      "difference": -0.021898878332366922
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5151877831968587,
+      "train_weights": 0.4731457090479278,
+      "difference": -0.04204207414893085
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5087719298245614,
+      "train_weights": 0.47719298245614034,
+      "difference": -0.031578947368421095
+    },
+    {
+      "fold": 5,
+      "metric": "released.f1",
+      "baseline": 0.5233403408388284,
+      "train_weights": 0.5220741877593964,
+      "difference": -0.0012661530794320086
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.521124663035422,
+      "train_weights": 0.5140919762320285,
+      "difference": -0.007032686803393529
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.506993006993007,
+      "train_weights": 0.5034965034965035,
+      "difference": -0.0034965034965034336
+    }
+  ],
+  "mean_differences": {
+    "released.f1": -0.0036930050619691235,
+    "multihot.macro_f1": -0.008170514230349857,
+    "multihot.micro_f1": -0.004887430598516818
+  },
+  "interpretation": "Only class weights deliberately changed from global counts to fold train counts; static features remain unverified; no statistical generalization from one seed."
+}

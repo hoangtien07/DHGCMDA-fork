@@ -1,0 +1,57 @@
+{
+  "start_utc": "2026-11-17T17:43:18Z",
+  "supervisor_sha256": "1b43d219bc985322b07bf0679b52684dc77793d0037586c327c9204036776f30",
+  "trainer_sha256": "689585ff802b8135f0f20c93a9572cd3229420b1a523bf4847c098ab45d917ed",
+  "protocol_sha256": "cea7d1f28c4b959cfc2e1299c5c355efd854096253a393acc5086119a4fdac6d",
+  "jobs": [
+    {
+      "arm": "raw01",
+      "seed": 1234,
+      "status": "CANCELLED_IN_PROGRESS",
+      "start_utc": "2026-11-17T17:43:18Z"
+    },
+    {
+      "arm": "cos01",
+      "seed": 1234,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "raw01",
+      "seed": 42,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "cos01",
+      "seed": 42,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "raw01",
+      "seed": 2025,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "cos01",
+      "seed": 2025,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "coslong",
+      "seed": 1234,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "coslong",
+      "seed": 42,
+      "status": "CANCELLED_NOT_STARTED"
+    },
+    {
+      "arm": "coslong",
+      "seed": 2025,
+      "status": "CANCELLED_NOT_STARTED"
+    }
+  ],
+  "status": "CANCELLED_BY_REPLAN",
+  "reason": "User redirected scope to full paper reproduction; preserving incomplete output",
+  "cancelled_utc": "2026-11-17T17:44:17.483295+00:00"
+}

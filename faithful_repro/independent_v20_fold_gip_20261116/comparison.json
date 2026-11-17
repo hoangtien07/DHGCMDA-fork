@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "paired_fold_count": 5,
+  "paired_metrics": [
+    {
+      "fold": 1,
+      "metric": "released.f1",
+      "baseline": 0.5147080807241924,
+      "masked_gip": 0.5548968925152038,
+      "difference": 0.040188811791011414
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.4747248793169529,
+      "masked_gip": 0.5401062567500946,
+      "difference": 0.06538137743314171
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.4712041884816754,
+      "masked_gip": 0.5445026178010471,
+      "difference": 0.07329842931937175
+    },
+    {
+      "fold": 2,
+      "metric": "released.f1",
+      "baseline": 0.5629911597467016,
+      "masked_gip": 0.48372354690088576,
+      "difference": -0.0792676128458158
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5281294519830176,
+      "masked_gip": 0.47312045765016064,
+      "difference": -0.055008994332857
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.524822695035461,
+      "masked_gip": 0.4645390070921986,
+      "difference": -0.06028368794326239
+    },
+    {
+      "fold": 3,
+      "metric": "released.f1",
+      "baseline": 0.596474876807177,
+      "masked_gip": 0.48812011872465066,
+      "difference": -0.10835475808252637
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5534339352829459,
+      "masked_gip": 0.4629136971685117,
+      "difference": -0.09052023811443421
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5508771929824562,
+      "masked_gip": 0.47017543859649125,
+      "difference": -0.08070175438596494
+    },
+    {
+      "fold": 4,
+      "metric": "released.f1",
+      "baseline": 0.5333762108998147,
+      "masked_gip": 0.5266464471403813,
+      "difference": -0.006729763759433349
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.4957896448250819,
+      "masked_gip": 0.5151877831968587,
+      "difference": 0.01939813837177673
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5017543859649123,
+      "masked_gip": 0.5087719298245614,
+      "difference": 0.007017543859649145
+    },
+    {
+      "fold": 5,
+      "metric": "released.f1",
+      "baseline": 0.5763904046016534,
+      "masked_gip": 0.5233403408388284,
+      "difference": -0.05305006376282495
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5607557245904611,
+      "masked_gip": 0.521124663035422,
+      "difference": -0.03963106155503904
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5559440559440559,
+      "masked_gip": 0.506993006993007,
+      "difference": -0.04895104895104896
+    }
+  ],
+  "mean_differences": {
+    "released.f1": -0.04144267733191781,
+    "multihot.macro_f1": -0.02007615563948236,
+    "multihot.micro_f1": -0.02192410362025108
+  },
+  "interpretation": "Joint intervention changes association features/graph and input GIP source. Static features and global class weights remain; no causal attribution to individual change or statistical generalization from one seed."
+}

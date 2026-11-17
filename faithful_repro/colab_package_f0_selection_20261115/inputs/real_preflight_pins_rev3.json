@@ -1,0 +1,54 @@
+{
+ "dataset_strict": {
+  "path": "data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz",
+  "sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c"
+ },
+ "candidate_csv": {
+  "path": "audit_v32_pair_split_candidate_rev2_20261115/pair_split_candidate.csv",
+  "sha256": "aefc9b05f971210db01281f4362c9ac4132b4de361c7315f5ca6c4d2b8081040"
+ },
+ "candidate_manifest": {
+  "path": "audit_v32_pair_split_candidate_rev2_20261115/candidate_manifest.json",
+  "sha256": "1459f74d836980f2073f399c70f6183081c927b05bcd2ef7435739f4cb1d8606"
+ },
+ "source_map": {
+  "model.py": "f3d0a400581b1ecaac9dcfeaa36700f784de418bb173bf1c31b0a6eda9e6464e",
+  "losses.py": "5c483b0398250315196b492eed4398b54c4b1e734128acda75db8c7cd5aa6739",
+  "runner.py": "83fac84bbc857371b2b8b2eff67342df4fb0e9554f0825551a375f0092334306",
+  "contracts.py": "99565c47c4c3f2cde31b7b1015ccd38ca4b20f496735ae49c95017e8551bce19",
+  "metrics.py": "a88ee18dd4a23e882d21f84cd100deb046e06dde6994f54364ea46a0c782fe33",
+  "stages/u1_runner.py": "a72bff0cc223da4a4855c0993d551da18aae7e56d87686dbc938a025667be8cf",
+  "stages/objective_units.py": "15357456f010a8046bd45e393cab19e9f66775e96326fbe4443e5e417f903264",
+  "stages/c5_runner.py": "dff0cca5bf15707def3689626cec21719417e31d63c4b753b93616f603a1e423",
+  "stages/dynamic_graph.py": "5bfddb3627b671c8eb4e1d1e4c23cbde1072f350088374f56a4000d5d1128517",
+  "stages/c4_runner.py": "851636620acb9c294a5d1b077446025e9923482f5cb0ed99230faacf7ea530bc",
+  "stages/c4_model.py": "81c85efa5fc37a0504de5994b5dc8918e77826420a533ab4c9af770e2eecf85a",
+  "stages/c3_runner.py": "cf978115410734998b212300ca6c933964bcd8ce47aa544dcae25016edc11da4",
+  "stages/c2_model.py": "24c5c383f78254d0f4e7e7e5bfb55aaa1ae879beac945a308c0463b478559cee",
+  "stages/intra.py": "c3f38ba29f2ca3237b4eccc90b3e2576474c541217da7b9de9911caa6a4eb2d5",
+  "stages/inter.py": "4e29fdfbe50e468baa098f9ffe4d8393d201abc459cb9bd1307d5fbd241d1afe",
+  "stages/c1_runner.py": "667d8187cc60c22bf43cb22857dbddb6c819247f7c35bfb8f9fe0c25b2048d49",
+  "stages/c2_runner.py": "702917664f08a913e27fbb537b865f38d0bfa30299efb7adec692a1ec4c99230",
+  "stages/reconstruction.py": "a979eef5a2361cd64a735e5effba5e95acc7a6955a31884afcfe1516d1c47648",
+  "stages/reconstruction_adapter.py": "69e73e10241c90051e68d4bcff38153fee8c040a2343df3f6ce30be21ef0fc9e",
+  "stages/reconstruction_decoder.py": "f45316df64dd023452b6a5c26007df6df674061d2001131b6ec9da53fda33fc1",
+  "stages/reconstruction_targets.py": "26ec4e22a92ebebeb1381ea97613cf77ae8f65f78532499b0913875eecdd8081",
+  "stages/u1_refit_noval_rev10.py": "e656346c057449f9c61bea43d20e3f6ecb6241a4cc69a1ba706e1925e3c18b34",
+  "orchestrators/selection_wrapper.py": "b15fad2996dcdd99e83a8f4ade5b6805f510a3cb5179a620b4c75c14e550eb3f",
+  "orchestrators/semantic.py": "fb2a274fe2f891293c07ab61e39b9533620c4148b6c329c904a08a635ea523d1",
+  "orchestrators/functional.py": "9daea1a12c85a8a6eaf7e9a12f062c364de0e856d48f06316d9642753eb7ecea",
+  "orchestrators/build_selection_binding_rev3.py": "203bd42de58a589654a3af053548bc562be24a7fb6970f23623aa2e37a70496c"
+ },
+ "mesh_hmdd_xlsx": {
+  "path": "ext/misim_src_ro/extracted_ro/HMDDv3.xlsx",
+  "sha256": "6e2a977e4e052e2a85d8df73972363722867a020021e71f2b8b6f81d68d89498"
+ },
+ "mesh_toid_csv": {
+  "path": "ext/misim_src_ro/extracted_ro/meshToID.csv",
+  "sha256": "ab34496224a1a88fc26623a9e0b89df0024f3823dcdb5ec6db677c5e59b43182"
+ },
+ "mesh_mtrees_bin": {
+  "path": "ext/misim_src_ro/extracted_ro/mtrees2019.bin",
+  "sha256": "e91914166058e0440a697930a04148482f39672f70ec6046ccbec8a8c7785c09"
+ }
+}

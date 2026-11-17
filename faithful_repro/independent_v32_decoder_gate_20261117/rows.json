@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "15a813c7198ab79d44c3c7ec802c2406323776aeb2c350578fbae15391581544",
+  "script_sha256": "d27165bad55b4bd2940ff52c8371b6b2a9e8afbc688e5b6783c2ba9c4d2f2c15",
+  "reference_trace_sha256": "9b83bc44f868d531286246d72b8408dd51e36f598629f32a8c194ec52c72546f",
+  "runs": [
+    {
+      "epoch": 226,
+      "checkpoint_sha256": "0e83732ca8b678411902c4929ae85ab694bb52b43fadd3a18aa0bf3af32e17e8",
+      "results": {
+        "old": {
+          "residual_sum": 3448.7326690584387,
+          "touch_residual": 318.24639575113804,
+          "untouched_residual": 3130.486273307301,
+          "projection_norm": 9.53228045193391
+        },
+        "old_plus_13_new": {
+          "residual_sum": 91005.2121770247,
+          "touch_residual": 87874.72590371741,
+          "untouched_residual": 3130.486273307301,
+          "projection_norm": 18.3840442915499
+        },
+        "new_minus_13": {
+          "residual_sum": 5788.323563487775,
+          "touch_residual": 716.3398256996245,
+          "untouched_residual": 5071.98373778815,
+          "projection_norm": 11.226436567317412
+        },
+        "new": {
+          "residual_sum": 109323.29405361218,
+          "touch_residual": 104251.31031582403,
+          "untouched_residual": 5071.98373778815,
+          "projection_norm": 19.31687324334212
+        }
+      },
+      "diagnostics": {
+        "selected_indices": [
+          248,
+          97,
+          11,
+          69,
+          12,
+          198,
+          221,
+          47,
+          155,
+          202,
+          144,
+          145,
+          2
+        ],
+        "selected_count": 13,
+        "selected_new_projection_norm_min": 4.034216315668299,
+        "touched_valid_fraction": 0.06324410438537598
+      }
+    },
+    {
+      "epoch": 591,
+      "checkpoint_sha256": "830ed9ca82ea28a5e587cbfd7a5a30e16855a59123363519d526d0e510b549e4",
+      "results": {
+        "old": {
+          "residual_sum": 4443.760239692752,
+          "touch_residual": 312.23097972633957,
+          "untouched_residual": 4131.529259966413,
+          "projection_norm": 8.922320136519753
+        },
+        "old_plus_13_new": {
+          "residual_sum": 100736.04548590732,
+          "touch_residual": 96604.51622594093,
+          "untouched_residual": 4131.529259966413,
+          "projection_norm": 18.66596329987958
+        },
+        "new_minus_13": {
+          "residual_sum": 3466.131711257202,
+          "touch_residual": 456.7067702949752,
+          "untouched_residual": 3009.4249409622266,
+          "projection_norm": 10.831068887868232
+        },
+        "new": {
+          "residual_sum": 117620.78653939578,
+          "touch_residual": 114611.36159843355,
+          "untouched_residual": 3009.4249409622266,
+          "projection_norm": 19.64999853810816
+        }
+      },
+      "diagnostics": {
+        "selected_indices": [
+          97,
+          202,
+          121,
+          354,
+          322,
+          237,
+          315,
+          139,
+          248,
+          12,
+          260,
+          282,
+          54
+        ],
+        "selected_count": 13,
+        "selected_new_projection_norm_min": 4.628033127131317,
+        "touched_valid_fraction": 0.06324410438537598
+      }
+    }
+  ]
+}

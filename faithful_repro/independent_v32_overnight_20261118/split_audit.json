@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "scope": "inner-selection split entity overlap; pair-disjoint, not necessarily entity-disjoint",
+  "protocol_sha256": "4f68645808ead178278c02d4aaf41ed13bc3f6ce7e00beb3356c35f877c66416",
+  "script_sha256": "94a8265f514195de54104ca9857e2cac3436036d34e119371146dd822a4363d2",
+  "rows": [
+    {
+      "fold": 0,
+      "train_pairs": 6293,
+      "validation_pairs": 695,
+      "val_pair_overlap_train": 0,
+      "train_mirnas": 405,
+      "train_diseases": 271,
+      "val_mirnas": 284,
+      "val_diseases": 171,
+      "val_mirna_unseen": 5,
+      "val_disease_unseen": 0,
+      "val_both_unseen": 0,
+      "val_both_seen": 690,
+      "bundle_sha256": "ca14679af63042a7fce40a627da0f8fb04f2be46dd53d13cd4e68a356a689677"
+    },
+    {
+      "fold": 1,
+      "train_pairs": 6287,
+      "validation_pairs": 701,
+      "val_pair_overlap_train": 0,
+      "train_mirnas": 411,
+      "train_diseases": 270,
+      "val_mirnas": 287,
+      "val_diseases": 180,
+      "val_mirna_unseen": 0,
+      "val_disease_unseen": 0,
+      "val_both_unseen": 0,
+      "val_both_seen": 701,
+      "bundle_sha256": "30b0ea3c216dd3a3f1a853d72b86888d08c414040bafc0c49ffeb7b98ab852ea"
+    },
+    {
+      "fold": 2,
+      "train_pairs": 6286,
+      "validation_pairs": 702,
+      "val_pair_overlap_train": 0,
+      "train_mirnas": 409,
+      "train_diseases": 270,
+      "val_mirnas": 264,
+      "val_diseases": 184,
+      "val_mirna_unseen": 1,
+      "val_disease_unseen": 0,
+      "val_both_unseen": 0,
+      "val_both_seen": 701,
+      "bundle_sha256": "2a9dabb829d16d8bbc2bbc00c5d5bcfaa8d05c4a3c2b3d001bf74b6409531d07"
+    },
+    {
+      "fold": 3,
+      "train_pairs": 6284,
+      "validation_pairs": 704,
+      "val_pair_overlap_train": 0,
+      "train_mirnas": 411,
+      "train_diseases": 271,
+      "val_mirnas": 289,
+      "val_diseases": 185,
+      "val_mirna_unseen": 0,
+      "val_disease_unseen": 0,
+      "val_both_unseen": 0,
+      "val_both_seen": 704,
+      "bundle_sha256": "68418a75afaa34e0ee0e301eb4c903942a48dea79fedd56dc635f12ee2f5efdf"
+    },
+    {
+      "fold": 4,
+      "train_pairs": 6288,
+      "validation_pairs": 700,
+      "val_pair_overlap_train": 0,
+      "train_mirnas": 409,
+      "train_diseases": 269,
+      "val_mirnas": 285,
+      "val_diseases": 169,
+      "val_mirna_unseen": 1,
+      "val_disease_unseen": 3,
+      "val_both_unseen": 0,
+      "val_both_seen": 696,
+      "bundle_sha256": "7413f35a014dba5bb29b4fea1ba8ca43aa3c3d6d9799176e6ef89d24f55ba536"
+    }
+  ]
+}

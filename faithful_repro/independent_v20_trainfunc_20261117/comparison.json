@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "paired_fold_count": 5,
+  "paired_metrics": [
+    {
+      "fold": 1,
+      "metric": "released.f1",
+      "baseline": 0.5535916159980446,
+      "train_functional": 0.5079650466576592,
+      "difference": -0.04562656934038545
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5410970942496514,
+      "train_functional": 0.49552021118916695,
+      "difference": -0.04557688306048441
+    },
+    {
+      "fold": 1,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5445026178010471,
+      "train_functional": 0.49912739965095987,
+      "difference": -0.04537521815008727
+    },
+    {
+      "fold": 2,
+      "metric": "released.f1",
+      "baseline": 0.48897935372032525,
+      "train_functional": 0.4794899067185138,
+      "difference": -0.009489447001811424
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.47872164776445214,
+      "train_functional": 0.45600761954574487,
+      "difference": -0.02271402821870727
+    },
+    {
+      "fold": 2,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.475177304964539,
+      "train_functional": 0.45390070921985815,
+      "difference": -0.021276595744680882
+    },
+    {
+      "fold": 3,
+      "metric": "released.f1",
+      "baseline": 0.48886959452432366,
+      "train_functional": 0.4869120212003623,
+      "difference": -0.001957573323961348
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.46454385935523856,
+      "train_functional": 0.4642266335814723,
+      "difference": -0.00031722577376624983
+    },
+    {
+      "fold": 3,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.47017543859649125,
+      "train_functional": 0.47017543859649125,
+      "difference": 0.0
+    },
+    {
+      "fold": 4,
+      "metric": "released.f1",
+      "baseline": 0.5047475688080144,
+      "train_functional": 0.5332518792429624,
+      "difference": 0.028504310434947944
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.4731457090479278,
+      "train_functional": 0.5104313096953597,
+      "difference": 0.03728560064743186
+    },
+    {
+      "fold": 4,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.47719298245614034,
+      "train_functional": 0.5087719298245614,
+      "difference": 0.031578947368421095
+    },
+    {
+      "fold": 5,
+      "metric": "released.f1",
+      "baseline": 0.5220741877593964,
+      "train_functional": 0.5223570584833657,
+      "difference": 0.00028287072396926405
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.macro_f1",
+      "baseline": 0.5140919762320285,
+      "train_functional": 0.5175554800780446,
+      "difference": 0.003463503846016125
+    },
+    {
+      "fold": 5,
+      "metric": "multihot.micro_f1",
+      "baseline": 0.5034965034965035,
+      "train_functional": 0.513986013986014,
+      "difference": 0.010489510489510412
+    }
+  ],
+  "mean_differences": {
+    "released.f1": -0.005657281701448203,
+    "multihot.macro_f1": -0.005571806511901989,
+    "multihot.micro_f1": -0.004916671207367329
+  },
+  "interpretation": "Functional similarity changed to a disease-set train-only substitute in all model inputs and fallback; it is not known to match author M_FSM. Disease features unverified; one seed."
+}

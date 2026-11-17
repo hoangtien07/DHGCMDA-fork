@@ -1,0 +1,5 @@
+﻿# Canary nhãn validation tại builder (predeclared)
+
+Mỗi fold, giữ các train/validation pairs, train labels, similarity inputs và train-derived functional matrix đã được kiểm toán, đảo vòng thứ tự năm kênh chỉ tại các ô Y của validation. Chạy lại hàm thuần build_flat hai lần; check input train_mask truyền vào callback functional khớp mask trong bundle, nhãn validation thực sự đổi và mọi output khác y_val không đổi từng phần tử; đối chiếu baseline build_flat với bundle đã lưu. Cố định functional/semantic callback bằng ma trận đã có để kiểm thử ranh giới phụ thuộc nhãn trong build_flat, không giả vờ tái thực thi việc tính semantic hoặc toàn bộ file IO. Kiểm toán trước đã tính lại functional/semantic độc lập đối với bundle; nguồn tĩnh sequence/gene vẫn chưa được xác minh như của tác giả.
+
+Không đưa nhãn validation gốc hay chỉnh sửa vào training và không đọc outer-test. Canary chỉ bảo đảm với đầu vào và hàm được khảo sát, không chứng minh vắng mọi kênh rò rỉ từ đặc trưng tĩnh hoặc các thành phần khác.

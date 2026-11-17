@@ -1,0 +1,3 @@
+﻿# Kiểm tra lại đồ thị động mã phát hành — trước thử nghiệm
+
+Một audit cũ ghi mã công bố bỏ qua similarity được tái tạo; đọc lại pinned source cho thấy hàm nhận `mi_sim_recon` và `dis_sim_recon`. Trích AST nguyên hàm `create_hetero_data_optimized` từ file tác giả đã pin; chạy fixture 2×2 trên CPU với các similarity ban đầu chỉ có đường chéo và similarity tái tạo thêm cạnh ngoài đường chéo. Kiểm tra edge_index tương đồng thay đổi và cạnh association giữ nguyên; đối chiếu hash file với manifest nguồn. Không chạy toàn trainer, không suy ra lịch update thực tế khi runtime thay đổi hoặc validate pipeline v3.2. Đọc riêng call site để xác định khoảng update trong trainer và phân biệt HGT graph với HGCN G đầu vào.

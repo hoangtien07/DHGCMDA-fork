@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "bf2778317479b7d7d2d1b1ea030c21b9c941c9b9828042085a48b52fc3ff146c",
+  "prior_sha256": "bc06e84e390f7b0e5f1fc11847bb87eb4555591a6b7bb87ee0fdf502f33dff24",
+  "builder_sha256": "ae67d76fdba9bf2b1a3f493a14a8d404632316c77ab9e12b31720e61b3e956d0",
+  "folds": [
+    {
+      "fold": 0,
+      "bundle_sha256": "39c5fd4985ecc46c6272edf3ed48c8133ba19f887ef331bb97553b714b57d030",
+      "counts_sha256": "44f4658966380963a0b26634832d6d09a071079cd6c6067bb2d5586311bca4cf",
+      "n_train": 6988
+    },
+    {
+      "fold": 1,
+      "bundle_sha256": "562ef6610412b84f493c85afa25ede31477d39b699394eaf709b6f2040023109",
+      "counts_sha256": "7d8de69465914622bfdf4cd059b35f93d9eb4fbff6cb3b9a094ac74a3ac3d2be",
+      "n_train": 6988
+    },
+    {
+      "fold": 2,
+      "bundle_sha256": "26642e2c1c9c68e7abc4f41b2c6cbfb0a4da9e4992e2c3318a49f0bb0c99bae3",
+      "counts_sha256": "4896159ef02fb301140a0e20a58e9db76de8e2de042b9916d7da4a156479dde6",
+      "n_train": 6988
+    },
+    {
+      "fold": 3,
+      "bundle_sha256": "5a0b3f74703d34036de3b430de6b7bde964d41a4d07a4a3a42be366b27bf938d",
+      "counts_sha256": "29a2336b1f659183b9c15b6878af1671479c0ae1948625bd2925bce57f01f44e",
+      "n_train": 6988
+    },
+    {
+      "fold": 4,
+      "bundle_sha256": "a3fb24d70208763b400e62e4b981753af95b4e3d20a9423b743c3c67de04b294",
+      "counts_sha256": "f41d145f5de359bef5892ec31fdd31dc40f176b0c91794d054810b1680cd719f",
+      "n_train": 6988
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "scope": "one state, seed42, epoch226, same weights and starting RNG; no optimizer in paired probes",
+  "old_graph": {
+    "G": {
+      "mi_v1": "ad2c2a00b14f1a4a48cb1777c36922e18fc55a0c9111574bb685c2ab3c6c36f0",
+      "mi_v2": "ad2c2a00b14f1a4a48cb1777c36922e18fc55a0c9111574bb685c2ab3c6c36f0",
+      "dis_v1": "540f8797b0d369d578ffbfb08e4e394c4fcc1bc3be953dd15ec7a92dbdfbc1c4",
+      "dis_v2": "540f8797b0d369d578ffbfb08e4e394c4fcc1bc3be953dd15ec7a92dbdfbc1c4"
+    },
+    "ei": {
+      "('mir', 'sim', 'mir')": "c71a2d8a8ff2f7022fd538b71d72cd8ba50cdf6e5bc8cbd00b47af5472cddfea",
+      "('dis', 'sim', 'dis')": "10b9af065cc264eb1854273a90a20ef91bdfbd5e5ccea97cfe3ca5ce9bb50a86",
+      "('mir', 'assoc', 'dis')": "dddd0274b685d5cee45a2ea100d4158136c088a01aad08c408c22c3e1874a613",
+      "('dis', 'rev_assoc', 'mir')": "f9455baf7a026e7df2913059abf0e3e86cc31cdbc6a96f35402e57ca7d4015f1"
+    }
+  },
+  "new_graph": {
+    "G": {
+      "mi_v1": "ad2c2a00b14f1a4a48cb1777c36922e18fc55a0c9111574bb685c2ab3c6c36f0",
+      "mi_v2": "ad2c2a00b14f1a4a48cb1777c36922e18fc55a0c9111574bb685c2ab3c6c36f0",
+      "dis_v1": "017a6120e202bcb609ab2e19f04549add5430601810c275194af2c24b3201f00",
+      "dis_v2": "017a6120e202bcb609ab2e19f04549add5430601810c275194af2c24b3201f00"
+    },
+    "ei": {
+      "('mir', 'sim', 'mir')": "3e1cde563e0ff4a0e3f5d51ae15a7439d3fccbc8d91731906d42139cb98042ee",
+      "('dis', 'sim', 'dis')": "53c28bf467f8d4ceaddf13c3c98394f137372f2b42cc5990ba8a24654fbe4cde",
+      "('mir', 'assoc', 'dis')": "dddd0274b685d5cee45a2ea100d4158136c088a01aad08c408c22c3e1874a613",
+      "('dis', 'rev_assoc', 'mir')": "f9455baf7a026e7df2913059abf0e3e86cc31cdbc6a96f35402e57ca7d4015f1"
+    }
+  },
+  "edges": {
+    "('mir', 'sim', 'mir')": {
+      "old": 1626,
+      "new": 1730
+    },
+    "('dis', 'sim', 'dis')": {
+      "old": 1244,
+      "new": 1000
+    },
+    "('mir', 'assoc', 'dis')": {
+      "old": 6293,
+      "new": 6293
+    },
+    "('dis', 'rev_assoc', 'mir')": {
+      "old": 6293,
+      "new": 6293
+    }
+  },
+  "paired": {
+    "old": {
+      "loss": 5.40207052230835,
+      "grad_norm": 11.477364998407406,
+      "grad_sha256": "654f295c07c10deb7f55dbbf27d057342888e915fbf11e177a715a413f705a52",
+      "end_rng_sha256": "7b230bc4ef9f259635b0945b45ccd067872a776feba94a72b8dd97cbd4fe10f2",
+      "details": {
+        "type_loss": 1.3803373575210571,
+        "intra_mean": 6.392525672912598,
+        "inter_mean": 4.786456108093262,
+        "recon_mean": 0.016625259071588516,
+        "recontribution": 0.9002254605293274,
+        "recon_sum_mi": 3493.660400390625,
+        "recon_sum_dis": 363.4328308105469
+      }
+    },
+    "new": {
+      "loss": 5.7939934730529785,
+      "grad_norm": 14.868118575774108,
+      "grad_sha256": "543cff405460c40b87f0adeb4d37ac6ec878b96fde10c6541ddbd210794391d4",
+      "end_rng_sha256": "7b230bc4ef9f259635b0945b45ccd067872a776feba94a72b8dd97cbd4fe10f2",
+      "details": {
+        "type_loss": 1.4867488145828247,
+        "intra_mean": 6.392991065979004,
+        "inter_mean": 5.04473876953125,
+        "recon_mean": 0.020007610321044922,
+        "recontribution": 1.0833731889724731,
+        "recon_sum_mi": 3493.660400390625,
+        "recon_sum_dis": 1148.1455078125
+      }
+    },
+    "repeat": {
+      "loss": 5.7939934730529785,
+      "grad_norm": 14.86811859006201,
+      "grad_sha256": "517ce5434fe83b6ed58e14f3baf735944f29c436070410e0e604b123ee9f3b72",
+      "end_rng_sha256": "7b230bc4ef9f259635b0945b45ccd067872a776feba94a72b8dd97cbd4fe10f2",
+      "details": {
+        "type_loss": 1.4867488145828247,
+        "intra_mean": 6.392991065979004,
+        "inter_mean": 5.04473876953125,
+        "recon_mean": 0.020007610321044922,
+        "recontribution": 1.0833731889724731,
+        "recon_sum_mi": 3493.660400390625,
+        "recon_sum_dis": 1148.1455078125
+      }
+    },
+    "repeat_identical": false,
+    "repeat_within_tolerance": true,
+    "repeat_loss_scaled_abs_difference": 0.0,
+    "repeat_gradient_relative_difference": 4.049874341140695e-08,
+    "repeat_final_rng_equal": true,
+    "grad_difference_norm": 9.632722428324797,
+    "grad_cosine": 0.7618117648485173,
+    "final_rng_equal": true
+  },
+  "historical_graph_match": {
+    "old_G": false,
+    "old_ei": false,
+    "new_G": false,
+    "new_ei": false
+  },
+  "snapshot_sha256": "9baa4339db74d108bdebdd16338a315d31b7d73257971faed76c77c10d5a7886",
+  "historical_replay_within_1e-5": false,
+  "historical_replay_max_scaled_abs_difference": 0.9957668924921149,
+  "historical_values_checked": 690,
+  "actual_epoch226_train_loss": 5.7939934730529785,
+  "actual_epoch226_grad_norm": 14.867988082860245,
+  "replay_manifest_sha256": "5ef0ab123572605688f5defad7e8cbf68fb3fd5bf57555462fb216ad7ccb7e2b",
+  "limits": "Local intervention changes G and edge indices together, conditional on one selected spike; does not establish population-level or individual component causality."
+}

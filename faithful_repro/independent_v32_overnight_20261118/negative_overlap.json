@@ -1,0 +1,368 @@
+{
+  "status": "PASS",
+  "scope": "known inner-validation positives accidentally used as train-zero negatives; no outer-test read",
+  "protocol_sha256": "f34e695d6dded1fdd594e5a254cc382fe2f1b3a842312f07cde4bfcec116dea0",
+  "script_sha256": "f9baaef51482cd5cbe1b0c3f9130372baf267aced6c2cbc3e8cd39f6f97bc29e",
+  "rows": [
+    {
+      "fold": 0,
+      "seed": 1234,
+      "negative_bank_size": 52415,
+      "val_positive_count": 695,
+      "val_positive_in_bank": 514,
+      "fraction_val_positive": 0.739568345323741,
+      "fraction_bank_known_val_positive": 0.009806353143184203,
+      "by_type_overlap": [
+        69,
+        27,
+        154,
+        228,
+        239
+      ],
+      "by_type_total": [
+        89,
+        34,
+        195,
+        301,
+        313
+      ],
+      "bank_sha256": "0e18be0d3bc930236e5cc9e3971db84f4547526a72982bc936c982ed7b600d59"
+    },
+    {
+      "fold": 0,
+      "seed": 42,
+      "negative_bank_size": 52415,
+      "val_positive_count": 695,
+      "val_positive_in_bank": 527,
+      "fraction_val_positive": 0.758273381294964,
+      "fraction_bank_known_val_positive": 0.010054373747972908,
+      "by_type_overlap": [
+        74,
+        30,
+        158,
+        231,
+        249
+      ],
+      "by_type_total": [
+        89,
+        34,
+        195,
+        301,
+        313
+      ],
+      "bank_sha256": "2a371d1b347a05da550582440a018418184895b3a1ace4aa0de247247ebf88a2"
+    },
+    {
+      "fold": 0,
+      "seed": 2025,
+      "negative_bank_size": 52415,
+      "val_positive_count": 695,
+      "val_positive_in_bank": 526,
+      "fraction_val_positive": 0.7568345323741007,
+      "fraction_bank_known_val_positive": 0.010035295239912239,
+      "by_type_overlap": [
+        75,
+        28,
+        156,
+        223,
+        247
+      ],
+      "by_type_total": [
+        89,
+        34,
+        195,
+        301,
+        313
+      ],
+      "bank_sha256": "5f67f156aa6d986b06c02bc945dc9db1e8311d74ea1771c30636f2b86dfb1509"
+    },
+    {
+      "fold": 1,
+      "seed": 1234,
+      "negative_bank_size": 52349,
+      "val_positive_count": 701,
+      "val_positive_in_bank": 530,
+      "fraction_val_positive": 0.7560627674750356,
+      "fraction_bank_known_val_positive": 0.0101243576763644,
+      "by_type_overlap": [
+        64,
+        23,
+        151,
+        232,
+        254
+      ],
+      "by_type_total": [
+        83,
+        34,
+        188,
+        313,
+        314
+      ],
+      "bank_sha256": "1d544c78965254be13d6873246277c92d0b59660b7464d73d40c1be35827241e"
+    },
+    {
+      "fold": 1,
+      "seed": 42,
+      "negative_bank_size": 52349,
+      "val_positive_count": 701,
+      "val_positive_in_bank": 524,
+      "fraction_val_positive": 0.7475035663338089,
+      "fraction_bank_known_val_positive": 0.010009742306443295,
+      "by_type_overlap": [
+        64,
+        27,
+        143,
+        234,
+        247
+      ],
+      "by_type_total": [
+        83,
+        34,
+        188,
+        313,
+        314
+      ],
+      "bank_sha256": "c9facffc9a62019b741535e848a784600cd3f0a29691051f484dadc48861f287"
+    },
+    {
+      "fold": 1,
+      "seed": 2025,
+      "negative_bank_size": 52349,
+      "val_positive_count": 701,
+      "val_positive_in_bank": 513,
+      "fraction_val_positive": 0.7318116975748931,
+      "fraction_bank_known_val_positive": 0.0097996141282546,
+      "by_type_overlap": [
+        66,
+        25,
+        142,
+        232,
+        242
+      ],
+      "by_type_total": [
+        83,
+        34,
+        188,
+        313,
+        314
+      ],
+      "bank_sha256": "13254c155b27d09058b8a84622e5fe3fb336e60dcb0b7884c09648bb33ca8d1d"
+    },
+    {
+      "fold": 2,
+      "seed": 1234,
+      "negative_bank_size": 52379,
+      "val_positive_count": 702,
+      "val_positive_in_bank": 521,
+      "fraction_val_positive": 0.7421652421652422,
+      "fraction_bank_known_val_positive": 0.009946734378281372,
+      "by_type_overlap": [
+        77,
+        29,
+        131,
+        260,
+        237
+      ],
+      "by_type_total": [
+        92,
+        36,
+        177,
+        335,
+        302
+      ],
+      "bank_sha256": "bf6a3879afd67f579bb06f6aa36cfb610208eb5cf14a62dba3e8b7fec841e89f"
+    },
+    {
+      "fold": 2,
+      "seed": 42,
+      "negative_bank_size": 52379,
+      "val_positive_count": 702,
+      "val_positive_in_bank": 518,
+      "fraction_val_positive": 0.7378917378917379,
+      "fraction_bank_known_val_positive": 0.009889459516218332,
+      "by_type_overlap": [
+        74,
+        28,
+        136,
+        251,
+        238
+      ],
+      "by_type_total": [
+        92,
+        36,
+        177,
+        335,
+        302
+      ],
+      "bank_sha256": "478e8951456d920bda4647ac30a00be77f6d5271b54c607227c6267c04e292a8"
+    },
+    {
+      "fold": 2,
+      "seed": 2025,
+      "negative_bank_size": 52379,
+      "val_positive_count": 702,
+      "val_positive_in_bank": 527,
+      "fraction_val_positive": 0.7507122507122507,
+      "fraction_bank_known_val_positive": 0.010061284102407453,
+      "by_type_overlap": [
+        74,
+        30,
+        144,
+        248,
+        233
+      ],
+      "by_type_total": [
+        92,
+        36,
+        177,
+        335,
+        302
+      ],
+      "bank_sha256": "e09d9fe811a26b12b0a63c87f3f8e4454cdea7059b56b07e2c568f5245bd6439"
+    },
+    {
+      "fold": 3,
+      "seed": 1234,
+      "negative_bank_size": 52909,
+      "val_positive_count": 704,
+      "val_positive_in_bank": 521,
+      "fraction_val_positive": 0.7400568181818182,
+      "fraction_bank_known_val_positive": 0.009847095957209548,
+      "by_type_overlap": [
+        84,
+        31,
+        139,
+        246,
+        240
+      ],
+      "by_type_total": [
+        100,
+        36,
+        183,
+        317,
+        312
+      ],
+      "bank_sha256": "87ad3b2693530a7f4b6894b5925528f1c2d74784b6f833f851ae6b0d14192ff5"
+    },
+    {
+      "fold": 3,
+      "seed": 42,
+      "negative_bank_size": 52909,
+      "val_positive_count": 704,
+      "val_positive_in_bank": 535,
+      "fraction_val_positive": 0.7599431818181818,
+      "fraction_bank_known_val_positive": 0.010111701222854335,
+      "by_type_overlap": [
+        87,
+        32,
+        149,
+        243,
+        251
+      ],
+      "by_type_total": [
+        100,
+        36,
+        183,
+        317,
+        312
+      ],
+      "bank_sha256": "1f83c100539406ccefdd45e970bf21156d29a3dbd25a560874989745d0da8319"
+    },
+    {
+      "fold": 3,
+      "seed": 2025,
+      "negative_bank_size": 52909,
+      "val_positive_count": 704,
+      "val_positive_in_bank": 528,
+      "fraction_val_positive": 0.75,
+      "fraction_bank_known_val_positive": 0.009979398590031942,
+      "by_type_overlap": [
+        85,
+        31,
+        147,
+        246,
+        244
+      ],
+      "by_type_total": [
+        100,
+        36,
+        183,
+        317,
+        312
+      ],
+      "bank_sha256": "61f825a671b54de4c02c87c194618bd666cba6a640c7006a1c1d76fa152445f2"
+    },
+    {
+      "fold": 4,
+      "seed": 1234,
+      "negative_bank_size": 52304,
+      "val_positive_count": 700,
+      "val_positive_in_bank": 515,
+      "fraction_val_positive": 0.7357142857142858,
+      "fraction_bank_known_val_positive": 0.009846283267054145,
+      "by_type_overlap": [
+        73,
+        35,
+        135,
+        251,
+        218
+      ],
+      "by_type_total": [
+        93,
+        47,
+        181,
+        327,
+        290
+      ],
+      "bank_sha256": "3a523a2ff27ac267a3bbdc4a63fe6e2f57df50e485eca417a835172b2084fa6d"
+    },
+    {
+      "fold": 4,
+      "seed": 42,
+      "negative_bank_size": 52304,
+      "val_positive_count": 700,
+      "val_positive_in_bank": 508,
+      "fraction_val_positive": 0.7257142857142858,
+      "fraction_bank_known_val_positive": 0.009712450290608748,
+      "by_type_overlap": [
+        69,
+        35,
+        134,
+        244,
+        223
+      ],
+      "by_type_total": [
+        93,
+        47,
+        181,
+        327,
+        290
+      ],
+      "bank_sha256": "26b3b28ec0fde703a95a916d4ad2d750e5f76792edd02e1277ec60fda418af25"
+    },
+    {
+      "fold": 4,
+      "seed": 2025,
+      "negative_bank_size": 52304,
+      "val_positive_count": 700,
+      "val_positive_in_bank": 519,
+      "fraction_val_positive": 0.7414285714285714,
+      "fraction_bank_known_val_positive": 0.009922759253594371,
+      "by_type_overlap": [
+        74,
+        39,
+        133,
+        246,
+        228
+      ],
+      "by_type_total": [
+        93,
+        47,
+        181,
+        327,
+        290
+      ],
+      "bank_sha256": "d6c47a965808cb9415308c3f4c23151f7b7b655296169caa25ece419b3a4fcb0"
+    }
+  ]
+}

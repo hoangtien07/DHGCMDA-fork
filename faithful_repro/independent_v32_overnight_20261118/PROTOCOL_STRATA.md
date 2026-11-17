@@ -1,0 +1,5 @@
+﻿# Phân tích phân tầng validation, khóa trước khi tính
+
+Dùng duy nhất 15 prediction đã chọn của U1 và 5 bundle inner-validation, lấy dự đoán count product và disease bằng đúng công thức đã công bố từ train. Không mở outer-test hoặc chọn mô hình mới bằng số test. Phân nhóm mỗi cặp validation theo bậc miRNA/disease trong train (0, 1–2, 3–9, >=10), số nhãn thật (1 hoặc >1) và lớp thật (một cặp có thể góp vào nhiều lớp). Ghi n, any-hit từng phương pháp, số cặp model-only/prior-only, F1 macro/micro ở nhóm, support theo lớp; lớp support 0 làm macro khó diễn giải, không so macro tùy tiện giữa nhóm.
+
+Tính riêng từng fold và seed trước, rồi gộp mô tả per-seed theo các fold đã dùng trong phát triển; không dùng mỗi seed là quan sát độc lập và không diễn giải nhân quả. Xác minh hash tất cả prediction/bundle, pair và truth, counts chỉ dùng train, đo lại macro/micro/any-hit toàn fold khớp bảng đã lưu trong sai số 1e-12. Với nhóm rỗng ghi n=0, không tính điểm. Đây là phân tích hậu nghiệm trên validation đã dùng chọn model; bất kỳ giả thuyết nào là thăm dò.
