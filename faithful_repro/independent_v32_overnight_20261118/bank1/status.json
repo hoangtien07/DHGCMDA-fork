@@ -45,27 +45,33 @@
       "key": "fold1_seed42",
       "fold": 1,
       "seed": 42,
-      "status": "running",
-      "start_utc": "2026-11-17T18:13:35Z"
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:13:35Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:24:53Z"
     },
     {
       "key": "fold1_seed2025",
       "fold": 1,
       "seed": 2025,
-      "status": "running",
-      "start_utc": "2026-11-17T18:13:39Z"
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:13:39Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:24:56Z"
     },
     {
       "key": "fold2_seed1234",
       "fold": 2,
       "seed": 1234,
-      "status": "pending"
+      "status": "running",
+      "start_utc": "2026-11-17T18:24:53Z"
     },
     {
       "key": "fold2_seed42",
       "fold": 2,
       "seed": 42,
-      "status": "pending"
+      "status": "running",
+      "start_utc": "2026-11-17T18:24:56Z"
     },
     {
       "key": "fold2_seed2025",

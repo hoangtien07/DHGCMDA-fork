@@ -504,17 +504,259 @@
       },
       "prediction_sha256": "567d98a00bda19e4a85df932e4acc3e46671670c62aba1977ead45efe523c3eb",
       "manifest_sha256": "2188627875e6615aa2bb06cdce68222e1a9e451a1aaf80899c4b0825b68cd881"
-    }
-  ],
-  "missing": [
+    },
     {
       "key": "fold1_seed42",
-      "state": "not_completed"
+      "fold": 1,
+      "seed": 42,
+      "raw10": {
+        "best": {
+          "macro_f1": 0.41674404294237155,
+          "micro_f1": 0.46172688303735454,
+          "any_hit": 0.5378031383737518,
+          "first_label_hybrid_f1": 0.45301962594616824,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 33,
+              "fp": 105,
+              "fn": 50,
+              "f1": 0.2986425339366516,
+              "support": 83,
+              "predicted": 138
+            },
+            "epigenetics": {
+              "tp": 12,
+              "fp": 35,
+              "fn": 22,
+              "f1": 0.2962962962962963,
+              "support": 34,
+              "predicted": 47
+            },
+            "circulation": {
+              "tp": 76,
+              "fp": 58,
+              "fn": 112,
+              "f1": 0.4720496894409938,
+              "support": 188,
+              "predicted": 134
+            },
+            "target": {
+              "tp": 125,
+              "fp": 83,
+              "fn": 188,
+              "f1": 0.4798464491362764,
+              "support": 313,
+              "predicted": 208
+            },
+            "tissue": {
+              "tp": 131,
+              "fp": 43,
+              "fn": 183,
+              "f1": 0.5368852459016393,
+              "support": 314,
+              "predicted": 174
+            }
+          }
+        },
+        "epoch_best": 600,
+        "final": {
+          "macro_f1": 0.40972404130994794,
+          "micro_f1": 0.45805266380894055,
+          "any_hit": 0.5335235378031383
+        },
+        "spikes": 2,
+        "max_grad": 691.4039384040836
+      },
+      "raw1": {
+        "best": {
+          "macro_f1": 0.43268472878678405,
+          "micro_f1": 0.45927740355174523,
+          "any_hit": 0.5349500713266762,
+          "first_label_hybrid_f1": 0.4741824375186752,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 37,
+              "fp": 90,
+              "fn": 46,
+              "f1": 0.3523809523809524,
+              "support": 83,
+              "predicted": 127
+            },
+            "epigenetics": {
+              "tp": 19,
+              "fp": 52,
+              "fn": 15,
+              "f1": 0.3619047619047619,
+              "support": 34,
+              "predicted": 71
+            },
+            "circulation": {
+              "tp": 90,
+              "fp": 78,
+              "fn": 98,
+              "f1": 0.5056179775280899,
+              "support": 188,
+              "predicted": 168
+            },
+            "target": {
+              "tp": 90,
+              "fp": 50,
+              "fn": 223,
+              "f1": 0.3973509933774834,
+              "support": 313,
+              "predicted": 140
+            },
+            "tissue": {
+              "tp": 139,
+              "fp": 56,
+              "fn": 175,
+              "f1": 0.5461689587426326,
+              "support": 314,
+              "predicted": 195
+            }
+          }
+        },
+        "epoch_best": 490,
+        "final": {
+          "macro_f1": 0.3897179123014742,
+          "micro_f1": 0.41886099203919164,
+          "any_hit": 0.48787446504992865
+        },
+        "spikes": 1,
+        "max_grad": 9145.398192185581
+      },
+      "prediction_sha256": "d9f13c1b876ad6b51383eb15a36685a23d645c67b01db5845452c789f1eff08d",
+      "manifest_sha256": "d8d11929553cda26cf8439bebe7d3e1d91002facc102af3f938c4282fa4c9f4a"
     },
     {
       "key": "fold1_seed2025",
-      "state": "not_completed"
-    },
+      "fold": 1,
+      "seed": 2025,
+      "raw10": {
+        "best": {
+          "macro_f1": 0.408622704002698,
+          "micro_f1": 0.44090630740967546,
+          "any_hit": 0.5135520684736091,
+          "first_label_hybrid_f1": 0.4540813519298245,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 28,
+              "fp": 92,
+              "fn": 55,
+              "f1": 0.27586206896551724,
+              "support": 83,
+              "predicted": 120
+            },
+            "epigenetics": {
+              "tp": 19,
+              "fp": 51,
+              "fn": 15,
+              "f1": 0.36538461538461536,
+              "support": 34,
+              "predicted": 70
+            },
+            "circulation": {
+              "tp": 85,
+              "fp": 80,
+              "fn": 103,
+              "f1": 0.48158640226628896,
+              "support": 188,
+              "predicted": 165
+            },
+            "target": {
+              "tp": 78,
+              "fp": 59,
+              "fn": 235,
+              "f1": 0.3466666666666667,
+              "support": 313,
+              "predicted": 137
+            },
+            "tissue": {
+              "tp": 150,
+              "fp": 59,
+              "fn": 164,
+              "f1": 0.5736137667304015,
+              "support": 314,
+              "predicted": 209
+            }
+          }
+        },
+        "epoch_best": 600,
+        "final": {
+          "macro_f1": 0.39812164245831305,
+          "micro_f1": 0.4323331292100429,
+          "any_hit": 0.5035663338088445
+        },
+        "spikes": 2,
+        "max_grad": 5580.358458748723
+      },
+      "raw1": {
+        "best": {
+          "macro_f1": 0.4119284464995383,
+          "micro_f1": 0.4396815676668708,
+          "any_hit": 0.5121255349500713,
+          "first_label_hybrid_f1": 0.47427945466704835,
+          "ties": 0,
+          "per_class": {
+            "genetics": {
+              "tp": 33,
+              "fp": 98,
+              "fn": 50,
+              "f1": 0.308411214953271,
+              "support": 83,
+              "predicted": 131
+            },
+            "epigenetics": {
+              "tp": 21,
+              "fp": 74,
+              "fn": 13,
+              "f1": 0.32558139534883723,
+              "support": 34,
+              "predicted": 95
+            },
+            "circulation": {
+              "tp": 94,
+              "fp": 77,
+              "fn": 94,
+              "f1": 0.5236768802228412,
+              "support": 188,
+              "predicted": 171
+            },
+            "target": {
+              "tp": 86,
+              "fp": 51,
+              "fn": 227,
+              "f1": 0.38222222222222224,
+              "support": 313,
+              "predicted": 137
+            },
+            "tissue": {
+              "tp": 125,
+              "fp": 42,
+              "fn": 189,
+              "f1": 0.5197505197505198,
+              "support": 314,
+              "predicted": 167
+            }
+          }
+        },
+        "epoch_best": 490,
+        "final": {
+          "macro_f1": 0.3370312883174262,
+          "micro_f1": 0.3576240048989589,
+          "any_hit": 0.4165477888730385
+        },
+        "spikes": 1,
+        "max_grad": 12380.602456817294
+      },
+      "prediction_sha256": "fcbe74a2bd69056bf1ed3ec9578acb7911fe1d5d4b850b7874bfda6d75bdc9f8",
+      "manifest_sha256": "0c0705abd8e1aa835b7b40d92df3f044a78aa72ed487816c3f7b15fc868205e9"
+    }
+  ],
+  "missing": [
     {
       "key": "fold2_seed1234",
       "state": "not_completed"
@@ -554,20 +796,20 @@
   ],
   "summary": {
     "raw10": {
-      "best_macro_f1": 0.4556292722222974,
-      "best_micro_f1": 0.4897357475334893,
-      "best_any_hit": 0.5725679655989901,
-      "final_macro_f1": 0.438887023791365,
-      "final_micro_f1": 0.46884064871310116,
-      "final_any_hit": 0.5481136916429766
+      "best_macro_f1": 0.44131397263904315,
+      "best_micro_f1": 0.47692936343016457,
+      "best_any_hit": 0.5569378448738869,
+      "final_macro_f1": 0.4272322964889535,
+      "final_micro_f1": 0.46095806464523137,
+      "final_any_hit": 0.5382574396973149
     },
     "raw1": {
-      "best_macro_f1": 0.44865051342449735,
-      "best_micro_f1": 0.47681726499129995,
-      "best_any_hit": 0.5574292634366116,
-      "final_macro_f1": 0.43596149129234263,
-      "final_micro_f1": 0.4648320160668993,
-      "final_any_hit": 0.5434004864581944
+      "best_macro_f1": 0.4398692048307187,
+      "best_micro_f1": 0.4677046718639693,
+      "best_any_hit": 0.5461321100038656,
+      "final_macro_f1": 0.4117658609647118,
+      "final_micro_f1": 0.4393021768676246,
+      "final_any_hit": 0.5130040332926241
     }
   }
 }
