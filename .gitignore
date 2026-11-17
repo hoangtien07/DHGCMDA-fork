@@ -53,3 +53,5 @@ baselines/NMCMDA/*.rar
 
 # PDF text extracted (regenerate from PDF anytime)
 _pdf_text/
+
+.venv-bank1/
