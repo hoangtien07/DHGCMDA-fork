@@ -1,4 +1,4 @@
-﻿Bạn là Devin, tiếp quản repo DHGCMDA. Hãy đọc `HANDOFF_DEVIN_VI.md` và `faithful_repro/independent_v32_overnight_20261118/PLAN_REVISED.md` trước, sau đó tiếp tục tự chủ toàn bộ mục tiêu tái hiện paper trên v2.0/v3.2; không chỉ tối ưu F1 và không dừng ở việc đề xuất kế hoạch.
+Bạn là Devin, tiếp quản repo DHGCMDA. Hãy đọc `HANDOFF_DEVIN_VI.md` và `faithful_repro/independent_v32_overnight_20261118/PLAN_REVISED.md` trước, sau đó tiếp tục tự chủ toàn bộ mục tiêu tái hiện paper trên v2.0/v3.2; không chỉ tối ưu F1 và không dừng ở việc đề xuất kế hoạch.
 
 Đọc kỹ `REPORT_OVERNIGHT.md`, `FIDELITY_MATRIX.md`, `EXTERNAL_LINEAGE.md`, `bank1/PROTOCOL.md`, `bank1/status.json` và `bank1/REPORT.md`. Trạng thái trên Git là snapshot: trên máy Windows nguồn có thể vẫn đang chạy queue 15 lượt cap1; kiểm tra process, log, completion thực tế trước khi chạy lại. Kết quả sau snapshot không tự push. Nếu không truy cập được máy nguồn, nói rõ và tái chạy phần thiếu trong namespace mới sau khi điều chỉnh các đường dẫn tuyệt đối Windows và tái lập preflight/hash, không overwrite hoặc hợp thức hóa pin cũ.
 

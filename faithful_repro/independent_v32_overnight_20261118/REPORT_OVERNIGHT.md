@@ -1,8 +1,8 @@
 # Báo cáo qua đêm: tái hiện DHGCMDA
 
-Cập nhật UTC: 2026-11-17 18:25:27
+Cập nhật UTC: 2026-11-17 18:29:50
 
-**Tiến độ plan:** Kiểm toán dữ liệu, split, builder, negative bank, CVtriplet và đối chiếu paper/code đã có kết quả; thí nghiệm cap negative bank: 6/15 lượt hoàn tất, trạng thái RUNNING.
+**Tiến độ plan:** Kiểm toán dữ liệu, split, builder, negative bank, CVtriplet và đối chiếu paper/code đã có kết quả; thí nghiệm cap negative bank: 6/15 lượt hoàn tất, trạng thái PAUSED_BY_USER.
 
 ## Kết luận quan trọng
 
@@ -24,7 +24,7 @@ Chưa thể khẳng định tái hiện điểm paper: bộ v3.2 của tác gi�
 
 Cap1 so với cap10: 5 fold × 3 seed, nguyên các thành phần khác, 650 epoch, hai process; chỉ chấm inner-validation, không chấm outer-test. So sánh là can thiệp làm thay cả số lượng negatives và contrastive objective; không quy chênh lệch riêng cho false negatives.
 
-- Trạng thái job: 6 hoàn tất / 15; đang chạy: fold2_seed1234, fold2_seed42; lỗi: không.
+- Trạng thái job: 6 hoàn tất / 15; đang chạy: không; lỗi: không.
 - Trên 6 cặp đã tổng hợp, macro-F1 best cap10 0.4413 và cap1 0.4399; tại epoch650 0.4272 và 0.4118. Đây là trung bình mô tả trên các ô đã xong.
 - Báo cáo chi tiết tự cập nhật khi queue kết thúc: `bank1/REPORT.md`; trạng thái đầy đủ: `bank1/status.json`; xác minh độc lập: `bank1/verification.json` khi có.
 

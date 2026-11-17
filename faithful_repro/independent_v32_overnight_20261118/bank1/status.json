@@ -1,5 +1,5 @@
 {
-  "status": "RUNNING",
+  "status": "PAUSED_BY_USER",
   "supervisor_sha256": "a46b69dc8fb0b9ce83c2dc384bdcd0258f6da3ad05c8a91ae16365cab147fdcb",
   "preflight_sha256": "d26279d811e2d8ef503c99cb1072277a171898630149fed585489d941d6e966b",
   "report_sha256": "7773e4d8a089ddb1babb007a6bf81fe97a393715b58576362291116c4cda45ab",
@@ -63,15 +63,31 @@
       "key": "fold2_seed1234",
       "fold": 2,
       "seed": 1234,
-      "status": "running",
-      "start_utc": "2026-11-17T18:24:53Z"
+      "status": "INTERRUPTED_BY_USER",
+      "start_utc": "2026-11-17T18:24:53Z",
+      "interrupt_detail": {
+        "key": "fold2_seed1234",
+        "last_logged_epoch": 275,
+        "last_log_line": "epoch 275 loss 6.84798 ",
+        "best_checkpoint_exists": true,
+        "best_checkpoint_sha256": "770579da28a4f1dc473351d67b5cf81f921bec60f236ca1736d78f5ee5d77146",
+        "completion_exists": false
+      }
     },
     {
       "key": "fold2_seed42",
       "fold": 2,
       "seed": 42,
-      "status": "running",
-      "start_utc": "2026-11-17T18:24:56Z"
+      "status": "INTERRUPTED_BY_USER",
+      "start_utc": "2026-11-17T18:24:56Z",
+      "interrupt_detail": {
+        "key": "fold2_seed42",
+        "last_logged_epoch": 274,
+        "last_log_line": "epoch 274 loss 5.00958 ",
+        "best_checkpoint_exists": true,
+        "best_checkpoint_sha256": "bdae1273e32c106c8e7611852528d5d78c2d31dfcf52090a79771622f740d5b3",
+        "completion_exists": false
+      }
     },
     {
       "key": "fold2_seed2025",
@@ -115,5 +131,7 @@
       "seed": 2025,
       "status": "pending"
     }
-  ]
+  ],
+  "pause_utc": "2026-11-17T18:29:49Z",
+  "pause_reason": "User requested stop and save so the computer can rest"
 }

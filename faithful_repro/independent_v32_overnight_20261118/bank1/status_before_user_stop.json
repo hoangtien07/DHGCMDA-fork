@@ -1,0 +1,119 @@
+{
+  "status": "RUNNING",
+  "supervisor_sha256": "a46b69dc8fb0b9ce83c2dc384bdcd0258f6da3ad05c8a91ae16365cab147fdcb",
+  "preflight_sha256": "d26279d811e2d8ef503c99cb1072277a171898630149fed585489d941d6e966b",
+  "report_sha256": "7773e4d8a089ddb1babb007a6bf81fe97a393715b58576362291116c4cda45ab",
+  "start_utc": "2026-11-17T17:51:31Z",
+  "jobs": [
+    {
+      "key": "fold0_seed1234",
+      "fold": 0,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T17:51:31Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:02:40Z"
+    },
+    {
+      "key": "fold0_seed42",
+      "fold": 0,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T17:51:31Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:02:44Z"
+    },
+    {
+      "key": "fold0_seed2025",
+      "fold": 0,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:02:40Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:13:35Z"
+    },
+    {
+      "key": "fold1_seed1234",
+      "fold": 1,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:02:44Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:13:39Z"
+    },
+    {
+      "key": "fold1_seed42",
+      "fold": 1,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:13:35Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:24:53Z"
+    },
+    {
+      "key": "fold1_seed2025",
+      "fold": 1,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:13:39Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:24:56Z"
+    },
+    {
+      "key": "fold2_seed1234",
+      "fold": 2,
+      "seed": 1234,
+      "status": "running",
+      "start_utc": "2026-11-17T18:24:53Z"
+    },
+    {
+      "key": "fold2_seed42",
+      "fold": 2,
+      "seed": 42,
+      "status": "running",
+      "start_utc": "2026-11-17T18:24:56Z"
+    },
+    {
+      "key": "fold2_seed2025",
+      "fold": 2,
+      "seed": 2025,
+      "status": "pending"
+    },
+    {
+      "key": "fold3_seed1234",
+      "fold": 3,
+      "seed": 1234,
+      "status": "pending"
+    },
+    {
+      "key": "fold3_seed42",
+      "fold": 3,
+      "seed": 42,
+      "status": "pending"
+    },
+    {
+      "key": "fold3_seed2025",
+      "fold": 3,
+      "seed": 2025,
+      "status": "pending"
+    },
+    {
+      "key": "fold4_seed1234",
+      "fold": 4,
+      "seed": 1234,
+      "status": "pending"
+    },
+    {
+      "key": "fold4_seed42",
+      "fold": 4,
+      "seed": 42,
+      "status": "pending"
+    },
+    {
+      "key": "fold4_seed2025",
+      "fold": 4,
+      "seed": 2025,
+      "status": "pending"
+    }
+  ]
+}

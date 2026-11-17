@@ -1,0 +1,25 @@
+{
+  "status": "PAUSED_BY_USER",
+  "pause_utc": "2026-11-17T18:29:49Z",
+  "completed": 6,
+  "pending": 7,
+  "interrupted": [
+    {
+      "key": "fold2_seed1234",
+      "last_logged_epoch": 275,
+      "last_log_line": "epoch 275 loss 6.84798 ",
+      "best_checkpoint_exists": true,
+      "best_checkpoint_sha256": "770579da28a4f1dc473351d67b5cf81f921bec60f236ca1736d78f5ee5d77146",
+      "completion_exists": false
+    },
+    {
+      "key": "fold2_seed42",
+      "last_logged_epoch": 274,
+      "last_log_line": "epoch 274 loss 5.00958 ",
+      "best_checkpoint_exists": true,
+      "best_checkpoint_sha256": "bdae1273e32c106c8e7611852528d5d78c2d31dfcf52090a79771622f740d5b3",
+      "completion_exists": false
+    }
+  ],
+  "resume_note": "Interrupted runs are incomplete; checkpoint resumption was not implemented or validated. Preserve existing folders and restart these two from epoch 1 in a new namespace if resuming, then run pending jobs under a new supervisor."
+}
