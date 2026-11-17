@@ -1,0 +1,650 @@
+epoch 1 loss 7.36538 
+epoch 2 loss 7.21455 
+epoch 3 loss 7.13983 
+epoch 4 loss 7.06393 
+epoch 5 loss 6.98711 
+epoch 6 loss 7.36549 
+epoch 7 loss 7.30816 
+epoch 8 loss 7.30553 
+epoch 9 loss 7.27664 
+epoch 10 loss 7.27270 val_f1 0.1209
+epoch 11 loss 7.26316 
+epoch 12 loss 7.25380 
+epoch 13 loss 7.21481 
+epoch 14 loss 7.22161 
+epoch 15 loss 7.19882 
+epoch 16 loss 7.21136 
+epoch 17 loss 7.18565 
+epoch 18 loss 7.18697 
+epoch 19 loss 7.16078 
+epoch 20 loss 7.16369 val_f1 0.2283
+epoch 21 loss 7.15574 
+epoch 22 loss 7.14162 
+epoch 23 loss 7.15340 
+epoch 24 loss 7.12898 
+epoch 25 loss 7.14322 
+epoch 26 loss 7.12633 
+epoch 27 loss 7.13029 
+epoch 28 loss 7.11660 
+epoch 29 loss 7.12343 
+epoch 30 loss 7.13035 val_f1 0.1905
+epoch 31 loss 7.11723 
+epoch 32 loss 7.11457 
+epoch 33 loss 7.12064 
+epoch 34 loss 7.10659 
+epoch 35 loss 7.11142 
+epoch 36 loss 7.11224 
+epoch 37 loss 7.09383 
+epoch 38 loss 7.09605 
+epoch 39 loss 7.10667 
+epoch 40 loss 7.09806 val_f1 0.2093
+epoch 41 loss 7.09409 
+epoch 42 loss 7.09427 
+epoch 43 loss 7.10281 
+epoch 44 loss 7.08147 
+epoch 45 loss 7.08740 
+epoch 46 loss 7.07434 
+epoch 47 loss 7.07566 
+epoch 48 loss 7.08171 
+epoch 49 loss 7.07910 
+epoch 50 loss 7.06876 val_f1 0.2011
+epoch 51 loss 7.06300 
+epoch 52 loss 7.06703 
+epoch 53 loss 7.07522 
+epoch 54 loss 7.06604 
+epoch 55 loss 7.06023 
+epoch 56 loss 7.05854 
+epoch 57 loss 7.06048 
+epoch 58 loss 7.06590 
+epoch 59 loss 7.04440 
+epoch 60 loss 7.05879 val_f1 0.1892
+epoch 61 loss 7.04507 
+epoch 62 loss 7.06306 
+epoch 63 loss 7.05243 
+epoch 64 loss 7.05237 
+epoch 65 loss 7.04668 
+epoch 66 loss 7.03872 
+epoch 67 loss 7.04292 
+epoch 68 loss 7.03640 
+epoch 69 loss 7.04839 
+epoch 70 loss 7.02707 val_f1 0.2000
+epoch 71 loss 7.03366 
+epoch 72 loss 7.03377 
+epoch 73 loss 7.03250 
+epoch 74 loss 7.02900 
+epoch 75 loss 7.02745 
+epoch 76 loss 7.02744 
+epoch 77 loss 7.03318 
+epoch 78 loss 7.02347 
+epoch 79 loss 7.02958 
+epoch 80 loss 7.01922 val_f1 0.2359
+epoch 81 loss 7.00958 
+epoch 82 loss 7.01814 
+epoch 83 loss 7.00826 
+epoch 84 loss 7.00778 
+epoch 85 loss 7.00513 
+epoch 86 loss 7.00257 
+epoch 87 loss 7.00681 
+epoch 88 loss 7.00062 
+epoch 89 loss 6.99745 
+epoch 90 loss 6.99787 val_f1 0.2365
+epoch 91 loss 6.99104 
+epoch 92 loss 6.98350 
+epoch 93 loss 6.98450 
+epoch 94 loss 6.97856 
+epoch 95 loss 6.98028 
+epoch 96 loss 6.98433 
+epoch 97 loss 6.97500 
+epoch 98 loss 6.98121 
+epoch 99 loss 6.96894 
+epoch 100 loss 6.97416 val_f1 0.2329
+epoch 101 loss 6.97239 
+epoch 102 loss 6.96377 
+epoch 103 loss 6.96253 
+epoch 104 loss 6.95333 
+epoch 105 loss 6.95522 
+epoch 106 loss 6.94904 
+epoch 107 loss 6.94955 
+epoch 108 loss 6.93812 
+epoch 109 loss 6.93843 
+epoch 110 loss 6.94348 val_f1 0.2554
+epoch 111 loss 6.93029 
+epoch 112 loss 6.94009 
+epoch 113 loss 6.92745 
+epoch 114 loss 6.91660 
+epoch 115 loss 6.91943 
+epoch 116 loss 6.91057 
+epoch 117 loss 6.90231 
+epoch 118 loss 6.89825 
+epoch 119 loss 6.90312 
+epoch 120 loss 6.89899 val_f1 0.2876
+epoch 121 loss 6.89860 
+epoch 122 loss 6.88192 
+epoch 123 loss 6.89501 
+epoch 124 loss 6.87774 
+epoch 125 loss 6.86967 
+epoch 126 loss 6.85936 
+epoch 127 loss 6.85436 
+epoch 128 loss 6.86206 
+epoch 129 loss 6.84846 
+epoch 130 loss 6.84266 val_f1 0.2737
+epoch 131 loss 6.83237 
+epoch 132 loss 6.82281 
+epoch 133 loss 6.81931 
+epoch 134 loss 6.80844 
+epoch 135 loss 6.80288 
+epoch 136 loss 6.79972 
+epoch 137 loss 6.79400 
+epoch 138 loss 6.77237 
+epoch 139 loss 6.78326 
+epoch 140 loss 6.76082 val_f1 0.3002
+epoch 141 loss 6.76607 
+epoch 142 loss 6.75306 
+epoch 143 loss 6.74252 
+epoch 144 loss 6.72784 
+epoch 145 loss 6.72000 
+epoch 146 loss 6.71096 
+epoch 147 loss 6.69855 
+epoch 148 loss 6.67385 
+epoch 149 loss 6.67728 
+epoch 150 loss 6.65495 val_f1 0.3036
+epoch 151 loss 6.65422 
+epoch 152 loss 6.64150 
+epoch 153 loss 6.62754 
+epoch 154 loss 6.61839 
+epoch 155 loss 6.59445 
+epoch 156 loss 6.57212 
+epoch 157 loss 6.56545 
+epoch 158 loss 6.54680 
+epoch 159 loss 6.52788 
+epoch 160 loss 6.52043 val_f1 0.3255
+epoch 161 loss 6.50309 
+epoch 162 loss 6.48537 
+epoch 163 loss 6.46773 
+epoch 164 loss 6.44684 
+epoch 165 loss 6.43112 
+epoch 166 loss 6.41017 
+epoch 167 loss 6.37737 
+epoch 168 loss 6.36501 
+epoch 169 loss 6.34303 
+epoch 170 loss 6.32161 val_f1 0.3499
+epoch 171 loss 6.30202 
+epoch 172 loss 6.26594 
+epoch 173 loss 6.24488 
+epoch 174 loss 6.22521 
+epoch 175 loss 6.17781 
+epoch 176 loss 6.15186 
+epoch 177 loss 6.13073 
+epoch 178 loss 6.09677 
+epoch 179 loss 6.08811 
+epoch 180 loss 6.03712 val_f1 0.3362
+epoch 181 loss 5.99519 
+epoch 182 loss 5.96440 
+epoch 183 loss 5.91786 
+epoch 184 loss 5.89022 
+epoch 185 loss 5.86363 
+epoch 186 loss 5.81693 
+epoch 187 loss 5.76893 
+epoch 188 loss 5.73230 
+epoch 189 loss 5.70178 
+epoch 190 loss 5.65060 val_f1 0.3569
+epoch 191 loss 5.60310 
+epoch 192 loss 5.55759 
+epoch 193 loss 5.51955 
+epoch 194 loss 5.48889 
+epoch 195 loss 5.40440 
+epoch 196 loss 5.37381 
+epoch 197 loss 5.32391 
+epoch 198 loss 5.28264 
+epoch 199 loss 5.22894 
+epoch 200 loss 5.18096 val_f1 0.3535
+epoch 201 loss 5.11863 
+epoch 202 loss 5.07510 
+epoch 203 loss 5.03802 
+epoch 204 loss 4.98415 
+epoch 205 loss 4.92002 
+epoch 206 loss 4.88296 
+epoch 207 loss 4.83895 
+epoch 208 loss 4.80665 
+epoch 209 loss 4.76750 
+epoch 210 loss 4.74853 val_f1 0.3419
+epoch 211 loss 4.76071 
+epoch 212 loss 4.69969 
+epoch 213 loss 4.81505 
+epoch 214 loss 4.69313 
+epoch 215 loss 4.73404 
+epoch 216 loss 204.16019 
+epoch 217 loss 45.35273 
+epoch 218 loss 8.74650 
+epoch 219 loss 6.31107 
+epoch 220 loss 6.66767 val_f1 0.2866
+epoch 221 loss 6.82530 
+epoch 222 loss 6.87555 
+epoch 223 loss 6.87769 
+epoch 224 loss 6.86257 
+epoch 225 loss 6.84050 
+epoch 226 loss 6.97078 
+epoch 227 loss 6.89848 
+epoch 228 loss 6.87779 
+epoch 229 loss 6.84500 
+epoch 230 loss 6.84230 val_f1 0.3204
+epoch 231 loss 6.91142 
+epoch 232 loss 6.88209 
+epoch 233 loss 6.87328 
+epoch 234 loss 6.88147 
+epoch 235 loss 6.85484 
+epoch 236 loss 6.84752 
+epoch 237 loss 6.84352 
+epoch 238 loss 6.83965 
+epoch 239 loss 6.82747 
+epoch 240 loss 6.82600 val_f1 0.3513
+epoch 241 loss 6.82533 
+epoch 242 loss 6.81408 
+epoch 243 loss 6.81424 
+epoch 244 loss 6.79130 
+epoch 245 loss 6.80773 
+epoch 246 loss 6.78899 
+epoch 247 loss 6.77531 
+epoch 248 loss 6.76917 
+epoch 249 loss 6.76925 
+epoch 250 loss 6.76851 val_f1 0.3931
+epoch 251 loss 6.77775 
+epoch 252 loss 6.75250 
+epoch 253 loss 6.76285 
+epoch 254 loss 6.75817 
+epoch 255 loss 6.75359 
+epoch 256 loss 6.79100 
+epoch 257 loss 6.75795 
+epoch 258 loss 6.76287 
+epoch 259 loss 6.75391 
+epoch 260 loss 6.74426 val_f1 0.3233
+epoch 261 loss 7.23157 
+epoch 262 loss 7.04896 
+epoch 263 loss 6.96944 
+epoch 264 loss 6.91603 
+epoch 265 loss 6.90356 
+epoch 266 loss 6.90752 
+epoch 267 loss 6.88008 
+epoch 268 loss 6.86954 
+epoch 269 loss 6.87717 
+epoch 270 loss 6.86675 val_f1 0.3704
+epoch 271 loss 6.84678 
+epoch 272 loss 6.81756 
+epoch 273 loss 6.82145 
+epoch 274 loss 6.81722 
+epoch 275 loss 6.80359 
+epoch 276 loss 6.79297 
+epoch 277 loss 6.79671 
+epoch 278 loss 6.79506 
+epoch 279 loss 6.77254 
+epoch 280 loss 6.77577 val_f1 0.3197
+epoch 281 loss 6.75964 
+epoch 282 loss 6.76056 
+epoch 283 loss 6.74090 
+epoch 284 loss 6.73542 
+epoch 285 loss 6.74111 
+epoch 286 loss 6.73257 
+epoch 287 loss 6.73601 
+epoch 288 loss 6.71826 
+epoch 289 loss 6.72473 
+epoch 290 loss 6.70385 val_f1 0.3673
+epoch 291 loss 6.70244 
+epoch 292 loss 6.69606 
+epoch 293 loss 6.69686 
+epoch 294 loss 6.68687 
+epoch 295 loss 6.68692 
+epoch 296 loss 6.67999 
+epoch 297 loss 6.67233 
+epoch 298 loss 6.66625 
+epoch 299 loss 6.66414 
+epoch 300 loss 6.66707 val_f1 0.3590
+epoch 301 loss 6.65891 
+epoch 302 loss 6.64624 
+epoch 303 loss 6.64784 
+epoch 304 loss 6.65103 
+epoch 305 loss 6.65022 
+epoch 306 loss 6.63568 
+epoch 307 loss 6.64197 
+epoch 308 loss 6.63740 
+epoch 309 loss 6.62684 
+epoch 310 loss 6.62747 val_f1 0.3880
+epoch 311 loss 6.62778 
+epoch 312 loss 6.61619 
+epoch 313 loss 6.61135 
+epoch 314 loss 6.60652 
+epoch 315 loss 6.60558 
+epoch 316 loss 6.60932 
+epoch 317 loss 6.61090 
+epoch 318 loss 6.60161 
+epoch 319 loss 6.60655 
+epoch 320 loss 6.59618 val_f1 0.3859
+epoch 321 loss 6.59325 
+epoch 322 loss 6.59604 
+epoch 323 loss 6.59170 
+epoch 324 loss 6.58563 
+epoch 325 loss 6.58757 
+epoch 326 loss 6.57910 
+epoch 327 loss 6.57355 
+epoch 328 loss 6.57610 
+epoch 329 loss 6.57595 
+epoch 330 loss 6.57590 val_f1 0.3885
+epoch 331 loss 6.57311 
+epoch 332 loss 6.57013 
+epoch 333 loss 6.56225 
+epoch 334 loss 6.56494 
+epoch 335 loss 6.55474 
+epoch 336 loss 6.57183 
+epoch 337 loss 6.56248 
+epoch 338 loss 6.56298 
+epoch 339 loss 6.55710 
+epoch 340 loss 6.55454 val_f1 0.3881
+epoch 341 loss 6.54757 
+epoch 342 loss 6.54768 
+epoch 343 loss 6.53891 
+epoch 344 loss 6.54478 
+epoch 345 loss 6.54858 
+epoch 346 loss 6.54577 
+epoch 347 loss 6.55047 
+epoch 348 loss 6.54296 
+epoch 349 loss 6.54328 
+epoch 350 loss 6.53736 val_f1 0.3754
+epoch 351 loss 6.53968 
+epoch 352 loss 6.53317 
+epoch 353 loss 6.52938 
+epoch 354 loss 6.52185 
+epoch 355 loss 6.52544 
+epoch 356 loss 6.51820 
+epoch 357 loss 6.51933 
+epoch 358 loss 6.52190 
+epoch 359 loss 6.51158 
+epoch 360 loss 6.51007 val_f1 0.3755
+epoch 361 loss 6.50548 
+epoch 362 loss 6.50675 
+epoch 363 loss 6.50885 
+epoch 364 loss 6.49836 
+epoch 365 loss 6.50364 
+epoch 366 loss 6.49538 
+epoch 367 loss 6.49159 
+epoch 368 loss 6.50375 
+epoch 369 loss 6.50238 
+epoch 370 loss 6.49061 val_f1 0.3930
+epoch 371 loss 6.49413 
+epoch 372 loss 6.48411 
+epoch 373 loss 6.48076 
+epoch 374 loss 6.48713 
+epoch 375 loss 6.47442 
+epoch 376 loss 6.50386 
+epoch 377 loss 6.48518 
+epoch 378 loss 6.48554 
+epoch 379 loss 6.47774 
+epoch 380 loss 6.47197 val_f1 0.4160
+epoch 381 loss 6.92884 
+epoch 382 loss 6.72501 
+epoch 383 loss 6.59352 
+epoch 384 loss 6.53369 
+epoch 385 loss 6.50690 
+epoch 386 loss 6.49528 
+epoch 387 loss 6.50653 
+epoch 388 loss 6.50968 
+epoch 389 loss 6.48546 
+epoch 390 loss 6.48724 val_f1 0.3739
+epoch 391 loss 6.51481 
+epoch 392 loss 6.51364 
+epoch 393 loss 6.50629 
+epoch 394 loss 6.49228 
+epoch 395 loss 6.49410 
+epoch 396 loss 6.47357 
+epoch 397 loss 6.46227 
+epoch 398 loss 6.46674 
+epoch 399 loss 6.46611 
+epoch 400 loss 6.45829 val_f1 0.4025
+epoch 401 loss 6.46140 
+epoch 402 loss 6.45145 
+epoch 403 loss 6.45379 
+epoch 404 loss 6.44181 
+epoch 405 loss 6.44293 
+epoch 406 loss 6.43770 
+epoch 407 loss 6.43257 
+epoch 408 loss 6.43193 
+epoch 409 loss 6.42684 
+epoch 410 loss 6.43433 val_f1 0.4010
+epoch 411 loss 6.44416 
+epoch 412 loss 6.43632 
+epoch 413 loss 6.43824 
+epoch 414 loss 6.43707 
+epoch 415 loss 6.43055 
+epoch 416 loss 6.44167 
+epoch 417 loss 6.44043 
+epoch 418 loss 6.42967 
+epoch 419 loss 6.42152 
+epoch 420 loss 6.42334 val_f1 0.3897
+epoch 421 loss 6.42250 
+epoch 422 loss 6.40904 
+epoch 423 loss 6.41715 
+epoch 424 loss 6.41435 
+epoch 425 loss 6.40084 
+epoch 426 loss 6.39571 
+epoch 427 loss 6.39105 
+epoch 428 loss 6.39052 
+epoch 429 loss 6.38997 
+epoch 430 loss 6.38353 val_f1 0.4202
+epoch 431 loss 6.37357 
+epoch 432 loss 6.38015 
+epoch 433 loss 6.36754 
+epoch 434 loss 6.37533 
+epoch 435 loss 6.36594 
+epoch 436 loss 6.37245 
+epoch 437 loss 6.36391 
+epoch 438 loss 6.36738 
+epoch 439 loss 6.36074 
+epoch 440 loss 6.36320 val_f1 0.4060
+epoch 441 loss 6.34851 
+epoch 442 loss 6.35001 
+epoch 443 loss 6.35249 
+epoch 444 loss 6.34814 
+epoch 445 loss 6.34169 
+epoch 446 loss 6.33705 
+epoch 447 loss 6.34343 
+epoch 448 loss 6.33041 
+epoch 449 loss 6.33607 
+epoch 450 loss 6.32387 val_f1 0.4265
+epoch 451 loss 6.32488 
+epoch 452 loss 6.33069 
+epoch 453 loss 6.33081 
+epoch 454 loss 6.32161 
+epoch 455 loss 6.31923 
+epoch 456 loss 6.32792 
+epoch 457 loss 6.31695 
+epoch 458 loss 6.31562 
+epoch 459 loss 6.31255 
+epoch 460 loss 6.30954 val_f1 0.4216
+epoch 461 loss 6.30529 
+epoch 462 loss 6.30640 
+epoch 463 loss 6.30379 
+epoch 464 loss 6.30306 
+epoch 465 loss 6.30223 
+epoch 466 loss 6.29921 
+epoch 467 loss 6.30077 
+epoch 468 loss 6.29406 
+epoch 469 loss 6.29260 
+epoch 470 loss 6.28714 val_f1 0.4038
+epoch 471 loss 6.28461 
+epoch 472 loss 6.28796 
+epoch 473 loss 6.27664 
+epoch 474 loss 6.27917 
+epoch 475 loss 6.27743 
+epoch 476 loss 6.27469 
+epoch 477 loss 6.27740 
+epoch 478 loss 6.27589 
+epoch 479 loss 6.26378 
+epoch 480 loss 6.26545 val_f1 0.4075
+epoch 481 loss 6.26986 
+epoch 482 loss 6.26216 
+epoch 483 loss 6.25770 
+epoch 484 loss 6.25529 
+epoch 485 loss 6.25992 
+epoch 486 loss 6.26403 
+epoch 487 loss 6.26138 
+epoch 488 loss 6.24888 
+epoch 489 loss 6.24374 
+epoch 490 loss 6.25096 val_f1 0.4120
+epoch 491 loss 6.23966 
+epoch 492 loss 6.24557 
+epoch 493 loss 6.24008 
+epoch 494 loss 6.24072 
+epoch 495 loss 6.23931 
+epoch 496 loss 6.23042 
+epoch 497 loss 6.23335 
+epoch 498 loss 6.23034 
+epoch 499 loss 6.22915 
+epoch 500 loss 6.23295 val_f1 0.4238
+epoch 501 loss 6.23130 
+epoch 502 loss 6.22569 
+epoch 503 loss 6.21342 
+epoch 504 loss 6.21700 
+epoch 505 loss 6.22247 
+epoch 506 loss 6.21700 
+epoch 507 loss 6.21035 
+epoch 508 loss 6.21742 
+epoch 509 loss 6.20587 
+epoch 510 loss 6.21064 val_f1 0.4204
+epoch 511 loss 6.20646 
+epoch 512 loss 6.20835 
+epoch 513 loss 6.20059 
+epoch 514 loss 6.20550 
+epoch 515 loss 6.19269 
+epoch 516 loss 6.19544 
+epoch 517 loss 6.19731 
+epoch 518 loss 6.19210 
+epoch 519 loss 6.18837 
+epoch 520 loss 6.18608 val_f1 0.4071
+epoch 521 loss 6.18249 
+epoch 522 loss 6.18769 
+epoch 523 loss 6.17946 
+epoch 524 loss 6.18605 
+epoch 525 loss 6.18117 
+epoch 526 loss 6.18251 
+epoch 527 loss 6.17503 
+epoch 528 loss 6.17334 
+epoch 529 loss 6.17498 
+epoch 530 loss 6.17208 val_f1 0.4326
+epoch 531 loss 6.17642 
+epoch 532 loss 6.16803 
+epoch 533 loss 6.17045 
+epoch 534 loss 6.16497 
+epoch 535 loss 6.16347 
+epoch 536 loss 6.14492 
+epoch 537 loss 6.15624 
+epoch 538 loss 6.16621 
+epoch 539 loss 6.14932 
+epoch 540 loss 6.16094 val_f1 0.4136
+epoch 541 loss 6.14808 
+epoch 542 loss 6.13931 
+epoch 543 loss 6.14212 
+epoch 544 loss 6.14006 
+epoch 545 loss 6.14051 
+epoch 546 loss 6.13556 
+epoch 547 loss 6.13256 
+epoch 548 loss 6.12789 
+epoch 549 loss 6.12445 
+epoch 550 loss 6.12682 val_f1 0.4156
+epoch 551 loss 6.12793 
+epoch 552 loss 6.12038 
+epoch 553 loss 6.13357 
+epoch 554 loss 6.11811 
+epoch 555 loss 6.12626 
+epoch 556 loss 6.11535 
+epoch 557 loss 6.11157 
+epoch 558 loss 6.10391 
+epoch 559 loss 6.11679 
+epoch 560 loss 6.11151 val_f1 0.4281
+epoch 561 loss 6.11019 
+epoch 562 loss 6.10182 
+epoch 563 loss 6.09442 
+epoch 564 loss 6.09651 
+epoch 565 loss 6.09605 
+epoch 566 loss 6.10060 
+epoch 567 loss 6.09586 
+epoch 568 loss 6.09182 
+epoch 569 loss 6.08635 
+epoch 570 loss 6.08661 val_f1 0.4277
+epoch 571 loss 6.08429 
+epoch 572 loss 6.08325 
+epoch 573 loss 6.07576 
+epoch 574 loss 6.07578 
+epoch 575 loss 6.07958 
+epoch 576 loss 6.07450 
+epoch 577 loss 6.07780 
+epoch 578 loss 6.07648 
+epoch 579 loss 6.07566 
+epoch 580 loss 6.06986 val_f1 0.4369
+epoch 581 loss 6.06592 
+epoch 582 loss 6.06623 
+epoch 583 loss 6.06016 
+epoch 584 loss 6.05583 
+epoch 585 loss 6.05515 
+epoch 586 loss 6.05846 
+epoch 587 loss 6.05336 
+epoch 588 loss 6.06452 
+epoch 589 loss 6.05365 
+epoch 590 loss 6.04442 val_f1 0.4355
+epoch 591 loss 6.05415 
+epoch 592 loss 6.04681 
+epoch 593 loss 6.04684 
+epoch 594 loss 6.04807 
+epoch 595 loss 6.03956 
+epoch 596 loss 6.04591 
+epoch 597 loss 6.03698 
+epoch 598 loss 6.03987 
+epoch 599 loss 6.02664 
+epoch 600 loss 6.02512 val_f1 0.4206
+epoch 601 loss 6.02018 
+epoch 602 loss 6.01935 
+epoch 603 loss 6.02931 
+epoch 604 loss 6.02530 
+epoch 605 loss 6.02854 
+epoch 606 loss 6.01217 
+epoch 607 loss 6.01490 
+epoch 608 loss 6.01041 
+epoch 609 loss 6.01105 
+epoch 610 loss 6.01869 val_f1 0.4414
+epoch 611 loss 6.00967 
+epoch 612 loss 5.99718 
+epoch 613 loss 6.00391 
+epoch 614 loss 5.99596 
+epoch 615 loss 6.00487 
+epoch 616 loss 5.99167 
+epoch 617 loss 6.00299 
+epoch 618 loss 5.99507 
+epoch 619 loss 5.98925 
+epoch 620 loss 5.98432 val_f1 0.4064
+epoch 621 loss 6.05652 
+epoch 622 loss 6.03657 
+epoch 623 loss 6.04260 
+epoch 624 loss 6.01749 
+epoch 625 loss 6.02346 
+epoch 626 loss 6.14086 
+epoch 627 loss 6.07934 
+epoch 628 loss 6.10256 
+epoch 629 loss 6.06679 
+epoch 630 loss 6.09302 val_f1 0.4531
+epoch 631 loss 6.07514 
+epoch 632 loss 6.05841 
+epoch 633 loss 6.05876 
+epoch 634 loss 6.06053 
+epoch 635 loss 6.03081 
+epoch 636 loss 6.04820 
+epoch 637 loss 6.02853 
+epoch 638 loss 6.02346 
+epoch 639 loss 6.02232 
+epoch 640 loss 6.01580 val_f1 0.4167
+epoch 641 loss 6.02531 
+epoch 642 loss 6.01527 
+epoch 643 loss 6.00161 
+epoch 644 loss 6.00041 
+epoch 645 loss 5.99288 
+epoch 646 loss 5.99642 
+epoch 647 loss 5.99157 
+epoch 648 loss 5.98394 
+epoch 649 loss 5.97882 
+epoch 650 loss 5.96900 val_f1 0.4349

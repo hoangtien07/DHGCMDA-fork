@@ -1,0 +1,9 @@
+﻿# Paired 5 fold × 3 seed: giới hạn negative bank 10 so với 1
+
+Động cơ: kiểm tra liệu việc giảm số unknown negatives có tác động đáng kể khi phần lớn positive validation cũng đang nằm trong bank. Đây là giả thuyết hậu nghiệm, không phải phương pháp tác giả hay chứng minh nhân quả riêng của false negative. Cap1 còn thay đổi tổng số negative, InfoNCE denominator và gradient. Không dùng nhãn validation hay test để tạo bank, không chỉnh global data.
+
+Giữ 15 baseline raw/dynamic U1 selection và 5 bundle validation đã pin; cặp can thiệp cùng fold, seed/inter_seed, data/features/masks, initial model, optimizer, dynamic policy, tất cả objective và horizon 650, eval mỗi 10; thay duy nhất cfg inter_cap_mult=10 thành 1. Sampler seed và thứ tự cố định; preflight kiểm tra cap1 subset cap10 và bank hash dự kiến. Mỗi lượt train độc lập, 2 torch threads; tối đa 2 lượt đồng thời. Torch 2.5.1, PyG 2.6.1, numpy 1.26.4 CPU. Không outer-test. Baseline seed1234 fold0/1 có thể được tạo trong môi trường khác, báo giới hạn. Source, bundle, sidecar, protocol, trainer, preflight và expected manifest được băm trước/sau.
+
+Báo toàn bộ 15 cặp, macro/micro/any-hit tại checkpoint validation tốt nhất và fixed epoch650, F1 theo lớp từ prediction best, số spike loss >2× epoch trước và max grad; phân biệt best được chọn trên cùng validation (65 lần xem) với fixed final. Báo trung bình mô tả, không suy 15 ô là độc lập. Đối chiếu pair/truth, hash và metric từ prediction. Không bỏ kết quả lỗi, không chỉnh hay dừng sớm để có điểm đẹp. Cả baseline và validation đã phát triển, không được coi là test mù hoặc F1 paper.
+
+Lý do chọn cap1: sensitivity bank đã chỉ ra giảm đáng kể số positive validation bị gán âm giả định. Không sửa bank dựa trên validation positives: sampler chỉ dùng train_mask, seed. Không đánh giá hay lựa chọn trên outer test. Nếu thất bại, báo rõ và không tiếp tục sweep cap tuỳ tiện.

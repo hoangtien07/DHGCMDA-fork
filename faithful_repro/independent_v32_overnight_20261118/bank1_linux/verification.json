@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "results_sha256": "fb3279ae8bcad90252c0132825d9cf7cf48bd01cf1cb6712712dba74090c1cd8",
+  "script_sha256": "471c99f6c53978c30acbce5a3d29bfca6f01fb7bc9c1ac946165fd39d8d4c8bf",
+  "checked_keys": [
+    "fold0_seed1234",
+    "fold0_seed42",
+    "fold0_seed2025",
+    "fold1_seed1234",
+    "fold1_seed42",
+    "fold1_seed2025",
+    "fold2_seed1234",
+    "fold2_seed42",
+    "fold2_seed2025",
+    "fold3_seed1234",
+    "fold3_seed42",
+    "fold3_seed2025",
+    "fold4_seed1234",
+    "fold4_seed42",
+    "fold4_seed2025"
+  ],
+  "missing": [],
+  "scope": "independent sklearn metrics and paired data/hash check; not blind paper replication"
+}

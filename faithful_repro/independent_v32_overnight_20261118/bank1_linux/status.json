@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "supervisor": "linux",
+  "supervisor_sha256": "27a44c84ca82d8941029dabe598e09634bc7cd99df05e7817d2472124eddb44c",
+  "python": "/home/ubuntu/repos/DHGCMDA-fork/.venv-bank1/bin/python",
+  "preflight_sha256": "75133defffe3eff74247421a5f2c30b4a059b600cca8f78e9746b4d7f7900beb",
+  "report_sha256": "7773e4d8a089ddb1babb007a6bf81fe97a393715b58576362291116c4cda45ab",
+  "start_utc": "2026-11-17T18:30:38Z",
+  "jobs": [
+    {
+      "key": "fold0_seed1234",
+      "fold": 0,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:30:38Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:34:56Z"
+    },
+    {
+      "key": "fold0_seed42",
+      "fold": 0,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:30:38Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:34:57Z"
+    },
+    {
+      "key": "fold0_seed2025",
+      "fold": 0,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:34:56Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:39:26Z"
+    },
+    {
+      "key": "fold1_seed1234",
+      "fold": 1,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:34:57Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:39:04Z"
+    },
+    {
+      "key": "fold1_seed42",
+      "fold": 1,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:39:04Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:43:40Z"
+    },
+    {
+      "key": "fold1_seed2025",
+      "fold": 1,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:39:26Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:44:06Z"
+    },
+    {
+      "key": "fold2_seed1234",
+      "fold": 2,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:43:40Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:48:22Z"
+    },
+    {
+      "key": "fold2_seed42",
+      "fold": 2,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:44:06Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:48:40Z"
+    },
+    {
+      "key": "fold2_seed2025",
+      "fold": 2,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:48:22Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:52:43Z"
+    },
+    {
+      "key": "fold3_seed1234",
+      "fold": 3,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:48:40Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:53:28Z"
+    },
+    {
+      "key": "fold3_seed42",
+      "fold": 3,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:52:43Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:56:54Z"
+    },
+    {
+      "key": "fold3_seed2025",
+      "fold": 3,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:53:28Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T18:58:28Z"
+    },
+    {
+      "key": "fold4_seed1234",
+      "fold": 4,
+      "seed": 1234,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:56:54Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T19:01:10Z"
+    },
+    {
+      "key": "fold4_seed42",
+      "fold": 4,
+      "seed": 42,
+      "status": "PASS",
+      "start_utc": "2026-11-17T18:58:28Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T19:03:06Z"
+    },
+    {
+      "key": "fold4_seed2025",
+      "fold": 4,
+      "seed": 2025,
+      "status": "PASS",
+      "start_utc": "2026-11-17T19:01:10Z",
+      "returncode": 0,
+      "end_utc": "2026-11-17T19:05:22Z"
+    }
+  ],
+  "report_returncode": 0,
+  "end_utc": "2026-11-17T19:05:23Z"
+}

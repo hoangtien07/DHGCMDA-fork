@@ -1,0 +1,7 @@
+fold0_seed42 epoch 100 loss 6.80377 val_f1 0.2512
+fold0_seed42 epoch 200 loss 5.51763 val_f1 0.3585
+fold0_seed42 epoch 300 loss 4.40620 val_f1 0.4090
+fold0_seed42 epoch 400 loss 5.85817 val_f1 0.4131
+fold0_seed42 epoch 500 loss 6.51763 val_f1 0.4213
+fold0_seed42 epoch 600 loss 6.25209 val_f1 0.4084
+DONE fold0_seed42 PASS

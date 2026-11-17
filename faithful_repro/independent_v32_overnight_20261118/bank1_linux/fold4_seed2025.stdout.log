@@ -1,0 +1,7 @@
+fold4_seed2025 epoch 100 loss 6.91304 val_f1 0.2826
+fold4_seed2025 epoch 200 loss 5.40297 val_f1 0.2882
+fold4_seed2025 epoch 300 loss 4.73265 val_f1 0.3408
+fold4_seed2025 epoch 400 loss 6.45317 val_f1 0.4085
+fold4_seed2025 epoch 500 loss 6.48316 val_f1 0.3771
+fold4_seed2025 epoch 600 loss 6.32429 val_f1 0.3953
+DONE fold4_seed2025 PASS
