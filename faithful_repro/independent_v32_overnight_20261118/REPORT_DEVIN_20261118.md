@@ -16,6 +16,20 @@ Thí nghiệm paired 5 fold × 3 seed, mọi thành phần giữ nguyên, chỉ 
 - **Kết luận:** giảm negative bank 10→1 **không cải thiện** — nhất quán với đọc protocol: cap1 đổi cả số negatives lẫn mẫu số InfoNCE/objective, không cô lập được tác động false-negative riêng. Theo quy tắc đã pin: dừng sweep cap tương tự.
 - So snapshot Windows (6 ô đầu): Windows cap1 fold0_seed1234=0.4384 vs Linux 0.4282; seed42=0.4705 vs 0.4477 — chênh trong biên độ OS/BLAS đã công bố, không thay kết luận.
 
+**Trạng thái queue Windows (đã xác nhận, commit `ec331fa`):** người dùng dừng lúc 18:29:49 UTC (`PAUSED_BY_USER`) — 6/15 hoàn tất, fold2_seed1234/42 bị ngắt ở epoch ~275 (có ckpt_best, không completion — không chấm), 7 lượt chưa chạy. Namespace `bank1_linux` đã chạy độc lập cả 15 nên không cần gộp kết quả Windows. Đối chiếu paired trên 6 ô trùng (best macro cap1):
+
+| Ô | Windows | Linux | Δ |
+|---|---:|---:|---:|
+| fold0_seed1234 | 0.4384 | 0.4282 | −0.010 |
+| fold0_seed42 | 0.4705 | 0.4477 | −0.023 |
+| fold0_seed2025 | 0.4453 | 0.4512 | +0.006 |
+| fold1_seed1234 | 0.4404 | 0.4343 | −0.006 |
+| fold1_seed42 | 0.4327 | 0.4034 | −0.029 |
+| fold1_seed2025 | 0.4119 | 0.4140 | +0.002 |
+| mean 6 ô | 0.4399 | 0.4298 | −0.010 |
+
+Linux thấp hơn ~0.010 trên cùng ô — biên độ khác biệt OS/BLAS như đã khai báo trong PROTOCOL/NAMESPACE; xếp hạng ô và kết luận âm tính (cap1 không cải thiện) giữ nguyên ở cả hai nền.
+
 ## 2. Bằng chứng mới kiểm chứng được trong session này
 
 1. **Provenance bốn view — đã xác minh trên dữ liệu thật** (trước đây chỉ ghi "chưa xác thực"): bundle `candidate_fold_data.npz` dùng S_seq (NW-alignment GFF3 strict, +1/−1/−2/−1, max-arm, offdiag-minmax) ≡ `sim_m1` strict; S_gene (FunSim kiểu Cheng, CTD marker/mechanism + HumanNet-XC) ≡ `sim_d1`; S_sem rebuild từ tên bệnh qua MeSH-2019 archive (HMDDv3.xlsx/meshToID/mtrees2019) ≡ rebuild `sem.S`; S_func = `functional_similarity(A_train, sem)` MISIM-default augmented one-hot cosine trên descriptor-key — **train-only, rebuild theo từng fold**. Hai ma trận shipped `M_MISIM`/`D_MESH` (nguồn association-derived) **không** được dùng trong bundle. → Tầng feature không chứa full-association leakage; phần "không khớp paper" còn lại là chưa xác minh cùng recipe tác giả, không phải rò rỉ.
