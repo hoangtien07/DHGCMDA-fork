@@ -1,0 +1,8 @@
+feature,paper_description,author_release_v2.0,U1_v3.2_bundle,association_derived,leakage_status,source
+association matrix,typed assoc tensor,full matrix in features before split (leaks test labels),train_mask only rebuilt per fold,yes,release=LEAKED / U1=closed,pinned_release/prepareData.py; bundle_audit.json
+miRNA seq sim,miRNA sequence similarity,M_FSM? (v2.0 GIP-ish),S_seq NW alignment GFF3 strict,no,clean,colab src + PORTABILITY_CHECK
+miRNA func sim,functional similarity,M_FSM shipped (assoc-derived),S_func rebuilt train-only,yes(release)/train-only(U1),release=LEAKED / U1=closed,provenance audit this session
+disease gene sim,disease-gene similarity,M_GSM GIP full-assoc,S_gene FunSim CTD+HumanNet-XC,yes(release)/no(U1),release=LEAKED / U1=external,v20_fold_gip control; bundle views
+disease semantic sim,MeSH semantic similarity,D_SSM1/D_SSM2 shipped,S_sem MeSH-2019 rebuild,no,clean,mtrees2019.bin; semantic.py
+hypergraph G,KNN K=13 dynamic,built pre-train on full views,train-only rebuild + dyn refresh every 5 ep,partially,train-only,pair_audit; FIDELITY_MATRIX
+negative bank,unknowns sampled,zero_index incl held-out (PU),train-zero cap10 PU same semantics,yes(unknowns),declared PU,upstream_main; negative_overlap.json

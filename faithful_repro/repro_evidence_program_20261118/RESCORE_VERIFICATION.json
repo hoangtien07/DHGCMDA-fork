@@ -1,0 +1,611 @@
+{
+ "files": [
+  {
+   "key": "fold0_seed1234_dynamic",
+   "sha256": "acdaa6d54289c750215247020ced8aba4cdaf70fc094da0890ac6ad7185ef478"
+  },
+  {
+   "key": "fold0_seed1234_static",
+   "sha256": "71ffcaedcca9bd569f60adfe23478924cac1065d686410f15872c291b7a19c4e"
+  },
+  {
+   "key": "fold0_seed42_dynamic",
+   "sha256": "97335f96f21edc68c57adbbc0e508c0b3adb9e798b4bd18b02c17c859a159ba5"
+  },
+  {
+   "key": "fold0_seed42_static",
+   "sha256": "558bfe5d0fd5144e85d5c57492cbd4767ee7622ab7db38d9e359573c4c1fb2be"
+  },
+  {
+   "key": "fold0_seed2025_dynamic",
+   "sha256": "1720043bdbff2b9fa8b43425bd478c6ae44414c00957f0246c41af7942ddd869"
+  },
+  {
+   "key": "fold0_seed2025_static",
+   "sha256": "3fd532fa6c6d4d5106a65e58ff9b940edc754ca828b71a3963a042ec142d7022"
+  },
+  {
+   "key": "fold1_seed1234_dynamic",
+   "sha256": "35c82070fbe0bae886e222a45af418033b642cdcb73e86c877f2219a571b9f9b"
+  },
+  {
+   "key": "fold1_seed1234_static",
+   "sha256": "9176c3ee129ecadf0146a7db40c9fc111e90ecea8ce2ab448224350e71e39496"
+  },
+  {
+   "key": "fold1_seed42_dynamic",
+   "sha256": "fafbdad6eac2acfd57466c786db7fb5fbb7880a86a0aaef0e1e53c000b552b83"
+  },
+  {
+   "key": "fold1_seed42_static",
+   "sha256": "a3867483b00df336b3d843d838a563fa349779d8f9fda9cee10678617a1afc86"
+  },
+  {
+   "key": "fold1_seed2025_dynamic",
+   "sha256": "2e6f5b0e3fae172d531ef1030ba97a5c5400ee798f886ab2027669722d86581b"
+  },
+  {
+   "key": "fold1_seed2025_static",
+   "sha256": "12eff878d4becb804ee35115ed02681d45855320139f6af4fa70713ad2524f35"
+  },
+  {
+   "key": "fold2_seed1234_dynamic",
+   "sha256": "29804742075e8cfb077d5e3c4ae39c7da5538a5bd0a2e4a6579b2debc47f0a10"
+  },
+  {
+   "key": "fold2_seed1234_static",
+   "sha256": "725347140e8b164c957c6d4f6f209863d056a59c637e4acd7eb88bd8b93b0088"
+  },
+  {
+   "key": "fold2_seed42_dynamic",
+   "sha256": "90bddd0bd7c6dbc0e7993a2ce1e7ae55906482d3aac73a6adfb07a533dd4c5af"
+  },
+  {
+   "key": "fold2_seed42_static",
+   "sha256": "d96a07ec0b7adbdf42cdc183a7b78940a7b597d15ea4aaaa3b32e035f34476c8"
+  },
+  {
+   "key": "fold2_seed2025_dynamic",
+   "sha256": "7364d52b98d0b43bccdab917aba8a4abcf887d3c44d11c6a19a702b867203c22"
+  },
+  {
+   "key": "fold2_seed2025_static",
+   "sha256": "7a5f243301dddef1d6939da3c5506b86bb6ca30bc1b8a2db6dd38212279a2a50"
+  },
+  {
+   "key": "fold3_seed1234_dynamic",
+   "sha256": "0f6d13ed7878680ad9a23da8498a244b3a0cec2f734f7f5dcafee267831a4d01"
+  },
+  {
+   "key": "fold3_seed1234_static",
+   "sha256": "beecd7449343ddaa3972402756f47b853848f906b9f357c9672c423c6dba39f4"
+  },
+  {
+   "key": "fold3_seed42_dynamic",
+   "sha256": "ad8b515b19970c619994f1ab409940ccabe0727706f673a554b2ff929ca48efe"
+  },
+  {
+   "key": "fold3_seed42_static",
+   "sha256": "71725388b746f9e60a32170290c0b497b55d2c07467d0b57a173b802a5e4d5d3"
+  },
+  {
+   "key": "fold3_seed2025_dynamic",
+   "sha256": "29208771b21940dd47dc124ea40158f54588abef757552b6919ba52fa46a45cd"
+  },
+  {
+   "key": "fold3_seed2025_static",
+   "sha256": "f4d14136cd2ae2294f06ae94f9efccf938c747908d7a22051fe5303dd76b8ba9"
+  },
+  {
+   "key": "fold4_seed1234_dynamic",
+   "sha256": "082f414ea23691af03381623b69ad717d2549de24332cab935547a0a91a94e40"
+  },
+  {
+   "key": "fold4_seed1234_static",
+   "sha256": "a6f257c2af98e5fbcb1d4069338e43651fefce4498e5ff281df7fd18a3604030"
+  },
+  {
+   "key": "fold4_seed42_dynamic",
+   "sha256": "1a33cc400775e594f42d6953cdc6ae3ecdb7df93882c0fdd1fdd535233d6251a"
+  },
+  {
+   "key": "fold4_seed42_static",
+   "sha256": "661020e508af06f0beb875afde230d73560187054e0c344f93ba5f4b34eeddbe"
+  },
+  {
+   "key": "fold4_seed2025_dynamic",
+   "sha256": "8caf14a1e9490a8dc3217baaea11406c64b23eae963ffc0342e4323c1fb2725b"
+  },
+  {
+   "key": "fold4_seed2025_static",
+   "sha256": "53e78de39d4ff6be96d966d48a73ee067e6b0bab9bb38497048e28b70ba35795"
+  }
+ ],
+ "reported_vs_rescored": [
+  {
+   "key": [
+    0,
+    1234,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.35362370644040614,
+   "rescored_macro_f1": 0.35362370644040614,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    1234,
+    "static"
+   ],
+   "reported_macro_f1": 0.4457681335981859,
+   "rescored_macro_f1": 0.4457681335981859,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    42,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.4298743104178485,
+   "rescored_macro_f1": 0.4298743104178485,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    42,
+    "static"
+   ],
+   "reported_macro_f1": 0.4489805603291687,
+   "rescored_macro_f1": 0.4489805603291687,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    2025,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.41862945729818113,
+   "rescored_macro_f1": 0.41862945729818113,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    2025,
+    "static"
+   ],
+   "reported_macro_f1": 0.4367019042113657,
+   "rescored_macro_f1": 0.4367019042113657,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    1234,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.39699463144443237,
+   "rescored_macro_f1": 0.3969946314444324,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    1234,
+    "static"
+   ],
+   "reported_macro_f1": 0.42909960825390314,
+   "rescored_macro_f1": 0.42909960825390314,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    42,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.36656556706237353,
+   "rescored_macro_f1": 0.36656556706237353,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    42,
+    "static"
+   ],
+   "reported_macro_f1": 0.4285785387856099,
+   "rescored_macro_f1": 0.4285785387856099,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    2025,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.4141379457094888,
+   "rescored_macro_f1": 0.4141379457094888,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    2025,
+    "static"
+   ],
+   "reported_macro_f1": 0.4341841809427242,
+   "rescored_macro_f1": 0.4341841809427242,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    1234,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.455338868070705,
+   "rescored_macro_f1": 0.455338868070705,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    1234,
+    "static"
+   ],
+   "reported_macro_f1": 0.44298187301773384,
+   "rescored_macro_f1": 0.44298187301773384,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    42,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.3684891759061183,
+   "rescored_macro_f1": 0.36848917590611835,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    42,
+    "static"
+   ],
+   "reported_macro_f1": 0.4467659118814053,
+   "rescored_macro_f1": 0.4467659118814053,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    2025,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.4291638595125953,
+   "rescored_macro_f1": 0.4291638595125953,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    2025,
+    "static"
+   ],
+   "reported_macro_f1": 0.4469431763384931,
+   "rescored_macro_f1": 0.4469431763384931,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    1234,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.4198136144219228,
+   "rescored_macro_f1": 0.4198136144219228,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    1234,
+    "static"
+   ],
+   "reported_macro_f1": 0.4365105416199679,
+   "rescored_macro_f1": 0.4365105416199679,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    42,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.41345373196970153,
+   "rescored_macro_f1": 0.41345373196970153,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    42,
+    "static"
+   ],
+   "reported_macro_f1": 0.43135414927228066,
+   "rescored_macro_f1": 0.4313541492722807,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    2025,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.3806599778999919,
+   "rescored_macro_f1": 0.38065997789999184,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    2025,
+    "static"
+   ],
+   "reported_macro_f1": 0.4220229689408148,
+   "rescored_macro_f1": 0.4220229689408148,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    1234,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.40629878473930675,
+   "rescored_macro_f1": 0.40629878473930675,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    1234,
+    "static"
+   ],
+   "reported_macro_f1": 0.4436417951434547,
+   "rescored_macro_f1": 0.4436417951434547,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    42,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.40039962293470055,
+   "rescored_macro_f1": 0.40039962293470055,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    42,
+    "static"
+   ],
+   "reported_macro_f1": 0.47186645451285714,
+   "rescored_macro_f1": 0.4718664545128572,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    2025,
+    "dynamic"
+   ],
+   "reported_macro_f1": 0.41342376503389583,
+   "rescored_macro_f1": 0.41342376503389583,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    2025,
+    "static"
+   ],
+   "reported_macro_f1": 0.4388248635641074,
+   "rescored_macro_f1": 0.4388248635641074,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    "prior_global"
+   ],
+   "reported_macro_f1": 0.12433925049309665,
+   "rescored_macro_f1": 0.12433925049309665,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    "prior_disease"
+   ],
+   "reported_macro_f1": 0.3701355977605868,
+   "rescored_macro_f1": 0.3701355977605868,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    "prior_mirna"
+   ],
+   "reported_macro_f1": 0.2628874375043489,
+   "rescored_macro_f1": 0.26288743750434884,
+   "match": true
+  },
+  {
+   "key": [
+    0,
+    "prior_product_laplace1"
+   ],
+   "reported_macro_f1": 0.4555432369209174,
+   "rescored_macro_f1": 0.45554323692091747,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    "prior_global"
+   ],
+   "reported_macro_f1": 0.12563800549666274,
+   "rescored_macro_f1": 0.12563800549666276,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    "prior_disease"
+   ],
+   "reported_macro_f1": 0.36130908883859636,
+   "rescored_macro_f1": 0.36130908883859636,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    "prior_mirna"
+   ],
+   "reported_macro_f1": 0.2560535115583288,
+   "rescored_macro_f1": 0.2560535115583288,
+   "match": true
+  },
+  {
+   "key": [
+    1,
+    "prior_product_laplace1"
+   ],
+   "reported_macro_f1": 0.4197221639693554,
+   "rescored_macro_f1": 0.4197221639693554,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    "prior_global"
+   ],
+   "reported_macro_f1": 0.1239035954168313,
+   "rescored_macro_f1": 0.1239035954168313,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    "prior_disease"
+   ],
+   "reported_macro_f1": 0.35848742297928865,
+   "rescored_macro_f1": 0.3584874229792887,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    "prior_mirna"
+   ],
+   "reported_macro_f1": 0.2600438124061005,
+   "rescored_macro_f1": 0.2600438124061005,
+   "match": true
+  },
+  {
+   "key": [
+    2,
+    "prior_product_laplace1"
+   ],
+   "reported_macro_f1": 0.4387639740009024,
+   "rescored_macro_f1": 0.4387639740009024,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    "prior_global"
+   ],
+   "reported_macro_f1": 0.12904226444358277,
+   "rescored_macro_f1": 0.12904226444358277,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    "prior_disease"
+   ],
+   "reported_macro_f1": 0.3573818536279491,
+   "rescored_macro_f1": 0.35738185362794916,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    "prior_mirna"
+   ],
+   "reported_macro_f1": 0.26463312789127047,
+   "rescored_macro_f1": 0.2646331278912705,
+   "match": true
+  },
+  {
+   "key": [
+    3,
+    "prior_product_laplace1"
+   ],
+   "reported_macro_f1": 0.42454097983559935,
+   "rescored_macro_f1": 0.42454097983559935,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    "prior_global"
+   ],
+   "reported_macro_f1": 0.12488188976377952,
+   "rescored_macro_f1": 0.12488188976377954,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    "prior_disease"
+   ],
+   "reported_macro_f1": 0.3682364696481108,
+   "rescored_macro_f1": 0.3682364696481108,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    "prior_mirna"
+   ],
+   "reported_macro_f1": 0.24744319871449258,
+   "rescored_macro_f1": 0.24744319871449258,
+   "match": true
+  },
+  {
+   "key": [
+    4,
+    "prior_product_laplace1"
+   ],
+   "reported_macro_f1": 0.4093301248599509,
+   "rescored_macro_f1": 0.4093301248599509,
+   "match": true
+  }
+ ],
+ "failures": [],
+ "k4_on_v32_note": "release_top1_harmonic_k4 drops all rows on 5-type multi-hot truth \u2014 verified separately in fixtures",
+ "n_rows": 50,
+ "n_matched": 50,
+ "status": "PASS"
+}
