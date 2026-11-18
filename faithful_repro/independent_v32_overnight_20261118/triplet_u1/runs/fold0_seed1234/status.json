@@ -1,0 +1,10 @@
+{
+  "key": "fold0_seed1234",
+  "train_pass": true,
+  "eval_pass": true,
+  "verify_pass": true,
+  "run_pass": true,
+  "train_pass_source": "completion.json",
+  "eval_pass_source": "eval_full.json",
+  "verify_pass_source": "verification_full.json"
+}

@@ -66,7 +66,11 @@ def model_scores(model, inputs, G, ei, pairs, torch):
     return out['exist'].cpu().numpy(), probs
 
 
-def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
+def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path,
+             arrays_path=None):
+    """Writes eval JSON (out_path, 'x' mode) + eval_arrays.npz with
+    per-replicate indices/truth/scores for artifact-level verification
+    (AMENDMENT B3)."""
     import torch
     torch.set_num_threads(2)
     data = s1r.load_data_npz(str(Path(bundle_dir)
@@ -103,7 +107,8 @@ def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
 
     # ---- Task T ----
     t_rows = []
-    for seed, pos, neg in t_reps:
+    arrays = {}
+    for rep_i, (seed, pos, neg) in enumerate(t_reps):
         ep = np.unique(np.concatenate([pos[:, :2], neg[:, :2]]), axis=0)
         row_of = {(i, j): r for r, (i, j) in enumerate(ep.tolist())}
         exist, tprobs = model_scores(model, inputs, G, ei, ep, torch)
@@ -112,8 +117,16 @@ def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
                         dtype=np.int64)
         y = np.r_[np.ones(len(pos), int), np.zeros(len(neg), int)]
         s = joint_score(exist, tprobs, trip, pr)
-        m = binary_metrics(y, s)
         ncodes = S.unknown_strata(neg, mask, Y)
+        arrays[f'T_rep{rep_i}_idx'] = trip
+        arrays[f'T_rep{rep_i}_y'] = y
+        arrays[f'T_rep{rep_i}_s_u1x'] = s
+        arrays[f'T_rep{rep_i}_neg_codes'] = np.r_[
+            np.full(len(pos), -1), ncodes].astype(np.int8)
+        arrays[f'T_rep{rep_i}_pos_seen'] = np.r_[
+            S.positive_strata(pos, mask),
+            np.full(len(neg), -1)].astype(np.int8)
+        m = binary_metrics(y, s)
         neg_scores = s[len(pos):]
         strat = {}
         for code, name in enumerate(STRATA):
@@ -134,7 +147,7 @@ def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
         t_rows.append(row)
     # ---- Task P ----
     p_rows = []
-    for seed, pos, neg in p_reps:
+    for rep_i, (seed, pos, neg) in enumerate(p_reps):
         ep = np.unique(np.concatenate([pos, neg]), axis=0)
         row_of = {(i, j): r for r, (i, j) in enumerate(ep.tolist())}
         exist, _ = model_scores(model, inputs, G, ei, ep, torch)
@@ -143,12 +156,25 @@ def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
                         dtype=np.int64)
         y = np.r_[np.ones(len(pos), int), np.zeros(len(neg), int)]
         s = pair_score(exist, pr)
+        arrays[f'P_rep{rep_i}_idx'] = np.concatenate([pos, neg])
+        arrays[f'P_rep{rep_i}_y'] = y
+        arrays[f'P_rep{rep_i}_s_u1x'] = s
         m = binary_metrics(y, s)
         p_rows.append({'seed': seed, **m, 'n_pos': int(len(pos)),
                        'eval_neg_sha256': _arr(S._sort_rows(neg))})
 
-    bl = BL.run(Y, fold,
-                [(pos, neg) for seed, pos, neg in t_reps])
+    bl = {}
+    for pool in BL.POOLS:
+        r = BL.run(Y, fold,
+                   [(pos, neg) for seed, pos, neg in t_reps],
+                   pool=pool)
+        bl[pool] = r
+        for rep_i, s_b in enumerate(r['scores']):
+            arrays[f'T_rep{rep_i}_s_bl_{pool}'] = s_b
+    for pool in BL.POOLS:
+        bl[pool].pop('scores')
+    if arrays_path is not None:
+        np.savez(arrays_path, **arrays)
     out = {
         'status': 'PASS', 'fold': fold,
         'task_T': {
@@ -164,7 +190,8 @@ def run_eval(bundle_dir, ckpt_path, strict_path, fold, out_path):
             'mean': {k: float(np.mean([r[k] for r in p_rows]))
                      for k in ('auroc', 'average_precision',
                                'f1_at_0_5')}},
-        'baseline_logistic': bl}
+        'baseline_logistic': bl,
+        'baseline_info_matched': 'mask_zero_pairs'}
     with open(out_path, 'x', encoding='utf-8') as f:
         json.dump(out, f, indent=1)
         f.write('\n')

@@ -57,7 +57,8 @@ def main():
     src_files = ['split.py', 'fixtures.py', 'model_u1x.py',
                  'losses_u1x.py', 'train_u1x.py', 'eval_cvtriplet.py',
                  'baseline_logistic.py', 'run_eval.py', 'train.py',
-                 'build_bundles.py', 'preflight.py', 'verify.py']
+                 'build_bundles.py', 'preflight.py', 'verify.py',
+                 'run_5x3.py']
     src_hashes = {n: sha(HERE / n) for n in src_files}
 
     mf = read(PKG_MF)['files']

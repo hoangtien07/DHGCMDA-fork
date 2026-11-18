@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-"""CVtriplet-U1 REV2 post-sanity verification — independent re-checks.
+"""CVtriplet-U1 REV2 artifact verification (AMENDMENT B3).
 
-Re-verifies (without trusting the run): contract hashes unchanged,
-manifest PASS + 650 epochs, eval negatives Y==0 and disjoint from test,
-metric recompute from exported exist_scores is consistent, canary still
-holds, strata counts sum. Writes verification.json."""
+Independent re-checks that do NOT trust the run: contract hashes
+unchanged, manifest PASS + 650 epochs, eval negatives all Y==0 and
+disjoint from test, and every AUROC/AP/F1@0.5 in eval_full.json
+recomputed from eval_arrays.npz (indices/truth/scores) with a fresh
+sklearn call. Writes verification_full.json. Synthetic metric fixtures
+are unit-level only and are NOT counted here."""
 import hashlib
 import json
 import sys
@@ -26,13 +28,18 @@ read = lambda p: json.loads(Path(p).read_text(encoding='utf-8-sig'))
 
 
 def write(p, x):
-    with p.open('x', encoding='utf-8') as f:
+    with Path(p).open('x', encoding='utf-8') as f:
         json.dump(x, f, indent=2)
         f.write('\n')
 
 
-def main(key='fold0_seed1234'):
+def close(a, b, tol=1e-9):
+    return abs(float(a) - float(b)) <= tol
+
+
+def main(key):
     checks = []
+
     def ok(name, cond, detail=''):
         checks.append({'name': name, 'pass': bool(cond),
                        'detail': str(detail)})
@@ -41,6 +48,7 @@ def main(key='fold0_seed1234'):
 
     pf = read(HERE / 'preflight.json')
     e = next(x for x in pf['entries'] if x['key'] == key)
+    fold = e['fold']
     run = HERE / 'runs' / key
     comp = read(run / 'completion.json')
     ok('completion PASS', comp['status'] == 'PASS')
@@ -52,42 +60,71 @@ def main(key='fold0_seed1234'):
     ok('exist lam pinned', man['exist_supervision']['lam_exist'] == 0.3)
     ok('trajectory finite', all(
         np.isfinite(r['train_loss']) for r in man['trajectory']))
-    ev = read(run / 'eval.json')
+    ev = read(run / 'eval_full.json')
     ok('eval PASS', ev['status'] == 'PASS')
+    arr = np.load(run / 'eval_arrays.npz')
+    ok('arrays hash present', len(arr.files) >= 35, len(arr.files))
+
     mf = read(PKG / 'package_manifest.json')['files']
     strict_sha = mf[
         'inputs/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz']
     ok('strict pin', sha(STRICT) == strict_sha)
     z = np.load(STRICT, allow_pickle=True)
     Y = np.asarray(z['Y']).astype(bool)
-    seg = S.fold_segments(Y, e['fold'])
+    seg = S.fold_segments(Y, fold)
     test_set = S.triplet_set(seg['test'])
-    for row in ev['task_T']['rows']:
-        pass
-    # re-derive eval negatives + assert properties
+    mask = S.pair_mask(*Y.shape[:2],
+                       S.pairs_of(seg['inner_train']))
     unk = S.unknown_universe(Y)
-    mask = S.pair_mask(*Y.shape[:2], S.pairs_of(seg['inner_train']))
-    for seed in S.EVAL_SEEDS:
-        neg = S.eval_unknown_sample(unk, len(seg['test']), seed)
-        ok(f'neg s{seed} all Y==0',
-           not Y[neg[:, 0], neg[:, 1], neg[:, 2]].any())
-        ok(f'neg s{seed} disjoint test',
-           not S.triplet_set(neg) & test_set)
-        ok(f'neg s{seed} count', len(neg) == len(seg['test']))
-    # strata sum check on a re-derived replicate
-    neg0 = S.eval_unknown_sample(unk, len(seg['test']), 0)
-    codes = S.unknown_strata(neg0, mask, Y)
-    ok('strata sum', int((codes == 0).sum() + (codes == 1).sum()
-                         + (codes == 2).sum()) == len(neg0))
-    # metric recompute: recompute AUROC on eval.json seed0 from the
-    # exported scores is not possible (scores not exported) — instead
-    # re-verify sklearn recomputation on synthetic pinned sample
-    y = np.r_[np.ones(5, int), np.zeros(5, int)]
-    s = np.linspace(0.9, 0.1, 10)
-    m = binary_metrics(y, s)
-    ok('metric lib sane', m['auroc'] == 1.0)
-    # canary re-check
-    bdir = HERE / 'bundles' / f"fold{e['fold']}"
+
+    # --- artifact-level metric recompute: Task T ---
+    for rep_i, row in enumerate(ev['task_T']['rows']):
+        idx = arr[f'T_rep{rep_i}_idx']
+        y = arr[f'T_rep{rep_i}_y']
+        ok(f'T rep{rep_i} idx==pos+test-neg',
+           len(idx) == len(y) and y.sum() == len(seg['test']))
+        negs = idx[y == 0]
+        poss = idx[y == 1]
+        ok(f'T rep{rep_i} negs all Y==0',
+           not Y[negs[:, 0], negs[:, 1], negs[:, 2]].any())
+        ok(f'T rep{rep_i} negs disjoint test',
+           not S.triplet_set(negs) & test_set)
+        ok(f'T rep{rep_i} poss == test set',
+           S.triplet_set(poss) == test_set)
+        m = binary_metrics(y, arr[f'T_rep{rep_i}_s_u1x'])
+        ok(f'T rep{rep_i} auroc recompute',
+           close(m['auroc'], row['auroc']), (m['auroc'], row['auroc']))
+        ok(f'T rep{rep_i} ap recompute',
+           close(m['average_precision'], row['average_precision']))
+        ok(f'T rep{rep_i} f1 recompute',
+           close(m['f1_at_0_5'], row['f1_at_0_5']))
+        codes = arr[f'T_rep{rep_i}_neg_codes'][y == 0]
+        ok(f'T rep{rep_i} strata sum',
+           int((codes == 0).sum() + (codes == 1).sum()
+               + (codes == 2).sum()) == len(negs))
+        for pool in ('mask_zero_pairs', 'all_unknown'):
+            bl_row = ev['baseline_logistic'][pool]['rows'][rep_i]
+            m_b = binary_metrics(
+                y, arr[f'T_rep{rep_i}_s_bl_{pool}'])
+            ok(f'T rep{rep_i} bl[{pool}] auroc recompute',
+               close(m_b['auroc'], bl_row['auroc']))
+    # --- Task P ---
+    pz_set = set(map(tuple, np.argwhere(~Y.any(axis=2)).tolist()))
+    for rep_i, row in enumerate(ev['task_P']['rows']):
+        idx = arr[f'P_rep{rep_i}_idx']
+        y = arr[f'P_rep{rep_i}_y']
+        negs = idx[y == 0]
+        poss = idx[y == 1]
+        ok(f'P rep{rep_i} negs pair-zero',
+           all(tuple(t) in pz_set for t in negs.tolist()))
+        ok(f'P rep{rep_i} poss unseen-pair',
+           all(Y[i, j].any() and not mask[i, j]
+               for i, j in poss.tolist()))
+        m = binary_metrics(y, arr[f'P_rep{rep_i}_s_u1x'])
+        ok(f'P rep{rep_i} auroc recompute',
+           close(m['auroc'], row['auroc']))
+    # --- canary on the real bundle ---
+    bdir = HERE / 'bundles' / f'fold{fold}'
     dd = np.load(bdir / 'candidate_fold_data.npz')
     tp, ytr = dd['train_pairs'], dd['y_train']
     row_of = {(i, j): r for r, (i, j) in enumerate(tp.tolist())}
@@ -95,11 +132,22 @@ def main(key='fold0_seed1234'):
     leaked = sum(1 for (i, j, k) in held.tolist()
                  if (i, j) in row_of and ytr[row_of[(i, j)], k])
     ok('canary train', leaked == 0, str(leaked))
-    report = {'status': 'PASS', 'checks': checks,
-              'key': key}
-    write(run / 'verification.json', report)
-    print('VERIFY PASS', len(checks), 'checks')
+    vp, yv = dd['val_pairs'], dd['y_val']
+    vrow = {(i, j): r for r, (i, j) in enumerate(vp.tolist())}
+    leaked_v = sum(1 for (i, j, k) in
+                   np.concatenate([seg['inner_train'],
+                                   seg['test']]).tolist()
+                   if (i, j) in vrow and yv[vrow[(i, j)], k])
+    ok('canary val', leaked_v == 0, str(leaked_v))
+
+    report = {'status': 'PASS', 'checks': checks, 'key': key,
+              'n_checks': len(checks)}
+    write(run / 'verification_full.json', report)
+    print('VERIFY PASS', len(checks), 'checks', key)
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--key', default='fold0_seed1234')
+    main(ap.parse_args().key)

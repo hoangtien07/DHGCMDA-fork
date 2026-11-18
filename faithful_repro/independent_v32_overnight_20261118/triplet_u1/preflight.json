@@ -9,12 +9,13 @@
   "losses_u1x.py": "ed5e9208521b28f6e2efaff9d633f87b269df8e6b15dacb11b6c18920b88d2d1",
   "train_u1x.py": "e63745a74dc9f70e39ad28326a696ebc64f975736bd89408d762f7114937932f",
   "eval_cvtriplet.py": "62106d7b9f58cb708096518ffecfd25e831126ad59c2fa7e8ac078dbecebe7f6",
-  "baseline_logistic.py": "3ca7da71160ef1b2c64d52cb84fd1bc54a554ae837fcf881b1c557fae9b0fc8a",
-  "run_eval.py": "1af0d82e27af8872fa910fac78184f0e687ac748bb2f83b6b2fd14b65bbd6b72",
-  "train.py": "7917dac933590619c3c66f7389b26bde3002315337de6feea5a111a30bfd650c",
+  "baseline_logistic.py": "392304a7cb5730a0de87a59104ffc0d5ffcd35b00411bbb6b588485fcf8ae0a7",
+  "run_eval.py": "1604686c3b49c90bab5c242bcb765986f695ea8134f187b97f992e47caf4e8c8",
+  "train.py": "c83bf5ca4a981d9968f9516248b0fdcb13baeb8b3f34b39a2e1cb81ceac8145c",
   "build_bundles.py": "0945178ea63234e5a486fd32e72b58ddc70c462596517f3fc69d3ff20d60627f",
-  "preflight.py": "c749b9f6f04e6c3f15023740d174f194648d7ef96f868203792272fc4dff83e7",
-  "verify.py": "7ee52b6f078db99b1baa48dda921fe9dc64abb6db57d03c89a501bb1a37628ac"
+  "preflight.py": "affaa93c3a4309d7b48f578d512b58e1c41230c72791716f16885a44ac091d44",
+  "verify.py": "0293e7bb7da2bb9c72e075cef1e24a72d270a23d8254d3022b23e8b1e84eb55e",
+  "run_5x3.py": "364fd4a97a062094c05dee4996cdb5d283c160b1468674a8f176206b672be86e"
  },
  "fixtures": {
   "fixture_split_disjoint": "PASS",
@@ -270,5 +271,5 @@
    "expected_sha256": "83426b59b406f3101657ba26451c5b4d6113d03375d613e45c3c0c6baa46b487"
   }
  ],
- "preflight_script_sha256": "c749b9f6f04e6c3f15023740d174f194648d7ef96f868203792272fc4dff83e7"
+ "preflight_script_sha256": "affaa93c3a4309d7b48f578d512b58e1c41230c72791716f16885a44ac091d44"
 }
