@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/train.py", line 122, in main
+    ev = run_eval.run_eval(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/run_eval.py", line 150, in run_eval
+    bl = BL.run(Y, fold,
+         ^^^^^^^^^^^^^^^
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/baseline_logistic.py", line 81, in run
+    for seed, (pos, neg) in eval_replicates:
+              ^^^^^^^^^^
+ValueError: too many values to unpack (expected 2)

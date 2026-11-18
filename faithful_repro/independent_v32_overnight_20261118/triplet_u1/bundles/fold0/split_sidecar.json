@@ -1,0 +1,32 @@
+{
+ "fold": 0,
+ "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+ "n_test_triplets": 2350,
+ "n_inner_train_triplets": 8458,
+ "n_inner_val_triplets": 940,
+ "n_train_pairs": 6754,
+ "n_val_pairs": 599,
+ "straddle_innerval_dropped": 327,
+ "test_pos_pair_seen": 854,
+ "test_pos_pair_unseen": 1496,
+ "n_mask_zero_pairs": 104627,
+ "inner_val_kept_triplets": 613,
+ "hashes": {
+  "view_mi_v1": "fb1c3156bd4ecce42f9501e34cf807b939c39adaa4c5df8126ccfae0f07a4e58",
+  "view_mi_v2": "4a67936785389e51447f3c7573997484daa0cda85a4a3ebf9b6fcce5af572b72",
+  "view_dis_v1": "9bf7032b6f4d2492c333fe262c7cdf98a058cbe464e82bd287085bdce1b6b0b9",
+  "view_dis_v2": "38f74badb698d0394f19b2523b14bb909d39230b7343442621fca261d2d445a4",
+  "train_mask": "4ebbe4ee8c2ae9425641c3e9093ca2cbfdb78e727380913caadeb3edad069893",
+  "train_pairs": "2a09da03de4b2f10c51846e7f76fc84781557bd98f20e8314c5c8f69a1d42aa3",
+  "y_train": "00c58e69331c721ccaca69f6b1aae90f89ac40b17b54ac4d753df77ff6ca85ac",
+  "val_pairs": "8e84b68a226009218b54d925066994adee90925aeb121936ed3e2767c8ce3770",
+  "y_val": "7fa9970c800bcb90d4261b1e1db4d673c4d912f1b329adba7aa2e24ec0e9c12d"
+ },
+ "split_hashes": {
+  "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+  "test_sha": "9afe9c4d061673fb0ef24d55c375477f10c46c2b795f27ce530cea843e37c858",
+  "inner_train_sha": "644b8f9f4e343ff0de895b1a7da78843394a79e14d0a83f7179467e550cbedab",
+  "inner_val_sha": "76cb33782eda8f0dca20896f5c636eee6238716dcd272af8b7ec641ce756b76a"
+ },
+ "inner_val_kept_sha256": "a6dee3ff8b201a55d65b5d1fb34e4a1f869402a250ff33e4b3e554b909d6d8f8"
+}

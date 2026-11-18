@@ -1,0 +1,46 @@
+{
+ "descriptor_alias": {
+  "n_dis": 271,
+  "n_uncovered_rows": 9,
+  "uncovered_rows": [
+   {
+    "row": 62,
+    "name": "Stroke, Ischemic"
+   },
+   {
+    "row": 82,
+    "name": "Squamous Cell Carcinoma, Head and Neck"
+   },
+   {
+    "row": 93,
+    "name": "Carcinoma, Nasopharyngeal"
+   },
+   {
+    "row": 96,
+    "name": "Adenocarcinoma, Lung"
+   },
+   {
+    "row": 166,
+    "name": "Migraine"
+   },
+   {
+    "row": 177,
+    "name": "Adenocarcinoma, Colon"
+   },
+   {
+    "row": 218,
+    "name": "Neurofibromatosis type 2"
+   },
+   {
+    "row": 236,
+    "name": "Visceral Leishmaniasis"
+   },
+   {
+    "row": 247,
+    "name": "Cerebral Cavernous Malformations"
+   }
+  ],
+  "generated_by": "triplet_u1 build (semantic.py pinned)",
+  "provenance_note": "descriptor-alias only"
+ }
+}

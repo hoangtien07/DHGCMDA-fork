@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "completion PASS",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest sha stable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "final_epoch 650",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "not aborted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exist lam pinned",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "trajectory finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "eval PASS",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "strict pin",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s0 all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s0 disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s0 count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s1 all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s1 disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s1 count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s2 all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s2 disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s2 count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s3 all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s3 disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s3 count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s4 all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s4 disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "neg s4 count",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "metric lib sane",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "canary train",
+      "pass": true,
+      "detail": "0"
+    }
+  ],
+  "key": "fold0_seed1234"
+}

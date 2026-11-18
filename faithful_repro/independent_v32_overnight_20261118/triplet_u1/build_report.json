@@ -1,0 +1,199 @@
+{
+ "status": "PASS",
+ "pins": {
+  "strict": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "semantic": "fb2a274fe2f891293c07ab61e39b9533620c4148b6c329c904a08a635ea523d1",
+  "functional": "9daea1a12c85a8a6eaf7e9a12f062c364de0e856d48f06316d9642753eb7ecea",
+  "contracts": "99565c47c4c3f2cde31b7b1015ccd38ca4b20f496735ae49c95017e8551bce19",
+  "mesh_xlsx": "6e2a977e4e052e2a85d8df73972363722867a020021e71f2b8b6f81d68d89498",
+  "meshtoid": "ab34496224a1a88fc26623a9e0b89df0024f3823dcdb5ec6db677c5e59b43182",
+  "mtrees": "e91914166058e0440a697930a04148482f39672f70ec6046ccbec8a8c7785c09"
+ },
+ "entries": [
+  {
+   "fold": 0,
+   "dir": "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/bundles/fold0",
+   "bundle_sha256": "0c3452c8f430fda06063ffd1beab7d6715e341abd8c80f97a43e3161e37e3044",
+   "sidecar": {
+    "fold": 0,
+    "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+    "n_test_triplets": 2350,
+    "n_inner_train_triplets": 8458,
+    "n_inner_val_triplets": 940,
+    "n_train_pairs": 6754,
+    "n_val_pairs": 599,
+    "straddle_innerval_dropped": 327,
+    "test_pos_pair_seen": 854,
+    "test_pos_pair_unseen": 1496,
+    "n_mask_zero_pairs": 104627,
+    "inner_val_kept_triplets": 613,
+    "hashes": {
+     "view_mi_v1": "fb1c3156bd4ecce42f9501e34cf807b939c39adaa4c5df8126ccfae0f07a4e58",
+     "view_mi_v2": "4a67936785389e51447f3c7573997484daa0cda85a4a3ebf9b6fcce5af572b72",
+     "view_dis_v1": "9bf7032b6f4d2492c333fe262c7cdf98a058cbe464e82bd287085bdce1b6b0b9",
+     "view_dis_v2": "38f74badb698d0394f19b2523b14bb909d39230b7343442621fca261d2d445a4",
+     "train_mask": "4ebbe4ee8c2ae9425641c3e9093ca2cbfdb78e727380913caadeb3edad069893",
+     "train_pairs": "2a09da03de4b2f10c51846e7f76fc84781557bd98f20e8314c5c8f69a1d42aa3",
+     "y_train": "00c58e69331c721ccaca69f6b1aae90f89ac40b17b54ac4d753df77ff6ca85ac",
+     "val_pairs": "8e84b68a226009218b54d925066994adee90925aeb121936ed3e2767c8ce3770",
+     "y_val": "7fa9970c800bcb90d4261b1e1db4d673c4d912f1b329adba7aa2e24ec0e9c12d"
+    },
+    "split_hashes": {
+     "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+     "test_sha": "9afe9c4d061673fb0ef24d55c375477f10c46c2b795f27ce530cea843e37c858",
+     "inner_train_sha": "644b8f9f4e343ff0de895b1a7da78843394a79e14d0a83f7179467e550cbedab",
+     "inner_val_sha": "76cb33782eda8f0dca20896f5c636eee6238716dcd272af8b7ec641ce756b76a"
+    },
+    "inner_val_kept_sha256": "a6dee3ff8b201a55d65b5d1fb34e4a1f869402a250ff33e4b3e554b909d6d8f8"
+   }
+  },
+  {
+   "fold": 1,
+   "dir": "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/bundles/fold1",
+   "bundle_sha256": "3c9d3156c0e19af5464179ad0074dbad76aa887b65e991e4a653157844007782",
+   "sidecar": {
+    "fold": 1,
+    "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+    "n_test_triplets": 2350,
+    "n_inner_train_triplets": 8458,
+    "n_inner_val_triplets": 940,
+    "n_train_pairs": 6758,
+    "n_val_pairs": 609,
+    "straddle_innerval_dropped": 313,
+    "test_pos_pair_seen": 857,
+    "test_pos_pair_unseen": 1493,
+    "n_mask_zero_pairs": 104623,
+    "inner_val_kept_triplets": 627,
+    "hashes": {
+     "view_mi_v1": "9234c94b4f2e32f91483d5ca64cc1698b409bf0e2d60bffdc028c4417d4e9dda",
+     "view_mi_v2": "75e3b9e89b34dc02ef076d2baf122084ba3eac7bf03370dc6c0c680e58f780ac",
+     "view_dis_v1": "c51e223c24fd4432501d213878fd0109453bf69027b66c6d92acf228ad0fc54d",
+     "view_dis_v2": "2f1d1a22c8435f9d7ed1ff57c3aaa4dc2a88025e510a27ea764a9c38f5635190",
+     "train_mask": "498cbc7bdbdeb6e330430b2b3ae020768dd6c6f2d21d7e89a968bcc62d0a93d5",
+     "train_pairs": "cf9fbb80cedacb5adcf12d5cb3ba63fc80b060ee6bb84fb812ecf3ecdfab4d8c",
+     "y_train": "7551a142e21064cfddc7f2d691b49ca451d4c0552434956724a1d7d00fa262b2",
+     "val_pairs": "ed9aeb33dfa9dadf909b3f33c838ea1374c32dc6d32062975af0195cd6220414",
+     "y_val": "7403d8d6324b7d8ff6d52bf68e49ff4192e5e28fe4e1f75513c8d754f69eec6f"
+    },
+    "split_hashes": {
+     "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+     "test_sha": "198a28fbfcb9ce48c1cdf191612fba84bea8e8c5dc9cfda067886878c5280292",
+     "inner_train_sha": "89ff32fd53009d67706f9f129229178a6a7959ca888f9729c58c2fda3542519d",
+     "inner_val_sha": "4164147d9fdb265407670350725b7671d55768dace50e2b264bdbd823424c37e"
+    },
+    "inner_val_kept_sha256": "5873f18041bd19724f5b354efe60bc971272445b61f19771750e2f7d6a714f55"
+   }
+  },
+  {
+   "fold": 2,
+   "dir": "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/bundles/fold2",
+   "bundle_sha256": "00508402fbfe1485a1ab650712431b0d0893fdc95c4ca045399296ba62d888ff",
+   "sidecar": {
+    "fold": 2,
+    "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+    "n_test_triplets": 2350,
+    "n_inner_train_triplets": 8458,
+    "n_inner_val_triplets": 940,
+    "n_train_pairs": 6771,
+    "n_val_pairs": 569,
+    "straddle_innerval_dropped": 363,
+    "test_pos_pair_seen": 828,
+    "test_pos_pair_unseen": 1522,
+    "n_mask_zero_pairs": 104610,
+    "inner_val_kept_triplets": 577,
+    "hashes": {
+     "view_mi_v1": "40b664411cb5594dc28fbe40484af59e0adfff5e98f593e696928a7d76bd7e39",
+     "view_mi_v2": "be58288a9116175168e4a838b76f91afce1d15e5c1794a50f1943ed101fc5e0c",
+     "view_dis_v1": "4fe61f43cbe355e012b9d20fdf313428a60d88873ab48d9566eb9818dc04ee0e",
+     "view_dis_v2": "bb2ce40a0ec5f6a469ecad81b012cf880e3cb8cd0db939672a905bb68b15082b",
+     "train_mask": "1d362dfa1e6560b7cffd8b4eb6027da4d825cfde642fdc396cff0e2402c04e46",
+     "train_pairs": "d840fd0f04066fbee0cb3454acce065dca4aff86b05e79b932575807ec287e37",
+     "y_train": "d27d605add3ca918a9a5ef8b5d1570ac9e77438501a0780a7cfbd80e9b1958a1",
+     "val_pairs": "119ec01667ba2267f46d9a5ff8ba23a089a10e6846c3ae5d74136b36dfa8f15f",
+     "y_val": "37e757e88d53091c225be81d92072978acc5a8fabd4a66be29d3d01c8ee6fb9e"
+    },
+    "split_hashes": {
+     "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+     "test_sha": "178b386eea23b8d814be060a1099fe892b5ed4ecb56225e2caa0baffa9125c33",
+     "inner_train_sha": "9cf8b0f7efa7c9affea6c15fb43f7f28513fb2446ed2588c28917c8b9c050ba7",
+     "inner_val_sha": "0e54c7c9fa6d89025810c6008d932455b57fad1b81d74c18d6e10a019a1a9f6f"
+    },
+    "inner_val_kept_sha256": "297a9e8b8d9b4339d94f6241fdbc3a4ce37fbed6ad6924dd7ded66b5f9624436"
+   }
+  },
+  {
+   "fold": 3,
+   "dir": "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/bundles/fold3",
+   "bundle_sha256": "b1b1cdf5e4d956ef817d0898b8534bea0b567fd75d0e699c6cce9da1330988ef",
+   "sidecar": {
+    "fold": 3,
+    "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+    "n_test_triplets": 2349,
+    "n_inner_train_triplets": 8459,
+    "n_inner_val_triplets": 940,
+    "n_train_pairs": 6738,
+    "n_val_pairs": 591,
+    "straddle_innerval_dropped": 345,
+    "test_pos_pair_seen": 803,
+    "test_pos_pair_unseen": 1546,
+    "n_mask_zero_pairs": 104643,
+    "inner_val_kept_triplets": 595,
+    "hashes": {
+     "view_mi_v1": "608ac29657cbb52b459d90213363e7f642d58fcc0815eaa434fa471ab1aa61ee",
+     "view_mi_v2": "bc389d487215e4e2c4b4bd63a97ae9f42d1cebfd90c0cc439b38cc0cf9929596",
+     "view_dis_v1": "8611603db9859ddb9b37c139538125a30fd72a3499e09c523b39b9ef869c9038",
+     "view_dis_v2": "37b978d301d27411539cdf7ce1d086107f9a878193b5e779f644e4aa93f575a4",
+     "train_mask": "b9d57e448db6878f65a24a00789f3cc6f30bc2dbdfd404f2c82070722cc6711e",
+     "train_pairs": "714da8dcc77c02b06a414a215b7689ec61364b436e6bfb0f0fe38e6ecebf6964",
+     "y_train": "6613c56da0d676d10e5aea1524a10e17cfcf98e62623f3f5aa94828eeda9da2a",
+     "val_pairs": "4455e21f3daa8ab29e15e5942bb82f879897d4008deca7f13515eeaf82064c05",
+     "y_val": "e55cae41d79e266586d2de8add6c36418b113bd4c27399fc7116aafb1a7d3e10"
+    },
+    "split_hashes": {
+     "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+     "test_sha": "5a079636a5ef4b864598e7ee4159be65a8245f1bc687b93040d3f497c7e92207",
+     "inner_train_sha": "6c0a44a07dcbc6df2112f175d8231052697f9cc479eab5ef6e303f1c54542cdc",
+     "inner_val_sha": "aedb9c26f7a516e19857b0dc34d071dd4326d5b64b2388a73769eaa8fa2a2752"
+    },
+    "inner_val_kept_sha256": "904c2089dd8eb0e47a6aa1e90ca2a68c2393aaed25109df520f65233f4d5bb6c"
+   }
+  },
+  {
+   "fold": 4,
+   "dir": "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/bundles/fold4",
+   "bundle_sha256": "f5b84f575b1c6dc6a2b256081334f3b0349ed2296129a14b15b33b18ac5f8f40",
+   "sidecar": {
+    "fold": 4,
+    "protocol": "triplet-level, rng(0) permutation, array_split 5 \u2014 same partition as triplet_baseline.py",
+    "n_test_triplets": 2349,
+    "n_inner_train_triplets": 8459,
+    "n_inner_val_triplets": 940,
+    "n_train_pairs": 6727,
+    "n_val_pairs": 617,
+    "straddle_innerval_dropped": 311,
+    "test_pos_pair_seen": 837,
+    "test_pos_pair_unseen": 1512,
+    "n_mask_zero_pairs": 104654,
+    "inner_val_kept_triplets": 629,
+    "hashes": {
+     "view_mi_v1": "7dd88d52f70582f0b757715b1c4067c4de1514c0811ee77938df83ce0f9a1bf0",
+     "view_mi_v2": "b75750f8f710177df7e45ad48f6c8d169965f39a51e171b7c74fb267c6fddee4",
+     "view_dis_v1": "9392808a4ba39b2738a9a15dc3fd4de75e67d46205dc276ef475cf89bf6d5782",
+     "view_dis_v2": "ec4fac7e05d954203b389e51c9178e3b22f391622deae480182ebe5b331653a6",
+     "train_mask": "3eb1fb0a432c44588d6dcca4f434019d1de43c10d291202c515f1cefa9e9c0d5",
+     "train_pairs": "9a73d67a704e9b69c2f890b596e162aec7225ff4acb38b251ef416c8d419b2dc",
+     "y_train": "6af8d48975260144a281400b49d5e47fa3388335a069d24cb0c137c29f114418",
+     "val_pairs": "452a5a83538db809d0283e1fd2c60c430dc9af95236b25f20d6a914c05ff4154",
+     "y_val": "262a2d47fc14a9f286c7bf0cd961962d74b4e2556813dd007270f9a43186091a"
+    },
+    "split_hashes": {
+     "partition_sha": "b95a575c4de42dc29be309be62f500c55f81003cc929a928570784fc62c691b1",
+     "test_sha": "23e9a850df49f8b402ba785b016b558b43d90e93f3a33c26f6dce9fbe1507844",
+     "inner_train_sha": "b3039bc3bb00404cee8cbe2bc88c743f1eca0d01035f42f87f20f3a2ba78f92c",
+     "inner_val_sha": "3779183e6e4754c94858f97e11100d604d3a24ff54a5fe5c25efac425b236b34"
+    },
+    "inner_val_kept_sha256": "d31cda49cf88cb2d516a18b8a821b6669015a44a7206ce8607b4e52d53fd38c8"
+   }
+  }
+ ]
+}
