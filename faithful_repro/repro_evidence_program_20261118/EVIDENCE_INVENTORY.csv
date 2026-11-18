@@ -1,0 +1,21 @@
+id,path,scope,eval_unit,split,exposure,metric,folds_x_seeds,raw_scores,rescoreable,notes
+E01,faithful_repro/independent_v20_release_20261116,author-code v2.0 rerun,pair(1498 scalar labels),author prepareData split 5-fold,LEAKED (full assoc matrix in features before split),AUTHOR_RELEASE_TOP1_HARMONIC k4,5x1,runs/full/fold_*.npz UNAVAILABLE_LOCAL (sha in evidence_manifest.json; rebuild: run_release.py),NO (summary json only),Top-1 F1 0.5568 vs paper 0.5970; oracle feature reads test labels F1=1.0
+E02,faithful_repro/independent_v20_fold_gip_20261116,v2.0 control masked assoc+train-GIP,pair,same author folds,partial fix,author Top-1 + multilabel,5x1,runs npz status unverified-local,NO,0.5153 (-0.0414)
+E03,faithful_repro/independent_v20_trainweights_20261116,v2.0 train-only class weights,pair,same,partial fix,author Top-1,5x1,as above,NO,0.5117
+E04,faithful_repro/independent_v20_trainfunc_20261117,v2.0 train-only functional sim,pair,same,partial fix,author Top-1,5x1,as above,NO,0.5060
+E05,faithful_repro/independent_v20_masked_20261116,aborted masked run fold1 ep100,-,-,-,-,-,-,-,history only; not evidence
+E06,faithful_repro/independent_v32_5fold3seed_20261117,U1 v3.2 inner-validation,pair,group folds inner-val only,dev-exposed,PER_CLASS_MACRO_F1 argmax-vs-multihot,5x3,predictions_val.npz present per run,YES,val-only best macro ~0.42-0.47
+E07,faithful_repro/independent_v32_seed_stability_20261117,seed sensitivity fold0,pair,inner-val,dev-exposed,same,1x3,present,YES,subset of E06 evidence
+E08,faithful_repro/independent_v32_outer_refit_20261117,U1 v3.2 OUTER-test dyn/static + priors,pair (unique positives),5 group folds pair-disjoint; train-only rebuilt features,dev-exposed (fold0 test seen earlier; pairs recur across folds),macro/micro/any-hit vs multi-hot,5x3 x2 arms,evaluation/*.npz pairs+y+logits + priors/foldN_counts.npz + prior.py,YES (primary rescore target),macro dyn 0.4045 static 0.4403; fixed-650 no ckpt select
+E09,faithful_repro/independent_v32_overnight_20261118/bank1,cap10 inner-val U1 (Windows partial),pair,inner-val,dev-exposed,macro-F1,partial 6/15,manifests; stopped by user,-,superseded by E10 results
+E10,faithful_repro/independent_v32_overnight_20261118/bank1_linux,cap1 inner-val U1 5x3,pair,inner-val,dev-exposed,macro/micro/any-hit,5x3,predictions_val.npz+train npz per run,YES,cap1 negative vs cap10
+E11,faithful_repro/independent_v32_overnight_20261118/triplet_u1,CVtriplet-U1X 5x3 REV2+amendments,triplet,triplet-fold pinned rng(0)+rng(2000+f),dev-exposed,AUROC/AP/F1@0.5 + strata + 2 logistic pools,5x3,eval_arrays.npz per run (idx/y/scores),YES,negative result 0.8548 vs 0.9191 matched
+E12,results/j1_full_bilinear_results.json + j1_v2_full_bilinear.json,v2.0 full-vs-diag bilinear,pair,fork folds,leaked inputs,author Top-1,5x1,summary json,NO (report only),full 0.6350 > paper 0.5970 > diag 0.5996
+E13,results/v32_wang_correct_*.json + v32_dense_fullbilinear.json,v3.2 on wang tensor + corrected metric + density control,pair,fork folds,leaked inputs,corrected general-K Top-1,5x1,summary json,NO,0.2682/0.3301/0.3620/dense 0.3336
+E14,independent_v32_*diagnostic namespaces (spike/refresh/decoder/hypergraph/incidence/cosine/graph_cf/trace/metric_baseline),mechanism diagnostics,-,-,-,-,-,traces+manifests,n/a,exploratory; no headline metric
+E15,faithful_repro/independent_reproduction_audit_20261116,early audit,-,-,-,-,-,docs,n/a,superseded by later registers
+E16,faithful_repro/independent_v32_overnight_20261118/colab_package_f0_selection_20261115,strict v3.2 tensor + fold bundles (candidate/triplet),-,-,-,-,npz present locally UNCOMMITTED large (sha in build_report/package_manifest),n/a,dataset inputs for E06/E08/E10/E11
+E17,paper PDF + pinned upstream main@06f9ba3,author source,-,-,-,-,-,pinned_release/ code copies,n/a,4-type metric + model only; no v3.2 data/folds
+E18,faithful_repro/independent_v32_overnight_20261118/EXTERNAL_LINEAGE.md + SPLD MDAv3.2-3 docs,external lineage,-,-,-,-,-,docs,n/a,candidate source of 411x271x5 stats
+E19,faithful_repro/independent_v32_overnight_20261118/bank1_linux/results.json + triplet_u1/supervisor_status.json,queue statuses,-,-,-,-,-,json,n/a,15/15 PASS both
+E20,faithful_repro/independent_v32_metric_baseline_20261117,val-only priors vs U1,pair,inner-val,dev-exposed,macro/micro/any-hit,2 folds,json,partial,macro U1>prior; micro/any-hit U1<prior

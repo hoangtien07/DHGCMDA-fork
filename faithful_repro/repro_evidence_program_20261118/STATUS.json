@@ -1,0 +1,38 @@
+{
+  "program": "DHGCMDA_ONE_SHOT_REPRO_EVIDENCE_PROGRAM_20261118",
+  "base_commit": "a6cf4e94cb784a979919a9c566cb2442daa93dc2",
+  "work_branch": "devin/20261118-repro-evidence-program",
+  "tree_id_at_start": "13c85b15bbb704be65c2c2c2752eb637aa05d7ac",
+  "updated_utc": "2026-11-18T17:05:00Z",
+  "gates": {
+    "A": "IN_PROGRESS",
+    "B": "PENDING",
+    "C": "PENDING",
+    "E": "PENDING"
+  },
+  "work_packages": {
+    "WP0": {"status": "IN_PROGRESS", "deliverables": ["00_README.md", "EVIDENCE_INVENTORY.csv", "DUPLICATION_MATRIX.md", "STATUS.json", "DECISION_LOG.md"]},
+    "WP1": {"status": "PENDING"},
+    "WP2": {"status": "PENDING"},
+    "WP3": {"status": "PENDING"},
+    "WP4": {"status": "PENDING"},
+    "WP5": {"status": "PENDING"},
+    "WP6": {"status": "PENDING"},
+    "WP7": {"status": "PENDING"},
+    "WP8": {"status": "PENDING"}
+  },
+  "key_evidence": {
+    "outer_refit_rescore_target": "faithful_repro/independent_v32_outer_refit_20261117/evaluation/*.npz (30 files: pairs/y/logits)",
+    "priors": "faithful_repro/independent_v32_outer_refit_20261117/priors/fold{0..4}_counts.npz + prior.py",
+    "author_metric_source": "faithful_repro/independent_v20_release_20261116/pinned_release/Calculate_Metrics.py L290-378",
+    "internal_metric_source": "faithful_repro/paper_guided/u1_horizon650_fold0_rev1/source/metrics.py",
+    "fold_bundles": "faithful_repro/independent_v32_fold_build_20261117/bundles/fold{0..4}_selection/candidate_fold_data.npz",
+    "strict_tensor": "faithful_repro/independent_v32_overnight_20261118/colab_package_f0_selection_20261115/inputs/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz (allow_pickle=True)"
+  },
+  "unavailable_local": [
+    "independent_v20_release_20261116/runs/full/fold_*.npz (sha in evidence_manifest.json; rebuild via run_release.py)"
+  ],
+  "blockers": [],
+  "next_permissible_actions": ["WP1 metric/split contracts", "WP2/WP3 audits", "WP4 rescore of E08"],
+  "training": "NOT_AUTHORIZED (Gate E pending)"
+}
