@@ -1,0 +1,32 @@
+{
+ "program": "DHGCMDA_ONE_SHOT_REPRO_EVIDENCE_PROGRAM_20261118",
+ "branch": "devin/20261118-repro-evidence-program",
+ "final_phrase": "REPRO_EVIDENCE_PROGRAM_COMPLETE",
+ "suites": {
+  "test_metric_contracts": {
+   "pass": true,
+   "last_line": "ALL 11 METRIC FIXTURES PASS"
+  },
+  "test_split_contracts": {
+   "pass": true,
+   "last_line": "ALL 3 SPLIT FIXTURES PASS"
+  },
+  "test_fidelity_microfixtures": {
+   "pass": true,
+   "last_line": "ALL 6 FIDELITY MICRO-FIXTURES PASS"
+  },
+  "rescore_verification": {
+   "status": "PASS",
+   "matched": 50,
+   "total": 50
+  }
+ },
+ "gates": {
+  "A": "PASS",
+  "B": "PASS",
+  "C": "PASS",
+  "E": "FAIL_E3 -> TRAINING_SKIPPED_WITH_REASON"
+ },
+ "verdict": "PARTIAL_REPRODUCTION_WITH_EXTERNAL_BLOCKERS",
+ "training_executed": false
+}

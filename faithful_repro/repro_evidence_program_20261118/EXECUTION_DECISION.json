@@ -1,0 +1,12 @@
+{
+ "question": "PROTOCOL_CVTYPE_REV3 (pair-disjoint CVtype on pinned strict tensor, U1 vs priors, no held-out pair in features)",
+ "decision": "ALREADY_ANSWERED",
+ "training": "TRAINING_SKIPPED_WITH_REASON",
+ "reason": "All elements resolvable from stored row-level artifacts (E08 outer refit: 30 eval npz + fold-count priors); rescore verified 50/50 vs reported.",
+ "answered_by": "WP4 rescore: U1 harmonic 0.4558-0.4924 vs best prior 0.448 (5 folds x seeds, paired)",
+ "would_require_training": [
+  "blind confirmatory fold family",
+  "unmeasured arms (minmax-variant, no_dynamic)"
+ ],
+ "source": "NEW_EXPERIMENT_NECESSITY.md, GATE_REPORT.json"
+}

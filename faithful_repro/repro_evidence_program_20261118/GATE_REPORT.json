@@ -1,0 +1,20 @@
+{
+ "status": "TRAINING_SKIPPED_WITH_REASON",
+ "gates": {
+  "E1_dataset_lock_verified": true,
+  "E2_split_contract_verified": true,
+  "E3_question_unanswered": false,
+  "E4_metrics_contracts_exist": true,
+  "E5_verification_scripts_exist": true,
+  "E6_duplication_checked": true
+ },
+ "evidence": {
+  "E1": "strict npz sha256 85bb9ea4 pinned; elementwise-identical to reference",
+  "E2": "test_split_contracts.py: pair/triplet non-equivalence + real disjointness PASS",
+  "E3": "NEW_EXPERIMENT_NECESSITY.md: REV3 ALREADY_ANSWERED by rescore of stored artifacts (30 eval npz + priors)",
+  "E4": "metric_contracts.py + METRIC_SEMANTICS.md; k4 release inadmissible on 5-type data",
+  "E5": "test_metric_contracts.py 11/11, test_split_contracts.py 3/3, test_fidelity_microfixtures.py 6/6, analysis_rescore.py 50/50",
+  "E6": "DUPLICATION_MATRIX.md; E08 covers REV3; v20 runs unavailable but irrelevant to pair-fold question"
+ },
+ "reason": "Gate E3 fails: the REV3 question is already answered by stored row-level artifacts. New training would be duplication or post-hoc metric hunting; blocked by program rule \"reuse existing results, avoid duplicated training\"."
+}
