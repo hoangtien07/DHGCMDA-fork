@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/train.py", line 204, in <module>
+    main()
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/train.py", line 178, in main
+    ev = run_eval.run_eval(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/run_eval.py", line 195, in run_eval
+    with open(out_path, 'x', encoding='utf-8') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: '/home/ubuntu/repos/DHGCMDA-fork/faithful_repro/independent_v32_overnight_20261118/triplet_u1/runs/fold0_seed1234/eval_full.json'

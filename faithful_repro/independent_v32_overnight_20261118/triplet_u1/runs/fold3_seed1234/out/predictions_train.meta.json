@@ -1,0 +1,9 @@
+{
+ "stage": "U1X",
+ "exports_from": "best",
+ "lam_exist": 0.3,
+ "best_epoch": 530,
+ "val_macro_f1": 0.43404328465160125,
+ "split": "train",
+ "npz_sha256": "e3ea12d31b3c318959a748a613a1a4128cc0185cdf4c5bd81c55537d9ec411dc"
+}

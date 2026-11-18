@@ -1,0 +1,650 @@
+epoch 1 loss 8.91107 exist_gap nan 
+epoch 2 loss 8.74877 exist_gap nan 
+epoch 3 loss 8.69505 exist_gap nan 
+epoch 4 loss 8.58274 exist_gap nan 
+epoch 5 loss 8.43444 exist_gap nan 
+epoch 6 loss 8.95822 exist_gap nan 
+epoch 7 loss 8.92197 exist_gap nan 
+epoch 8 loss 8.92227 exist_gap nan 
+epoch 9 loss 8.87982 exist_gap nan 
+epoch 10 loss 8.86458 exist_gap 0.1305 val_f1 0.1176
+epoch 11 loss 8.85323 exist_gap nan 
+epoch 12 loss 8.84087 exist_gap nan 
+epoch 13 loss 8.81749 exist_gap nan 
+epoch 14 loss 8.82332 exist_gap nan 
+epoch 15 loss 8.80614 exist_gap nan 
+epoch 16 loss 8.79130 exist_gap nan 
+epoch 17 loss 8.77412 exist_gap nan 
+epoch 18 loss 8.75473 exist_gap nan 
+epoch 19 loss 8.75050 exist_gap nan 
+epoch 20 loss 8.73141 exist_gap 0.1303 val_f1 0.1613
+epoch 21 loss 8.73372 exist_gap nan 
+epoch 22 loss 8.70853 exist_gap nan 
+epoch 23 loss 8.70688 exist_gap nan 
+epoch 24 loss 8.69667 exist_gap nan 
+epoch 25 loss 8.69557 exist_gap nan 
+epoch 26 loss 8.68476 exist_gap nan 
+epoch 27 loss 8.68320 exist_gap nan 
+epoch 28 loss 8.70182 exist_gap nan 
+epoch 29 loss 8.67871 exist_gap nan 
+epoch 30 loss 8.68062 exist_gap 0.1135 val_f1 0.1001
+epoch 31 loss 8.68905 exist_gap nan 
+epoch 32 loss 8.69195 exist_gap nan 
+epoch 33 loss 8.68218 exist_gap nan 
+epoch 34 loss 8.67596 exist_gap nan 
+epoch 35 loss 8.66524 exist_gap nan 
+epoch 36 loss 8.66766 exist_gap nan 
+epoch 37 loss 8.67233 exist_gap nan 
+epoch 38 loss 8.65693 exist_gap nan 
+epoch 39 loss 8.65715 exist_gap nan 
+epoch 40 loss 8.65171 exist_gap 0.0998 val_f1 0.1775
+epoch 41 loss 8.66492 exist_gap nan 
+epoch 42 loss 8.65542 exist_gap nan 
+epoch 43 loss 8.64244 exist_gap nan 
+epoch 44 loss 8.65159 exist_gap nan 
+epoch 45 loss 8.64539 exist_gap nan 
+epoch 46 loss 8.63923 exist_gap nan 
+epoch 47 loss 8.64917 exist_gap nan 
+epoch 48 loss 8.63772 exist_gap nan 
+epoch 49 loss 8.63432 exist_gap nan 
+epoch 50 loss 8.64783 exist_gap 0.1066 val_f1 0.1123
+epoch 51 loss 8.62998 exist_gap nan 
+epoch 52 loss 8.61940 exist_gap nan 
+epoch 53 loss 8.62979 exist_gap nan 
+epoch 54 loss 8.62283 exist_gap nan 
+epoch 55 loss 8.62542 exist_gap nan 
+epoch 56 loss 8.62283 exist_gap nan 
+epoch 57 loss 8.61919 exist_gap nan 
+epoch 58 loss 8.61731 exist_gap nan 
+epoch 59 loss 8.62318 exist_gap nan 
+epoch 60 loss 8.62428 exist_gap 0.1058 val_f1 0.1398
+epoch 61 loss 8.60505 exist_gap nan 
+epoch 62 loss 8.62127 exist_gap nan 
+epoch 63 loss 8.62495 exist_gap nan 
+epoch 64 loss 8.61621 exist_gap nan 
+epoch 65 loss 8.60403 exist_gap nan 
+epoch 66 loss 8.60837 exist_gap nan 
+epoch 67 loss 8.61117 exist_gap nan 
+epoch 68 loss 8.59859 exist_gap nan 
+epoch 69 loss 8.59320 exist_gap nan 
+epoch 70 loss 8.59660 exist_gap 0.1040 val_f1 0.1328
+epoch 71 loss 8.60144 exist_gap nan 
+epoch 72 loss 8.59027 exist_gap nan 
+epoch 73 loss 8.59425 exist_gap nan 
+epoch 74 loss 8.59311 exist_gap nan 
+epoch 75 loss 8.59670 exist_gap nan 
+epoch 76 loss 8.58669 exist_gap nan 
+epoch 77 loss 8.58262 exist_gap nan 
+epoch 78 loss 8.59298 exist_gap nan 
+epoch 79 loss 8.58473 exist_gap nan 
+epoch 80 loss 8.58088 exist_gap 0.1022 val_f1 0.1842
+epoch 81 loss 8.57651 exist_gap nan 
+epoch 82 loss 8.58118 exist_gap nan 
+epoch 83 loss 8.57652 exist_gap nan 
+epoch 84 loss 8.57426 exist_gap nan 
+epoch 85 loss 8.57222 exist_gap nan 
+epoch 86 loss 8.57273 exist_gap nan 
+epoch 87 loss 8.57051 exist_gap nan 
+epoch 88 loss 8.56280 exist_gap nan 
+epoch 89 loss 8.56391 exist_gap nan 
+epoch 90 loss 8.56355 exist_gap 0.1033 val_f1 0.1633
+epoch 91 loss 8.55904 exist_gap nan 
+epoch 92 loss 8.55410 exist_gap nan 
+epoch 93 loss 8.55368 exist_gap nan 
+epoch 94 loss 8.55056 exist_gap nan 
+epoch 95 loss 8.55117 exist_gap nan 
+epoch 96 loss 8.55487 exist_gap nan 
+epoch 97 loss 8.54701 exist_gap nan 
+epoch 98 loss 8.54161 exist_gap nan 
+epoch 99 loss 8.53767 exist_gap nan 
+epoch 100 loss 8.53384 exist_gap 0.1003 val_f1 0.1727
+epoch 101 loss 8.52608 exist_gap nan 
+epoch 102 loss 8.53133 exist_gap nan 
+epoch 103 loss 8.52714 exist_gap nan 
+epoch 104 loss 8.51873 exist_gap nan 
+epoch 105 loss 8.52530 exist_gap nan 
+epoch 106 loss 8.52179 exist_gap nan 
+epoch 107 loss 8.51211 exist_gap nan 
+epoch 108 loss 8.51377 exist_gap nan 
+epoch 109 loss 8.51127 exist_gap nan 
+epoch 110 loss 8.51033 exist_gap 0.0973 val_f1 0.1942
+epoch 111 loss 8.49962 exist_gap nan 
+epoch 112 loss 8.50165 exist_gap nan 
+epoch 113 loss 8.50174 exist_gap nan 
+epoch 114 loss 8.48566 exist_gap nan 
+epoch 115 loss 8.48949 exist_gap nan 
+epoch 116 loss 8.49394 exist_gap nan 
+epoch 117 loss 8.47713 exist_gap nan 
+epoch 118 loss 8.47600 exist_gap nan 
+epoch 119 loss 8.46947 exist_gap nan 
+epoch 120 loss 8.47341 exist_gap 0.1060 val_f1 0.2246
+epoch 121 loss 8.45142 exist_gap nan 
+epoch 122 loss 8.45982 exist_gap nan 
+epoch 123 loss 8.45738 exist_gap nan 
+epoch 124 loss 8.45836 exist_gap nan 
+epoch 125 loss 8.45419 exist_gap nan 
+epoch 126 loss 8.44584 exist_gap nan 
+epoch 127 loss 8.44453 exist_gap nan 
+epoch 128 loss 8.43463 exist_gap nan 
+epoch 129 loss 8.42293 exist_gap nan 
+epoch 130 loss 8.42600 exist_gap 0.1124 val_f1 0.2638
+epoch 131 loss 8.41413 exist_gap nan 
+epoch 132 loss 8.41818 exist_gap nan 
+epoch 133 loss 8.40814 exist_gap nan 
+epoch 134 loss 8.40646 exist_gap nan 
+epoch 135 loss 8.39327 exist_gap nan 
+epoch 136 loss 8.37855 exist_gap nan 
+epoch 137 loss 8.38480 exist_gap nan 
+epoch 138 loss 8.37058 exist_gap nan 
+epoch 139 loss 8.36354 exist_gap nan 
+epoch 140 loss 8.36386 exist_gap 0.1121 val_f1 0.2601
+epoch 141 loss 8.35196 exist_gap nan 
+epoch 142 loss 8.33666 exist_gap nan 
+epoch 143 loss 8.34292 exist_gap nan 
+epoch 144 loss 8.32598 exist_gap nan 
+epoch 145 loss 8.31901 exist_gap nan 
+epoch 146 loss 8.31376 exist_gap nan 
+epoch 147 loss 8.29489 exist_gap nan 
+epoch 148 loss 8.29547 exist_gap nan 
+epoch 149 loss 8.28306 exist_gap nan 
+epoch 150 loss 8.26585 exist_gap 0.1204 val_f1 0.2672
+epoch 151 loss 8.25689 exist_gap nan 
+epoch 152 loss 8.24032 exist_gap nan 
+epoch 153 loss 8.23034 exist_gap nan 
+epoch 154 loss 8.22489 exist_gap nan 
+epoch 155 loss 8.21983 exist_gap nan 
+epoch 156 loss 8.20010 exist_gap nan 
+epoch 157 loss 8.19355 exist_gap nan 
+epoch 158 loss 8.17701 exist_gap nan 
+epoch 159 loss 8.15566 exist_gap nan 
+epoch 160 loss 8.14416 exist_gap 0.1163 val_f1 0.2813
+epoch 161 loss 8.13553 exist_gap nan 
+epoch 162 loss 8.12586 exist_gap nan 
+epoch 163 loss 8.10809 exist_gap nan 
+epoch 164 loss 8.09101 exist_gap nan 
+epoch 165 loss 8.07734 exist_gap nan 
+epoch 166 loss 8.04803 exist_gap nan 
+epoch 167 loss 8.04382 exist_gap nan 
+epoch 168 loss 8.02559 exist_gap nan 
+epoch 169 loss 8.00602 exist_gap nan 
+epoch 170 loss 7.98903 exist_gap 0.1321 val_f1 0.2800
+epoch 171 loss 7.96782 exist_gap nan 
+epoch 172 loss 7.94067 exist_gap nan 
+epoch 173 loss 7.93349 exist_gap nan 
+epoch 174 loss 7.90008 exist_gap nan 
+epoch 175 loss 7.88400 exist_gap nan 
+epoch 176 loss 7.85898 exist_gap nan 
+epoch 177 loss 7.83070 exist_gap nan 
+epoch 178 loss 7.80994 exist_gap nan 
+epoch 179 loss 7.78672 exist_gap nan 
+epoch 180 loss 7.75347 exist_gap 0.1403 val_f1 0.2888
+epoch 181 loss 7.73531 exist_gap nan 
+epoch 182 loss 7.69264 exist_gap nan 
+epoch 183 loss 7.67161 exist_gap nan 
+epoch 184 loss 7.63412 exist_gap nan 
+epoch 185 loss 7.61663 exist_gap nan 
+epoch 186 loss 7.58493 exist_gap nan 
+epoch 187 loss 7.54730 exist_gap nan 
+epoch 188 loss 7.50146 exist_gap nan 
+epoch 189 loss 7.47639 exist_gap nan 
+epoch 190 loss 7.43188 exist_gap 0.1557 val_f1 0.2788
+epoch 191 loss 7.38812 exist_gap nan 
+epoch 192 loss 7.35262 exist_gap nan 
+epoch 193 loss 7.31072 exist_gap nan 
+epoch 194 loss 7.26026 exist_gap nan 
+epoch 195 loss 7.21659 exist_gap nan 
+epoch 196 loss 7.19674 exist_gap nan 
+epoch 197 loss 7.15744 exist_gap nan 
+epoch 198 loss 7.10552 exist_gap nan 
+epoch 199 loss 7.07915 exist_gap nan 
+epoch 200 loss 7.01091 exist_gap 0.1505 val_f1 0.3269
+epoch 201 loss 6.98152 exist_gap nan 
+epoch 202 loss 6.90516 exist_gap nan 
+epoch 203 loss 6.85214 exist_gap nan 
+epoch 204 loss 6.78883 exist_gap nan 
+epoch 205 loss 6.75247 exist_gap nan 
+epoch 206 loss 6.69209 exist_gap nan 
+epoch 207 loss 6.64158 exist_gap nan 
+epoch 208 loss 6.60113 exist_gap nan 
+epoch 209 loss 6.55258 exist_gap nan 
+epoch 210 loss 6.48163 exist_gap 0.1399 val_f1 0.3126
+epoch 211 loss 6.42659 exist_gap nan 
+epoch 212 loss 6.35987 exist_gap nan 
+epoch 213 loss 6.31105 exist_gap nan 
+epoch 214 loss 6.24555 exist_gap nan 
+epoch 215 loss 6.21823 exist_gap nan 
+epoch 216 loss 6.37463 exist_gap nan 
+epoch 217 loss 6.27749 exist_gap nan 
+epoch 218 loss 6.18563 exist_gap nan 
+epoch 219 loss 6.14867 exist_gap nan 
+epoch 220 loss 6.08904 exist_gap 0.0992 val_f1 0.2156
+epoch 221 loss 194.09628 exist_gap nan 
+epoch 222 loss 46.58823 exist_gap nan 
+epoch 223 loss 11.59980 exist_gap nan 
+epoch 224 loss 8.28963 exist_gap nan 
+epoch 225 loss 8.30635 exist_gap nan 
+epoch 226 loss 8.49744 exist_gap nan 
+epoch 227 loss 8.43171 exist_gap nan 
+epoch 228 loss 8.53140 exist_gap nan 
+epoch 229 loss 8.57307 exist_gap nan 
+epoch 230 loss 8.57024 exist_gap 0.1101 val_f1 0.2346
+epoch 231 loss 8.53938 exist_gap nan 
+epoch 232 loss 8.51330 exist_gap nan 
+epoch 233 loss 8.49499 exist_gap nan 
+epoch 234 loss 8.47643 exist_gap nan 
+epoch 235 loss 8.45650 exist_gap nan 
+epoch 236 loss 8.45823 exist_gap nan 
+epoch 237 loss 8.43447 exist_gap nan 
+epoch 238 loss 8.42736 exist_gap nan 
+epoch 239 loss 8.40464 exist_gap nan 
+epoch 240 loss 8.39483 exist_gap 0.1310 val_f1 0.2960
+epoch 241 loss 8.41409 exist_gap nan 
+epoch 242 loss 8.41065 exist_gap nan 
+epoch 243 loss 8.39023 exist_gap nan 
+epoch 244 loss 8.38926 exist_gap nan 
+epoch 245 loss 8.36126 exist_gap nan 
+epoch 246 loss 8.70477 exist_gap nan 
+epoch 247 loss 8.62439 exist_gap nan 
+epoch 248 loss 8.56810 exist_gap nan 
+epoch 249 loss 8.54850 exist_gap nan 
+epoch 250 loss 8.54762 exist_gap 0.0884 val_f1 0.2432
+epoch 251 loss 8.53459 exist_gap nan 
+epoch 252 loss 8.54433 exist_gap nan 
+epoch 253 loss 8.51894 exist_gap nan 
+epoch 254 loss 8.49570 exist_gap nan 
+epoch 255 loss 8.46989 exist_gap nan 
+epoch 256 loss 8.50388 exist_gap nan 
+epoch 257 loss 8.47855 exist_gap nan 
+epoch 258 loss 8.48475 exist_gap nan 
+epoch 259 loss 8.46940 exist_gap nan 
+epoch 260 loss 8.46493 exist_gap 0.0820 val_f1 0.2814
+epoch 261 loss 8.44187 exist_gap nan 
+epoch 262 loss 8.43297 exist_gap nan 
+epoch 263 loss 8.42163 exist_gap nan 
+epoch 264 loss 8.42232 exist_gap nan 
+epoch 265 loss 8.39774 exist_gap nan 
+epoch 266 loss 8.38411 exist_gap nan 
+epoch 267 loss 8.38547 exist_gap nan 
+epoch 268 loss 8.37634 exist_gap nan 
+epoch 269 loss 8.36669 exist_gap nan 
+epoch 270 loss 8.35929 exist_gap 0.1047 val_f1 0.2752
+epoch 271 loss 8.36896 exist_gap nan 
+epoch 272 loss 8.36137 exist_gap nan 
+epoch 273 loss 8.35653 exist_gap nan 
+epoch 274 loss 8.35089 exist_gap nan 
+epoch 275 loss 8.35750 exist_gap nan 
+epoch 276 loss 8.34051 exist_gap nan 
+epoch 277 loss 8.33898 exist_gap nan 
+epoch 278 loss 8.33088 exist_gap nan 
+epoch 279 loss 8.32483 exist_gap nan 
+epoch 280 loss 8.31122 exist_gap 0.1292 val_f1 0.3377
+epoch 281 loss 8.32004 exist_gap nan 
+epoch 282 loss 8.30834 exist_gap nan 
+epoch 283 loss 8.30919 exist_gap nan 
+epoch 284 loss 8.30049 exist_gap nan 
+epoch 285 loss 8.29557 exist_gap nan 
+epoch 286 loss 8.29148 exist_gap nan 
+epoch 287 loss 8.28642 exist_gap nan 
+epoch 288 loss 8.28069 exist_gap nan 
+epoch 289 loss 8.27786 exist_gap nan 
+epoch 290 loss 8.27777 exist_gap 0.1423 val_f1 0.3160
+epoch 291 loss 8.27198 exist_gap nan 
+epoch 292 loss 8.26360 exist_gap nan 
+epoch 293 loss 8.25581 exist_gap nan 
+epoch 294 loss 8.25276 exist_gap nan 
+epoch 295 loss 8.25595 exist_gap nan 
+epoch 296 loss 8.25392 exist_gap nan 
+epoch 297 loss 8.24045 exist_gap nan 
+epoch 298 loss 8.24521 exist_gap nan 
+epoch 299 loss 8.23973 exist_gap nan 
+epoch 300 loss 8.23615 exist_gap 0.1485 val_f1 0.3328
+epoch 301 loss 8.23563 exist_gap nan 
+epoch 302 loss 8.23568 exist_gap nan 
+epoch 303 loss 8.21396 exist_gap nan 
+epoch 304 loss 8.22288 exist_gap nan 
+epoch 305 loss 8.22036 exist_gap nan 
+epoch 306 loss 8.20941 exist_gap nan 
+epoch 307 loss 8.20888 exist_gap nan 
+epoch 308 loss 8.21320 exist_gap nan 
+epoch 309 loss 8.20045 exist_gap nan 
+epoch 310 loss 8.20685 exist_gap 0.1456 val_f1 0.3248
+epoch 311 loss 8.21371 exist_gap nan 
+epoch 312 loss 8.20372 exist_gap nan 
+epoch 313 loss 8.20350 exist_gap nan 
+epoch 314 loss 8.20531 exist_gap nan 
+epoch 315 loss 8.19375 exist_gap nan 
+epoch 316 loss 8.19563 exist_gap nan 
+epoch 317 loss 8.18853 exist_gap nan 
+epoch 318 loss 8.18785 exist_gap nan 
+epoch 319 loss 8.18474 exist_gap nan 
+epoch 320 loss 8.18251 exist_gap 0.1569 val_f1 0.3371
+epoch 321 loss 8.17188 exist_gap nan 
+epoch 322 loss 8.18171 exist_gap nan 
+epoch 323 loss 8.16890 exist_gap nan 
+epoch 324 loss 8.16638 exist_gap nan 
+epoch 325 loss 8.16695 exist_gap nan 
+epoch 326 loss 8.15112 exist_gap nan 
+epoch 327 loss 8.16096 exist_gap nan 
+epoch 328 loss 8.15653 exist_gap nan 
+epoch 329 loss 8.14414 exist_gap nan 
+epoch 330 loss 8.15247 exist_gap 0.1673 val_f1 0.3415
+epoch 331 loss 8.15379 exist_gap nan 
+epoch 332 loss 8.14336 exist_gap nan 
+epoch 333 loss 8.14153 exist_gap nan 
+epoch 334 loss 8.13719 exist_gap nan 
+epoch 335 loss 8.14220 exist_gap nan 
+epoch 336 loss 8.18414 exist_gap nan 
+epoch 337 loss 8.16123 exist_gap nan 
+epoch 338 loss 8.15114 exist_gap nan 
+epoch 339 loss 8.13759 exist_gap nan 
+epoch 340 loss 8.13249 exist_gap 0.1792 val_f1 0.3273
+epoch 341 loss 8.14702 exist_gap nan 
+epoch 342 loss 8.13739 exist_gap nan 
+epoch 343 loss 8.14517 exist_gap nan 
+epoch 344 loss 8.13409 exist_gap nan 
+epoch 345 loss 8.13530 exist_gap nan 
+epoch 346 loss 8.16179 exist_gap nan 
+epoch 347 loss 8.15201 exist_gap nan 
+epoch 348 loss 8.13796 exist_gap nan 
+epoch 349 loss 8.12545 exist_gap nan 
+epoch 350 loss 8.13458 exist_gap 0.1633 val_f1 0.3236
+epoch 351 loss 8.12876 exist_gap nan 
+epoch 352 loss 8.09904 exist_gap nan 
+epoch 353 loss 8.10571 exist_gap nan 
+epoch 354 loss 8.08926 exist_gap nan 
+epoch 355 loss 8.09622 exist_gap nan 
+epoch 356 loss 8.10325 exist_gap nan 
+epoch 357 loss 8.09689 exist_gap nan 
+epoch 358 loss 8.09503 exist_gap nan 
+epoch 359 loss 8.09916 exist_gap nan 
+epoch 360 loss 8.08801 exist_gap 0.1769 val_f1 0.3359
+epoch 361 loss 8.10343 exist_gap nan 
+epoch 362 loss 8.08016 exist_gap nan 
+epoch 363 loss 8.08173 exist_gap nan 
+epoch 364 loss 8.08473 exist_gap nan 
+epoch 365 loss 8.07144 exist_gap nan 
+epoch 366 loss 8.06909 exist_gap nan 
+epoch 367 loss 8.06286 exist_gap nan 
+epoch 368 loss 8.06474 exist_gap nan 
+epoch 369 loss 8.06238 exist_gap nan 
+epoch 370 loss 8.05733 exist_gap 0.1788 val_f1 0.3556
+epoch 371 loss 8.05089 exist_gap nan 
+epoch 372 loss 8.05209 exist_gap nan 
+epoch 373 loss 8.04864 exist_gap nan 
+epoch 374 loss 8.03427 exist_gap nan 
+epoch 375 loss 8.03389 exist_gap nan 
+epoch 376 loss 8.04207 exist_gap nan 
+epoch 377 loss 8.04270 exist_gap nan 
+epoch 378 loss 8.02980 exist_gap nan 
+epoch 379 loss 8.03603 exist_gap nan 
+epoch 380 loss 8.03115 exist_gap 0.1861 val_f1 0.3555
+epoch 381 loss 8.03199 exist_gap nan 
+epoch 382 loss 8.03189 exist_gap nan 
+epoch 383 loss 8.02428 exist_gap nan 
+epoch 384 loss 8.02133 exist_gap nan 
+epoch 385 loss 8.02421 exist_gap nan 
+epoch 386 loss 8.02556 exist_gap nan 
+epoch 387 loss 8.01586 exist_gap nan 
+epoch 388 loss 8.00866 exist_gap nan 
+epoch 389 loss 8.01246 exist_gap nan 
+epoch 390 loss 8.00301 exist_gap 0.1861 val_f1 0.3706
+epoch 391 loss 8.00599 exist_gap nan 
+epoch 392 loss 8.00621 exist_gap nan 
+epoch 393 loss 8.00817 exist_gap nan 
+epoch 394 loss 8.00594 exist_gap nan 
+epoch 395 loss 7.99768 exist_gap nan 
+epoch 396 loss 8.00284 exist_gap nan 
+epoch 397 loss 7.99776 exist_gap nan 
+epoch 398 loss 7.99490 exist_gap nan 
+epoch 399 loss 7.99397 exist_gap nan 
+epoch 400 loss 7.98989 exist_gap 0.1903 val_f1 0.3770
+epoch 401 loss 7.98900 exist_gap nan 
+epoch 402 loss 7.99450 exist_gap nan 
+epoch 403 loss 7.99349 exist_gap nan 
+epoch 404 loss 7.97984 exist_gap nan 
+epoch 405 loss 7.99203 exist_gap nan 
+epoch 406 loss 7.98259 exist_gap nan 
+epoch 407 loss 7.97005 exist_gap nan 
+epoch 408 loss 7.98401 exist_gap nan 
+epoch 409 loss 7.97228 exist_gap nan 
+epoch 410 loss 7.97884 exist_gap 0.1898 val_f1 0.3668
+epoch 411 loss 7.96530 exist_gap nan 
+epoch 412 loss 7.97173 exist_gap nan 
+epoch 413 loss 7.96167 exist_gap nan 
+epoch 414 loss 7.96466 exist_gap nan 
+epoch 415 loss 7.96498 exist_gap nan 
+epoch 416 loss 7.96008 exist_gap nan 
+epoch 417 loss 7.96224 exist_gap nan 
+epoch 418 loss 7.95903 exist_gap nan 
+epoch 419 loss 7.96078 exist_gap nan 
+epoch 420 loss 7.95161 exist_gap 0.1891 val_f1 0.3654
+epoch 421 loss 7.96178 exist_gap nan 
+epoch 422 loss 7.95963 exist_gap nan 
+epoch 423 loss 7.95579 exist_gap nan 
+epoch 424 loss 7.94799 exist_gap nan 
+epoch 425 loss 7.94709 exist_gap nan 
+epoch 426 loss 7.94878 exist_gap nan 
+epoch 427 loss 7.94781 exist_gap nan 
+epoch 428 loss 7.93520 exist_gap nan 
+epoch 429 loss 7.93570 exist_gap nan 
+epoch 430 loss 7.93881 exist_gap 0.1924 val_f1 0.3763
+epoch 431 loss 7.94036 exist_gap nan 
+epoch 432 loss 7.94006 exist_gap nan 
+epoch 433 loss 7.93791 exist_gap nan 
+epoch 434 loss 7.92635 exist_gap nan 
+epoch 435 loss 7.93433 exist_gap nan 
+epoch 436 loss 7.94130 exist_gap nan 
+epoch 437 loss 7.94329 exist_gap nan 
+epoch 438 loss 7.94025 exist_gap nan 
+epoch 439 loss 7.93864 exist_gap nan 
+epoch 440 loss 7.92421 exist_gap 0.1863 val_f1 0.3783
+epoch 441 loss 7.92199 exist_gap nan 
+epoch 442 loss 7.92281 exist_gap nan 
+epoch 443 loss 7.91999 exist_gap nan 
+epoch 444 loss 7.91483 exist_gap nan 
+epoch 445 loss 7.91072 exist_gap nan 
+epoch 446 loss 7.90827 exist_gap nan 
+epoch 447 loss 7.91071 exist_gap nan 
+epoch 448 loss 7.90996 exist_gap nan 
+epoch 449 loss 7.90751 exist_gap nan 
+epoch 450 loss 7.89917 exist_gap 0.1974 val_f1 0.3710
+epoch 451 loss 7.93424 exist_gap nan 
+epoch 452 loss 7.93295 exist_gap nan 
+epoch 453 loss 7.91694 exist_gap nan 
+epoch 454 loss 7.91514 exist_gap nan 
+epoch 455 loss 7.90004 exist_gap nan 
+epoch 456 loss 7.91630 exist_gap nan 
+epoch 457 loss 7.92066 exist_gap nan 
+epoch 458 loss 7.91817 exist_gap nan 
+epoch 459 loss 7.93124 exist_gap nan 
+epoch 460 loss 7.90343 exist_gap 0.1447 val_f1 0.3561
+epoch 461 loss 8.10718 exist_gap nan 
+epoch 462 loss 8.07079 exist_gap nan 
+epoch 463 loss 8.03312 exist_gap nan 
+epoch 464 loss 8.01794 exist_gap nan 
+epoch 465 loss 8.00606 exist_gap nan 
+epoch 466 loss 8.10208 exist_gap nan 
+epoch 467 loss 8.04306 exist_gap nan 
+epoch 468 loss 8.09988 exist_gap nan 
+epoch 469 loss 8.02620 exist_gap nan 
+epoch 470 loss 8.05898 exist_gap 0.1966 val_f1 0.2985
+epoch 471 loss 8.05881 exist_gap nan 
+epoch 472 loss 8.02838 exist_gap nan 
+epoch 473 loss 8.05537 exist_gap nan 
+epoch 474 loss 8.03737 exist_gap nan 
+epoch 475 loss 8.01004 exist_gap nan 
+epoch 476 loss 8.25209 exist_gap nan 
+epoch 477 loss 8.24775 exist_gap nan 
+epoch 478 loss 8.23408 exist_gap nan 
+epoch 479 loss 8.22696 exist_gap nan 
+epoch 480 loss 8.21856 exist_gap 0.1493 val_f1 0.3592
+epoch 481 loss 8.23072 exist_gap nan 
+epoch 482 loss 8.21052 exist_gap nan 
+epoch 483 loss 8.19182 exist_gap nan 
+epoch 484 loss 8.17777 exist_gap nan 
+epoch 485 loss 8.15905 exist_gap nan 
+epoch 486 loss 8.10499 exist_gap nan 
+epoch 487 loss 8.09794 exist_gap nan 
+epoch 488 loss 8.08882 exist_gap nan 
+epoch 489 loss 8.07853 exist_gap nan 
+epoch 490 loss 8.07844 exist_gap 0.1649 val_f1 0.3584
+epoch 491 loss 8.06531 exist_gap nan 
+epoch 492 loss 8.06048 exist_gap nan 
+epoch 493 loss 8.05843 exist_gap nan 
+epoch 494 loss 8.04422 exist_gap nan 
+epoch 495 loss 8.04220 exist_gap nan 
+epoch 496 loss 8.03042 exist_gap nan 
+epoch 497 loss 8.02636 exist_gap nan 
+epoch 498 loss 8.01590 exist_gap nan 
+epoch 499 loss 8.01403 exist_gap nan 
+epoch 500 loss 8.00197 exist_gap 0.1875 val_f1 0.3872
+epoch 501 loss 7.99142 exist_gap nan 
+epoch 502 loss 7.97324 exist_gap nan 
+epoch 503 loss 7.97404 exist_gap nan 
+epoch 504 loss 7.96510 exist_gap nan 
+epoch 505 loss 7.95596 exist_gap nan 
+epoch 506 loss 7.97754 exist_gap nan 
+epoch 507 loss 7.95299 exist_gap nan 
+epoch 508 loss 7.94465 exist_gap nan 
+epoch 509 loss 7.94781 exist_gap nan 
+epoch 510 loss 7.93288 exist_gap 0.1807 val_f1 0.3779
+epoch 511 loss 7.93741 exist_gap nan 
+epoch 512 loss 7.93216 exist_gap nan 
+epoch 513 loss 7.93540 exist_gap nan 
+epoch 514 loss 7.92149 exist_gap nan 
+epoch 515 loss 7.91424 exist_gap nan 
+epoch 516 loss 7.92567 exist_gap nan 
+epoch 517 loss 7.91506 exist_gap nan 
+epoch 518 loss 7.92569 exist_gap nan 
+epoch 519 loss 7.91626 exist_gap nan 
+epoch 520 loss 7.91001 exist_gap 0.1524 val_f1 0.3729
+epoch 521 loss 7.94319 exist_gap nan 
+epoch 522 loss 7.93720 exist_gap nan 
+epoch 523 loss 7.93364 exist_gap nan 
+epoch 524 loss 7.92325 exist_gap nan 
+epoch 525 loss 7.91669 exist_gap nan 
+epoch 526 loss 7.91127 exist_gap nan 
+epoch 527 loss 7.90247 exist_gap nan 
+epoch 528 loss 7.90866 exist_gap nan 
+epoch 529 loss 7.89513 exist_gap nan 
+epoch 530 loss 7.89166 exist_gap 0.1674 val_f1 0.4076
+epoch 531 loss 8.06241 exist_gap nan 
+epoch 532 loss 7.98629 exist_gap nan 
+epoch 533 loss 7.94607 exist_gap nan 
+epoch 534 loss 7.93354 exist_gap nan 
+epoch 535 loss 7.92024 exist_gap nan 
+epoch 536 loss 7.98958 exist_gap nan 
+epoch 537 loss 7.92598 exist_gap nan 
+epoch 538 loss 7.89855 exist_gap nan 
+epoch 539 loss 7.88677 exist_gap nan 
+epoch 540 loss 7.90138 exist_gap 0.1724 val_f1 0.4115
+epoch 541 loss 7.89415 exist_gap nan 
+epoch 542 loss 7.87983 exist_gap nan 
+epoch 543 loss 7.87412 exist_gap nan 
+epoch 544 loss 7.87403 exist_gap nan 
+epoch 545 loss 7.86908 exist_gap nan 
+epoch 546 loss 7.89087 exist_gap nan 
+epoch 547 loss 7.87286 exist_gap nan 
+epoch 548 loss 7.86530 exist_gap nan 
+epoch 549 loss 7.87073 exist_gap nan 
+epoch 550 loss 7.86790 exist_gap 0.1810 val_f1 0.4044
+epoch 551 loss 7.86441 exist_gap nan 
+epoch 552 loss 7.85869 exist_gap nan 
+epoch 553 loss 7.84504 exist_gap nan 
+epoch 554 loss 7.84685 exist_gap nan 
+epoch 555 loss 7.84369 exist_gap nan 
+epoch 556 loss 7.84714 exist_gap nan 
+epoch 557 loss 7.83305 exist_gap nan 
+epoch 558 loss 7.83237 exist_gap nan 
+epoch 559 loss 7.82356 exist_gap nan 
+epoch 560 loss 7.82933 exist_gap 0.1932 val_f1 0.4012
+epoch 561 loss 7.82849 exist_gap nan 
+epoch 562 loss 7.81849 exist_gap nan 
+epoch 563 loss 7.81183 exist_gap nan 
+epoch 564 loss 7.81058 exist_gap nan 
+epoch 565 loss 7.81467 exist_gap nan 
+epoch 566 loss 7.82024 exist_gap nan 
+epoch 567 loss 7.79809 exist_gap nan 
+epoch 568 loss 7.80070 exist_gap nan 
+epoch 569 loss 7.80463 exist_gap nan 
+epoch 570 loss 7.80215 exist_gap 0.1867 val_f1 0.3902
+epoch 571 loss 7.79704 exist_gap nan 
+epoch 572 loss 7.79421 exist_gap nan 
+epoch 573 loss 7.78814 exist_gap nan 
+epoch 574 loss 7.78083 exist_gap nan 
+epoch 575 loss 7.78209 exist_gap nan 
+epoch 576 loss 7.77824 exist_gap nan 
+epoch 577 loss 7.77964 exist_gap nan 
+epoch 578 loss 7.78414 exist_gap nan 
+epoch 579 loss 7.77442 exist_gap nan 
+epoch 580 loss 7.77435 exist_gap 0.1830 val_f1 0.3822
+epoch 581 loss 7.76953 exist_gap nan 
+epoch 582 loss 7.76744 exist_gap nan 
+epoch 583 loss 7.76928 exist_gap nan 
+epoch 584 loss 7.76010 exist_gap nan 
+epoch 585 loss 7.75676 exist_gap nan 
+epoch 586 loss 7.76833 exist_gap nan 
+epoch 587 loss 7.75522 exist_gap nan 
+epoch 588 loss 7.76222 exist_gap nan 
+epoch 589 loss 7.75966 exist_gap nan 
+epoch 590 loss 7.74766 exist_gap 0.1973 val_f1 0.3856
+epoch 591 loss 7.76037 exist_gap nan 
+epoch 592 loss 7.75774 exist_gap nan 
+epoch 593 loss 7.74483 exist_gap nan 
+epoch 594 loss 7.76025 exist_gap nan 
+epoch 595 loss 7.74614 exist_gap nan 
+epoch 596 loss 7.74379 exist_gap nan 
+epoch 597 loss 7.75124 exist_gap nan 
+epoch 598 loss 7.74277 exist_gap nan 
+epoch 599 loss 7.74059 exist_gap nan 
+epoch 600 loss 7.73280 exist_gap 0.1893 val_f1 0.4113
+epoch 601 loss 7.73337 exist_gap nan 
+epoch 602 loss 7.72915 exist_gap nan 
+epoch 603 loss 7.74079 exist_gap nan 
+epoch 604 loss 7.72726 exist_gap nan 
+epoch 605 loss 7.72935 exist_gap nan 
+epoch 606 loss 7.73340 exist_gap nan 
+epoch 607 loss 7.73254 exist_gap nan 
+epoch 608 loss 7.72432 exist_gap nan 
+epoch 609 loss 7.71972 exist_gap nan 
+epoch 610 loss 7.72859 exist_gap 0.1901 val_f1 0.3999
+epoch 611 loss 7.72080 exist_gap nan 
+epoch 612 loss 7.71873 exist_gap nan 
+epoch 613 loss 7.71741 exist_gap nan 
+epoch 614 loss 7.71507 exist_gap nan 
+epoch 615 loss 7.72018 exist_gap nan 
+epoch 616 loss 7.71698 exist_gap nan 
+epoch 617 loss 7.70770 exist_gap nan 
+epoch 618 loss 7.71068 exist_gap nan 
+epoch 619 loss 7.71367 exist_gap nan 
+epoch 620 loss 7.70562 exist_gap 0.1900 val_f1 0.4120
+epoch 621 loss 7.71760 exist_gap nan 
+epoch 622 loss 7.70896 exist_gap nan 
+epoch 623 loss 7.70696 exist_gap nan 
+epoch 624 loss 7.70432 exist_gap nan 
+epoch 625 loss 7.69870 exist_gap nan 
+epoch 626 loss 7.70661 exist_gap nan 
+epoch 627 loss 7.69678 exist_gap nan 
+epoch 628 loss 7.70529 exist_gap nan 
+epoch 629 loss 7.70229 exist_gap nan 
+epoch 630 loss 7.69865 exist_gap 0.1834 val_f1 0.4119
+epoch 631 loss 7.70664 exist_gap nan 
+epoch 632 loss 7.68781 exist_gap nan 
+epoch 633 loss 7.68940 exist_gap nan 
+epoch 634 loss 7.68525 exist_gap nan 
+epoch 635 loss 7.69421 exist_gap nan 
+epoch 636 loss 7.68587 exist_gap nan 
+epoch 637 loss 7.68618 exist_gap nan 
+epoch 638 loss 7.68914 exist_gap nan 
+epoch 639 loss 7.68302 exist_gap nan 
+epoch 640 loss 7.68473 exist_gap 0.1918 val_f1 0.4195
+epoch 641 loss 7.68288 exist_gap nan 
+epoch 642 loss 7.67489 exist_gap nan 
+epoch 643 loss 7.68120 exist_gap nan 
+epoch 644 loss 7.68050 exist_gap nan 
+epoch 645 loss 7.68005 exist_gap nan 
+epoch 646 loss 7.67665 exist_gap nan 
+epoch 647 loss 7.67462 exist_gap nan 
+epoch 648 loss 7.67327 exist_gap nan 
+epoch 649 loss 7.67750 exist_gap nan 
+epoch 650 loss 7.66770 exist_gap 0.1772 val_f1 0.4274

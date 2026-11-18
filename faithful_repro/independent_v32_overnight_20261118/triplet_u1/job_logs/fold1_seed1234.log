@@ -1,0 +1,10 @@
+fold1_seed1234 epoch 100 loss 8.74123 exist_gap 0.1185 val_f1 0.1943
+fold1_seed1234 epoch 200 loss 7.07958 exist_gap 0.1663 val_f1 0.3135
+fold1_seed1234 epoch 300 loss 8.36885 exist_gap 0.1535 val_f1 0.3062
+fold1_seed1234 epoch 400 loss 8.09895 exist_gap 0.1798 val_f1 0.3313
+fold1_seed1234 epoch 500 loss 7.87663 exist_gap 0.1917 val_f1 0.3564
+fold1_seed1234 epoch 600 loss 7.63943 exist_gap 0.2049 val_f1 0.3525
+TRAIN DONE fold1_seed1234 PASS
+EVAL DONE auroc_T 0.8758 auroc_P 0.8151 base_T 0.9205
+VERIFY PASS 76 checks fold1_seed1234
+RUN fold1_seed1234 run_pass= True

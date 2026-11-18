@@ -1,0 +1,387 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "completion PASS",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest sha stable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "final_epoch 650",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "not aborted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "exist lam pinned",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "trajectory finite",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "eval PASS",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "arrays hash present",
+      "pass": true,
+      "detail": "50"
+    },
+    {
+      "name": "strict pin",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 idx==pos+test-neg",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 negs all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 negs disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 poss == test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 auroc recompute",
+      "pass": true,
+      "detail": "(0.8436298777727479, 0.8436298777727479)"
+    },
+    {
+      "name": "T rep0 ap recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 f1 recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 bl[mask_zero_pairs] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep0 bl[all_unknown] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 idx==pos+test-neg",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 negs all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 negs disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 poss == test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 auroc recompute",
+      "pass": true,
+      "detail": "(0.857426889995473, 0.857426889995473)"
+    },
+    {
+      "name": "T rep1 ap recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 f1 recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 bl[mask_zero_pairs] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep1 bl[all_unknown] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 idx==pos+test-neg",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 negs all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 negs disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 poss == test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 auroc recompute",
+      "pass": true,
+      "detail": "(0.8425111815301041, 0.8425111815301041)"
+    },
+    {
+      "name": "T rep2 ap recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 f1 recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 bl[mask_zero_pairs] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep2 bl[all_unknown] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 idx==pos+test-neg",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 negs all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 negs disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 poss == test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 auroc recompute",
+      "pass": true,
+      "detail": "(0.8393848800362156, 0.8393848800362156)"
+    },
+    {
+      "name": "T rep3 ap recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 f1 recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 bl[mask_zero_pairs] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep3 bl[all_unknown] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 idx==pos+test-neg",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 negs all Y==0",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 negs disjoint test",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 poss == test set",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 auroc recompute",
+      "pass": true,
+      "detail": "(0.8434728836577636, 0.8434728836577636)"
+    },
+    {
+      "name": "T rep4 ap recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 f1 recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 strata sum",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 bl[mask_zero_pairs] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "T rep4 bl[all_unknown] auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep0 negs pair-zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep0 poss unseen-pair",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep0 auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep1 negs pair-zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep1 poss unseen-pair",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep1 auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep2 negs pair-zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep2 poss unseen-pair",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep2 auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep3 negs pair-zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep3 poss unseen-pair",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep3 auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep4 negs pair-zero",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep4 poss unseen-pair",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "P rep4 auroc recompute",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "canary train",
+      "pass": true,
+      "detail": "0"
+    },
+    {
+      "name": "canary val",
+      "pass": true,
+      "detail": "0"
+    }
+  ],
+  "key": "fold2_seed1234",
+  "n_checks": 76
+}

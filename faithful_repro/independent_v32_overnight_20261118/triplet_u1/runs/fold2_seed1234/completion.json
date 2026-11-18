@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "key": "fold2_seed1234",
+  "final_epoch": 650,
+  "aborted": null,
+  "manifest_sha256": "f02536364cb9fcf520524524b47a567b8f380010010d6fa3d05a584ddcbd9869",
+  "end_utc": "2026-11-18T08:48:52Z"
+}

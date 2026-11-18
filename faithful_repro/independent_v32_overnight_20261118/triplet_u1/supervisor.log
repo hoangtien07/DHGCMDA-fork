@@ -1,3 +1,30 @@
 SKIP (already run_pass) fold0_seed1234
 START fold0_seed42
 START fold0_seed2025
+DONE fold0_seed2025 rc=0 run_pass=True
+START fold1_seed1234
+DONE fold0_seed42 rc=0 run_pass=True
+START fold1_seed42
+DONE fold1_seed1234 rc=0 run_pass=True
+START fold1_seed2025
+DONE fold1_seed42 rc=0 run_pass=True
+START fold2_seed1234
+DONE fold2_seed1234 rc=0 run_pass=True
+START fold2_seed42
+DONE fold1_seed2025 rc=0 run_pass=True
+START fold2_seed2025
+DONE fold2_seed42 rc=0 run_pass=True
+START fold3_seed1234
+DONE fold2_seed2025 rc=0 run_pass=True
+START fold3_seed42
+DONE fold3_seed1234 rc=0 run_pass=True
+START fold3_seed2025
+DONE fold3_seed42 rc=0 run_pass=True
+START fold4_seed1234
+DONE fold3_seed2025 rc=0 run_pass=True
+START fold4_seed42
+DONE fold4_seed1234 rc=0 run_pass=True
+START fold4_seed2025
+DONE fold4_seed42 rc=0 run_pass=True
+DONE fold4_seed2025 rc=0 run_pass=True
+SUPERVISOR PASS 15 /15
