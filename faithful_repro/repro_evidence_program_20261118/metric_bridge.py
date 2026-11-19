@@ -51,20 +51,27 @@ def conv_metrics(y, s):
     m['multihot_macroF1'] = per_class_macro_f1(y, s)['macro_f1']
     m['multihot_microF1'] = micro_f1(y, s)
     # 4-type filtered convention (release-style: drop type-5 rows
-    # and use only channels 0-3)
+    # and use only channels 0-3). NOT the author metric — an
+    # approximation named separately.
     keep = ~((y > 0)[:, 4])  # pairs without type-5 label only
     y4, s4 = y[keep][:, :4], s[keep][:, :4]
     if len(y4):
         tf = np.argmax(y4 > 0, -1)
-        m['K4filtered_F1'] = harm(tf, s4.argmax(-1))[2]
+        pr4 = s4.argmax(-1)
+        P4 = float((tf == pr4).mean())
+        R4 = float(np.mean([np.mean(pr4[tf == k] == k)
+                            if (tf == k).any() else 0.0
+                            for k in range(4)]))
+        m['K4filtered_F1'] = (2 * P4 * R4 / (P4 + R4)
+                              if P4 + R4 else 0.0)
         m['K4filtered_n'] = int(len(y4))
     # multi-type pair strata
     multi = (y > 0).sum(-1) >= 2
     m['n_multitype_pairs'] = int(multi.sum())
     if multi.any():
         m['multitype_anyhit'] = float(
-            ((pred[multi, None] == np.where(y[multi] > 0, 1, 0))
-             .any(-1)).mean())
+            (y[multi][np.arange(int(multi.sum())), pred[multi]] > 0)
+            .mean())
     m['singletype_acc'] = float((pred[~multi] == truth_first[~multi]).mean())
     return m
 

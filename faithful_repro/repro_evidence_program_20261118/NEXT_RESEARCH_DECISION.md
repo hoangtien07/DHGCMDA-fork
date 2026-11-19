@@ -38,3 +38,8 @@ mới, primary metric khóa trước, canary, power/target effect).
 
 A trước (rẻ, đóng câu hỏi gốc), B sau nếu tác giả không trả lời
 trong ~2 tuần hoặc owner muốn pivot ngay — hai track độc lập.
+
+
+---
+
+> **[ERRATUM REV4.1]** Giá trị `multitype_anyhit`/`K4filtered_F1` trong file này đã được sửa — priors thắng U1 ở cả hai strata, K4filtered tăng ~0.05. Xem `REV4_1_METRIC_BRIDGE_ERRATUM.md`.
