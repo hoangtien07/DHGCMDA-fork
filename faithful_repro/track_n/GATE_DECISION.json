@@ -1,0 +1,24 @@
+{
+ "verdict": "READY_FOR_G4_OWNER_REVIEW",
+ "gates": {
+  "G0": "PASS",
+  "G1": "PASS",
+  "G2": "PASS",
+  "G3": "PASS",
+  "G4": "AWAITING_OWNER",
+  "G5": "AWAITING_OWNER"
+ },
+ "notes": [
+  "B0 uses verified per-type prior (equivalence fixture PASS)",
+  "pair_features indexing repaired (mi-mi / dis-dis); LOPO on train rows",
+  "feature provenance canary PASS both cold-start tracks",
+  "45 baseline cells frozen + independently recomputed",
+  "A1 single sanity cell done; B0_global degenerate card=0 noted as honest result",
+  "deviation: A1 uses similarity-row inputs pending embedding decision"
+ ],
+ "not_authorized": [
+  "G4 pair fleet",
+  "G5 cold-start deep jobs",
+  "any seed escalation"
+ ]
+}

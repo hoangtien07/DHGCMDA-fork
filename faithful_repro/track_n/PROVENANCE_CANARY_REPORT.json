@@ -1,0 +1,183 @@
+{
+ "tensor_sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+ "tracks": {
+  "mirna_cold": {
+   "SPLIT_PASS": true,
+   "FEATURE_PROVENANCE_PASS": true,
+   "INDUCTIVE_CHECK_PASS": true,
+   "folds": [
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    }
+   ],
+   "NO_GO": false
+  },
+  "disease_cold": {
+   "SPLIT_PASS": true,
+   "FEATURE_PROVENANCE_PASS": true,
+   "INDUCTIVE_CHECK_PASS": true,
+   "folds": [
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 1234,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 42,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    },
+    {
+     "seed": 2025,
+     "feature_same": true,
+     "inductive_ok": true
+    }
+   ],
+   "NO_GO": false
+  },
+  "pair_track": {
+   "SPLIT_PASS": true,
+   "FEATURE_PROVENANCE_PASS": "DEFERRED_TO_G3_RUN",
+   "note": "reuse verified group-pair folds; perturbation canary identical mechanism as cold-start"
+  }
+ },
+ "EXTERNAL_VIEWS_PASS": true,
+ "external_view_checks": {
+  "sim_m1": true,
+  "sim_m2": true,
+  "sim_d1": true,
+  "sim_d2": true
+ }
+}
