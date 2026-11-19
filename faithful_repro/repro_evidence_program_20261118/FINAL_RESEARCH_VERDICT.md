@@ -35,3 +35,8 @@
 Với 3 artifact từ tác giả (tensor 411×271 đúng pipeline, fold
 indices, eval script): tái đo 0.86 trực tiếp — câu hỏi đóng hoàn
 toàn, chi phí ~1 buổi tính.
+
+
+---
+
+> **[ERRATUM 2026-11-19, REV4]** Mọi phát biểu "density ~4.6% vs 10.5%" trong file này đã RETRACTED — strict tensor đo thực tế 10.5476% typed-link (khớp paper). Xem `DENSITY_ERRATUM.md`.

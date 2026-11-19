@@ -1,28 +1,118 @@
 {
-  "program": "DHGCMDA_ONE_SHOT_REPRO_EVIDENCE_PROGRAM_20261118",
-  "base_commit": "a6cf4e94cb784a979919a9c566cb2442daa93dc2",
-  "work_branch": "devin/20261118-repro-evidence-program",
-  "updated_utc": "2026-11-18T19:40:00Z",
-  "final_phrase": "REPRO_EVIDENCE_PROGRAM_COMPLETE",
-  "gates": {
-    "A": "PASS",
-    "B": "PASS",
-    "C": "PASS",
-    "E": "FAIL_E3"
+ "program": "DHGCMDA_ONE_SHOT_REPRO_EVIDENCE_PROGRAM_20261118",
+ "base_commit": "a6cf4e94cb784a979919a9c566cb2442daa93dc2",
+ "work_branch": "devin/20261118-repro-evidence-program",
+ "updated_utc": "2026-11-18T19:40:00Z",
+ "final_phrase": "REPRO_EVIDENCE_PROGRAM_COMPLETE",
+ "gates": {
+  "A": "PASS",
+  "B": "PASS",
+  "C": "PASS",
+  "E": "FAIL_E3"
+ },
+ "work_packages": {
+  "WP0": {
+   "status": "DONE",
+   "deliverables": [
+    "00_README.md",
+    "EVIDENCE_INVENTORY.csv",
+    "DUPLICATION_MATRIX.md",
+    "STATUS.json",
+    "DECISION_LOG.md"
+   ]
   },
-  "work_packages": {
-    "WP0": {"status": "DONE", "deliverables": ["00_README.md", "EVIDENCE_INVENTORY.csv", "DUPLICATION_MATRIX.md", "STATUS.json", "DECISION_LOG.md"]},
-    "WP1": {"status": "DONE", "deliverables": ["METRIC_SEMANTICS.md", "SPLIT_SEMANTICS.md", "PROTOCOL_ERRATA.md", "metric_contracts.py", "test_metric_contracts.py (11/11)", "test_split_contracts.py (3/3)"]},
-    "WP2": {"status": "DONE", "deliverables": ["DATA_LINEAGE_AUDIT.md", "FEATURE_PROVENANCE_MATRIX.csv", "ARTIFACT_REQUEST_TO_AUTHORS.md"]},
-    "WP3": {"status": "DONE", "deliverables": ["MODEL_LOSS_FIDELITY_TRACE.md", "CONTRADICTIONS_AND_ERRATA.md", "test_fidelity_microfixtures.py (6/6)"]},
-    "WP4": {"status": "DONE", "deliverables": ["EXISTING_RESULTS_REEVALUATION.md", "RESULTS_CROSSWALK.csv", "analysis_rescore.py", "RESCORE_VERIFICATION.json (50/50 PASS)"]},
-    "WP5": {"status": "DONE", "deliverables": ["PROTOCOL_CVTYPE_REV3.md", "EXECUTION_DECISION.json", "NEW_EXPERIMENT_NECESSITY.md"], "decision": "ALREADY_ANSWERED"},
-    "WP6": {"status": "DONE", "deliverables": ["GATE_REPORT.json"], "gate_e": "E3 fails (question already answered) -> TRAINING_SKIPPED_WITH_REASON"},
-    "WP7": {"status": "DONE", "deliverables": ["THESIS_RESULTS_AND_LIMITATIONS_VI.md", "REPRODUCTION_CLAIM_MATRIX.md", "ADVERSARIAL_REVIEW.md", "FINAL_RESEARCH_VERDICT.md"]},
-    "WP8": {"status": "DONE", "deliverables": ["FINAL_HANDOFF.md", "FINAL_VALIDATION.json", "STATUS.json"]}
+  "WP1": {
+   "status": "DONE",
+   "deliverables": [
+    "METRIC_SEMANTICS.md",
+    "SPLIT_SEMANTICS.md",
+    "PROTOCOL_ERRATA.md",
+    "metric_contracts.py",
+    "test_metric_contracts.py (11/11)",
+    "test_split_contracts.py (3/3)"
+   ]
   },
-  "verdict": "PARTIAL_REPRODUCTION_WITH_EXTERNAL_BLOCKERS",
-  "key_result": "U1 GENERAL_K_TOP1_HARMONIC 0.4558 (dynamic) / 0.4924 (static) vs prior_product 0.4480; paper 0.8600 not reproducible-as-stated (G1-G4 external artifacts missing)",
-  "training": "TRAINING_SKIPPED_WITH_REASON (Gate E3: question already answered by stored artifacts)",
-  "blockers": ["tensor paper-first 411x271 unreleased", "author folds/eval code unreleased", "v20 raw predictions UNAVAILABLE_LOCAL"]
+  "WP2": {
+   "status": "DONE",
+   "deliverables": [
+    "DATA_LINEAGE_AUDIT.md",
+    "FEATURE_PROVENANCE_MATRIX.csv",
+    "ARTIFACT_REQUEST_TO_AUTHORS.md"
+   ]
+  },
+  "WP3": {
+   "status": "DONE",
+   "deliverables": [
+    "MODEL_LOSS_FIDELITY_TRACE.md",
+    "CONTRADICTIONS_AND_ERRATA.md",
+    "test_fidelity_microfixtures.py (6/6)"
+   ]
+  },
+  "WP4": {
+   "status": "DONE",
+   "deliverables": [
+    "EXISTING_RESULTS_REEVALUATION.md",
+    "RESULTS_CROSSWALK.csv",
+    "analysis_rescore.py",
+    "RESCORE_VERIFICATION.json (50/50 PASS)"
+   ]
+  },
+  "WP5": {
+   "status": "DONE",
+   "deliverables": [
+    "PROTOCOL_CVTYPE_REV3.md",
+    "EXECUTION_DECISION.json",
+    "NEW_EXPERIMENT_NECESSITY.md"
+   ],
+   "decision": "ALREADY_ANSWERED"
+  },
+  "WP6": {
+   "status": "DONE",
+   "deliverables": [
+    "GATE_REPORT.json"
+   ],
+   "gate_e": "E3 fails (question already answered) -> TRAINING_SKIPPED_WITH_REASON"
+  },
+  "WP7": {
+   "status": "DONE",
+   "deliverables": [
+    "THESIS_RESULTS_AND_LIMITATIONS_VI.md",
+    "REPRODUCTION_CLAIM_MATRIX.md",
+    "ADVERSARIAL_REVIEW.md",
+    "FINAL_RESEARCH_VERDICT.md"
+   ]
+  },
+  "WP8": {
+   "status": "DONE",
+   "deliverables": [
+    "FINAL_HANDOFF.md",
+    "FINAL_VALIDATION.json",
+    "STATUS.json"
+   ]
+  }
+ },
+ "verdict": "PARTIAL_REPRODUCTION_WITH_EXTERNAL_BLOCKERS",
+ "key_result": "U1 GENERAL_K_TOP1_HARMONIC 0.4558 (dynamic) / 0.4924 (static) vs prior_product 0.4480; paper 0.8600 not reproducible-as-stated (G1-G4 external artifacts missing)",
+ "training": "TRAINING_SKIPPED_WITH_REASON (Gate E3: question already answered by stored artifacts)",
+ "blockers": [
+  "tensor paper-first 411x271 unreleased",
+  "author folds/eval code unreleased",
+  "v20 raw predictions UNAVAILABLE_LOCAL"
+ ],
+ "rev4": {
+  "roadmap": "DHGCMDA_COUNCIL_ROADMAP_20261119.md",
+  "phase_a": "COMPLETE (WP-A0/A1/A2/A3 all done; gates A0-A3 PASS)",
+  "phase_b": "SKIPPED (B1 already answered by paired diag_leak runs; Gate A3 NO_TRAIN_NECESSITY)",
+  "phase_c": "COMPLETE -> R_CLOSE_AS_PARTIAL_REPRODUCTION",
+  "errata": [
+   "density 4.6% RETRACTED (actual 10.5476%, matches paper)"
+  ],
+  "new_findings": [
+   "oracle macro-recall bound 0.8263 < paper R 0.9421 (convention mismatch proven)",
+   "leak paired: v2.0 +0.049, v3.2 ~0",
+   "dataset identity upgraded to L1 exact-match"
+  ],
+  "training_executed": false,
+  "author_request": "READY_NOT_SENT"
+ }
 }

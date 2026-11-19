@@ -26,3 +26,8 @@ thể bị tấn công và cách ta phòng thủ (hoặc chịu).
   tensor khác.
 - R3: Một số artifact Windows-only (v20 runs) → crosswalk
   đánh dấu UNAVAILABLE_LOCAL, không suy ra.
+
+
+---
+
+> **[ERRATUM 2026-11-19, REV4]** Mọi phát biểu "density ~4.6% vs 10.5%" trong file này đã RETRACTED — strict tensor đo thực tế 10.5476% typed-link (khớp paper). Xem `DENSITY_ERRATUM.md`.

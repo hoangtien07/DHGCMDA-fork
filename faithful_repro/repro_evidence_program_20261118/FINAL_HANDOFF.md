@@ -80,3 +80,8 @@ Không huấn luyện mới nào trong program này.
 ## 7. FINAL_PHRASE
 
 REPRO_EVIDENCE_PROGRAM_COMPLETE
+
+
+---
+
+> **[ERRATUM 2026-11-19, REV4]** Mọi phát biểu "density ~4.6% vs 10.5%" trong file này đã RETRACTED — strict tensor đo thực tế 10.5476% typed-link (khớp paper). Xem `DENSITY_ERRATUM.md`.

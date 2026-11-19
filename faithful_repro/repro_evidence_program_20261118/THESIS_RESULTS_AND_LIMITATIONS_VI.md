@@ -86,3 +86,8 @@ SPLD filter `<3 pairs` cho 11,748 links — khớp số, nhưng paper viết
 - "Priors tần suất đạt tới ~90% kết quả model trên aggregate
   metric — gợi ý task pair-fold mang degree prior mạnh, và
   nghi ngờ lợi thế contrastive ở tầng lớp thiểu số."
+
+
+---
+
+> **[ERRATUM 2026-11-19, REV4]** Mọi phát biểu "density ~4.6% vs 10.5%" trong file này đã RETRACTED — strict tensor đo thực tế 10.5476% typed-link (khớp paper). Xem `DENSITY_ERRATUM.md`.
