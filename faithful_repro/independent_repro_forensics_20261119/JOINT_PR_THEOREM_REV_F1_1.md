@@ -23,6 +23,14 @@ support folds: fold3 gets all 1747 (n_max 832), remainder 74 into fold1 (800)
 → Σ=2.1916 → mean R ≤ 1 − 2.1916/25 = 0.9123. Per-fold support audited on the
 actual locked fold manifests (fold2 n_max=797 via type4 — corrects v1's 784).
 
+**Tightness caveat (documentation errata):** the 0.91231 bound is computed on
+the *audited, locked fold partition* of this tensor under the greedy optimal
+error allocation. It is a **valid relaxed upper bound** — i.e., no allocation
+of 1821 errors over these folds yields mean R above it — but it is **not a
+proven tight maximum**: it does not certify that 0.9123 is itself achievable,
+only that nothing higher is. Conclusion (R≥0.94205 infeasible) is unaffected
+because the bound sits far below the target.
+
 ## What is PROVEN vs what remains a convention hypothesis
 
 **Proven conditional results:** under EVERY convention listed above — the only
@@ -40,8 +48,9 @@ class supports different from this tensor's.
 harmonic(0.7915, 0.9421) = 0.86026 → **0.8603**, not the reported 0.8600.
 No unrounded P,R inside the published rounding rectangle yields pooled
 harmonic 0.8600 (range [0.86021, 0.86031]). F1=0.8600 is therefore consistent
-only with a different aggregation order (e.g., mean-of-fold-F1 — existence
-construction shown, NOT an author claim) or different underlying values.
+only with a different aggregation order (e.g., mean-of-fold-F1 — corrected
+existence witness in AGGREGATION_ORDER_ANALYSIS.md, mean F1 = 0.8600 exactly,
+NOT an author claim) or different underlying values.
 
 ## Verdict
 `UNRESOLVED_EVALUATION_CONVENTION` stands, now on a corrected, rounding- and

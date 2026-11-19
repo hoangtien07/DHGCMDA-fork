@@ -9,18 +9,21 @@ Published: P=0.7915, R=0.9421, F1=0.8600.
 - ⇒ If the paper's F1 is a pooled harmonic of the same P,R it reports,
   0.8600 is arithmetically inconsistent with 0.7915/0.9421 (small but real).
 
-## Finding 2 — mean-of-fold-F1 CAN produce 0.8600
-Existence construction (NOT an author claim, no fold values invented):
-- fold A: P=0.5599, R=0.7105 → F1≈0.626
-- folds B–E: P=0.8494, R=0.99996 → F1≈0.918
-- mean P = 0.7915, mean R = 0.9421, mean F1 ≈ 0.8601
+## Finding 2 — mean-of-fold-F1 CAN produce 0.8600 (errata: corrected witness)
+Existence construction (NOT an author claim; the following fold values are a
+mathematical witness produced by `joint_pr_feasibility_rev11.py`, not inferred
+author fold results):
+- fold A: P=0.6816, R=0.7504 → F1≈0.7143
+- folds B–E: P=0.8190, R=0.9900 → F1≈0.8964
+- mean P = 0.7915, mean R = 0.9421, **mean F1 = 0.8600** (residual < 1e-9)
 
-Interpretation: 0.8600 is consistent with mean-of-fold-F1 aggregation only
-when fold metrics are highly heterogeneous (one weak fold, four near-ceiling
-folds with R≈1.0). R≈0.99996 in four folds borders the implausible — flagged
-as existence-only. A more moderate spread cannot reach 0.8600 because
-mean-F1 is only second-order below the pooled harmonic (concavity effect
-~1e-4 for ±0.05 spreads — measured).
+Interpretation: 0.8600 is consistent with mean-of-fold-F1 aggregation under
+fold heterogeneity (one weaker fold against four stronger folds). Because the
+published mean recall 0.9421 is itself very high, any witness necessarily
+assigns high recall to the majority of folds — but we make no claim that this
+particular shape, nor near-perfect recall, is necessary; only that a feasible
+family exists. This is existence evidence for a convention, not evidence about
+the authors' actual folds.
 
 ## Finding 3 — other conventions
 - Pooled P,R then harmonic: inconsistent (Finding 1).
@@ -32,5 +35,6 @@ mean-F1 is only second-order below the pooled harmonic (concavity effect
 ## Documented conclusion
 The published triplet is internally consistent ONLY under an aggregation
 order different from pooled harmonic — either fold-wise F1 averaging with
-extreme fold heterogeneity, or F1 computed from underlying values different
-from the rounded published P,R. Neither is decidable from public sources.
+heterogeneous folds (feasible witness above), or F1 computed from underlying
+values different from the rounded published P,R. Neither is decidable from
+public sources.

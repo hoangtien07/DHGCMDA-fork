@@ -10,12 +10,18 @@
    một lớp scalar có support ≥ ~6.285 mẫu, trong khi lớn nhất khả dĩ là 3.997.
    → Kết luận đúng là "convention đánh giá không xác định được từ nguồn công
    khai" (UNRESOLVED_EVALUATION_CONVENTION), KHÔNG phải "paper sai".
+   Lưu ý độ chặt: cận fold-wise 0.9123 tính trên partition fold đã khóa/đã
+   audit với phân bổ lỗi tối ưu (greedy) — là cận trên hợp lệ kiểu relaxed
+   (không phân bổ nào vượt quá), KHÔNG phải giá trị lớn nhất đã chứng minh
+   đạt được.
 
 2. **Không nhất quán trong bộ ba số P/R/F1**: harmonic(0.7915, 0.9421) = 0.86026
    làm tròn thành 0.8603, nhưng paper báo 0.8600. Không tồn tại P,R chưa làm
    tròn nào trong khoảng làm tròn 4 chữ số cho pooled harmonic = 0.8600. Điều
-   này chỉ nhất quán với aggregation khác (ví dụ mean-of-fold-F1 — đã chứng minh
-   tồn tại nghiệm, nhưng đòi hỏi độ lệch fold cực lớn) hoặc giá trị gốc khác.
+   này chỉ nhất quán với aggregation khác (ví dụ mean-of-fold-F1 — có nghiệm
+   chứng minh được: 1 fold 0.6816/0.7504 + 4 fold 0.8190/0.9900 → mean F1 =
+   0.8600 đúng tuyệt đối; chỉ là nghiệm tồn tại, không khẳng định đó là fold
+   thật của tác giả hay dạng phân bố này là bắt buộc) hoặc giá trị gốc khác.
    Độ lệch 3e-4 cũng có thể chỉ là lỗi làm tròn/in ấn — không kết luận gian lận.
 
 3. **Evaluator phát hành không chấm được v3.2** (K4 chỉ nhận 4 loại, bỏ hết
@@ -29,11 +35,16 @@
    với paper)**: U1 top1 harmonic 0.456–0.492; baseline sửa lỗi tốt nhất
    0.5298; Track N A1 âm tính (−0.014 so với baseline).
 
-6. **Provenance bốn view** (đã sửa theo code release thật): release dùng
-   M_GSM/D_SSM2/M_FSM/D_SSM1 rồi cộng GIP tính trên TOÀN BỘ ma trận liên kết
-   → view của release bị leak. MISIM (view chức năng) vốn là association-derived
-   ở upstream — KHÔNG được gọi "clean" chỉ vì là database công khai. d2025.bin
-   (NLM MeSH 2025) và mtrees2019.bin là hai artifact khác nhau cho view semantic.
+6. **Provenance bốn view** (đã sửa theo code release thật, tách 3 lớp):
+   (a) bốn input similarity thô `M_GSM/M_FSM/D_SSM2/D_SSM1` là file gốc được
+   release nạp trực tiếp — không khẳng định mọi file nguồn này đều đã chứa
+   GIP; (b) ma trận IM/ID tăng cường GIP tính trên TOÀN BỘ ma trận liên kết
+   trong pipeline release → input model của release bị leak (kết luận leak
+   đứng ở lớp này); (c) các feature/graph dựng trực tiếp trên ma trận liên
+   kết đầy đủ → leak. MISIM (view chức năng) vốn là association-derived ở
+   upstream — KHÔNG được gọi "clean" chỉ vì là database công khai. d2025.bin
+   (NLM MeSH 2025) và mtrees2019.bin là hai artifact khác nhau cho view
+   semantic.
 
 ## Những gì KHÔNG được khẳng định
 

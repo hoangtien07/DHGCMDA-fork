@@ -160,15 +160,17 @@
   "mean_of_fold_F1_feasible": {
    "exists": true,
    "solution": {
-    "foldA_P": 0.5599161402690045,
-    "foldA_R": 0.7105161402690046,
-    "foldsB_P": 0.8493959649327488,
-    "foldsB_R": 0.9999959649327489,
-    "mean_P": 0.7914999999999999,
-    "mean_R": 0.9420999999999999,
-    "mean_F1": 0.8601092785565342
+    "foldA_P": 0.6815999999999744,
+    "foldA_R": 0.7503999999999944,
+    "foldsB_P": 0.8189750000000064,
+    "foldsB_R": 0.9900250000000015,
+    "mean_P": 0.7915000000000001,
+    "mean_R": 0.9421000000000002,
+    "mean_F1": 0.8599999992248568,
+    "foldA_F1": 0.7143472625698158,
+    "foldsB_F1": 0.896413183388617
    },
-   "note": "existence construction ONLY — no claim that author folds had these values; proves 0.8600 is consistent with mean-of-fold-F1 aggregation"
+   "note": "existence witness ONLY (one weaker fold vs four stronger folds) — no claim about author fold values and no claim that this particular shape is necessary; it only proves mean-of-fold-F1 can equal 0.8600 with published means"
   }
  },
  "counterexamples": {
