@@ -1,0 +1,11 @@
+{
+  "reused": "repro_evidence_program_20261118/test_fidelity_microfixtures.py",
+  "status": "6/6 PASS re-run on this branch 2026-11-19",
+  "pinned_facts": [
+    "EN weights beta=0.99999 normalized to sum=C; minority/majority ratio ~9.7x",
+    "existence head has no temperature; focal alpha applies to negatives only",
+    "U1 type-loss denominator = weighted positive mass; author CE denominator = positive sample count; they diverge exactly on multi-label rows (24.2% of pairs)",
+    "HGCN G matrices are prebuilt; 5-epoch refresh updates HGT edge_index only",
+    "K4 evaluator drops every K5 row -> v3.2 scores 0 regardless of model quality"
+  ]
+}

@@ -1,0 +1,159 @@
+{
+ "inputs": {
+  "N_pairs": 8735,
+  "L_links": 11748,
+  "multi_hot_support": [
+   1155,
+   403,
+   2293,
+   3997,
+   3900
+  ],
+  "first_pos_support": [
+   1155,
+   327,
+   1957,
+   2903,
+   2393
+  ],
+  "last_pos_support": [
+   484,
+   149,
+   1372,
+   2830,
+   3900
+  ],
+  "N_max_upper_bound": 3997,
+  "published": {
+   "P": 0.7915,
+   "R": 0.9421,
+   "F1": 0.86,
+   "rounding_interval_P": [
+    0.79145,
+    0.79155
+   ],
+   "rounding_interval_R": [
+    0.94205,
+    0.94215
+   ]
+  }
+ },
+ "bounds": {
+  "pooled_K5_scalar": {
+   "first_positive": {
+    "scalar_support": [
+     1155,
+     327,
+     1957,
+     2903,
+     2393
+    ],
+    "N_max": 2903,
+    "R_upper_bound": 0.8744964347227007,
+    "required_N_max_for_R": 6287.0897325280475
+   },
+   "last_positive": {
+    "scalar_support": [
+     484,
+     149,
+     1372,
+     2830,
+     3900
+    ],
+    "N_max": 3900,
+    "R_upper_bound": 0.9065802948717949,
+    "required_N_max_for_R": 6287.0897325280475
+   },
+   "any_assignment": {
+    "scalar_support": [
+     0,
+     0,
+     0,
+     3997,
+     0
+    ],
+    "N_max": 3997,
+    "R_upper_bound": 0.9088474230673005,
+    "required_N_max_for_R": 6287.0897325280475
+   }
+  },
+  "foldwise_K5_scalar": {
+   "per_fold": [
+    {
+     "fold": 0,
+     "n_pairs": 1747,
+     "N_max_max": 788,
+     "R_upper_bound": 0.9075287182741116
+    },
+    {
+     "fold": 1,
+     "n_pairs": 1747,
+     "N_max_max": 800,
+     "R_upper_bound": 0.9089157875
+    },
+    {
+     "fold": 2,
+     "n_pairs": 1747,
+     "N_max_max": 784,
+     "R_upper_bound": 0.9070569260204082
+    },
+    {
+     "fold": 3,
+     "n_pairs": 1747,
+     "N_max_max": 832,
+     "R_upper_bound": 0.9124190264423077
+    },
+    {
+     "fold": 4,
+     "n_pairs": 1747,
+     "N_max_max": 793,
+     "R_upper_bound": 0.9081117654476671
+    }
+   ],
+   "mean_of_fold_R_upper": 0.9088064447368989,
+   "note": "per-fold support uses pairs containing type3 in that fold"
+  },
+  "multihot_one_pred": {
+   "SigmaFN_min_at_pubP": 4834,
+   "R_upper_bound_at_pubP": 0.7581280585439079,
+   "R_upper_bound_even_P1": 0.8492369276957719,
+   "note": "multi-hot truth + single argmax pred; TP_total<=P*N"
+  },
+  "K4_filtered_scalar": {
+   "N_pairs": 6342,
+   "support": [
+    1155,
+    403,
+    2293,
+    3997
+   ],
+   "N_max": 3997,
+   "R_upper_bound": 0.917273949211909,
+   "required_N_max_for_R": 5705.88481449526
+  }
+ },
+ "required_support": {
+  "N_max_needed_for_R_9421": 6287.0897325280475,
+  "largest_possible_scalar_class": 3997,
+  "verdict": "INFEASIBLE under pooled/fold-wise K5 scalar conventions (needs scalar class support ~6287 > max possible 3997)"
+ },
+ "fixtures": {
+  "tiny_bruteforce_K3": {
+   "n": [
+    4,
+    2,
+    1
+   ],
+   "E": 2,
+   "enumerated_max_R": 0.8333333333333334,
+   "formula_bound": 0.8333333333333334,
+   "match": true,
+   "note": "errors concentrated in largest class attain the bound"
+  },
+  "real_scale": {
+   "E": 1821.2475000000002,
+   "R_if_all_errors_in_largest_class": 0.9088692769577182,
+   "R_if_errors_spread_proportionally": 0.6874813421475321
+  }
+ }
+}
