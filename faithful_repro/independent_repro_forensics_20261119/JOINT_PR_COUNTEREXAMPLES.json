@@ -1,0 +1,193 @@
+{
+ "integer_feasibility": {
+  "N": 8735,
+  "correct_counts_rounding_to_0_7915": [
+   6914
+  ],
+  "n_correct": 6914,
+  "n_errors_min": 1821,
+  "check_6914": {
+   "value": 0.7915283342873497,
+   "rounds_to": 0.7915
+  }
+ },
+ "bounds": {
+  "pooled_K5_scalar": {
+   "first_positive": {
+    "scalar_support": [
+     1155,
+     327,
+     1957,
+     2903,
+     2393
+    ],
+    "N_max": 2903,
+    "R_upper_bound_Emin": 0.8745435756114365,
+    "required_N_max": 6284.7282139775725
+   },
+   "last_positive": {
+    "scalar_support": [
+     484,
+     149,
+     1372,
+     2830,
+     3900
+    ],
+    "N_max": 3900,
+    "R_upper_bound_Emin": 0.9066153846153846,
+    "required_N_max": 6284.7282139775725
+   },
+   "any_assignment": {
+    "scalar_support": [
+     1155,
+     403,
+     2293,
+     3997,
+     3900
+    ],
+    "N_max": 3997,
+    "R_upper_bound_Emin": 0.9088816612459345,
+    "required_N_max": 6284.7282139775725
+   }
+  },
+  "foldwise_K5_arbitrary_P": {
+   "per_fold_support": [
+    {
+     "fold": 0,
+     "n": 1747,
+     "support": [
+      201,
+      74,
+      471,
+      788,
+      772
+     ],
+     "n_max": 788
+    },
+    {
+     "fold": 1,
+     "n": 1747,
+     "support": [
+      233,
+      75,
+      465,
+      800,
+      767
+     ],
+     "n_max": 800
+    },
+    {
+     "fold": 2,
+     "n": 1747,
+     "support": [
+      239,
+      89,
+      431,
+      784,
+      797
+     ],
+     "n_max": 797
+    },
+    {
+     "fold": 3,
+     "n": 1747,
+     "support": [
+      238,
+      79,
+      441,
+      832,
+      801
+     ],
+     "n_max": 832
+    },
+    {
+     "fold": 4,
+     "n": 1747,
+     "support": [
+      244,
+      86,
+      485,
+      793,
+      763
+     ],
+     "n_max": 793
+    }
+   ],
+   "error_allocation": [
+    {
+     "fold": 3,
+     "errors": 1747,
+     "n_max": 832
+    },
+    {
+     "fold": 1,
+     "errors": 74,
+     "n_max": 800
+    }
+   ],
+   "mean_R_upper_bound": 0.9123096153846154,
+   "note": "errors concentrated into largest-support folds; respects E_f <= n_f; arbitrary per-fold precision"
+  },
+  "foldwise_old_equalP_WRONG": {
+   "value": 0.9091314377569454,
+   "why_wrong": "assumed identical per-fold precision; arbitrary P_f lets errors concentrate in the largest-support fold and legitimately raise mean R above this value"
+  },
+  "multihot_one_pred": {
+   "R_upper_at_pub_P": 0.7581185889417063,
+   "R_upper_even_P1": 0.8492369276957719
+  },
+  "K4_filtered_scalar": {
+   "N_pairs": 6342,
+   "support": [
+    1155,
+    403,
+    2293,
+    3997
+   ],
+   "R_upper_bound": 0.9173129847385539,
+   "required_N_max": 5703.192407247632
+  }
+ },
+ "aggregation": {
+  "harmonic_published": 0.8602585948315643,
+  "rounds_to": 0.8603,
+  "claim": "harmonic(0.7915,0.9421)=0.86026 -> rounds 0.8603, NOT the reported 0.8600",
+  "harmonic_range_over_rounding_rectangle": [
+   0.8602082174790886,
+   0.8603089721405087
+  ],
+  "implication": "pooled harmonic cannot equal 0.8600 for ANY unrounded P,R inside the published 4-decimal rounding rectangle; F1 must come from a different aggregation (e.g. mean-of-fold-F1) or different underlying values",
+  "mean_of_fold_F1_feasible": {
+   "exists": true,
+   "solution": {
+    "foldA_P": 0.5599161402690045,
+    "foldA_R": 0.7105161402690046,
+    "foldsB_P": 0.8493959649327488,
+    "foldsB_R": 0.9999959649327489,
+    "mean_P": 0.7914999999999999,
+    "mean_R": 0.9420999999999999,
+    "mean_F1": 0.8601092785565342
+   },
+   "note": "existence construction ONLY — no claim that author folds had these values; proves 0.8600 is consistent with mean-of-fold-F1 aggregation"
+  }
+ },
+ "counterexamples": {
+  "foldwise_concentration": {
+   "old_equal_P_bound": 0.88,
+   "true_max_arbitrary_P": 0.96,
+   "old_was_not_a_valid_upper_bound": true
+  },
+  "rounding_direction": {
+   "E_min_integer": 1821,
+   "bound_with_E_min": 0.9088816612459345,
+   "bound_with_E_max": 0.9088816612459345,
+   "note": "reporting the maximum achievable R requires E_min"
+  }
+ },
+ "verdict": {
+  "required_single_class_support": 6284.7282139775725,
+  "largest_possible": 3997,
+  "infeasible_under_source_supported_conventions": true,
+  "conditional": "UNRESOLVED_EVALUATION_CONVENTION"
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "verdict": "FORENSICS_ACCEPTED_CONDITIONALLY_UNRESOLVED",
+ "revision": "REV-F1.1",
+ "date": "2026-11-19",
+ "corrections_applied": [
+  "rounding-aware bounds use minimum integer errors (E_min=1821; C=6914 unique feasible integer for P=0.7915)",
+  "fold-wise bound allows arbitrary per-fold precision (old equal-P assumption proven invalid by counterexample 0.88<0.96)",
+  "per-fold N_max audited over all classes (fold2=797 via type4, corrected from 784)",
+  "aggregation analyzed: harmonic(0.7915,0.9421)=0.8603 != 0.8600; mean-of-fold-F1 feasibility shown (existence only)",
+  "four-view provenance corrected vs release code (D_SSM1/D_SSM2/M_FSM/M_GSM + full-A GIP augmentation); d2025.bin distinguished from MISIM; MISIM flagged association-derived",
+  "thesis doc rewritten entirely in Vietnamese",
+  "conditional results separated from untested conventions"
+ ],
+ "audited_results": {
+  "pooled_K5_scalar_bound": 0.9089,
+  "foldwise_arbitraryP_bound": 0.9123,
+  "multihot_one_pred_bound": 0.7581,
+  "K4_filtered_bound": 0.9173,
+  "required_class_support": 6284.7,
+  "largest_possible": 3997,
+  "harmonic_published_PR": 0.8602586
+ },
+ "deliverables": [
+  "JOINT_PR_THEOREM_REV_F1_1.md",
+  "JOINT_PR_COUNTEREXAMPLES.json",
+  "AGGREGATION_ORDER_ANALYSIS.md",
+  "FOUR_VIEW_PROVENANCE_CORRECTED.md",
+  "SCIENTIFIC_CLAIM_AUDIT.md",
+  "THESIS_REPRO_LIMITATIONS_VI.md",
+  "joint_pr_feasibility_rev11.py",
+  "FINAL_FORENSICS_ACCEPTANCE.json"
+ ],
+ "final_verdict": "UNRESOLVED_EVALUATION_CONVENTION (conditional, proven under all source-supported conventions; not an accusation)",
+ "constraints_respected": [
+  "no training",
+  "no author contact",
+  "no github issue",
+  "historical runs unchanged"
+ ]
+}
