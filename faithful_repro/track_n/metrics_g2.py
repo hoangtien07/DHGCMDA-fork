@@ -50,16 +50,17 @@ def metrics_for(y, p_norm, taus):
             rc = tp / max(tp + fn, 1)
             fs.append(2 * pr * rc / max(pr + rc, 1e-12))
         mm = float(np.mean(fs))
-    # top1 firstpos harmonic
-    hits, total = 0.0, 0
+    # top1 first-positive harmonic — LOCKED formula (same as
+    # metric_bridge K5_firstpos): P = pooled accuracy of argmax
+    # vs first-positive truth; R = mean per-class recall;
+    # F1 = harmonic(P,R).
     pred1 = p_norm.argmax(1)
-    for i in range(len(y)):
-        ks = np.flatnonzero(y[i])
-        if len(ks):
-            total += 1
-            if y[i, pred1[i]]:
-                hits += 1.0 / len(ks)
-    top1 = hits / max(total, 1)
+    truth_first = np.argmax(y > 0, 1)
+    P = float((truth_first == pred1).mean())
+    R = float(np.mean([np.mean(pred1[truth_first == k] == k)
+                       if (truth_first == k).any() else 0.0
+                       for k in range(T)]))
+    top1 = 2 * P * R / (P + R) if P + R else 0.0
     return {'macroF1': macro, 'microF1': micro,
             'multitype_macroF1': mm,
             'top1_firstpos_harmonic': top1,

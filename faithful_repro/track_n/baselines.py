@@ -30,36 +30,43 @@ def prior_scores(train_pairs, y_train, test_pairs, n_mi, n_dis):
     return _prior.predict_counts(counts, test_pairs)
 
 
-def pair_features(Y_train, pairs, S_mi, S_dis, c_m=None, c_d=None,
-                  lopo_pairs=None):
-    """Class-aware features for `pairs` given train-masked Y_train
-    (M,D,5). Counts c_m/c_d may be precomputed; if lopo_pairs is
-    given, each row's OWN labels are subtracted (train features).
-    Features: per-type mi count (5), per-type dis count (5),
-    sim-weighted per-type count (5+5) -> (n,20)."""
+def pair_features(c_m, c_d, pairs, S_mi, S_dis, y_own=None):
+    """Class-aware features for `pairs` from fit counts c_m (M,5),
+    c_d (D,5) built ONLY from fit pairs (inner-val excluded).
+    y_own: (n,5) own labels of these pairs — required when the
+    pairs themselves are IN the fit set: subtracts each pair's own
+    labels from its entity counts (per-pair LOPO) for BOTH the
+    direct count block AND the similarity-weighted block (the
+    latter via S[i,i]*y_own and S[j,j]*y_own corrections).
+    Features: direct counts (5+5) + sim-weighted counts (5+5)."""
     i, j = pairs[:, 0], pairs[:, 1]
-    if c_m is None:
-        c_m = np.zeros((Y_train.shape[0], 5))
-        c_d = np.zeros((Y_train.shape[1], 5))
-        tr = np.argwhere(Y_train.sum(-1) > 0)
-        np.add.at(c_m, tr[:, 0], Y_train[tr[:, 0], tr[:, 1]])
-        np.add.at(c_d, tr[:, 1], Y_train[tr[:, 0], tr[:, 1]])
-    if lopo_pairs is not None:
-        cm = c_m.copy()
-        cd = c_d.copy()
-        own = Y_train[lopo_pairs[:, 0], lopo_pairs[:, 1]]
-        np.subtract.at(cm, lopo_pairs[:, 0], own)
-        np.subtract.at(cd, lopo_pairs[:, 1], own)
-        cm = np.clip(cm, 0, None)
-        cd = np.clip(cd, 0, None)
+    if y_own is not None:
+        cm_i = c_m[i] - y_own
+        cd_j = c_d[j] - y_own
+        cm_i = np.clip(cm_i, 0, None)
+        cd_j = np.clip(cd_j, 0, None)
+        sw_m = np.abs(S_mi[i] @ c_m) - np.abs(
+            S_mi[i, i])[:, None] * y_own
+        sw_d = np.abs(S_dis[j] @ c_d) - np.abs(
+            S_dis[j, j])[:, None] * y_own
     else:
-        cm, cd = c_m, c_d
-    X = [np.log1p(cm[i]), np.log1p(cd[j])]
-    # similarity-weighted type counts: how much do entities similar
-    # to me carry each type? uses S_mi[i,m]·c_m[m,k] etc.
-    X.append(np.log1p(np.abs(S_mi[i] @ c_m)))
-    X.append(np.log1p(np.abs(S_dis[j] @ c_d)))
+        cm_i, cd_j = c_m[i], c_d[j]
+        sw_m = np.abs(S_mi[i] @ c_m)
+        sw_d = np.abs(S_dis[j] @ c_d)
+    X = [np.log1p(cm_i), np.log1p(cd_j),
+         np.log1p(np.maximum(sw_m, 0)),
+         np.log1p(np.maximum(sw_d, 0))]
     return np.concatenate(X, axis=1)
+
+
+def fit_counts(Y_fit):
+    """Entity×type counts from fit-masked label tensor."""
+    M, D, T = Y_fit.shape
+    tr = np.argwhere(Y_fit.sum(-1) > 0)
+    c_m = np.zeros((M, T)); c_d = np.zeros((D, T))
+    np.add.at(c_m, tr[:, 0], Y_fit[tr[:, 0], tr[:, 1]])
+    np.add.at(c_d, tr[:, 1], Y_fit[tr[:, 0], tr[:, 1]])
+    return c_m, c_d
 
 
 def logistic_scores(y_tr, X_tr, X_te, T=5, seed=0):

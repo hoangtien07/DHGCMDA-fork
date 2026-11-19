@@ -1,0 +1,476 @@
+{
+ "disease_cold": {
+  "global": {
+   "macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.15620001881962411,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.0,
+    "n": 15
+   }
+  },
+  "disease": {
+   "macroF1": {
+    "mean": 0.39307302187189136,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.420936488301863,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.6054435358599464,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.15620001881962411,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 1.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 5.0,
+    "n": 15
+   }
+  },
+  "mirna": {
+   "macroF1": {
+    "mean": 0.1636128754949506,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.2009004992635977,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.23758336480237077,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.2931305115983141,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.1652427341834204,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 1.224637584931972,
+    "n": 15
+   }
+  },
+  "product_laplace1": {
+   "macroF1": {
+    "mean": 0.007361206401833664,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.010306848581548038,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.01244334432970883,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.29440967276544083,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.014175308694642492,
+    "n": 15
+   }
+  },
+  "B1_logistic": {
+   "macroF1": {
+    "mean": 0.07253348378030035,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.04841534658892556,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.08010323595207527,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.2924674231107945,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.11609540009644663,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.0787623146954137,
+    "n": 15
+   }
+  },
+  "B2_labelprop": {
+   "macroF1": {
+    "mean": 0.0823799488563717,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.12891961861823992,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.14076993463475748,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.314373530549372,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.154337004031417,
+    "n": 15
+   }
+  }
+ },
+ "mirna_cold": {
+  "global": {
+   "macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.15868394345005668,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.0,
+    "n": 15
+   }
+  },
+  "disease": {
+   "macroF1": {
+    "mean": 0.32631772148028904,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.3745150884175664,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.4583162885811973,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.4267104290406922,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.39170176623066805,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 1.7320371424068086,
+    "n": 15
+   }
+  },
+  "mirna": {
+   "macroF1": {
+    "mean": 0.3959024712911983,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.42338354667011185,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.611859387247033,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.15868394345005668,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 1.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 5.0,
+    "n": 15
+   }
+  },
+  "product_laplace1": {
+   "macroF1": {
+    "mean": 0.205020982238352,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.33518685885833416,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.3044456454261964,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.4285804692520187,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0165016501650165,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.5535467709658164,
+    "n": 15
+   }
+  },
+  "B1_logistic": {
+   "macroF1": {
+    "mean": 0.2756640051677642,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.4308504399697493,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.2376973705091839,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.42196190908616443,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.6194565368870953,
+    "n": 15
+   }
+  },
+  "B2_labelprop": {
+   "macroF1": {
+    "mean": 0.4569042419354581,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.5510478804516769,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.6139016202495814,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.4462959624627628,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.35749512481418916,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 2.263827066989154,
+    "n": 15
+   }
+  }
+ },
+ "pair": {
+  "global": {
+   "macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.1590247204486288,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.0,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.0,
+    "n": 15
+   }
+  },
+  "disease": {
+   "macroF1": {
+    "mean": 0.4079525326767406,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.4911025890902169,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.5563645476892494,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.425739710818435,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.3806497401404606,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 2.137721808815112,
+    "n": 15
+   }
+  },
+  "mirna": {
+   "macroF1": {
+    "mean": 0.11203989198721268,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.13841620676709518,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.15813630948640103,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.28829363969158267,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.05785063060500408,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 0.7624880747948865,
+    "n": 15
+   }
+  },
+  "product_laplace1": {
+   "macroF1": {
+    "mean": 0.4966642213029647,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.5841017891951766,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.6482202750945907,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.44576188507547426,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.3702917201583374,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 2.383896203014692,
+    "n": 15
+   }
+  },
+  "B1_logistic": {
+   "macroF1": {
+    "mean": 0.5297807626050882,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.6311136175841627,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.630317253210834,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.43880479954890106,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.3196907582632991,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 1.9017744705208932,
+    "n": 15
+   }
+  },
+  "B2_labelprop": {
+   "macroF1": {
+    "mean": 0.4650714058778335,
+    "n": 15
+   },
+   "microF1": {
+    "mean": 0.5664385451365687,
+    "n": 15
+   },
+   "multitype_macroF1": {
+    "mean": 0.6226441403446261,
+    "n": 15
+   },
+   "top1": {
+    "mean": 0.45495259567225843,
+    "n": 15
+   },
+   "minority_recall": {
+    "mean": 0.31128596422958604,
+    "n": 15
+   },
+   "cardinality": {
+    "mean": 2.442129364625072,
+    "n": 15
+   }
+  }
+ }
+}

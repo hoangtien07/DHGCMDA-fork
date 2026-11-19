@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from baselines import (prior_scores, pair_features, logistic_scores,
-                       label_prop_scores)
+                       label_prop_scores, fit_counts)
 
 ROOT = Path(__file__).resolve().parent.parent
 TENSOR = ROOT / 'data' / 'v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz'
@@ -46,22 +46,28 @@ def t_prior_equivalence_archived():
 def t_lopo_removes_own_label():
     Y = np.zeros((2, 2, 5), int)
     Y[0, 0, 1] = 1
+    cm, cd = fit_counts(Y)
     tr = np.array([[0, 0]])
     Sm = np.eye(2) * 0.9 + 0.05
     Sd = Sm.copy()
-    X_lopo = pair_features(Y, tr, Sm, Sd, lopo_pairs=tr)
-    X_full = pair_features(Y, tr, Sm, Sd)
+    X_lopo = pair_features(cm, cd, tr, Sm, Sd,
+                           y_own=Y[tr[:, 0], tr[:, 1]])
+    X_full = pair_features(cm, cd, tr, Sm, Sd)
     # LOPO must remove the own type-1 count -> feature lower
     assert X_lopo[0, 1] < X_full[0, 1]
+    # sim-weighted block must also drop (self-sim 0.9 * own label)
+    assert X_lopo[0, 11] < X_full[0, 11]
 
 
 def t_sim_indexing():
     # S_mi is (M,M), S_dis (D,D): feature must not conflate them
     Y = np.zeros((3, 4, 5), int); Y[0, 0, 2] = 1; Y[1, 1, 2] = 1
+    cm, cd = fit_counts(Y)
     Sm = np.eye(3); Sd = np.eye(4) * 2.0
-    X = pair_features(Y, np.array([[0, 0]]), Sm, Sd)
-    # disease similarity weight 2.0 must appear in the dis block
+    X = pair_features(cm, cd, np.array([[0, 0]]), Sm, Sd)
     assert X.shape == (1, 20)
+    # dis sim-weighted block (15..19): type-2 channel must be lit
+    assert X[0, 17] > 0 and X[0, 15] == 0
 
 
 def t_logistic_ptp_and_learns():
@@ -88,9 +94,32 @@ def t_labelprop_pertype_trainonly():
     assert s[0, 3] < s[1, 3]
 
 
+def t_inner_val_perturbation_no_leak():
+    """WP1 gate: changing an inner-val label must NOT change
+    fit-derived counts/features/scores."""
+    rng = np.random.default_rng(0)
+    Y = (rng.random((4, 5, 5)) > 0.85).astype(int)
+    ftr = np.array([[0, 0], [1, 1], [2, 2]])
+    iv = np.array([[3, 3]])
+    def build(Yl):
+        Yf = np.zeros_like(Yl)
+        Yf[ftr[:, 0], ftr[:, 1]] = Yl[ftr[:, 0], ftr[:, 1]]
+        cm, cd = fit_counts(Yf)
+        Sm = np.eye(4) * 0.8 + 0.1
+        Sd = np.eye(5) * 0.8 + 0.1
+        Xiv = pair_features(cm, cd, iv, Sm, Sd)
+        return cm, Xiv, label_prop_scores(Yf, iv, Sm, Sd)
+    a = build(Y)
+    Yp = Y.copy(); Yp[3, 3] = 1 - Yp[3, 3]  # flip ALL iv labels
+    b = build(Yp)
+    assert np.array_equal(a[0], b[0]) and np.array_equal(a[1], b[1])
+    assert np.array_equal(a[2], b[2])
+
+
 if __name__ == '__main__':
     for f in (t_prior_equivalence_archived, t_lopo_removes_own_label,
               t_sim_indexing, t_logistic_ptp_and_learns,
-              t_labelprop_pertype_trainonly):
+              t_labelprop_pertype_trainonly,
+              t_inner_val_perturbation_no_leak):
         f(); print(f.__name__, 'PASS')
-    print('ALL 5 CONTRACTS PASS')
+    print('ALL 6 CONTRACTS PASS')

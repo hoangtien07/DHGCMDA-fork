@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-19",
+  "scope": "Re-verify metric contracts after G2 repair (WP2 of G4-conditional)",
+  "top1_firstpos_harmonic": {
+    "locked_formula": "P=(truth_first==argmax).mean(); R=mean_k recall on truth_first==k rows (absent k -> 0); F1=harmonic(P,R). Identical to metric_bridge K5_firstpos.",
+    "implementation": "metrics_g2c.py:57-63",
+    "counterexamples": [
+      "perfect_full_support -> 1.0",
+      "perfect_partial_support -> 0.75 (absent classes count 0)",
+      "all_wrong -> 0.0",
+      "multihot_firstpos_differs_from_multihot_argmax",
+      "first_vs_last_positive_distinction"
+    ],
+    "status": "PASS 5/5 (test_metric_contracts_trackn.py)"
+  },
+  "baselines_contracts": {
+    "tests": ["prior_equivalence_vs_archived","lopo_direct_and_sim_weighted","sim_indexing","logistic_ptp","labelprop_pertype","inner_val_perturbation_no_leak"],
+    "status": "PASS 6/6 (test_baselines_contracts.py)"
+  },
+  "provenance_final_gate": "ALL_PASS — split-level, inner-val-level, feature-level on all 3 tracks vs exact run_g2c/a1 builders (PROVENANCE_FINAL_GATE.json)",
+  "conclusion": "Metric + provenance contracts re-verified on corrected namespace. No fabricated PASS."
+}

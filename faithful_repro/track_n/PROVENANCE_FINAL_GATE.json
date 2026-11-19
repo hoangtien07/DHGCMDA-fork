@@ -1,0 +1,26 @@
+{
+ "tensor_sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+ "tracks": {
+  "pair": {
+   "SPLIT_LEVEL": true,
+   "INNER_VAL_LEVEL": true,
+   "FEATURE_LEVEL": true,
+   "checked_cells": 5,
+   "PASS": true
+  },
+  "mirna_cold": {
+   "SPLIT_LEVEL": true,
+   "INNER_VAL_LEVEL": true,
+   "FEATURE_LEVEL": true,
+   "checked_cells": 15,
+   "PASS": true
+  },
+  "disease_cold": {
+   "SPLIT_LEVEL": true,
+   "INNER_VAL_LEVEL": true,
+   "FEATURE_LEVEL": true,
+   "checked_cells": 15,
+   "PASS": true
+  }
+ }
+}
