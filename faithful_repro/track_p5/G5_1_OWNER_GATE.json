@@ -1,0 +1,26 @@
+{
+  "gate": "G5_1_OWNER_GATE",
+  "base": "46bffbc5caf8c9d133828cb21e74cdd1d0938400",
+  "verdict": "G5_1_ANALYSIS_COMPLETE",
+  "new_training": 0,
+  "checkpoint_modified": false,
+  "key_findings": {
+    "prediction_collapse": "classes 2,3,4 predicted positive on 100% of 1747 test pairs (\u03c4 at grid floor 0.05); their F1 EXACTLY equals always-positive null",
+    "null_reference": {
+      "always_pos_macro_f1": 0.3894,
+      "model": 0.4087,
+      "delta": 0.0193,
+      "margin_source": "classes 0,1 only (+0.045,+0.051)"
+    },
+    "objective": "l_rec = 99.53% of total loss at ep160; clip_active 160/160; type CE ~0.03% of objective",
+    "graph_instability": "disease-sim edges 64150\u2192~200 in 3 refreshes then regrow; miRNA-sim oscillates 884..44832; untestable cause (S stats unlogged)",
+    "checkpoint_staleness": "selected ep60, training ran to ep160 (patience)"
+  },
+  "unexecuted_optional": "checkpoint forward/backward attribution \u2014 needs separate authorization",
+  "deliverables": [
+    "G5_1_PREDICTION_COLLAPSE_AUDIT.md",
+    "G5_1_OBJECTIVE_AND_GRAPH_DIAGNOSTICS.md",
+    "G6_BASELINE_PREREGISTRATION_DRAFT.md"
+  ],
+  "g6_status": "preregistration draft only \u2014 awaiting owner decision"
+}
