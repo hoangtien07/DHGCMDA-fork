@@ -1,0 +1,34 @@
+{
+  "gate": "G5_LAUNCH_PREFLIGHT",
+  "base_commit": "46c194b980006c7a21e8f938166b6e9244ae4742",
+  "verdict": "READY_FOR_SINGLE_G5_PILOT",
+  "hotfixes": {
+    "seeding": "random+np.random+torch.manual_seed(a.seed) at top of train_fold, before all sampling/model construction",
+    "interruption": "max_wall_s break -> outcome='interrupted', macro_f1=None, thresholds=None \u2014 outer-test NEVER scored on interrupted runs; no valid result without a val-selected checkpoint (outcome='failed_no_checkpoint')",
+    "hardstop_boundary": "CLI catches HardStop -> atomic failure_report.json + diagnostics.json, exit code 1; outcomes distinguished: completed/interrupted/failed",
+    "artifacts": "result.json carries selected_epoch, optimizer_steps, thresholds, threshold_grid, outcome, val_history; resolved_manifest.json carries resolved_args, grid, aggregation, data/fold SHAs, profile/seed/fold",
+    "threshold_grid": "pinned THRESHOLD_GRID passed explicitly to per_class_thresholds everywhere"
+  },
+  "targeted_tests": {
+    "suite": "81/81 PASS",
+    "new": [
+      "identical seed -> identical checkpoint state_dicts + identical result.json (excl wall_s)",
+      "interrupted -> outcome=interrupted, macro_f1 None, no thresholds, optimizer_steps kept",
+      "HardStop at CLI -> failure_report.json + exit 1, no result.json",
+      "completed artifact fields all present, taus all on pinned grid",
+      "no checkpoint -> failed_no_checkpoint, no test score"
+    ]
+  },
+  "code_sha256": {
+    "p5_runner.py": "fed33ee00d388fca8f6c01b8de8ebe210da1179213f7510e969863ff04fd31e0",
+    "tests/test_p5_cli.py": "46df79435bcbea0b8ae3bcd8ba109ab52e7591745c0581e3feb5ec92507b3c86",
+    "tests/test_p5_runner.py": "7e0fd0ae2f6770914afb4caa814738b9aa6e42142ccef72d4c83701762d765da"
+  },
+  "g5_pilot_command_not_executed": {
+    "cmd": ".venv-bank1/bin/python faithful_repro/track_p5/p5_runner.py --once --fold 0 --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE --out faithful_repro/track_p5/runs/g5_fold0_s1234 --max-wall-s 10800",
+    "budget": "~1.5-3h CPU, hard cap 3h",
+    "claim_ceiling": "exploratory_only"
+  },
+  "real_data_optimizer_steps": 0,
+  "g5_executed": false
+}

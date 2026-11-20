@@ -98,7 +98,7 @@ def test_4_synthetic_step_finite_and_updates():
     """Complete forward/backward/optimizer step: finite loss, finite
     gradients, nonzero parameter update."""
     D = pr.synthetic_fixture(seed=13)
-    a = _args(update_every=99, eval_every=99, epochs=2, patience=1)
+    a = _args(update_every=99, eval_every=1, epochs=2, patience=1)
     fold = pr.synthetic_fold(D['Y'], seed=13)
     diag = dg.Diagnostics()
     res = pr.train_fold(D, fold, a, diag=diag, epochs=2)
@@ -115,7 +115,7 @@ def test_5_refresh_epochs_exactly():
     at 5,10 not at other epochs; graph objects change on those epochs."""
     torch.manual_seed(0)
     D = pr.synthetic_fixture(seed=14)
-    a = _args(update_every=5, eval_every=99, epochs=12, patience=99)
+    a = _args(update_every=5, eval_every=6, epochs=12, patience=99)
     fold = pr.synthetic_fold(D['Y'], seed=14)
     diag = dg.Diagnostics()
     res = pr.train_fold(D, fold, a, diag=diag, epochs=12)

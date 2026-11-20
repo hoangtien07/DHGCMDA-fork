@@ -14,7 +14,7 @@ Code-only gate G4.1: `resolve_run` is safe to call; `train_fold` runs
 optimizer steps and is used ONLY on synthetic fixtures until owner
 authorization.
 """
-import os, sys, json, hashlib, copy, types, time
+import os, sys, json, hashlib, copy, types, time, random
 import numpy as np
 import torch
 import yaml
@@ -291,6 +291,9 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
     safe interruption with partial state marked 'interrupted'.
     Intended for synthetic fixtures in G4.x until G5 authorization."""
     epochs = epochs or a.epochs
+    # seed EVERYTHING before any sampling or model construction — two
+    # runs with the same seed/config must produce identical checkpoints
+    random.seed(a.seed); np.random.seed(a.seed); torch.manual_seed(a.seed)
     t_start = time.time()
     res_status = {'interrupted': None}
     Y = D['Y']; nm, nd, C = Y.shape
@@ -319,7 +322,9 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
     w = torch.tensor((w * C / w.sum()), dtype=torch.float32)
     model = fz.DHGCMDA(nm, nd, C, a)
     opt = torch.optim.Adam(model.parameters(), lr=a.lr, weight_decay=a.wd)
-    best, best_state, bad, hist = -1, None, 0, []
+    best, best_state, best_epoch, bad, hist = -1, None, None, 0, []
+    opt_steps = 0
+    grid = np.asarray(THRESHOLD_GRID)
     refresh_epochs = []
     for ep in range(1, epochs + 1):
         ex, tp, lintra, zm, zd, Sm, Sd = model(Xt, G, ei)
@@ -341,7 +346,7 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
             raise HardStop(f'non_finite_gradient at epoch {ep}: {bad_g[:3]}')
         pre = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         post = sum(float(p.grad.norm()) ** 2 for p in model.parameters() if p.grad is not None) ** 0.5
-        opt.step()
+        opt.step(); opt_steps += 1
         if max_wall_s is not None and (time.time() - t_start) > max_wall_s:
             res_status['interrupted'] = f'wall_cap_{max_wall_s}s at epoch {ep}'
             break
@@ -366,11 +371,12 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
                                  {k: v.data_ptr() for k, v in G.items()} != oldG)
         if a.early_stop and ep % a.eval_every == 0:
             pv = _val_predictions(model, Xt, G, ei, fold['val'])
-            taus, _ = ev.per_class_thresholds(pv, Y[fold['val'][:, 0], fold['val'][:, 1]])
+            taus, _ = ev.per_class_thresholds(
+                pv, Y[fold['val'][:, 0], fold['val'][:, 1]], grid=grid)
             m = ev.multihot_macro_f1(Y[fold['val'][:, 0], fold['val'][:, 1]], pv, taus)
             hist.append({'ep': ep, 'val_macro_f1': m['macro_f1']})
             if m['macro_f1'] > best:
-                best, bad, best_state = m['macro_f1'], 0, copy.deepcopy(
+                best, best_epoch, bad, best_state = m['macro_f1'], ep, 0, copy.deepcopy(
                     (model.state_dict(), {k: x.clone() for k, x in G.items()}, {k: x.clone() for k, x in ei.items()}))
                 if diag:
                     diag.checkpoint(ep, m['macro_f1'], 'inner_val')
@@ -378,11 +384,29 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
                 bad += 1
                 if bad >= a.patience:
                     break
-    if best_state is not None:
-        model.load_state_dict(best_state[0]); G, ei = best_state[1], best_state[2]
+    interrupted = res_status['interrupted'] is not None
+    if interrupted or best_state is None:
+        # NEVER score outer-test on an interrupted run, and never report
+        # a valid result without a validation-selected checkpoint.
+        res = {'metric': ev.PRIMARY, 'macro_f1': None,
+               'outcome': 'interrupted' if interrupted else 'failed_no_checkpoint',
+               'reason': res_status['interrupted'] or 'no validation-selected checkpoint',
+               'best_val_macro_f1': best if best >= 0 else None,
+               'selected_epoch': best_epoch, 'val_history': hist,
+               'refresh_epochs': refresh_epochs,
+               'optimizer_steps': opt_steps,
+               'thresholds': None, 'threshold_source': 'none_selected',
+               'threshold_grid': list(THRESHOLD_GRID),
+               'wall_s': round(time.time() - t_start, 2)}
+        res.update(res_status)
+        if return_state:
+            return res, model, G, ei
+        return res
+    model.load_state_dict(best_state[0]); G, ei = best_state[1], best_state[2]
     # ---- freeze, then evaluate outer test EXACTLY once ----
     pv = _val_predictions(model, Xt, G, ei, fold['val'])
-    taus, val_f1 = ev.per_class_thresholds(pv, Y[fold['val'][:, 0], fold['val'][:, 1]])
+    taus, val_f1 = ev.per_class_thresholds(
+        pv, Y[fold['val'][:, 0], fold['val'][:, 1]], grid=grid)
     model.eval()
     with torch.no_grad():
         _, tp_t, *_ = model(Xt, G, ei)
@@ -394,6 +418,8 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
         aux_top1_firstpos=ev.top1_firstpos_harmonic(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]]),
         best_val_macro_f1=best, refresh_epochs=refresh_epochs,
         val_history=hist, threshold_source='inner_validation_only',
+        selected_epoch=best_epoch, optimizer_steps=opt_steps,
+        threshold_grid=list(THRESHOLD_GRID), outcome='completed',
         wall_s=round(time.time() - t_start, 2))
     res.update(res_status)
     if return_state:
@@ -488,38 +514,65 @@ def main(argv=None):
                                 overrides={'hidden': 32, 'proj': 16,
                                            'epochs': 3, 'eval_every': 1,
                                            'patience': 3, 'update_every': 2,
-                                           'K': 4})
+                                           'K': 4, 'seed': a.seed})
             D = synthetic_fixture(seed=a.seed)
             fold = synthetic_fold(D['Y'], seed=a.seed)
             diag = dg.Diagnostics()
-            res, model, _, _ = train_fold(D, fold, ar, diag=diag,
-                                          max_wall_s=a.max_wall_s,
-                                          return_state=True)
-            res['context'] = 'synthetic'
-            res['resolved_manifest'] = {'threshold_grid': THRESHOLD_GRID,
-                                        'aggregation_policy': AGGREGATION_POLICY}
+            manifest = {'resolved_args': vars(ar),
+                        'threshold_grid': THRESHOLD_GRID,
+                        'aggregation_policy': AGGREGATION_POLICY,
+                        'context': 'synthetic', 'seed': a.seed}
             outdir = a.out or os.path.join(_HERE, 'runs', 'synthetic_once')
-            art = save_run_artifacts(outdir, res, model,
-                                     res['resolved_manifest'], diag)
+            try:
+                res, model, _, _ = train_fold(D, fold, ar, diag=diag,
+                                              max_wall_s=a.max_wall_s,
+                                              return_state=True)
+            except HardStop as e:
+                rep = {'outcome': 'failed', 'hard_stop': str(e),
+                       'context': 'synthetic', 'manifest': manifest}
+                atomic_json(os.path.join(outdir, 'failure_report.json'), rep)
+                atomic_json(os.path.join(outdir, 'diagnostics.json'),
+                            diag.report())
+                print(json.dumps({'ran': False, 'outcome': 'failed',
+                                  'hard_stop': str(e), 'outdir': outdir}))
+                return 1
+            res['context'] = 'synthetic'
+            art = save_run_artifacts(outdir, res, model, manifest, diag)
             print(json.dumps({'ran': True, 'context': 'synthetic',
+                              'outcome': res['outcome'],
                               'macro_f1': res['macro_f1'], 'outdir': outdir}))
             return 0
         # real-data path — full context binding (sha + fold + profile + seed)
         ctx = bind_context(a.profile, a.seed, a.data, a.fold_dir)
         ar = args_from_lock(ctx['cfg'], a.profile, overrides={'seed': a.seed})
         diag = dg.Diagnostics()
-        res, model, _, _ = train_fold(ctx['D'], ctx['folds'][a.fold], ar,
-                                      diag=diag, max_wall_s=a.max_wall_s,
-                                      return_state=True)
+        manifest = {'resolved_args': vars(ar),
+                    'threshold_grid': THRESHOLD_GRID,
+                    'aggregation_policy': AGGREGATION_POLICY,
+                    'data_sha256': ctx['data_sha256'],
+                    'fold_shas': ctx['fold_shas'],
+                    'claim_ceiling': ctx['claim_ceiling'],
+                    'profile': a.profile, 'seed': a.seed, 'fold': a.fold}
+        outdir = a.out or os.path.join(_HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}')
+        try:
+            res, model, _, _ = train_fold(ctx['D'], ctx['folds'][a.fold], ar,
+                                          diag=diag, max_wall_s=a.max_wall_s,
+                                          return_state=True)
+        except HardStop as e:
+            rep = {'outcome': 'failed', 'hard_stop': str(e),
+                   'context': manifest}
+            atomic_json(os.path.join(outdir, 'failure_report.json'), rep)
+            atomic_json(os.path.join(outdir, 'diagnostics.json'),
+                        diag.report())
+            print(json.dumps({'ran': False, 'outcome': 'failed',
+                              'hard_stop': str(e), 'outdir': outdir}))
+            return 1
         res['context'] = {'profile': a.profile, 'seed': a.seed, 'fold': a.fold,
                           'data_sha256': ctx['data_sha256'],
                           'claim_ceiling': ctx['claim_ceiling']}
-        outdir = a.out or os.path.join(_HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}')
-        art = save_run_artifacts(outdir, res, model,
-                                 {'threshold_grid': THRESHOLD_GRID,
-                                  'aggregation_policy': AGGREGATION_POLICY,
-                                  'context': res['context']}, diag)
+        art = save_run_artifacts(outdir, res, model, manifest, diag)
         print(json.dumps({'ran': True, 'fold': a.fold,
+                          'outcome': res['outcome'],
                           'macro_f1': res['macro_f1'], 'outdir': outdir}))
         return 0
     p.error('choose --dry-run or --once')

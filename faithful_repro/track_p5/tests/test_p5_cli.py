@@ -146,3 +146,81 @@ def test_tampered_fold_manifest_rejected(tmp_path):
         shutil.copy(os.path.join(FOLDS, f'fold{f}_seed1234_static.npz'), d)
     with pytest.raises(pr.LockViolation):
         pr.validate_hashes(DATA, d)
+
+
+# ---------------- G5-launch hotfix tests ----------------
+
+def _run_synth(outdir, seed=7, extra=()):
+    rc = pr.main(['--once', '--synthetic', '--seed', str(seed),
+                  '--out', outdir, *extra])
+    return rc
+
+
+def test_identical_seed_runs_identical_artifacts(tmp_path):
+    """Two synthetic CLI runs, same seed+config -> identical checkpoint
+    and identical result.json modulo wall-clock."""
+    d1, d2 = str(tmp_path / 'r1'), str(tmp_path / 'r2')
+    assert _run_synth(d1) == 0 and _run_synth(d2) == 0
+    c1 = torch.load(os.path.join(d1, 'checkpoint.pt'), weights_only=False)
+    c2 = torch.load(os.path.join(d2, 'checkpoint.pt'), weights_only=False)
+    for k in c1['state_dict']:
+        assert torch.equal(c1['state_dict'][k], c2['state_dict'][k])
+    r1 = json.load(open(os.path.join(d1, 'result.json')))
+    r2 = json.load(open(os.path.join(d2, 'result.json')))
+    r1.pop('wall_s'); r2.pop('wall_s')
+    assert r1 == r2
+
+
+def test_interrupted_run_never_scores_test(tmp_path):
+    d = str(tmp_path / 'ri')
+    rc = pr.main(['--once', '--synthetic', '--seed', '9',
+                  '--max-wall-s', '0.01', '--out', d])
+    assert rc == 0
+    res = json.load(open(os.path.join(d, 'result.json')))
+    assert res['outcome'] == 'interrupted'
+    assert res['macro_f1'] is None          # no outer-test scoring
+    assert res['thresholds'] is None
+    assert res['interrupted'] is not None
+    assert res['optimizer_steps'] >= 1      # partial evidence kept
+
+
+def test_hardstop_cli_writes_failure_report(tmp_path, monkeypatch):
+    d = str(tmp_path / 'rf')
+    monkeypatch.setattr(pr.fz, 'inter_loss',
+                        lambda *x, **k: torch.tensor(float('nan')))
+    rc = pr.main(['--once', '--synthetic', '--seed', '5', '--out', d])
+    assert rc == 1
+    rep = json.load(open(os.path.join(d, 'failure_report.json')))
+    assert rep['outcome'] == 'failed'
+    assert 'non_finite_loss' in rep['hard_stop']
+    assert os.path.exists(os.path.join(d, 'diagnostics.json'))
+    assert not os.path.exists(os.path.join(d, 'result.json'))
+
+
+def test_completed_artifact_fields(tmp_path):
+    d = str(tmp_path / 'rc')
+    assert _run_synth(d, seed=11) == 0
+    res = json.load(open(os.path.join(d, 'result.json')))
+    man = json.load(open(os.path.join(d, 'resolved_manifest.json')))
+    for k in ['selected_epoch', 'optimizer_steps', 'thresholds',
+              'threshold_grid', 'outcome', 'val_history']:
+        assert k in res, k
+    assert res['outcome'] == 'completed'
+    assert res['selected_epoch'] is not None
+    assert man['threshold_grid'] == pr.THRESHOLD_GRID
+    assert 'resolved_args' in man and 'seed' in man
+    # pinned grid reached the evaluator: every fitted tau is a grid point
+    assert all(t in set(pr.THRESHOLD_GRID) or t == 0.5
+               for t in res['thresholds'])
+
+
+def test_no_valid_result_without_checkpoint(tmp_path):
+    """eval_every larger than epochs -> no val-selected checkpoint ->
+    outcome failed_no_checkpoint, no test score."""
+    import types as _t
+    a = _a(epochs=2, eval_every=99)
+    D = pr.synthetic_fixture(seed=44)
+    fold = pr.synthetic_fold(D['Y'], seed=44)
+    res = pr.train_fold(D, fold, a, epochs=2)
+    assert res['outcome'] == 'failed_no_checkpoint'
+    assert res['macro_f1'] is None
