@@ -80,23 +80,37 @@ def test_hgt_residual_structure():
 
 
 def test_post_refresh_view_sharing():
-    """T1: after refresh, faithful.py assigns the SAME rebuilt Hm to m1
-    and m2. Reproduce the assignment logic and assert the documented
-    behavior — this test PINS current behavior; interpretation is in
-    the decision register (reading A vs B), not silently 'fixed'."""
-    rng = np.random.default_rng(0)
-    nm, nd = 8, 6
-    Af = (rng.random((nm, nd)) > 0.6).astype(np.float32)
-    Smn = np.random.default_rng(1).random((nm, nm))
-    Sdn = np.random.default_rng(2).random((nd, nd))
-    Hm = fz.knn_G(np.hstack([Smn, Af]), 3)
-    Hd = fz.knn_G(np.hstack([Sdn, Af.T]), 3)
-    G = {'m1': Hm, 'm2': Hm, 'd1': Hd, 'd2': Hd}  # faithful.py L410-412
-    assert torch.equal(G['m1'], G['m2']) and torch.equal(G['d1'], G['d2'])
-    # pre-refresh the two views ARE distinct (different feature matrices)
-    X1 = np.hstack([np.random.default_rng(3).random((nm, nm)), Af])
-    X2 = np.hstack([np.random.default_rng(4).random((nm, nm)), Af])
-    assert not torch.equal(fz.knn_G(X1, 3), fz.knn_G(X2, 3))
+    """T1 exercised through the REAL refresh path: p5_runner.train_fold
+    performs the faithful.py L406-412 block (same fz.edges/knn_G/mm01
+    calls, same shared-Hm assignment). After a refresh, the live G
+    objects satisfy m1==m2 and d1==d2; without any refresh the two
+    view operators stay distinct."""
+    import p5_runner as pr
+    D = pr.synthetic_fixture(seed=9)
+    fold = pr.synthetic_fold(D['Y'])
+    a_refresh = _train_args(update_every=1, eval_every=1, patience=50,
+                      hidden=8, proj=4, K=3)
+    _, _, G_ref, _ = pr.train_fold(D, fold, a_refresh, epochs=2, return_state=True)
+    assert torch.equal(G_ref['m1'], G_ref['m2'])
+    assert torch.equal(G_ref['d1'], G_ref['d2'])
+    a_none = _train_args(update_every=99, eval_every=1, patience=50,
+                   hidden=8, proj=4, K=3)
+    _, _, G_pre, _ = pr.train_fold(D, fold, a_none, epochs=2, return_state=True)
+    assert not torch.equal(G_pre['m1'], G_pre['m2'])  # distinct view operators
+
+
+def _train_args(**kw):
+    import types
+    base = dict(hidden=16, proj=8, heads=2, nlayer=1, dropout=0.0, K=3,
+                t=0.5, lam1=1.0, lam2=0.3, lam3=1.0, margin=0.5,
+                margin_w=0.1, exist_w=0.3, neg_w=0.5, beta=0.99999,
+                lr=1e-3, wd=1e-5, neg_ratio=3, update_every=5, theta=0.5,
+                early_stop=1, eval_every=1, patience=5, n_neg_draws=2,
+                predictor='diag', recon_reduction='sum', diag_leak=0,
+                ablation='none', protocol='type', folds=5, only_fold=-1,
+                cap_threads=0, threads=1, seed=0)
+    base.update(kw)
+    return types.SimpleNamespace(**base)
 
 
 def test_refresh_frequency():

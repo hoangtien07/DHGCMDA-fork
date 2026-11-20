@@ -1,0 +1,373 @@
+{
+ "scope": "G4.1 WP4 synthetic diagnostics sample (no HMDD data)",
+ "fixture": {
+  "nm": 40,
+  "nd": 30,
+  "C": 5,
+  "epochs": 15,
+  "hidden": 16
+ },
+ "diagnostics": {
+  "steps": [
+   {
+    "epoch": 1,
+    "t": 0.077,
+    "total": 421.98602294921875,
+    "l_type": 3.2191152572631836,
+    "l_intra_w": 8.947515487670898,
+    "l_inter_w": 0.7928245663642883,
+    "l_rec_w": 408.95361328125,
+    "l_ex_w": 0.07295981794595718,
+    "grad_norm_preclip": 1137.3748779296875,
+    "grad_norm_postclip": 1.0000000454315572,
+    "clip_active": true
+   },
+   {
+    "epoch": 2,
+    "t": 0.092,
+    "total": 401.5104675292969,
+    "l_type": 3.214570999145508,
+    "l_intra_w": 8.92296028137207,
+    "l_inter_w": 0.7927097678184509,
+    "l_rec_w": 388.5167236328125,
+    "l_ex_w": 0.0635131448507309,
+    "grad_norm_preclip": 1150.7969970703125,
+    "grad_norm_postclip": 1.0000000635172643,
+    "clip_active": true,
+    "param_update_l2_total": 0.11593720474593858,
+    "param_update_l2_max": 0.03958405926823616,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 3,
+    "t": 0.108,
+    "total": 380.4411315917969,
+    "l_type": 3.2160909175872803,
+    "l_intra_w": 8.89822769165039,
+    "l_inter_w": 0.7925753593444824,
+    "l_rec_w": 367.46173095703125,
+    "l_ex_w": 0.07252215594053268,
+    "grad_norm_preclip": 1160.40380859375,
+    "grad_norm_postclip": 0.999999937658717,
+    "clip_active": true,
+    "param_update_l2_total": 0.10669628122032593,
+    "param_update_l2_max": 0.032797813415527344,
+    "param_update_top": "cld.h2.W"
+   },
+   {
+    "epoch": 4,
+    "t": 0.124,
+    "total": 359.07879638671875,
+    "l_type": 3.215371608734131,
+    "l_intra_w": 8.87424373626709,
+    "l_inter_w": 0.7924287915229797,
+    "l_rec_w": 346.1181640625,
+    "l_ex_w": 0.07857589423656464,
+    "grad_norm_preclip": 1168.01953125,
+    "grad_norm_postclip": 0.9999999256013031,
+    "clip_active": true,
+    "param_update_l2_total": 0.1060358381950725,
+    "param_update_l2_max": 0.03225499764084816,
+    "param_update_top": "clm.h1.W"
+   },
+   {
+    "epoch": 5,
+    "t": 0.14,
+    "total": 337.924560546875,
+    "l_type": 3.2131686210632324,
+    "l_intra_w": 8.850854873657227,
+    "l_inter_w": 0.7922461628913879,
+    "l_rec_w": 324.99932861328125,
+    "l_ex_w": 0.06895773857831955,
+    "grad_norm_preclip": 1162.0574951171875,
+    "grad_norm_postclip": 0.9999999015525805,
+    "clip_active": true,
+    "param_update_l2_total": 0.10601491377800545,
+    "param_update_l2_max": 0.032644569873809814,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 6,
+    "t": 0.168,
+    "total": 317.1213073730469,
+    "l_type": 3.2160897254943848,
+    "l_intra_w": 8.826961517333984,
+    "l_inter_w": 0.7924893498420715,
+    "l_rec_w": 304.2280578613281,
+    "l_ex_w": 0.05771201476454735,
+    "grad_norm_preclip": 1160.10302734375,
+    "grad_norm_postclip": 1.0000000006184773,
+    "clip_active": true,
+    "param_update_l2_total": 0.10462888896470914,
+    "param_update_l2_max": 0.03286948427557945,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 7,
+    "t": 0.188,
+    "total": 297.9068603515625,
+    "l_type": 3.2157461643218994,
+    "l_intra_w": 8.805124282836914,
+    "l_inter_w": 0.7923061847686768,
+    "l_rec_w": 285.037109375,
+    "l_ex_w": 0.05657700076699257,
+    "grad_norm_preclip": 1145.952880859375,
+    "grad_norm_postclip": 1.0000000196210674,
+    "clip_active": true,
+    "param_update_l2_total": 0.1024348017711061,
+    "param_update_l2_max": 0.0328003354370594,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 8,
+    "t": 0.217,
+    "total": 280.36016845703125,
+    "l_type": 3.213067054748535,
+    "l_intra_w": 8.783645629882812,
+    "l_inter_w": 0.7921372056007385,
+    "l_rec_w": 267.5106506347656,
+    "l_ex_w": 0.06067409738898277,
+    "grad_norm_preclip": 1133.5489501953125,
+    "grad_norm_postclip": 0.9999999555878467,
+    "clip_active": true,
+    "param_update_l2_total": 0.09894725578092015,
+    "param_update_l2_max": 0.032086003571748734,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 9,
+    "t": 0.238,
+    "total": 264.47674560546875,
+    "l_type": 3.212949275970459,
+    "l_intra_w": 8.761669158935547,
+    "l_inter_w": 0.7919664978981018,
+    "l_rec_w": 251.66336059570312,
+    "l_ex_w": 0.04680279642343521,
+    "grad_norm_preclip": 1114.65771484375,
+    "grad_norm_postclip": 0.9999999804541145,
+    "clip_active": true,
+    "param_update_l2_total": 0.09616513570212183,
+    "param_update_l2_max": 0.031783293932676315,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 10,
+    "t": 0.266,
+    "total": 249.47450256347656,
+    "l_type": 3.21262264251709,
+    "l_intra_w": 8.738080978393555,
+    "l_inter_w": 0.7918084263801575,
+    "l_rec_w": 236.66717529296875,
+    "l_ex_w": 0.06482339650392532,
+    "grad_norm_preclip": 1103.7344970703125,
+    "grad_norm_postclip": 1.000000051953741,
+    "clip_active": true,
+    "param_update_l2_total": 0.0947239299161694,
+    "param_update_l2_max": 0.0318380743265152,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 11,
+    "t": 0.288,
+    "total": 235.75534057617188,
+    "l_type": 3.2131597995758057,
+    "l_intra_w": 8.703816413879395,
+    "l_inter_w": 0.7918142676353455,
+    "l_rec_w": 222.99264526367188,
+    "l_ex_w": 0.05391290411353111,
+    "grad_norm_preclip": 1074.2369384765625,
+    "grad_norm_postclip": 1.000000065290946,
+    "clip_active": true,
+    "param_update_l2_total": 0.09407577127213261,
+    "param_update_l2_max": 0.03184731304645538,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 12,
+    "t": 0.302,
+    "total": 220.85989379882812,
+    "l_type": 3.213103771209717,
+    "l_intra_w": 8.680519104003906,
+    "l_inter_w": 0.7918130159378052,
+    "l_rec_w": 208.11863708496094,
+    "l_ex_w": 0.05582067370414734,
+    "grad_norm_preclip": 1042.72998046875,
+    "grad_norm_postclip": 1.0000000096313246,
+    "clip_active": true,
+    "param_update_l2_total": 0.09392556900795998,
+    "param_update_l2_max": 0.03202209249138832,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 13,
+    "t": 0.317,
+    "total": 205.86227416992188,
+    "l_type": 3.2136623859405518,
+    "l_intra_w": 8.65852165222168,
+    "l_inter_w": 0.791875958442688,
+    "l_rec_w": 193.14907836914062,
+    "l_ex_w": 0.04912585765123367,
+    "grad_norm_preclip": 991.34521484375,
+    "grad_norm_postclip": 1.000000044577682,
+    "clip_active": true,
+    "param_update_l2_total": 0.09399146590140167,
+    "param_update_l2_max": 0.031885743141174316,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 14,
+    "t": 0.332,
+    "total": 191.26905822753906,
+    "l_type": 3.2105109691619873,
+    "l_intra_w": 8.637296676635742,
+    "l_inter_w": 0.7919434905052185,
+    "l_rec_w": 178.57373046875,
+    "l_ex_w": 0.05557297542691231,
+    "grad_norm_preclip": 928.7481689453125,
+    "grad_norm_postclip": 0.9999999675036423,
+    "clip_active": true,
+    "param_update_l2_total": 0.0938190687777027,
+    "param_update_l2_max": 0.0315372534096241,
+    "param_update_top": "pred.pm.0.weight"
+   },
+   {
+    "epoch": 15,
+    "t": 0.347,
+    "total": 177.69915771484375,
+    "l_type": 3.212545871734619,
+    "l_intra_w": 8.616992950439453,
+    "l_inter_w": 0.7920374274253845,
+    "l_rec_w": 165.03009033203125,
+    "l_ex_w": 0.04748496413230896,
+    "grad_norm_preclip": 851.3453369140625,
+    "grad_norm_postclip": 1.0000000309221826,
+    "clip_active": true,
+    "param_update_l2_total": 0.09394866446338448,
+    "param_update_l2_max": 0.03154412657022476,
+    "param_update_top": "pred.pm.0.weight"
+   }
+  ],
+  "refreshes": [
+   {
+    "epoch": 5,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 782,
+     "('disease', 'similar', 'disease')": 444
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 642,
+     "('disease', 'similar', 'disease')": 40
+    },
+    "graph_objects_changed": true
+   },
+   {
+    "epoch": 10,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 642,
+     "('disease', 'similar', 'disease')": 40
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 232,
+     "('disease', 'similar', 'disease')": 58
+    },
+    "graph_objects_changed": true
+   },
+   {
+    "epoch": 15,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 232,
+     "('disease', 'similar', 'disease')": 58
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 82,
+     "('disease', 'similar', 'disease')": 48
+    },
+    "graph_objects_changed": true
+   }
+  ],
+  "checkpoints": [
+   {
+    "epoch": 5,
+    "primary_val": 0.5766854541259792,
+    "threshold_source": "inner_val"
+   }
+  ],
+  "wall_s": 0.36,
+  "torch_threads": 8
+ },
+ "observations": {
+  "loss_components_recorded": true,
+  "param_updates_recorded": true,
+  "clip_stats_recorded": true,
+  "refresh_events": [
+   {
+    "epoch": 5,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 782,
+     "('disease', 'similar', 'disease')": 444
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 642,
+     "('disease', 'similar', 'disease')": 40
+    },
+    "graph_objects_changed": true
+   },
+   {
+    "epoch": 10,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 642,
+     "('disease', 'similar', 'disease')": 40
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 232,
+     "('disease', 'similar', 'disease')": 58
+    },
+    "graph_objects_changed": true
+   },
+   {
+    "epoch": 15,
+    "edge_counts_before": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 232,
+     "('disease', 'similar', 'disease')": 58
+    },
+    "edge_counts_after": {
+     "('miRNA', 'associates', 'disease')": 684,
+     "('disease', 'associates', 'miRNA')": 684,
+     "('miRNA', 'similar', 'miRNA')": 82,
+     "('disease', 'similar', 'disease')": 48
+    },
+    "graph_objects_changed": true
+   }
+  ],
+  "checkpoint_events": [
+   {
+    "epoch": 5,
+    "primary_val": 0.5766854541259792,
+    "threshold_source": "inner_val"
+   }
+  ]
+ },
+ "note": "l_rec dominates early (sum reduction ~n^2 scale) \u2014 expected per recon_sum lock; proportions recorded not tuned"
+}

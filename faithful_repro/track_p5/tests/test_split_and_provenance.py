@@ -37,15 +37,23 @@ def test_cv_pair_disjoint_and_complete():
 
 
 def test_pair_groups_all_types_together():
-    """CV_PAIR: a pair is test or not — its label vector never splits."""
+    """CV_PAIR: splits operate on PAIR indices (2 cols), never per-type
+    triplets — a multi-label pair's whole label vector is masked atomically."""
     Y = _synth_Y()
     folds = fz.make_splits(Y, _a('type'), np.random.default_rng(1))
-    multi = np.argwhere(Y.sum(2) > 1)
     for f in folds:
+        assert f['test'].shape[1] == 2  # pair indices, not (i,j,k) triplets
         testset = set(map(tuple, f['test'].tolist()))
+        # atomic masking: train-masked Ytr zeroes ALL types of a test pair
+        Ytr = np.zeros_like(Y)
+        Ytr[f['train'][:, 0], f['train'][:, 1]] = Y[f['train'][:, 0], f['train'][:, 1]]
+        for i, j in testset:
+            assert Ytr[i, j].sum() == 0
+        # and the unmasked copy keeps the full multi-hot row
+        multi = np.argwhere(Y.sum(2) > 1)
         for i, j in multi:
-            # the whole pair (i,j) is either test or not — no partial split exists
-            assert ((i, j) in testset) == ((i, j) in testset)
+            if (i, j) in testset:
+                assert Y[i, j].sum() > 1  # row intact in source, split only by pair
 
 
 def test_triplet_overlap_allowed_pair_disjoint_forbidden():
@@ -143,6 +151,16 @@ def test_canary_heldout_label_invariance():
 
 
 def test_views_not_certified_clean():
-    """Documentation contract: bundled sim_* bypass GIP recomputation —
-    their provenance is UNKNOWN, asserted by manifest not by test."""
-    pass  # enforced by G2_DATA_FEATURE_VERDICT.json classification
+    """Provenance contract is MACHINE-CHECKED: the manifest must record
+    every bundled sim_* view as UNKNOWN_PROVENANCE and the G2 verdict
+    must cap the claim ceiling at exploratory — a regression to
+    'verified_clean' fails this test."""
+    import json, os
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    man = json.load(open(os.path.join(here, 'SOURCE_MANIFEST.json')))
+    prov = man['artifacts']['strict_tensor']['reverified']['view_provenance']
+    assert 'UNKNOWN_PROVENANCE' in prov
+    v = json.load(open(os.path.join(here, 'G2_DATA_FEATURE_VERDICT.json')))
+    s = json.dumps(v)
+    assert 'G2_PASS_EXPLORATORY_ONLY' in s
+    assert 'verified_clean' not in s.lower()

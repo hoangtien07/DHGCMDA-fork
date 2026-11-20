@@ -1,0 +1,94 @@
+{
+  "gate": "G4.1_RUNNER_ALIGNMENT",
+  "status": "TRACK_P5_SPEC_AND_PRETRAIN_AUDIT",
+  "verdict": "READY_FOR_G5_OWNER_AUTHORIZATION",
+  "date": "2026-11-20",
+  "base_commit": "1edd42c",
+  "resolved_runner_contract": {
+    "entrypoints": {
+      "resolve_run": "p5_runner.resolve_run — no training, emits resolved config + all hashes",
+      "train_fold": "p5_runner.train_fold — optimizer steps; synthetic fixtures only until authorization"
+    },
+    "fails_closed_on": [
+      "missing lock sections",
+      "sha mismatch tensor/fold manifest",
+      "lock divergence vs LOCKED_HYPERPARAMS",
+      "diag_leak=1",
+      "unknown feature profile",
+      "unsupported refresh trigger"
+    ],
+    "folds": "locked manifest pairs only (logits key never read); inner-val = deterministic 10% of outer-train, seeded per fold; outer-test asserted disjoint from train+val",
+    "checkpoint": "MULTIHOT_MACRO_F1 on inner-val; test evaluated exactly once post-freeze",
+    "thresholds": "per-class grid on inner-val only; zero-support classes excluded and reported"
+  },
+  "hashes": {
+    "code": {
+      "p5_runner.py": "f2b281896ef25b800e431770f4eced8b017b126f05c53c8c2a0d3879d0677f42",
+      "p5_evaluator.py": "e05e91628489f9842dec336b91bfb0429d01e27f16b7a7b6161214cc9e6e1a19",
+      "p5_diagnostics.py": "f475f013d7aa0c764a954b4d8de2b1a5423dab72c4285430e0d293b86bc7d494",
+      "independent_recompute_g4.py": "cce42cb714ed91733ff6c6ccdefce094c6b4b555fb6bab9c239d97b7d3182583",
+      "faithful.py (model)": "efdaa69121ea08f9b3d41b2e7c058f015145768ce386cc9698c2a4659c5a3aaf"
+    },
+    "data": {
+      "tensor": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c"
+    },
+    "splits": "fold manifest SHAs verified in validate_hashes (SOURCE_MANIFEST.json); resolved split_shas emitted per run by resolve_run",
+    "tests": {
+      "tests/conftest.py": "f4eb9870731ceb4017f7c50beee5dfe58f1a15db8dab3d97d1756f76e01d538a",
+      "tests/test_cl_losses.py": "c13f92aa27b1c91921b76063a6f1700658fec0714fe4bd58478da486261555dc",
+      "tests/test_dynamic_refresh.py": "fe359a89e98406e44c339774f30951e63628ffdbddee0471a6c994253f3d1d62",
+      "tests/test_eq_hypergraph.py": "a6d1100e0d4b2029f4dc41275be0f90cde6d781bdcbe8d6052085219b6db753b",
+      "tests/test_fusion_recon.py": "b0deff78083593f5deec83e7d32453b6edd915ac75597df3fc61d7037a1cede7",
+      "tests/test_metrics_contract.py": "11eb938e47f9f3d6ca0ab4ba0ad7ae392316cfa2c2451ee0a9e3a7ecb2e96b4e",
+      "tests/test_p5_runner.py": "239226a274a995dd1e6514eaebe4af242e629c38a2be707f91f252a7a1f8efe1",
+      "tests/test_split_and_provenance.py": "ea146ef6e324467c9ca685e72137cf3fc5b009340071b3e7d86e71b1c8694f6a",
+      "tests/test_type_predictor.py": "a844b2c27205822f93ee8fae9f15bd22d91f19ea8b8127ab6d24f3a7cbfe3a11"
+    }
+  },
+  "integration_test_report": {
+    "suite_total": 66,
+    "passed": 66,
+    "failed": 0,
+    "skipped": 0,
+    "new_integration_tests": [
+      "test_1_test_label_perturbation_invariance: outer-test label flip -> identical thresholds/checkpoint/val history",
+      "test_2_checkpoint_follows_macrof1_not_top1: controlled val sequence -> ep with best macro-F1 kept",
+      "test_3_runner_uses_locked_manifest: split == manifest pairs verbatim; tampered tensor -> LockViolation",
+      "test_4_synthetic_step_finite_and_updates: finite loss/grads + nonzero ||Δθ||",
+      "test_5_refresh_epochs_exactly: real refresh path fires at ep 5,10 only; G objects change there",
+      "test_6_unknown_provenance_cannot_be_reported_clean: claim ceiling stays exploratory_only",
+      "test_lock_rejects_diag_leak_and_missing: LockViolation on diag_leak=1 and missing lock section"
+    ]
+  },
+  "corrected_assertion_coverage": {
+    "test_pair_groups_all_types_together": "was tautological; now asserts pair-index shape + atomic label masking",
+    "test_views_not_certified_clean": "was empty pass; now machine-checks manifest UNKNOWN_PROVENANCE + exploratory verdict, fails on 'verified_clean'",
+    "test_post_refresh_view_sharing": "was replicating assignment literal; now exercises the real train_fold refresh path (G objects compared live, with and without refresh)"
+  },
+  "feature_provenance_caveats": [
+    "bundled sim_* views: UNKNOWN_PROVENANCE — exploratory claim ceiling, cannot be reported clean",
+    "P5_SPLIT_AWARE_EXTERNAL: BLOCKED_FEATURE_PROVENANCE pending MISIM upstream provenance",
+    "fold manifests contain stale logits: runner reads pairs/y only; logits never enter features or evaluation"
+  ],
+  "remaining_blockers": [
+    "evaluator convention for published joint P/R (Track R UNRESOLVED — permanent without author artifacts)",
+    "T1 post-refresh reading A vs B (A is implemented primary; B not executed)",
+    "MISIM upstream label-dependence unverified",
+    "author curation 411x271 undisclosed"
+  ],
+  "proposed_g5_pilot": {
+    "command": "python -m p5_runner --once --fold 0 --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE  (resolve_run + train_fold on fold 0, ~650 epochs CPU)",
+    "budget_estimate": {
+      "wall_hours_est": "1.5-3h CPU (synthetic 40x30 fixture ~0.02s/epoch; real 411x271 roughly 30-100x heavier per epoch)",
+      "acus_est": "single session, one fold, one seed",
+      "hard_cap": "stop at first non-finite loss/grad or any leakage gate failure"
+    },
+    "not_executed": true,
+    "preconditions": [
+      "owner authorization",
+      "feature profile selection confirmed",
+      "diagnostics harness enabled (p5_diagnostics)"
+    ]
+  },
+  "claim_boundary": "P5 interpretation only; not author-faithful; 0.8600 not a valid target"
+}
