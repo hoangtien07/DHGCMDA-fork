@@ -1,0 +1,26 @@
+{
+  "gate": "G5_2_OWNER_GATE",
+  "base": "dfcc1e2440d0c22800115593b9c97f6d3725335c",
+  "verdict": "G5_2_ANALYSIS_COMPLETE",
+  "new_training": 0,
+  "optimizer_steps": 0,
+  "author_contact": 0,
+  "errata": "G5_1_ERRATA_REV1.md \u2014 coverage 95.28%, grad-dominance retracted, decision-vs-ranking collapse split",
+  "baselines": {
+    "label": "POST_HOC_FOLD0_DESCRIPTIVE_COMPARATOR",
+    "P5": 0.4087,
+    "B0_always_pos": 0.3894,
+    "B1_prior_const": 0.3731,
+    "delta_P5_B0": 0.0193,
+    "delta_P5_B1": 0.0356,
+    "classes_2_4": "P5=B0=B1 exactly \u2014 decision collapse at \u03c4 floor"
+  },
+  "checkpoint_feasibility": "EXACT_CHECKPOINT_GRAPH_STATE_UNAVAILABLE (G/ei never persisted)",
+  "deliverables": [
+    "G5_2_CLOSED_FORM_BASELINE_RESULTS.md",
+    "G5_2_CHECKPOINT_FEASIBILITY.md",
+    "G5_2_B01_RESULTS.json",
+    "G5_1_ERRATA_REV1.md"
+  ],
+  "next": "no experiment auto-launches; G6+ awaits owner"
+}
