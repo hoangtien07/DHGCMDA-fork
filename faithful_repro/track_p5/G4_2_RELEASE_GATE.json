@@ -1,0 +1,60 @@
+{
+  "gate": "G4_2_RELEASE_GATE",
+  "base_commit": "a042f7e80f934b4a4a4372139442a5291bb80d83",
+  "verdict": "READY_FOR_G5_OWNER_AUTHORIZATION",
+  "scope_respected": {
+    "real_data_optimizer_steps": 0,
+    "author_contact": 0,
+    "historical_artifacts_modified": 0
+  },
+  "cli_contract": {
+    "entrypoint": "python faithful_repro/track_p5/p5_runner.py",
+    "dry_run": "--dry-run resolves config+hashes only; returns before any train_fold call (optimizer_steps=0)",
+    "once": "--once trains one fold under bound context",
+    "synthetic": "--synthetic exercises path on synthetic fixture without real-data SHAs",
+    "context_binding": "bind_context() enforces: tensor SHA vs SOURCE_MANIFEST, all 5 fold manifest SHAs, manifest-y == tensor-Y cross-check, profile whitelist, BLOCKED_PROFILES (SPLIT_AWARE_EXTERNAL rejected), inner-val from outer-train only",
+    "override_policy": "real context: only RUNTIME_OVERRIDABLE {threads,cap_threads,seed,out}; every locked param re-checked AFTER overrides; anything else -> LockViolation",
+    "hard_stops": [
+      "non_finite_loss -> HardStop before optimizer step",
+      "non_finite_gradient per-param check -> HardStop",
+      "--max-wall-s -> safe interruption, partial result flagged interrupted"
+    ],
+    "atomic_writes": "atomic_write/atomic_json: tmp + os.replace; no partial artifacts",
+    "pinned_in_manifest": {
+      "threshold_grid": "0.05..0.95 step 0.05 (19)",
+      "aggregation": "mean_of_fold primary; pooled TP/FP/FN->class F1->mean also reported"
+    }
+  },
+  "evaluator_fix": "aggregate_fold_results now pools TP/FP/FN across folds before class F1 (was: mean of per-fold per-class F1)",
+  "test_report": {
+    "suite": "76/76 PASS",
+    "new_file": "tests/test_p5_cli.py (10 tests)",
+    "failure_injection": [
+      "dry-run proves 0 optimizer steps + no checkpoint",
+      "tampered fold manifest -> LockViolation",
+      "SPLIT_AWARE_EXTERNAL -> LockViolation(blocked)",
+      "hidden=999 / lam1 override -> LockViolation(unauthorized)",
+      "NaN inter_loss -> HardStop non_finite_loss",
+      "inf gradient -> HardStop",
+      "max_wall_s=0.05 -> interrupted flag + partial state returned",
+      "pooled F1 verified against hand-computed TP/FP/FN",
+      "no .tmp debris after artifact save"
+    ]
+  },
+  "code_sha256": {
+    "p5_runner.py": "58995c6f5bb18942ef773716a879d26171faf57e07cab84fe0d29bf1dcd70704",
+    "p5_evaluator.py": "274280c4a683e2fc84a986bf8483cb79ce74d557c45fb0a75e51de88b01a02c1",
+    "p5_diagnostics.py": "f475f013d7aa0c764a954b4d8de2b1a5423dab72c4285430e0d293b86bc7d494",
+    "tests/test_p5_cli.py": "6b733fecc10ca53e29c3cd0fdfcf8c42d03df5212f7c6122a41f955a7a571719"
+  },
+  "g5_pilot_command_not_executed": {
+    "cmd": ".venv-bank1/bin/python faithful_repro/track_p5/p5_runner.py --once --fold 0 --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE --out faithful_repro/track_p5/runs/g5_fold0_s1234 --max-wall-s 10800",
+    "budget": "~1.5-3h CPU [est. from G4.1], hard cap 3h via --max-wall-s",
+    "claim_ceiling": "exploratory_only \u2014 no author-metric claim"
+  },
+  "remaining_blockers": [
+    "G5 training NOT authorized \u2014 awaiting owner",
+    "SPLIT_AWARE_EXTERNAL still blocked pending MISIM provenance",
+    "G6/G7 fleet unbudgeted"
+  ]
+}

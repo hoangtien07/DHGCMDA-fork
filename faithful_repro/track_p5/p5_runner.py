@@ -53,6 +53,43 @@ class LockViolation(Exception):
     pass
 
 
+class HardStop(RuntimeError):
+    """Runtime safety abort — non-finite loss/gradient, wall-clock cap,
+    or interrupted run. The partial state is returned, never discarded."""
+
+
+# profiles whose provenance gate has not passed may not bind a run context
+BLOCKED_PROFILES = {'P5_SPLIT_AWARE_EXTERNAL': 'BLOCKED_FEATURE_PROVENANCE (MISIM upstream)'}
+
+# overrides permitted in a REAL run context (non-scientific runtime only)
+RUNTIME_OVERRIDABLE = {'threads', 'cap_threads', 'seed', 'out'}
+# additional keys permitted ONLY in a synthetic/test context
+SYNTHETIC_OVERRIDABLE = {'hidden', 'proj', 'heads', 'nlayer', 'dropout', 'K',
+                         'epochs', 'eval_every', 'patience', 'update_every',
+                         'neg_ratio', 'n_neg_draws', 'lr', 'wd', 'lam1',
+                         'lam2', 'lam3', 'exist_w', 'neg_w', 'beta', 't',
+                         'margin', 'margin_w', 'theta', 'val_frac',
+                         'predictor', 'recon_reduction', 'ablation',
+                         'protocol', 'folds', 'only_fold', 'early_stop'}
+
+THRESHOLD_GRID = [round(0.05 + 0.05 * i, 2) for i in range(19)]  # pinned
+AGGREGATION_POLICY = 'mean_of_fold_macro_f1 primary; pooled TP/FP/FN variant also reported'
+
+
+def atomic_write(path, write_fn):
+    """Write to tmp file then os.replace — a crash never leaves a
+    half-written artifact."""
+    tmp = path + '.tmp'
+    write_fn(tmp)
+    os.replace(tmp, path)
+
+
+def atomic_json(path, obj):
+    os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
+    atomic_write(path, lambda t: json.dump(obj, open(t, 'w'), indent=2,
+                                           ensure_ascii=False))
+
+
 def _sha(path):
     return hashlib.sha256(open(path, 'rb').read()).hexdigest()
 
@@ -109,9 +146,12 @@ def build_splits(Y, folds, val_frac, seed=1234):
     return folds
 
 
-def args_from_lock(cfg, profile, overrides=None):
+def args_from_lock(cfg, profile, overrides=None, synthetic=False):
     """Map the YAML lock onto the flat args namespace faithful.py expects.
-    Any lock value diverging from LOCKED_HYPERPARAMS fails closed."""
+    Any lock value diverging from LOCKED_HYPERPARAMS fails closed.
+    Overrides: in a real run context only RUNTIME_OVERRIDABLE keys;
+    in a synthetic/test context additionally SYNTHETIC_OVERRIDABLE.
+    Everything else is rejected — nothing is silently accepted."""
     m, t, l, dr, e = cfg['model'], cfg['training'], cfg['loss'], cfg['dynamic_refresh'], cfg['evaluation']
     resolved = {
         'hidden': m['hidden'], 'proj': m['proj'], 'heads': m['heads'],
@@ -150,42 +190,84 @@ def args_from_lock(cfg, profile, overrides=None):
         raise LockViolation(f'unknown profile {profile}')
     resolved['profile'] = profile
     if overrides:
+        allowed = set(RUNTIME_OVERRIDABLE) | (SYNTHETIC_OVERRIDABLE if synthetic else set())
         for k, v in overrides.items():
             if k == 'diag_leak' and v == 1:
                 raise LockViolation('diag_leak=1 rejected in P5 runner')
+            if k not in allowed:
+                raise LockViolation(
+                    f'unauthorized override {k}={v} in '
+                    f'{"synthetic" if synthetic else "real"} context')
             resolved[k] = v
+        resolved['applied_overrides'] = dict(overrides)
+    # re-enforce every locked value AFTER overrides — an override may
+    # not silently change a locked parameter in a real context
+    if not synthetic:
+        for k, v in LOCKED_HYPERPARAMS.items():
+            if resolved.get(k) != v:
+                raise LockViolation(f'locked param {k} changed by override: {resolved.get(k)}')
     return types.SimpleNamespace(**resolved)
 
 
-def resolve_run(data_path=None, fold_dir=None, profile='P5_BENCHMARK_UNKNOWN_PROVENANCE'):
-    """Produce the full resolved configuration + all hashes for a
-    proposed run — NO training. Safe entrypoint for the gate."""
+def bind_context(profile, seed=1234, data_path=None, fold_dir=None):
+    """Validated run context: verified SHAs, locked folds, approved
+    profile, pinned seed. train_fold requires this; it cannot be built
+    with an unverified tensor, a tampered manifest or a blocked profile."""
+    if profile in BLOCKED_PROFILES:
+        raise LockViolation(f'profile {profile} blocked: {BLOCKED_PROFILES[profile]}')
+    if profile not in SUPPORTED_PROFILES:
+        raise LockViolation(f'unknown profile {profile}')
     cfg = load_lock()
     data_path = data_path or os.path.join(
         REPO, 'faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz')
     fold_dir = fold_dir or os.path.join(
         REPO, 'faithful_repro/independent_v32_outer_refit_20261117/evaluation')
-    folds, fold_shas = validate_hashes(data_path, fold_dir)
-    Y = np.load(data_path, allow_pickle=True)['Y']
-    folds = build_splits(Y, folds, cfg['training']['inner_val_frac'])
+    folds, fold_shas = validate_hashes(data_path, fold_dir, seed=seed)
+    D = {k: v for k, v in np.load(data_path, allow_pickle=True).items()}
+    Y = D['Y']
+    folds = build_splits(Y, folds, cfg['training']['inner_val_frac'], seed=seed)
+    # verification-only cross-check: manifest y must equal tensor Y at
+    # the test coords — disagreement means a corrupted manifest
+    for f, fo in enumerate(folds):
+        ty = np.asarray(np.load(os.path.join(
+            fold_dir, f'fold{f}_seed{seed}_static.npz'), allow_pickle=True)['y'])
+        assert np.array_equal(ty, Y[fo['test'][:, 0], fo['test'][:, 1]]), \
+            f'fold{f} manifest y != tensor Y at test coords'
+    return {
+        'cfg': cfg, 'folds': folds, 'Y': Y, 'D': D,
+        'data_sha256': _sha(data_path), 'fold_shas': fold_shas,
+        'profile': profile, 'seed': seed,
+        'claim_ceiling': PROFILE_CLAIM_CEILING[profile],
+        'threshold_grid': THRESHOLD_GRID,
+        'aggregation_policy': AGGREGATION_POLICY,
+    }
+
+
+def resolve_run(data_path=None, fold_dir=None, profile='P5_BENCHMARK_UNKNOWN_PROVENANCE'):
+    """Produce the full resolved configuration + all hashes for a
+    proposed run — NO training. Safe entrypoint for the gate."""
+    ctx = bind_context(profile, data_path=data_path, fold_dir=fold_dir)
+    cfg = ctx['cfg']
     a = args_from_lock(cfg, profile)
     split_shas = {}
-    for f, fo in enumerate(folds):
+    for f, fo in enumerate(ctx['folds']):
         h = hashlib.sha256()
         for k in ('train', 'val', 'test'):
             h.update(np.asarray(fo[k]).tobytes())
         split_shas[f'fold{f}'] = h.hexdigest()
     return {
         'resolved_args': vars(a),
-        'claim_ceiling': PROFILE_CLAIM_CEILING[profile],
-        'data_sha256': _sha(data_path),
-        'fold_manifest_sha256': fold_shas,
+        'claim_ceiling': ctx['claim_ceiling'],
+        'data_sha256': ctx['data_sha256'],
+        'fold_manifest_sha256': ctx['fold_shas'],
         'split_sha256': split_shas,
+        'threshold_grid': THRESHOLD_GRID,
+        'aggregation_policy': AGGREGATION_POLICY,
         'code_sha256': {k: _sha(os.path.join(_HERE, k)) for k in
                         ['p5_runner.py', 'p5_evaluator.py', 'p5_diagnostics.py']},
         'model_sha256': _sha(os.path.join(REPO, 'faithful_repro/code/faithful.py')),
         'interpretation_limitation': ev.INTERPRETATION_LIMITATION,
-        'n_folds': len(folds),
+        'n_folds': len(ctx['folds']),
     }
 
 
@@ -200,12 +282,17 @@ def _val_predictions(model, X, G, ei, val_pairs):
     return tp[val_pairs[:, 0], val_pairs[:, 1]]
 
 
-def train_fold(D, fold, a, diag=None, epochs=None, return_state=False):
+def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
+               max_wall_s=None):
     """P5 training loop: same loss assembly as faithful.run_fold but with
     P5 evaluator semantics — checkpoint by MULTIHOT_MACRO_F1 on inner-val,
     thresholds from val only, test evaluated exactly once.
-    Intended for synthetic fixtures in G4.1."""
+    Hard stops: non-finite loss/gradient -> HardStop; max_wall_s ->
+    safe interruption with partial state marked 'interrupted'.
+    Intended for synthetic fixtures in G4.x until G5 authorization."""
     epochs = epochs or a.epochs
+    t_start = time.time()
+    res_status = {'interrupted': None}
     Y = D['Y']; nm, nd, C = Y.shape
     Ytr = np.zeros_like(Y)
     Ytr[fold['train'][:, 0], fold['train'][:, 1]] = Y[fold['train'][:, 0], fold['train'][:, 1]]
@@ -245,10 +332,19 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False):
         l_rec = ((S_M - Sm) ** 2).sum() + ((S_D - Sd) ** 2).sum() if a.recon_reduction == 'sum' \
             else ((S_M - Sm) ** 2).mean() + ((S_D - Sd) ** 2).mean()
         loss = l_type + a.lam1 * lintra + a.lam2 * l_inter + a.lam3 * l_rec + a.exist_w * l_ex
+        if not torch.isfinite(loss):
+            raise HardStop(f'non_finite_loss at epoch {ep}')
         opt.zero_grad(); loss.backward()
+        bad_g = [n for n, p in model.named_parameters()
+                 if p.grad is not None and not torch.isfinite(p.grad).all()]
+        if bad_g:
+            raise HardStop(f'non_finite_gradient at epoch {ep}: {bad_g[:3]}')
         pre = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         post = sum(float(p.grad.norm()) ** 2 for p in model.parameters() if p.grad is not None) ** 0.5
         opt.step()
+        if max_wall_s is not None and (time.time() - t_start) > max_wall_s:
+            res_status['interrupted'] = f'wall_cap_{max_wall_s}s at epoch {ep}'
+            break
         if diag:
             diag.loss_components(ep, dict(
                 total=float(loss), l_type=float(l_type), l_intra_w=float(a.lam1 * lintra),
@@ -297,7 +393,9 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False):
         aux_top1_anyhit=ev.top1_anyhit_harmonic(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]]),
         aux_top1_firstpos=ev.top1_firstpos_harmonic(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]]),
         best_val_macro_f1=best, refresh_epochs=refresh_epochs,
-        val_history=hist, threshold_source='inner_validation_only')
+        val_history=hist, threshold_source='inner_validation_only',
+        wall_s=round(time.time() - t_start, 2))
+    res.update(res_status)
     if return_state:
         return res, model, G, ei
     return res
@@ -328,3 +426,104 @@ def synthetic_fold(Y, f=0, folds=5, val_frac=0.1, seed=1234):
     rng2 = np.random.default_rng(seed * 1000 + f); rng2.shuffle(rest)
     nv = int(round(val_frac * len(rest)))
     return {'test': test, 'val': rest[:nv], 'train': rest[nv:]}
+
+
+def save_run_artifacts(outdir, res, model, resolved, diag=None):
+    """Atomic artifact bundle: checkpoint, selected epoch, val
+    thresholds, resolved config/hash manifest, diagnostics."""
+    os.makedirs(outdir, exist_ok=True)
+    atomic_json(os.path.join(outdir, 'result.json'), res)
+    atomic_json(os.path.join(outdir, 'resolved_manifest.json'), resolved)
+    if diag:
+        atomic_json(os.path.join(outdir, 'diagnostics.json'), diag.report())
+    ck = os.path.join(outdir, 'checkpoint.pt')
+    atomic_write(ck, lambda t: torch.save(
+        {'state_dict': model.state_dict(),
+         'best_val_macro_f1': res.get('best_val_macro_f1'),
+         'thresholds': res.get('thresholds'),
+         'threshold_source': res.get('threshold_source')}, t))
+    return {'dir': outdir,
+            'files': ['result.json', 'resolved_manifest.json',
+                      'diagnostics.json' if diag else None, 'checkpoint.pt']}
+
+
+def main(argv=None):
+    """G5 CLI. --dry-run resolves ONLY (never an optimizer step).
+    --once runs one fold under the bound context (requires owner
+    authorization on real data). --synthetic exercises the path on a
+    synthetic fixture without real-data SHAs."""
+    import argparse
+    p = argparse.ArgumentParser(prog='p5_runner')
+    p.add_argument('--dry-run', action='store_true',
+                   help='resolve config+hashes only; NEVER trains')
+    p.add_argument('--once', action='store_true', help='train one fold')
+    p.add_argument('--fold', type=int, default=0)
+    p.add_argument('--seed', type=int, default=1234)
+    p.add_argument('--profile', default='P5_BENCHMARK_UNKNOWN_PROVENANCE')
+    p.add_argument('--data', default=None); p.add_argument('--fold-dir', default=None)
+    p.add_argument('--out', default=None)
+    p.add_argument('--max-wall-s', type=float, default=None)
+    p.add_argument('--synthetic', action='store_true',
+                   help='synthetic fixture only — no real-data context')
+    a = p.parse_args(argv)
+    if a.dry_run:
+        if a.synthetic:
+            cfg = load_lock()
+            res = {'synthetic': True,
+                   'resolved_args': vars(args_from_lock(
+                       cfg, a.profile, synthetic=True)),
+                   'threshold_grid': THRESHOLD_GRID,
+                   'aggregation_policy': AGGREGATION_POLICY,
+                   'note': 'synthetic dry-run: no SHAs to bind'}
+        else:
+            res = resolve_run(a.data, a.fold_dir, a.profile)
+        out = a.out or os.path.join(_HERE, 'runs', 'dry_run.json')
+        atomic_json(out, res)
+        print(json.dumps({'dry_run': True, 'optimizer_steps': 0, 'out': out}))
+        return 0
+    if a.once:
+        if a.synthetic:
+            cfg = load_lock()
+            ar = args_from_lock(cfg, a.profile, synthetic=True,
+                                overrides={'hidden': 32, 'proj': 16,
+                                           'epochs': 3, 'eval_every': 1,
+                                           'patience': 3, 'update_every': 2,
+                                           'K': 4})
+            D = synthetic_fixture(seed=a.seed)
+            fold = synthetic_fold(D['Y'], seed=a.seed)
+            diag = dg.Diagnostics()
+            res, model, _, _ = train_fold(D, fold, ar, diag=diag,
+                                          max_wall_s=a.max_wall_s,
+                                          return_state=True)
+            res['context'] = 'synthetic'
+            res['resolved_manifest'] = {'threshold_grid': THRESHOLD_GRID,
+                                        'aggregation_policy': AGGREGATION_POLICY}
+            outdir = a.out or os.path.join(_HERE, 'runs', 'synthetic_once')
+            art = save_run_artifacts(outdir, res, model,
+                                     res['resolved_manifest'], diag)
+            print(json.dumps({'ran': True, 'context': 'synthetic',
+                              'macro_f1': res['macro_f1'], 'outdir': outdir}))
+            return 0
+        # real-data path — full context binding (sha + fold + profile + seed)
+        ctx = bind_context(a.profile, a.seed, a.data, a.fold_dir)
+        ar = args_from_lock(ctx['cfg'], a.profile, overrides={'seed': a.seed})
+        diag = dg.Diagnostics()
+        res, model, _, _ = train_fold(ctx['D'], ctx['folds'][a.fold], ar,
+                                      diag=diag, max_wall_s=a.max_wall_s,
+                                      return_state=True)
+        res['context'] = {'profile': a.profile, 'seed': a.seed, 'fold': a.fold,
+                          'data_sha256': ctx['data_sha256'],
+                          'claim_ceiling': ctx['claim_ceiling']}
+        outdir = a.out or os.path.join(_HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}')
+        art = save_run_artifacts(outdir, res, model,
+                                 {'threshold_grid': THRESHOLD_GRID,
+                                  'aggregation_policy': AGGREGATION_POLICY,
+                                  'context': res['context']}, diag)
+        print(json.dumps({'ran': True, 'fold': a.fold,
+                          'macro_f1': res['macro_f1'], 'outdir': outdir}))
+        return 0
+    p.error('choose --dry-run or --once')
+
+
+if __name__ == '__main__':
+    main()

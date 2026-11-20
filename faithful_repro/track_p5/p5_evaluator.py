@@ -66,11 +66,25 @@ def multihot_macro_f1(y, p, taus, support_policy=ZERO_SUPPORT_POLICY):
         "metric": PRIMARY, "macro_f1": macro,
         "per_class_f1": [None if np.isnan(v) else float(v) for v in per],
         "per_class_support": support,
+        "per_class_tp": tpfpfn(y, yhat, 'tp'),
+        "per_class_fp": tpfpfn(y, yhat, 'fp'),
+        "per_class_fn": tpfpfn(y, yhat, 'fn'),
         "excluded_classes": excluded,
         "zero_support_policy": support_policy,
         "prediction_cardinality_mean": card,
         "thresholds": [float(t) for t in taus],
     }
+
+
+def tpfpfn(y, yhat, kind):
+    y = np.asarray(y); yhat = np.asarray(yhat)
+    if kind == 'tp':
+        c = (yhat == 1) & (y == 1)
+    elif kind == 'fp':
+        c = (yhat == 1) & (y == 0)
+    else:
+        c = (yhat == 0) & (y == 1)
+    return [int(v) for v in c.sum(0)]
 
 
 def top1_anyhit_harmonic(Y, P):
@@ -100,20 +114,37 @@ def top1_firstpos_harmonic(Y, P):
 
 
 def aggregate_fold_results(fold_metrics):
-    """Report pooled and mean-of-fold aggregation SEPARATELY —
-    declared per metric, never silently averaged."""
+    """Report pooled and mean-of-fold aggregation SEPARATELY.
+
+    Pooled macro-F1 is computed CORRECTLY: TP/FP/FN are summed across
+    folds per class, then per-class F1 is computed from the pooled
+    counts, then averaged over supported classes (zero pooled support
+    excluded, per declared policy). Mean-of-fold is the plain average
+    of per-fold macro-F1 — a different number, kept alongside."""
     primary = np.array([f["macro_f1"] for f in fold_metrics])
-    n = np.array([len(f["per_class_support"]) for f in fold_metrics])
-    pooled_per_class = np.nansum(
-        np.array([[v if v is not None else np.nan for v in f["per_class_f1"]]
-                  for f in fold_metrics]), axis=0) / len(fold_metrics)
+    C = len(fold_metrics[0]["per_class_tp"])
+    tp = np.zeros(C); fp = np.zeros(C); fn = np.zeros(C); sup = np.zeros(C)
+    for f in fold_metrics:
+        tp += np.array(f["per_class_tp"]); fp += np.array(f["per_class_fp"])
+        fn += np.array(f["per_class_fn"]); sup += np.array(f["per_class_support"])
+    pooled_f1 = []
+    for k in range(C):
+        if sup[k] == 0:
+            pooled_f1.append(np.nan); continue
+        prec = tp[k] / max(tp[k] + fp[k], 1); rec = tp[k] / max(tp[k] + fn[k], 1)
+        pooled_f1.append(2 * prec * rec / max(prec + rec, 1e-12))
+    pooled_valid = [v for v in pooled_f1 if not np.isnan(v)]
     return {
         "mean_of_fold_macro_f1": float(primary.mean()),
         "std_fold_macro_f1": float(primary.std()),
-        "pooled_per_class_f1": [float(v) for v in pooled_per_class],
-        "pooled_macro_f1": float(np.nanmean(pooled_per_class)),
-        "aggregation_declared": {"primary_reported": "mean_of_fold_macro_f1",
-                                 "pooled_variant_also_reported": True},
+        "pooled_macro_f1": float(np.mean(pooled_valid)) if pooled_valid else 0.0,
+        "pooled_per_class_f1": [None if np.isnan(v) else float(v) for v in pooled_f1],
+        "pooled_counts": {"tp": tp.tolist(), "fp": fp.tolist(), "fn": fn.tolist(),
+                          "support": sup.tolist()},
+        "aggregation_declared": {
+            "primary_reported": "mean_of_fold_macro_f1",
+            "pooled_variant": "TP/FP/FN summed across folds -> class F1 -> macro mean",
+            "pooled_also_reported": True},
     }
 
 
