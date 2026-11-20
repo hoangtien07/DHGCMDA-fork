@@ -273,6 +273,43 @@ def resolve_run(data_path=None, fold_dir=None, profile='P5_BENCHMARK_UNKNOWN_PRO
 
 # ---------------- training loop (synthetic-only until authorized) ----------------
 
+def _score_diagnostics(y, p, taus):
+    """Per-class TEST-score diagnostics: AUROC (rank, tie-averaged), AP,
+    score quantiles, positive prediction rate. Analysis-only — never
+    used for model or threshold selection."""
+    y = np.asarray(y); p = np.asarray(p)
+    C = y.shape[1]; out = {}
+    for k in range(C):
+        col_y, col_p = y[:, k], p[:, k]
+        npos = int(col_y.sum()); nneg = len(col_y) - npos
+        # AUROC via tie-averaged Mann-Whitney
+        order = np.argsort(col_p, kind='mergesort')
+        ranks = np.empty(len(col_p)); ranks[order] = np.arange(len(col_p))
+        # average ranks within ties
+        sp = col_p[order]; i = 0
+        while i < len(sp):
+            j = i
+            while j + 1 < len(sp) and sp[j + 1] == sp[i]:
+                j += 1
+            if j > i:
+                ranks[order[i:j + 1]] = (i + j) / 2.0
+            i = j + 1
+        auc = float('nan') if npos == 0 or nneg == 0 else float(
+            (ranks[col_y == 1].sum() - npos * (npos - 1) / 2.0) / (npos * nneg))
+        # AP: mean precision at each positive rank
+        desc = np.argsort(-col_p, kind='mergesort')
+        hits = col_y[desc]; cum = np.cumsum(hits)
+        pos_idx = np.nonzero(hits)[0]
+        ap = float('nan') if npos == 0 else float(
+            (cum[pos_idx] / (pos_idx + 1)).sum() / npos)
+        out[f'class_{k}'] = {
+            'auroc': auc, 'ap': ap,
+            'score_quantiles': [float(q) for q in np.quantile(col_p, [0, .25, .5, .75, 1])],
+            'pos_pred_rate': float((col_p >= taus[k]).mean()),
+            'support': npos}
+    return out
+
+
 def _val_predictions(model, X, G, ei, val_pairs):
     model.eval()
     with torch.no_grad():
@@ -413,6 +450,8 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
     tp_t = tp_t.cpu().numpy()
     te = fold['test']
     res = ev.multihot_macro_f1(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]], taus)
+    res['score_diagnostics'] = _score_diagnostics(
+        Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]], taus)
     res.update(
         aux_top1_anyhit=ev.top1_anyhit_harmonic(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]]),
         aux_top1_firstpos=ev.top1_firstpos_harmonic(Y[te[:, 0], te[:, 1]], tp_t[te[:, 0], te[:, 1]]),
@@ -454,20 +493,26 @@ def synthetic_fold(Y, f=0, folds=5, val_frac=0.1, seed=1234):
     return {'test': test, 'val': rest[:nv], 'train': rest[nv:]}
 
 
-def save_run_artifacts(outdir, res, model, resolved, diag=None):
-    """Atomic artifact bundle: checkpoint, selected epoch, val
-    thresholds, resolved config/hash manifest, diagnostics."""
+def save_run_artifacts(outdir, res, model, resolved, diag=None, graph=None):
+    """Atomic artifact bundle: checkpoint (model + SELECTED graph state
+    G/ei when supplied), selected epoch, val thresholds, resolved
+    config/hash manifest, diagnostics."""
     os.makedirs(outdir, exist_ok=True)
     atomic_json(os.path.join(outdir, 'result.json'), res)
     atomic_json(os.path.join(outdir, 'resolved_manifest.json'), resolved)
     if diag:
         atomic_json(os.path.join(outdir, 'diagnostics.json'), diag.report())
     ck = os.path.join(outdir, 'checkpoint.pt')
-    atomic_write(ck, lambda t: torch.save(
-        {'state_dict': model.state_dict(),
-         'best_val_macro_f1': res.get('best_val_macro_f1'),
-         'thresholds': res.get('thresholds'),
-         'threshold_source': res.get('threshold_source')}, t))
+    payload = {'state_dict': model.state_dict(),
+               'best_val_macro_f1': res.get('best_val_macro_f1'),
+               'selected_epoch': res.get('selected_epoch'),
+               'thresholds': res.get('thresholds'),
+               'threshold_source': res.get('threshold_source'),
+               'graph_state': ('selected' if res.get('outcome') == 'completed'
+                               else 'final_unselected')}
+    if graph is not None:
+        payload['G'] = graph['G']; payload['ei'] = graph['ei']
+    atomic_write(ck, lambda t: torch.save(payload, t))
     return {'dir': outdir,
             'files': ['result.json', 'resolved_manifest.json',
                       'diagnostics.json' if diag else None, 'checkpoint.pt']}
@@ -524,9 +569,9 @@ def main(argv=None):
                         'context': 'synthetic', 'seed': a.seed}
             outdir = a.out or os.path.join(_HERE, 'runs', 'synthetic_once')
             try:
-                res, model, _, _ = train_fold(D, fold, ar, diag=diag,
-                                              max_wall_s=a.max_wall_s,
-                                              return_state=True)
+                res, model, G_sel, ei_sel = train_fold(
+                    D, fold, ar, diag=diag,
+                    max_wall_s=a.max_wall_s, return_state=True)
             except HardStop as e:
                 rep = {'outcome': 'failed', 'hard_stop': str(e),
                        'context': 'synthetic', 'manifest': manifest}
@@ -537,7 +582,8 @@ def main(argv=None):
                                   'hard_stop': str(e), 'outdir': outdir}))
                 return 1
             res['context'] = 'synthetic'
-            art = save_run_artifacts(outdir, res, model, manifest, diag)
+            art = save_run_artifacts(outdir, res, model, manifest, diag,
+                                     graph={'G': G_sel, 'ei': ei_sel})
             print(json.dumps({'ran': True, 'context': 'synthetic',
                               'outcome': res['outcome'],
                               'macro_f1': res['macro_f1'], 'outdir': outdir}))
@@ -555,9 +601,9 @@ def main(argv=None):
                     'profile': a.profile, 'seed': a.seed, 'fold': a.fold}
         outdir = a.out or os.path.join(_HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}')
         try:
-            res, model, _, _ = train_fold(ctx['D'], ctx['folds'][a.fold], ar,
-                                          diag=diag, max_wall_s=a.max_wall_s,
-                                          return_state=True)
+            res, model, G_sel, ei_sel = train_fold(
+                ctx['D'], ctx['folds'][a.fold], ar,
+                diag=diag, max_wall_s=a.max_wall_s, return_state=True)
         except HardStop as e:
             rep = {'outcome': 'failed', 'hard_stop': str(e),
                    'context': manifest}
@@ -570,7 +616,8 @@ def main(argv=None):
         res['context'] = {'profile': a.profile, 'seed': a.seed, 'fold': a.fold,
                           'data_sha256': ctx['data_sha256'],
                           'claim_ceiling': ctx['claim_ceiling']}
-        art = save_run_artifacts(outdir, res, model, manifest, diag)
+        art = save_run_artifacts(outdir, res, model, manifest, diag,
+                                 graph={'G': G_sel, 'ei': ei_sel})
         print(json.dumps({'ran': True, 'fold': a.fold,
                           'outcome': res['outcome'],
                           'macro_f1': res['macro_f1'], 'outdir': outdir}))

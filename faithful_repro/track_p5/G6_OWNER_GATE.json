@@ -1,0 +1,43 @@
+{
+  "gate": "G6_OWNER_GATE",
+  "base": "d6fa6fd90e0082b91c7c93f5ef3dfc43488a47fc",
+  "verdict": "G6_COMPLETED_VALID_EXPLORATORY",
+  "runs": {
+    "folds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "all_completed": true,
+    "interrupted": 0,
+    "hardstops": 0,
+    "checkpoint_shas": {
+      "1": "8451afef159506235de71412895bdedbbc3d59328fd02c36ad3213060b5fd7a7",
+      "2": "989b3b63ad199e734f7734475c37115053c912358cf7a58507b6b7e3bc877f91",
+      "3": "7be90edc596e6db7312f9f233984e3b07d23a93586e3453276f128ff8b030c57",
+      "4": "1d122218b73be18f91089c28259d1c25adaddbcb70080052ecffd259f3c43dc5"
+    }
+  },
+  "folds_1_4": {
+    "P5_mean": 0.4204,
+    "P5_sd": 0.0038,
+    "d_P5_B0_mean": 0.0222,
+    "d_P5_B0_sd": 0.005,
+    "d_P5_B1_mean": 0.0401,
+    "d_P5_B1_sd": 0.0053,
+    "all_positive": true
+  },
+  "findings": [
+    "decision collapse (100% pos-rate on classes 2-4) persists on every fold",
+    "class4 AUROC<0.5 on all folds \u2014 ranking weak-to-inverted on high-support classes",
+    "minority classes 0-1 carry all signal vs null"
+  ],
+  "protocol_respected": {
+    "no_fold0_retrain": true,
+    "no_extra_seeds": true,
+    "no_test_tuning": true,
+    "historical_artifacts_unchanged": true
+  },
+  "holds": "G7/seeds/ablations await new owner decision"
+}

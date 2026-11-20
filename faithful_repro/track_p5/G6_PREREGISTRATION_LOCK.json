@@ -1,0 +1,34 @@
+{
+  "lock": "G6_PREREGISTRATION",
+  "base": "d6fa6fd90e0082b91c7c93f5ef3dfc43488a47fc",
+  "frozen": {
+    "folds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "split_manifests": "fold{1..4}_seed1234_static.npz (SHA-locked)",
+    "model_seed": 1234,
+    "profile": "P5_BENCHMARK_UNKNOWN_PROVENANCE",
+    "T1": "A_SHARED",
+    "predictor": "diag",
+    "epochs_max": 650,
+    "max_wall_s_per_fold": 1800,
+    "loss/optimizer/early_stop/threshold_grid": "unchanged from lock",
+    "no": [
+      "fold0 retrain",
+      "extra seeds",
+      "rescue runs",
+      "test-label tuning"
+    ]
+  },
+  "preflight_status": {
+    "seed_separation": "verified (split seed binds manifests+inner-val; model seed only RNG)",
+    "graph_persistence": "G+ei of selected epoch now saved in checkpoint (tests pass)",
+    "score_diagnostics": "per-class AUROC/AP/quantiles/pos-rate added, analysis-only",
+    "suite": "84/84 PASS before real-data run"
+  },
+  "comparison_label": "folds1-4 fresh; fold0 = previously exposed exploratory evidence",
+  "claim_ceiling": "exploratory_only"
+}

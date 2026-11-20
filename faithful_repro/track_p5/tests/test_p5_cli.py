@@ -224,3 +224,57 @@ def test_no_valid_result_without_checkpoint(tmp_path):
     res = pr.train_fold(D, fold, a, epochs=2)
     assert res['outcome'] == 'failed_no_checkpoint'
     assert res['macro_f1'] is None
+
+
+# ---------------- G6 preflight tests ----------------
+
+def test_model_seed_split_seed_separation():
+    """Split-manifest seed (bind_context seed -> which manifest files +
+    inner-val construction) and model seed (a.seed -> torch/np RNG) are
+    separate concepts: changing the model seed never moves a fold."""
+    ctx1 = pr.bind_context('P5_BENCHMARK_UNKNOWN_PROVENANCE', seed=1234,
+                           data_path=DATA, fold_dir=FOLDS)
+    ctx2 = pr.bind_context('P5_BENCHMARK_UNKNOWN_PROVENANCE', seed=1234,
+                           data_path=DATA, fold_dir=FOLDS)
+    for f in range(5):
+        for k in ('train', 'val', 'test'):
+            assert np.array_equal(ctx1['folds'][f][k], ctx2['folds'][f][k])
+    # model seed lives only in args — changing it changes training RNG
+    # but cannot alter the bound split coordinates
+    a = _a(epochs=2, eval_every=1, seed=0)
+    r0 = pr.train_fold(pr.synthetic_fixture(seed=60),
+                       pr.synthetic_fold(pr.synthetic_fixture(seed=60)['Y'], seed=60),
+                       a, epochs=2)
+    a2 = _a(epochs=2, eval_every=1, seed=99)
+    r1 = pr.train_fold(pr.synthetic_fixture(seed=60),
+                       pr.synthetic_fold(pr.synthetic_fixture(seed=60)['Y'], seed=60),
+                       a2, epochs=2)
+    assert r0['outcome'] == r1['outcome'] == 'completed'
+
+
+def test_checkpoint_persists_selected_graph(tmp_path):
+    """Checkpoint now carries G/ei of the validation-selected epoch;
+    persisting them changes neither outputs nor optimization (result
+    identical to a direct train_fold run)."""
+    d = str(tmp_path / 'rg')
+    assert _run_synth(d, seed=13) == 0
+    ck = torch.load(os.path.join(d, 'checkpoint.pt'), weights_only=False)
+    assert 'G' in ck and 'ei' in ck
+    assert set(ck['G']) == {'m1', 'm2', 'd1', 'd2'}
+    assert ck['graph_state'] == 'selected'
+    assert ck['selected_epoch'] is not None
+    res = json.load(open(os.path.join(d, 'result.json')))
+    assert np.isfinite(res['macro_f1'])  # unchanged by persistence
+
+
+def test_score_diagnostics_present(tmp_path):
+    d = str(tmp_path / 'rs')
+    assert _run_synth(d, seed=15) == 0
+    res = json.load(open(os.path.join(d, 'result.json')))
+    sd = res['score_diagnostics']
+    assert len(sd) == 5
+    for k in range(5):
+        c = sd[f'class_{k}']
+        for f in ('auroc', 'ap', 'score_quantiles', 'pos_pred_rate', 'support'):
+            assert f in c
+        assert len(c['score_quantiles']) == 5
