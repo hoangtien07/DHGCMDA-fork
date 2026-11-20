@@ -1,0 +1,94 @@
+# P5_DECISION_REGISTER — frozen BEFORE any training (P5.0)
+# Every entry: choice, source tier, rationale, alternatives retained.
+register_version: "P5.0"
+frozen: true
+
+type_objective:
+  choice: TYPE_SOFTMAX_MULTIHOT_WEIGHTED_CE
+  definition: "softmax over 5 type logits at learnable T; loss -mean_pairs(sum_k w_k*y_k*log p_k)"
+  source: RELEASE_DERIVED + INDEPENDENT_ASSUMPTION (multi-hot generalization)
+  rationale: "faithful.py + release convention; NOT independent-Bernoulli BCE"
+  alternatives:
+    - name: TYPE_SIGMOID_MULTILABEL_BCE
+      status: hypothesis-branch-only
+      note: "separate interpretation; never selected by test F1"
+
+existence_head:
+  choice: focal_existence_gamma2_alpha_on_negatives
+  source: RELEASE_DERIVED (paper defines predictor existence but no loss term — spec gap)
+  weight: 0.3
+  note: "PU treatment: unobserved pairs are NOT ground-truth negatives; pool excludes held-out pairs only"
+
+class_weighting:
+  choice: effective_number
+  formula: "w_k = (1-beta)/(1-beta^n_k), beta=0.99999, train counts only, normalized sum=C"
+  source: RELEASE_DERIVED
+  conflict: "paper Fig2b says inverse-proportional best — documented conflict, EN chosen per Eq.34"
+
+margin_negatives:
+  choice: per-step randperm subsample up to 10x positives, margin=0.5, margin_w=0.1
+  source: RELEASE_DERIVED (paper unspecified)
+
+recon_loss:
+  choice: frobenius_sum_gram
+  formula: "||S - Z_proj Z_proj^T||_F^2 summed"
+  source: PAPER_EXPLICIT (Eq.21)
+  coefficient: 1.0
+  note: "sum kept; mean allowed only as declared sensitivity flag recon_reduction=mean; no silent switch"
+  recon_target: "sim_m2 / sim_d2 (functional + semantic views) — RELEASE_DERIVED choice in faithful.py L343"
+  projection_width: "Linear(d,d)->ReLU->Linear(d,d/2) — INDEPENDENT_ASSUMPTION (paper ambiguous on widths)"
+
+predictor:
+  choice: diag_bilinear
+  source: RELEASE_DERIVED (SimplifiedTypePredictor)
+  alternatives:
+    - name: full_bilinear
+      status: documented-branch
+      note: "J-1 measured +5.9% on v2.0 — declared option, not test-tuned selection"
+  temperature: "learnable T init 2.0 clamp [0.5,5.0] — RELEASE_DERIVED"
+
+dynamic_refresh:
+  policy: P5_PAPER_LITERAL_A_SHARED_OPERATOR
+  choice: "post-refresh both views share rebuilt operator (G[m1]=G[m2]=KNN([S^,A]); G[d1]=G[d2])"
+  readings:
+    A_shared: "Sec 2.8 produces ONE reconstructed similarity per modality -> shared post-refresh operator is consistent"
+    B_view_specific: "views should keep distinct operators; shared assignment may lose view information"
+  decision: "A retained as primary (textual reading only); B documented, NOT executed until owner-approved experiment"
+  frequency: every_5_epochs
+  edge_rule: "min-max [0,1], threshold 0.5, i!=j; association edges unchanged"
+  source: PAPER_EXPLICIT trigger + INDEPENDENT_ASSUMPTION reading A
+
+optimizer:
+  choice: Adam_lr1e-4_wd1e-5_gradclip1.0
+  source: PAPER_EXPLICIT (Adam) + RELEASE_DERIVED (values)
+  early_stop: "inner-validation split carved from outer-train only; patience/eval_every frozen in config"
+
+metrics:
+  primary: MULTIHOT_MACRO_F1
+  secondary: [microF1, per_type_PRF1, minority_recall, multitype_strata]
+  auxiliary: [TOP1_ANYHIT_HARMONIC_K5, TOP1_SCALAR_FIRSTPOS_HARMONIC_K5]
+  threshold_policy: inner_validation_only
+  cv_triplet: "AUC + average_precision + trapezoidal AUPR reported distinctly; F1 at val threshold; n_neg_draws=10 seeds frozen"
+  rule: "no auxiliary metric may be presented as author-equivalent evaluator"
+
+splits:
+  cv_pair: "locked manifests fold{0..4}_seed1234_static.npz (pair-level disjoint; all types of a pair together)"
+  cv_triplet: "triplet-level split; same pair allowed across folds under different types; reported as transductive"
+  inner_val: "carved from outer-train only"
+
+feature_profiles:
+  P5_BENCHMARK_UNKNOWN_PROVENANCE:
+    views: bundled sim_m1/sim_m2/sim_d1/sim_d2
+    claim_ceiling: exploratory_only
+  P5_SPLIT_AWARE_EXTERNAL:
+    views: independently reconstructed (miRBase seq NW; MISIM func [EXTERNAL_POTENTIALLY_LABEL_DEPENDENT]; CTD+HumanNet gene; MeSH tree semantic)
+    claim_ceiling: "leakage-controlled only if provenance gate passes; else EXPLORATORY/BLOCKED_FEATURE_PROVENANCE"
+  P5_RELEASE_K4_CONTROL:
+    views: release inputs on v2.0
+    claim_ceiling: sanity_only
+
+seeds: [1234, 42, 2025]
+stop_rules:
+  - non_finite_loss_or_gradient
+  - any_test_label_in_train_inputs
+  - config_change_after_seen_results

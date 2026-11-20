@@ -1,0 +1,91 @@
+{
+  "gate": "G4_OWNER_REVIEW",
+  "status": "TRACK_P5_SPEC_AND_PRETRAIN_AUDIT",
+  "verdict": "READY_FOR_OWNER_REVIEW_NO_TRAIN",
+  "date": "2026-11-20",
+  "base_commit": "3fb1998",
+  "branch": "research/track-p5-pretrain",
+  "evidence_sha": {
+    "00_SCOPE_AND_CLAIM_BOUNDARY.md": "26fcf3deb1f6647cef506e2e3e4314d84df77fcbc672468f17a20041b0b64b18",
+    "EQUATION_TO_CODE_MATRIX.md": "23bb25fce3abdbaf9c5e86207455e993d0c155c0ba1e8cfbcc73d1a2fbd478c6",
+    "FEATURE_PROVENANCE_DAG.md": "691ca7cc9ee59f2f3f07b7a883a6461a7c48210fd58a30409c5386ba9821ce33",
+    "G1_SPEC_VERDICT.json": "d889c31d80384464f94900055f042661031bc46e8d670d16e1a295413d5b3350",
+    "G2_DATA_FEATURE_VERDICT.json": "566401fdd0c06bdf9a51b15a48eb572adbe46f05f12bea8ad9f3934df31ebffc",
+    "G3_NUMERIC_AUDIT.json": "842a284c417bcc39b06bad47df2fcb885ab3673eabb5aa13f7124d95a5e522fb",
+    "G4_INDEPENDENT_RECOMPUTE.json": "b65d51972e52181d7c76213a43be0ba589197ecbe18095f24153d92d8edeaa53",
+    "MODEL_EXECUTION_GRAPH.md": "cea0b9174fe8d432e56c194f7b3f2b85a3b50396ac9370acbe6d57ce58484cf0",
+    "P5_CONFIG_LOCK.yaml": "d154da43271e102648d435926b482f01291a21f746c8cfea281243257a478d37",
+    "P5_DECISION_REGISTER.yaml": "536876dfb6c08054513375a1ada5210bb2e9c9acb09602fff2b8a0dc777701c8",
+    "REUSE_MATRIX.md": "417571ddaccb24a685c31ecaa94431336fda8c23fad09fa7fa369688f2a8bf29",
+    "SOURCE_MANIFEST.json": "af50cd010763bc0703333752a4651458e09bd102887a504bb2071c0e9dd8700a",
+    "independent_recompute_g4.py": "cce42cb714ed91733ff6c6ccdefce094c6b4b555fb6bab9c239d97b7d3182583",
+    "tests/conftest.py": "e2e92c92d08ac389986474bef0ed0a0fbce9e81d10649cb6012ad79add208bcf",
+    "tests/test_cl_losses.py": "c13f92aa27b1c91921b76063a6f1700658fec0714fe4bd58478da486261555dc",
+    "tests/test_dynamic_refresh.py": "f9e85a5c3f72b1eeb9662784ffb060756d0ca47896d9910dfd49e03e06385fc2",
+    "tests/test_eq_hypergraph.py": "a6d1100e0d4b2029f4dc41275be0f90cde6d781bdcbe8d6052085219b6db753b",
+    "tests/test_fusion_recon.py": "b0deff78083593f5deec83e7d32453b6edd915ac75597df3fc61d7037a1cede7",
+    "tests/test_metrics_contract.py": "11eb938e47f9f3d6ca0ab4ba0ad7ae392316cfa2c2451ee0a9e3a7ecb2e96b4e",
+    "tests/test_split_and_provenance.py": "2ac30ea065bd71248466d06988338e3979647eef8c52e61c1c7c7f290b1238ad",
+    "tests/test_type_predictor.py": "a844b2c27205822f93ee8fae9f15bd22d91f19ea8b8127ab6d24f3a7cbfe3a11"
+  },
+  "paper_equations_covered": "Eq.1-34 all mapped in EQUATION_TO_CODE_MATRIX.md (34 rows + cross-cutting); independent recompute covered HGCN op, GRACE InfoNCE, weighted type CE, mm01+edge refresh invariants",
+  "source_dependencies": {
+    "PAPER_EXPLICIT": [
+      "HGCN normalized propagation",
+      "recon Frobenius",
+      "Adam",
+      "refresh every 5 epochs",
+      "4 heads"
+    ],
+    "AUTHOR_RELEASE": [
+      "hyperparam values (K=13, lam1=1.0, lam2=0.3, margin 0.5/0.1, EN beta=0.99999, T init 2.0)",
+      "diag bilinear predictor",
+      "focal existence",
+      "recon targets sim_m2/sim_d2",
+      "bundled 4 sim views"
+    ],
+    "INDEPENDENT_ASSUMPTION": [
+      "multi-hot generalization of softmax CE",
+      "channel gate + softmax beta in AVF",
+      "projection widths d->d/2",
+      "refresh reading A (shared operator)"
+    ],
+    "UNKNOWN": [
+      "bundled sim_* provenance (bypasses GIP recomputation)",
+      "author evaluator convention",
+      "author curation 411x271"
+    ]
+  },
+  "data_leakage_status": "G2_PASS_EXPLORATORY_ONLY: perturbation canary PASS on synthetic; bundled views UNKNOWN_PROVENANCE -> exploratory ceiling; SPLIT_AWARE profile BLOCKED_FEATURE_PROVENANCE (MISIM association-derived upstream)",
+  "unknowns": [
+    "evaluator convention for published joint P/R (Track R UNRESOLVED)",
+    "T1 post-refresh reading A vs B",
+    "sim_* view provenance",
+    "recon target choice released but not paper-explicit"
+  ],
+  "canary_status": "synthetic perturbation canary PASS (held-out labels do not reach train-visible tensors in implemented path); real-tensor path verified statically in FEATURE_PROVENANCE_DAG masking audit",
+  "unit_tests": {
+    "suite": "tests/",
+    "collected": 59,
+    "passed": 59,
+    "skipped": 0,
+    "must_fail_fixtures": "all assertions real (no vacuous pass); see G3_NUMERIC_AUDIT.json"
+  },
+  "independent_recompute": {
+    "file": "G4_INDEPENDENT_RECOMPUTE.json",
+    "checks": 5,
+    "all_pass": true,
+    "method": "pure-numpy explicit-loop oracles; implementation never used as oracle"
+  },
+  "estimated_cost": {
+    "gate_scope": "G0-G4 code-only; ZERO training cost",
+    "proposed_G5_pilot": "not estimated — requires owner approval before any sizing"
+  },
+  "needs_owner_approval": [
+    "G5 pilot training (any real-data fit)",
+    "feature profile selection: BENCHMARK_UNKNOWN_PROVENANCE (exploratory) vs SPLIT_AWARE_EXTERNAL (blocked pending MISIM provenance) vs RELEASE_K4_CONTROL",
+    "T1 refresh reading: execute B_VIEW_SPECIFIC arm or keep A only",
+    "G6 fleet / G7 ablation budgets"
+  ],
+  "claim_boundary": "mathematically transparent interpretation of DHGCMDA K5; NOT author-faithful; 0.8600 is not a valid target (Track R: unreachable under all source-supported conventions)"
+}

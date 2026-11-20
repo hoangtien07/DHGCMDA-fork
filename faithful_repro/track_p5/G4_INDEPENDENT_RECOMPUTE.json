@@ -1,0 +1,46 @@
+{
+  "gate": "G4",
+  "date": "2026-11-20",
+  "oracle": "pure-numpy explicit-loop formulations; implementation used only for comparison",
+  "checks": {
+    "hgcn_G_operator": {
+      "max_abs_diff": 2.194418860512748e-08,
+      "pass": true,
+      "note": "independent element-wise Dv^-1/2 H De^-1 H^T Dv^-1/2; impl uses argsort(-S) with diag=inf self-first; oracle forces self-first explicitly"
+    },
+    "hgcn_conv_forward": {
+      "max_abs_diff": 5.431215410744983e-08,
+      "pass": true
+    },
+    "contrastive_loss_infonce": {
+      "impl": 3.1794567108154297,
+      "oracle": 3.1794567030848673,
+      "abs_diff": 7.730562412433528e-09,
+      "pass": true
+    },
+    "weighted_type_loss": {
+      "softmax_diff": 2.9802322387695312e-08,
+      "loss_abs_diff": 2.8739261193067023e-08,
+      "pass": true,
+      "en_weights": [
+        0.4902035755789411,
+        0.5882413494923613,
+        0.9803924451980403,
+        1.4705813148653288,
+        1.4705813148653288
+      ]
+    },
+    "refresh_invariants": {
+      "mm01_diff": 1.009969885501505e-12,
+      "mm01_pass": true,
+      "edge_count_independent": 4,
+      "edge_count_impl": 4,
+      "edge_rule_pass": true,
+      "post_refresh_symmetric": true,
+      "post_refresh_nonneg": true,
+      "pass": true
+    }
+  },
+  "all_pass": true,
+  "note": "knn_G incidence: implementation's self-inclusion is guaranteed by diag=inf before argsort; oracle forces it explicitly \u2014 same semantics. cos-KNN neighbor order ties broken by index order in both."
+}

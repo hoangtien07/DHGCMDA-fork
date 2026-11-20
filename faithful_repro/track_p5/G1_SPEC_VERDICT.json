@@ -1,0 +1,20 @@
+{
+ "verdict": "G1_PASS",
+ "date": "2026-11-20",
+ "equations_covered": 34,
+ "matrix": "EQUATION_TO_CODE_MATRIX.md",
+ "residual_assumptions": [
+  {"eq": "3", "item": "KNN cosine tie-break policy", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "13", "item": "inter-CL negative subsample factor + RNG semantics", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "16", "item": "AVF channel-wise gate + reduction r=4", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "19", "item": "recon projection width d->d/2", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "24-25", "item": "PyG HGTConv as paper's HGT + head-merge scheme", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "30", "item": "diag vs full bilinear (diag primary, full documented branch)", "tier": "RELEASE_DERIVED"},
+  {"eq": "31-33", "item": "softmax-multi-hot CE vs sigmoid BCE — locked as named convention TYPE_SOFTMAX_MULTIHOT_WEIGHTED_CE", "tier": "INDEPENDENT_ASSUMPTION"},
+  {"eq": "32", "item": "existence loss presence (paper has predictor but no loss term)", "tier": "RELEASE_DERIVED"},
+  {"eq": "post-34/2.8", "item": "dynamic refresh view-sharing — readings A (shared) primary, B (view-specific) documented", "tier": "INDEPENDENT_ASSUMPTION"}
+ ],
+ "ungrounded_equivalence_claims": "none — no claim that any P5 metric equals the author evaluator",
+ "frozen_artifacts": ["P5_DECISION_REGISTER.yaml"],
+ "constraints": "no training; register frozen before any optimizer step; alternates not executed without owner approval"
+}

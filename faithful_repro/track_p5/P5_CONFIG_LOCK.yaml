@@ -1,0 +1,65 @@
+# P5_CONFIG_LOCK — concrete frozen configuration (G4)
+# Derived from P5_DECISION_REGISTER.yaml + faithful.py defaults.
+# Frozen BEFORE any real-data training; any change requires a new lock
+# and cannot be justified by observed test results.
+lock_version: "P5.0"
+frozen_at: "2026-11-20"
+base_commit: "3fb1998"
+code_sha256: "efdaa691…a3aaf (faithful.py)"
+
+data:
+  tensor: "faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz"
+  tensor_sha256: "85bb9ea4…3356c"
+  shape: {mirna: 411, disease: 271, types: 5, pairs: 8735, labels: 11748}
+  folds: "independent_v32_outer_refit_20261117/evaluation/fold{0..4}_seed1234_static.npz"
+  profile_default: P5_BENCHMARK_UNKNOWN_PROVENANCE  # exploratory claim ceiling
+
+model:
+  architecture: DHGCMDA_interpretation_P5  # NOT author-faithful claim
+  hidden: 256
+  proj: 64
+  heads: 4
+  nlayer: 2          # HGT blocks
+  dropout: 0.3
+  K: 13              # KNN hyperedge size (K+1 members incl self)
+  avf_reduction: 4
+  predictor: diag_bilinear
+  type_temperature: {init: 2.0, clamp: [0.5, 5.0], learnable: true}
+  recon_projection: "Linear(d,d) -> ReLU -> Linear(d,d/2) -> Gram"
+
+training:
+  epochs: 650
+  optimizer: {name: Adam, lr: 0.0001, weight_decay: 0.00001}
+  grad_clip: 1.0
+  seed_list: [1234, 42, 2025]
+  neg_ratio: 10
+  early_stop: {enabled: true, eval_every: 10, patience: 10, on: inner_val}
+  inner_val_frac: 0.1           # carved from outer-train only
+
+loss:
+  l_type: "multi-hot weighted softmax CE; T clamped; w_k = (1-β)/(1-β^{n_k}), β=0.99999, train counts, normalized to sum C"
+  l_intra: {coefficient_lam1: 1.0, form: "0.5·l_cl(h1,h2)+0.5·l_cl(h2,h1), t=0.5"}
+  l_inter: {coefficient_lam2: 0.3, margin: 0.5, margin_w: 0.1, negsum_denom: true, neg_subsample: "≤10× positives, per-step randperm"}
+  l_recon: {coefficient_lam3: 1.0, reduction: sum, targets: [sim_m2, sim_d2]}
+  l_exist: {coefficient_exist_w: 0.3, form: "focal γ=2, α=neg_w=0.5 on sampled negatives", neg_pool: "train-unobserved minus all held-out pairs"}
+
+dynamic_refresh:
+  trigger: every_5_epochs
+  rule: "mm01 reconstructed sim; edges θ=0.5, i≠j; operator = KNN([S^; A or A^T])"
+  view_assignment: A_SHARED   # post-refresh m1==m2, d1==d2 (T1, primary reading)
+  fallback_documented: B_VIEW_SPECIFIC  # not executed without owner approval
+
+evaluation:
+  primary: MULTIHOT_MACRO_F1
+  thresholds: inner_validation_only  # per-class grid; test never tunes
+  auxiliary:
+    - TOP1_ANYHIT_HARMONIC_K5
+    - TOP1_SCALAR_FIRSTPOS_HARMONIC_K5
+  cv_triplet: {metrics: [AUC, AP, AUPR_trapezoidal], f1: at_val_threshold, n_neg_draws: 10}
+  aggregation_order: declared_per_metric  # pooled vs mean-of-fold must be stated
+  forbidden: "any auxiliary metric presented as author-equivalent"
+
+stop_conditions:
+  - non_finite_loss_or_gradient
+  - any_test_label_reaches_train_visible_tensor
+  - config_change_after_observing_test_results

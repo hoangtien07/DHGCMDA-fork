@@ -1,0 +1,57 @@
+{
+ "verdict": "G2_PASS_EXPLORATORY_ONLY",
+ "date": "2026-11-20",
+ "tensor_reverified_from_bytes": {
+  "path": "faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz",
+  "sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+  "shape": [411, 271, 5],
+  "positive_pairs": 8735,
+  "labels": 11748,
+  "per_type_support": [1155, 403, 2293, 3997, 3900],
+  "multi_label_pairs": 2110,
+  "matches_paper_table2": true
+ },
+ "locked_folds_reverified": {
+  "dir": "faithful_repro/independent_v32_outer_refit_20261117/evaluation/",
+  "protocol": "CV_PAIR pair-level disjoint",
+  "total_pairs_covered": 8735,
+  "pair_overlap_between_folds": 0,
+  "y_consistent_with_tensor": true,
+  "per_fold_support": {
+   "fold0": [201, 74, 471, 788, 772],
+   "fold1": [233, 75, 465, 800, 767],
+   "fold2": [239, 89, 431, 784, 797],
+   "fold3": [238, 79, 441, 832, 801],
+   "fold4": [244, 86, 485, 793, 763]
+  }
+ },
+ "masking_audit": {
+  "A_train_only": "PASS (Ytr from fold['train']; diag_leak flag isolated)",
+  "gip_recompute_train_only": "PASS when recomputed; bundled views bypass (provenance UNKNOWN)",
+  "hgcn_edges_hgt": "PASS — inherit A masking; ei association edges from Af train",
+  "contrastive_positives": "PASS — At train matrix",
+  "existence_negative_pool": "PASS — test/val pair coordinates excluded",
+  "class_weights": "PASS — train counts",
+  "threshold_fitting": "PASS — inner-val only (P5 contract); triplet threshold from val",
+  "reconstruction_targets": "UNKNOWN — bundled sim_m2/sim_d2 provenance not certified"
+ },
+ "provenance_classes": {
+  "recon_sim_m1_mirbase": "LABEL_FREE",
+  "recon_sim_m2_misim": "EXTERNAL_POTENTIALLY_LABEL_DEPENDENT",
+  "recon_sim_d1_ctd_humannet": "LABEL_FREE (MDA labels)",
+  "recon_sim_d2_mesh": "LABEL_FREE",
+  "bundle_views": "UNKNOWN"
+ },
+ "profile_verdicts": {
+  "P5_BENCHMARK_UNKNOWN_PROVENANCE": "G2_PASS_EXPLORATORY_ONLY",
+  "P5_SPLIT_AWARE_EXTERNAL": "BLOCKED_FEATURE_PROVENANCE (functional view; no silent fallback)",
+  "P5_RELEASE_K4_CONTROL": "sanity_only"
+ },
+ "canary": {
+  "location": "tests/test_split_and_provenance.py::test_canary_heldout_label_invariance",
+  "scope": "synthetic dataset, full feature-path rebuild under held-out label perturbation",
+  "note": "fixed precomputed sim_* perturbation does not count as provenance proof"
+ },
+ "blocking_unknowns": ["bundle view provenance", "MISIM held-out dependency", "author fold/feature/eval artifacts"],
+ "constraints_respected": ["no training", "no test-label exposure in train-visible paths", "historical artifacts unchanged"]
+}

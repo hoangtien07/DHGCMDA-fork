@@ -1,0 +1,87 @@
+{
+ "manifest_version": "P5.0",
+ "date": "2026-11-20",
+ "base_commit": "3fb1998dede6c2efee14d8c4a7cab89ff4f5be79",
+ "branch": "research/track-p5-pretrain",
+ "artifacts": {
+  "paper_pdf": {
+   "path": "[2026] DHGCMDA a dual-view heterogeneous graph constrastive learning framework for miRNA-disaese.pdf",
+   "sha256": "24b989d1243570d754c75b39fda3bd24b56d355d3637f4ede515d4256056e22e",
+   "tier": "PAPER_EXPLICIT"
+  },
+  "paper_spec_checklist": {
+   "path": "faithful_repro/PAPER_SPEC.md",
+   "sha256": "43c18d91e50c568b425b6e7656ccc099475cb202b686f657e0150512f41b825f",
+   "tier": "extracted checklist — Eq.1-34 summary + ambiguity inventory"
+  },
+  "model_code": {
+   "path": "faithful_repro/code/faithful.py",
+   "sha256": "efdaa69121ea08f9b3d41b2e7c058f015145768ce386cc9698c2a4659c5a3aaf",
+   "tier": "AUTHOR_RELEASE-derived + declared assumptions (DEVIATIONS block)"
+  },
+  "old_smoke_tests": {
+   "path": "faithful_repro/code/test_faithful.py",
+   "sha256": "2b025404e64a6cd769f04c92552a02ecedd8f4c48aa2884bd11c83dceb9167c5",
+   "note": "NOT portable: absolute ~/dhg_runs and ~/repos/DHGCMDA paths; superseded by track_p5/tests"
+  },
+  "strict_tensor": {
+   "path": "faithful_repro/data/v3.2_ref_MDAv3.2-3_paperfirst_strict_4view.npz",
+   "sha256": "85bb9ea4ebbfe762609e300cf0d5d1d16dbd126e66f1c88508281b0b1923356c",
+   "reverified": {
+    "Y_shape": [411, 271, 5],
+    "positive_pairs": 8735,
+    "labels": 11748,
+    "per_type_support": [1155, 403, 2293, 3997, 3900],
+    "multi_label_pairs": 2110,
+    "view_keys": ["sim_m1", "sim_m2", "sim_d1", "sim_d2"],
+    "view_provenance": "UNKNOWN_PROVENANCE (bundle); see FOUR_VIEW_PROVENANCE_CORRECTED.md"
+   }
+  },
+  "locked_pair_folds": {
+   "dir": "faithful_repro/independent_v32_outer_refit_20261117/evaluation/",
+   "files": {
+    "fold0_seed1234_static.npz": "71ffcaedcca9bd569f60adfe23478924cac1065d686410f15872c291b7a19c4e",
+    "fold1_seed1234_static.npz": "9176c3ee129ecadf0146a7db40c9fc111e90ecea8ce2ab448224350e71e39496",
+    "fold2_seed1234_static.npz": "725347140e8b164c957c6d4f6f209863d056a59c637e4acd7eb88bd8b93b0088",
+    "fold3_seed1234_static.npz": "beecd7449343ddaa3972402756f47b853848f906b9f357c9672c423c6dba39f4",
+    "fold4_seed1234_static.npz": "a6f257c2af98e5fbcb1d4069338e43651fefce4498e5ff281df7fd18a3604030"
+   },
+   "content": "pairs(1747,2) + y(1747,5) + logits(1747,5) per fold; pair-level disjoint partition audited in Track R/Track N",
+   "note": "fold manifests contain model logits from prior runs — only pairs/y are fold definitions"
+  },
+  "external_source_hashes": {
+   "path": "faithful_repro/ext/SHA256SUMS",
+   "sha256": "9ea7e141a1ad5bc1f01872bdac83c1387f4ebec6df32cd5545ad137b1dab565e",
+   "entries": {
+    "d2025.bin": "82a6d0f14f86afc5a4cdb14bf3732e4420637090dfa3f1916b1a6c1415a06291",
+    "misim_similarity.zip": "6b5da04cb58799ed8a18c0edd27e9581ecae2278a6f89e7a14ea2f0dc97759da"
+   },
+   "note": "additional recon sources (miRBase hairpin.fa sha 0b315c60, mature.fa.gz 52d69eeb, CTD_curated_genes_diseases.tsv.gz 0422d3bd, HumanNet-XC.tsv d45931ef) recorded in FOUR_VIEW_PROVENANCE_CORRECTED.md"
+  },
+  "track_n_metric_code": {
+   "path": "faithful_repro/track_n/metrics_g2c.py",
+   "sha256": "0e2d66eda7f31e882b4b6ffc969753cf6a2f52fdc38584d09d790cbad0a3b353",
+   "note": "locked multihot macro-F1 + firstpos harmonic implementation — reference only, P5 defines its own contracts"
+  },
+  "track_n_baselines": {
+   "path": "faithful_repro/track_n/baselines.py",
+   "sha256": "562945df96895ef95b11d94bd35f5eeaccb0b8f8b9d9f8aeb1c6f8d135953b0e",
+   "note": "reusable only if fold/feature/metric semantics are identical — else recompute under P5 protocol"
+  },
+  "coldstart_split_manifest": {
+   "path": "faithful_repro/track_n/splits/MANIFEST.json",
+   "sha256": "6e6bc4beac618dedd7c1ac56e55046083e66c62bc10e727f648495cf22281fc3",
+   "note": "miRNA-cold / disease-cold manifests — for future G6+ comparisons only"
+  },
+  "fidelity_trace": {
+   "path": "faithful_repro/repro_evidence_program_20261118/MODEL_LOSS_FIDELITY_TRACE.md",
+   "sha256": "63c34391bf9ebc4ff05a97a0fad6163f8dd191771e6c3ab6e0722c85f8bcd305"
+  },
+  "track_r_final": {
+   "path": "faithful_repro/independent_repro_forensics_20261119/FINAL_FORENSICS_ACCEPTANCE.json",
+   "sha256": "cc32101ee7abd9fe650c3f885cfb8fe3a02735f824241d20058fcf0d7aed7d0d",
+   "note": "Track R closed — read-only evidence"
+  }
+ },
+ "immutability": "no historical path listed here may be modified by Track P5 work; new artifacts live only under faithful_repro/track_p5/"
+}
