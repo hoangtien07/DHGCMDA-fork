@@ -1,0 +1,49 @@
+{
+  "gate": "G5_OWNER_REVIEW_GATE",
+  "authorization": "fold0/seed1234/P5_BENCHMARK_UNKNOWN_PROVENANCE/A_SHARED/diag/max10800",
+  "verdict": "G5_COMPLETED_VALID_EXPLORATORY",
+  "outcome": "completed",
+  "optimizer_steps": 160,
+  "selected_epoch": 60,
+  "wall_s": 31.02,
+  "stop_reason": "patience exhausted (best val ep60)",
+  "macro_f1": 0.4086754502736607,
+  "per_class_f1": [
+    0.2513542795232936,
+    0.1326781326781327,
+    0.424706943192065,
+    0.6216962524654832,
+    0.612941643509329
+  ],
+  "support": [
+    201,
+    74,
+    471,
+    788,
+    772
+  ],
+  "thresholds": [
+    0.2,
+    0.25,
+    0.05,
+    0.05,
+    0.05
+  ],
+  "prediction_cardinality_mean": 3.6038923869490556,
+  "numerical_stability": "all finite; clip_active on all steps",
+  "baseline_equivalence": "NONE \u2014 no comparator shares dataset+fold+features+metric+threshold protocol",
+  "artifact_shas": {
+    "result.json": "09c74da4396affeaae848e8e91c48caa50174bcf96f250cc8c231dba5448dc24",
+    "resolved_manifest.json": "ebfd4a355e3b20d27b886a708f4e6517d4d4de41bcb8891e396e0a8a0a806d23",
+    "diagnostics.json": "35210da1f6abaf866f39a4ae93d18ebfb9c2a4743f66611894e529bcdad7d99e",
+    "checkpoint.pt": "187a65c398d531460890adbff06f3a2af5c1e2bc6ccf2cf893fef504315b235c"
+  },
+  "code_sha256": "fed33ee00d388fca8f6c01b8de8ebe210da1179213f7510e969863ff04fd31e0",
+  "scope_respected": {
+    "extra_runs": 0,
+    "param_tuning_after_results": 0,
+    "author_contact": 0,
+    "historical_artifacts_modified": 0
+  },
+  "holds": "G6/G7 await new owner decision"
+}
