@@ -1,0 +1,22 @@
+{
+  "lock": "G7_A1_PREREGISTRATION_LOCK",
+  "base_commit": "332485cb4e03c4d5701942933ae8c88de7c77f1c",
+  "amendment_id": "G7_A1_RECON_MEAN",
+  "intervention": {"recon_reduction": "mean",
+                   "note": "single isolated change vs P5 sum; applied via REGISTERED_AMENDMENTS, never as an ad-hoc override"},
+  "unchanged": "all other LOCKED_HYPERPARAMS, architecture, predictor=diag, T1=A_SHARED, refresh schedule, threshold grid, checkpoint policy, evaluator",
+  "comparator": "existing P5 'sum' checkpoints + result.json on matching folds (G6 folds 1-4)",
+  "evaluation": {"folds": [1, 2, 3, 4], "seed": 1234,
+                 "splits": "existing locked seed1234 static manifests",
+                 "no_fold0_retraining": true,
+                 "primary_metric": "MULTIHOT_MACRO_F1",
+                 "secondary": ["per-class AUROC", "AP", "prediction cardinality", "per-class F1", "gradient attribution", "clipping stats", "actual parameter updates"]},
+  "forbidden": ["alternative coefficients", "secondary rescue arms", "test-based tuning", "G7 training before owner authorization"],
+  "predefined_interpretation": {
+    "positive_f1_delta": "descriptive evidence the variant performs better under this setup",
+    "gradient_balance_change": "mechanistic evidence about the modified objective",
+    "neither_alone_proves": "causal explanation of the original model's failure",
+    "exposed_folds_status": "all comparisons on folds 0-4 remain exploratory, not confirmatory"},
+  "decision_rule": "per-fold paired delta macro-F1 (A1 minus P5) reported descriptively; no significance claim",
+  "budget": {"max_wall_s_per_fold": 1800, "epochs": 650, "expected": "~50-75 s/fold observed for G6, bounded by cap"}
+}

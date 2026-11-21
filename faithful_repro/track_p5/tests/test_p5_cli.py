@@ -278,3 +278,49 @@ def test_score_diagnostics_present(tmp_path):
         for f in ('auroc', 'ap', 'score_quantiles', 'pos_pred_rate', 'support'):
             assert f in c
         assert len(c['score_quantiles']) == 5
+
+
+def test_amendment_unlocks_only_registered_key():
+    """G7_A1_RECON_MEAN swaps exactly recon_reduction sum->mean in a real
+    context; every other locked hyperparameter stays enforced."""
+    cfg = pr.load_lock()
+    a = pr.args_from_lock(cfg, 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                          amendment='G7_A1_RECON_MEAN')
+    assert a.recon_reduction == 'mean'
+    assert a.amendment == 'G7_A1_RECON_MEAN'
+    for k, v in pr.LOCKED_HYPERPARAMS.items():
+        if k != 'recon_reduction':
+            assert getattr(a, k) == v
+
+
+def test_amendment_unregistered_rejected():
+    with pytest.raises(pr.LockViolation):
+        pr.args_from_lock(pr.load_lock(), 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                          amendment='UNREGISTERED_CHANGE')
+
+
+def test_amendment_does_not_loosen_other_locks():
+    """A real-context override of any other locked key is still rejected
+    even when a valid amendment is active."""
+    with pytest.raises(pr.LockViolation):
+        pr.args_from_lock(pr.load_lock(), 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                          overrides={'lam3': 0.01},
+                          amendment='G7_A1_RECON_MEAN')
+
+
+def test_mean_reduction_isolated_to_recon_term():
+    """Same seed => identical init and step-0 forward: only the recon
+    component's scale changes between 'sum' and 'mean'."""
+    D = pr.synthetic_fixture(seed=61)
+    fold = pr.synthetic_fold(D['Y'], seed=61)
+    d_sum, d_mean = dg.Diagnostics(), dg.Diagnostics()
+    pr.train_fold(D, fold, _a(epochs=2, eval_every=1, seed=61),
+                  diag=d_sum, epochs=2)
+    pr.train_fold(D, fold, _a(epochs=2, eval_every=1, seed=61,
+                              recon_reduction='mean'),
+                  diag=d_mean, epochs=2)
+    s_sum = d_sum.report()['steps'][0]
+    s_mean = d_mean.report()['steps'][0]
+    assert s_sum['l_type'] == s_mean['l_type']          # same forward
+    assert s_sum['l_intra_w'] == s_mean['l_intra_w']
+    assert s_mean['l_rec_w'] < s_sum['l_rec_w'] * 0.01  # mean shrinks recon

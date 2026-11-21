@@ -1,0 +1,22 @@
+{
+  "gate": "G7_A1_OWNER_GATE",
+  "base_commit": "332485cb4e03c4d5701942933ae8c88de7c77f1c",
+  "verdict": "READY_FOR_G7_A1_OWNER_AUTHORIZATION",
+  "real_data_optimizer_steps": 0,
+  "wp1": "G7_0_ERRATA_REV1.md \u2014 fold2 148082 & >100% claim RETRACTED; counts cross-checked vs G6 refresh edge_counts_after at selected epochs; entries vs unique edges distinguished",
+  "wp2": "interpretation corrected: global-norm dominance measured; clip rescales combined vector; Adam direction NOT established (moments unpersisted); replay = TP/FP/FN equality not bitwise logits; checkpoint-conditioned not training-time",
+  "wp3": {
+    "amendment": "G7_A1_RECON_MEAN",
+    "code_sha256_p5_runner": "9ae82d66082ceeee5e2f21e7e11aea16901453acb0cd7b567deda07479906012",
+    "tests": "88/88 pass; 4 new amendment/isolation tests",
+    "proposed_command": "p5_runner.py --once --fold F --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE --amendment G7_A1_RECON_MEAN --max-wall-s 1800 (F=1..4)",
+    "executed": false
+  },
+  "deliverables": [
+    "G7_0_ERRATA_REV1.md",
+    "G7_A1_PREREGISTRATION_LOCK.json",
+    "G7_A1_CODE_PREFLIGHT.md",
+    "G7_A1_OWNER_GATE.json"
+  ],
+  "holds": "G7-A1 real-data execution awaits owner authorization"
+}

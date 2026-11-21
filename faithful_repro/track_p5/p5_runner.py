@@ -75,6 +75,13 @@ SYNTHETIC_OVERRIDABLE = {'hidden', 'proj', 'heads', 'nlayer', 'dropout', 'K',
 THRESHOLD_GRID = [round(0.05 + 0.05 * i, 2) for i in range(19)]  # pinned
 AGGREGATION_POLICY = 'mean_of_fold_macro_f1 primary; pooled TP/FP/FN variant also reported'
 
+# Explicitly registered protocol amendments: amendment id -> {locked key:
+# amended value}. An amendment unlocks exactly the listed keys in a real
+# run context; every other locked value still fails closed.
+REGISTERED_AMENDMENTS = {
+    'G7_A1_RECON_MEAN': {'recon_reduction': 'mean'},
+}
+
 
 def atomic_write(path, write_fn):
     """Write to tmp file then os.replace — a crash never leaves a
@@ -146,12 +153,15 @@ def build_splits(Y, folds, val_frac, seed=1234):
     return folds
 
 
-def args_from_lock(cfg, profile, overrides=None, synthetic=False):
+def args_from_lock(cfg, profile, overrides=None, synthetic=False,
+                   amendment=None):
     """Map the YAML lock onto the flat args namespace faithful.py expects.
     Any lock value diverging from LOCKED_HYPERPARAMS fails closed.
     Overrides: in a real run context only RUNTIME_OVERRIDABLE keys;
     in a synthetic/test context additionally SYNTHETIC_OVERRIDABLE.
-    Everything else is rejected — nothing is silently accepted."""
+    Everything else is rejected — nothing is silently accepted.
+    `amendment` must name a REGISTERED_AMENDMENTS entry; it swaps exactly
+    the registered locked values and nothing else."""
     m, t, l, dr, e = cfg['model'], cfg['training'], cfg['loss'], cfg['dynamic_refresh'], cfg['evaluation']
     resolved = {
         'hidden': m['hidden'], 'proj': m['proj'], 'heads': m['heads'],
@@ -200,12 +210,22 @@ def args_from_lock(cfg, profile, overrides=None, synthetic=False):
                     f'{"synthetic" if synthetic else "real"} context')
             resolved[k] = v
         resolved['applied_overrides'] = dict(overrides)
-    # re-enforce every locked value AFTER overrides — an override may
-    # not silently change a locked parameter in a real context
+    amended = {}
+    if amendment is not None:
+        if amendment not in REGISTERED_AMENDMENTS:
+            raise LockViolation(f'unregistered protocol amendment {amendment}')
+        amended = REGISTERED_AMENDMENTS[amendment]
+        for k, v in amended.items():
+            resolved[k] = v
+        resolved['amendment'] = amendment
+    # re-enforce every locked value AFTER overrides/amendment — an override
+    # may not silently change a locked parameter in a real context
     if not synthetic:
         for k, v in LOCKED_HYPERPARAMS.items():
-            if resolved.get(k) != v:
-                raise LockViolation(f'locked param {k} changed by override: {resolved.get(k)}')
+            want = amended.get(k, v)
+            if resolved.get(k) != want:
+                raise LockViolation(
+                    f'locked param {k} diverges: {resolved.get(k)} != {want}')
     return types.SimpleNamespace(**resolved)
 
 
@@ -536,6 +556,8 @@ def main(argv=None):
     p.add_argument('--max-wall-s', type=float, default=None)
     p.add_argument('--synthetic', action='store_true',
                    help='synthetic fixture only — no real-data context')
+    p.add_argument('--amendment', default=None,
+                   help='registered protocol amendment id (e.g. G7_A1_RECON_MEAN)')
     a = p.parse_args(argv)
     if a.dry_run:
         if a.synthetic:
@@ -590,7 +612,8 @@ def main(argv=None):
             return 0
         # real-data path — full context binding (sha + fold + profile + seed)
         ctx = bind_context(a.profile, a.seed, a.data, a.fold_dir)
-        ar = args_from_lock(ctx['cfg'], a.profile, overrides={'seed': a.seed})
+        ar = args_from_lock(ctx['cfg'], a.profile, overrides={'seed': a.seed},
+                            amendment=a.amendment)
         diag = dg.Diagnostics()
         manifest = {'resolved_args': vars(ar),
                     'threshold_grid': THRESHOLD_GRID,
@@ -598,8 +621,11 @@ def main(argv=None):
                     'data_sha256': ctx['data_sha256'],
                     'fold_shas': ctx['fold_shas'],
                     'claim_ceiling': ctx['claim_ceiling'],
+                    'amendment': a.amendment,
                     'profile': a.profile, 'seed': a.seed, 'fold': a.fold}
-        outdir = a.out or os.path.join(_HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}')
+        suffix = f'_{a.amendment}' if a.amendment else ''
+        outdir = a.out or os.path.join(
+            _HERE, 'runs', f'g5_fold{a.fold}_s{a.seed}{suffix}')
         try:
             res, model, G_sel, ei_sel = train_fold(
                 ctx['D'], ctx['folds'][a.fold], ar,
@@ -615,6 +641,7 @@ def main(argv=None):
             return 1
         res['context'] = {'profile': a.profile, 'seed': a.seed, 'fold': a.fold,
                           'data_sha256': ctx['data_sha256'],
+                          'amendment': a.amendment,
                           'claim_ceiling': ctx['claim_ceiling']}
         art = save_run_artifacts(outdir, res, model, manifest, diag,
                                  graph={'G': G_sel, 'ei': ei_sel})
