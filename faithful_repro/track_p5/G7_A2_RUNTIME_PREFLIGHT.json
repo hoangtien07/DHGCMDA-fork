@@ -1,0 +1,22 @@
+{
+  "gate": "G7_A2_RUNTIME_PREFLIGHT",
+  "base_commit": "0bfa7311cee69fcaf82c34e45d564e25e9c32547",
+  "verdict": "READY_FOR_G7_A2_EXECUTION",
+  "real_data_optimizer_steps": 0,
+  "changed_files": ["p5_runner.py", "tests/test_p5_cli.py"],
+  "p5_runner_sha256": "8f6355b02178c29a83f442cdb7bd272d03757a5d199527d05bdf55908b83ebca",
+  "p0_checkpoint_semantics": {
+    "checkpoint_metadata": ["type_objective", "amendment"],
+    "entrypoint": "restore_checkpoint(ckp_path, a, nm, nd, C) — fail-closed; applies apply_type_objective; rejects objective mismatch and unknown objectives",
+    "roundtrip_test": "train A2 -> save -> restore -> eval forward with saved G/ei reproduces sigmoid probs atol 1e-7",
+    "unpatched_softmax_cannot_pass": "verified — softmax restore produces different tp and mismatched args raise LockViolation"},
+  "p1_coverage": {
+    "or_true_removed": true,
+    "independent_sigmoid_check": "manual 1/(1+e^-x) == returned tp; logsumexp != 0 (unnormalized); no per-pair sum-1 constraint",
+    "synthetic_cli_amendment": "--once --synthetic --amendment G7_A2_TYPE_SIGMOID_BCE -> resolved args + manifest + checkpoint metadata all carry it; no-amendment and A1 paths unchanged",
+    "perturbation_strengthened": "identical val_history, selected_epoch and thresholds under test-label perturbation"},
+  "test_results": "96/96 pytest pass (7 A2-scoped tests)",
+  "protocol_constraints_held": ["BCE formula and pos_weight unchanged", "temperature semantics unchanged", "recon mean unchanged", "architecture/folds/seed/optimizer unchanged", "threshold grid unchanged", "no historical artifacts modified"],
+  "proposed_command": "p5_runner.py --once --fold F --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE --amendment G7_A2_TYPE_SIGMOID_BCE --out runs/g7a2_foldF_s1234 --max-wall-s 1800 (F=1..4)",
+  "holds": "no HMDD execution launched"
+}

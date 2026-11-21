@@ -386,10 +386,17 @@ def test_a2_sigmoid_probs_not_softmax_and_logits_preserved():
                                [('m1', nm), ('m2', nm), ('d1', nd), ('d2', nd)]},
                            {rel: torch.tensor([[0], [0]]) for rel in
                             pr.fz.META[1]})
-    rows = tp[0, 0]
-    assert abs(float(rows.sum()) - 1.0) > 1e-3 or True  # sigmoid: no sum-1 constraint
     lg = model.pred.last_logits
+    # independently computed sigmoid of the stashed logits == returned probs
+    manual = 1.0 / (1.0 + torch.exp(-lg))
+    assert torch.allclose(manual, tp, atol=1e-7)
     assert torch.allclose(torch.sigmoid(lg), tp)
+    # logits are unnormalized (not a softmax output fed back as logits):
+    # logsumexp over the class axis is not ~0 for every pair
+    lse = torch.logsumexp(lg, dim=2)
+    assert not torch.allclose(lse, torch.zeros_like(lse), atol=1e-4)
+    # sigmoid probabilities are NOT constrained to sum to 1 per pair
+    assert not torch.allclose(tp.sum(2), torch.ones(nm, nd))
     # BCE on raw logits differs from feeding probabilities back as logits
     y = torch.ones_like(tp[0, 0])
     l_logit = torch.nn.functional.binary_cross_entropy_with_logits(lg[0, 0], y)
@@ -423,6 +430,74 @@ def test_a2_test_label_perturbation_invariance():
     fold2['train'], fold2['val'], fold2['test'] = fold['train'], fold['val'], fold['test']
     a2 = _a(epochs=3, eval_every=1, seed=73, type_objective='sigmoid_bce')
     r2 = pr.train_fold(D2, fold2, a2, epochs=3)
-    if r1['thresholds'] is not None and r2['thresholds'] is not None:
-        assert np.allclose(r1['thresholds'], r2['thresholds'])
     assert r1['outcome'] == r2['outcome'] == 'completed'
+    # deterministic trajectories must be identical: test labels never
+    # entered training, validation scoring or checkpoint selection
+    assert r1['val_history'] == r2['val_history']
+    assert r1['selected_epoch'] == r2['selected_epoch']
+    assert np.allclose(r1['thresholds'], r2['thresholds'])
+
+
+def test_a2_synthetic_cli_forwards_amendment(tmp_path):
+    """The actual --once --synthetic --amendment CLI path resolves the
+    amendment, records it in the manifest and checkpoint metadata."""
+    d = str(tmp_path / 'a2cli')
+    rc = pr.main(['--once', '--synthetic', '--seed', '8',
+                  '--amendment', 'G7_A2_TYPE_SIGMOID_BCE', '--out', d])
+    assert rc == 0
+    man = json.load(open(os.path.join(d, 'resolved_manifest.json')))
+    assert man['amendment'] == 'G7_A2_TYPE_SIGMOID_BCE'
+    assert man['resolved_args']['type_objective'] == 'sigmoid_bce'
+    assert man['resolved_args']['recon_reduction'] == 'mean'
+    ck = torch.load(os.path.join(d, 'checkpoint.pt'), weights_only=False)
+    assert ck['type_objective'] == 'sigmoid_bce'
+    assert ck['amendment'] == 'G7_A2_TYPE_SIGMOID_BCE'
+    # no-amendment and A1 paths unchanged
+    for amend, want in [(None, 'softmax_ce'), ('G7_A1_RECON_MEAN', 'softmax_ce')]:
+        d2 = str(tmp_path / f'cli_{amend or "none"}')
+        rc2 = pr.main(['--once', '--synthetic', '--seed', '8', '--out', d2]
+                      + (['--amendment', amend] if amend else []))
+        assert rc2 == 0
+        ck2 = torch.load(os.path.join(d2, 'checkpoint.pt'), weights_only=False)
+        assert ck2['type_objective'] == want
+
+
+def test_a2_checkpoint_roundtrip_reproduces_sigmoid_probs(tmp_path):
+    """Train A2 -> save -> restore via restore_checkpoint: eval forward
+    with saved G/ei reproduces the sigmoid probabilities exactly; an
+    unpatched softmax model does NOT pass the same check."""
+    D = pr.synthetic_fixture(seed=74)
+    fold = pr.synthetic_fold(D['Y'], seed=74)
+    a = _a(epochs=3, eval_every=1, seed=74, type_objective='sigmoid_bce')
+    res, model, G, ei = pr.train_fold(D, fold, a, epochs=3, return_state=True)
+    outdir = str(tmp_path / 'a2rt')
+    man = {'resolved_args': vars(a), 'amendment': 'G7_A2_TYPE_SIGMOID_BCE'}
+    pr.save_run_artifacts(outdir, res, model, man, None,
+                          graph={'G': G, 'ei': ei})
+    # deterministic inputs, same construction as train_fold
+    Yt = np.zeros_like(D['Y']); tr = fold['train']
+    Yt[tr[:, 0], tr[:, 1]] = D['Y'][tr[:, 0], tr[:, 1]]
+    A = (Yt.sum(2) > 0).astype(np.float32)
+    sims = {k: D[k].astype(np.float32) for k in ('sim_m1','sim_m2','sim_d1','sim_d2')}
+    X = {k: torch.tensor(v) for k, v in dict(
+        m1=np.hstack([sims['sim_m1'], A]), m2=np.hstack([sims['sim_m2'], A]),
+        d1=np.hstack([sims['sim_d1'], A.T]), d2=np.hstack([sims['sim_d2'], A.T])).items()}
+    nm, nd, C = D['Y'].shape
+    ckp = os.path.join(outdir, 'checkpoint.pt')
+    m2, ck = pr.restore_checkpoint(ckp, a, nm, nd, C)
+    torch.manual_seed(0)
+    with torch.no_grad():
+        ex1, tp1, *_ = model.eval()(X, ck['G'], ck['ei'])
+        ex2, tp2, *_ = m2(X, ck['G'], ck['ei'])
+    assert torch.allclose(tp1, tp2, atol=1e-7)
+    assert torch.allclose(torch.sigmoid(m2.pred.last_logits), tp2, atol=1e-7)
+    # unpatched softmax restore must NOT silently pass
+    a_soft = _a(epochs=3, eval_every=1, seed=74)  # softmax_ce args
+    m_wrong = pr.fz.DHGCMDA(nm, nd, C, a_soft)
+    m_wrong.load_state_dict(ck['state_dict']); m_wrong.eval()
+    with torch.no_grad():
+        _, tp_wrong, *_ = m_wrong(X, ck['G'], ck['ei'])
+    assert not torch.allclose(tp_wrong, tp2, atol=1e-7)
+    # objective mismatch is rejected fail-closed
+    with pytest.raises(pr.LockViolation):
+        pr.restore_checkpoint(ckp, a_soft, nm, nd, C)

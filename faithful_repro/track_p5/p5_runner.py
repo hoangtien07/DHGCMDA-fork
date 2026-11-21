@@ -367,6 +367,28 @@ def apply_type_objective(model, a):
     return model
 
 
+def restore_checkpoint(ckp_path, a, nm, nd, C):
+    """Fail-closed checkpoint restoration: rebuilds the model with the
+    predictor semantics recorded in the checkpoint metadata and rejects
+    any mismatch between the requested run args and the saved objective.
+    An A2 checkpoint requires apply_type_objective; an unpatched restore
+    cannot silently pass replay checks because sigmoid_bce checkpoints
+    record 'type_objective' and are only loaded through here."""
+    ck = torch.load(ckp_path, weights_only=False)
+    obj = ck.get('type_objective', 'softmax_ce')
+    want = getattr(a, 'type_objective', 'softmax_ce')
+    if obj not in {'softmax_ce', 'sigmoid_bce'}:
+        raise LockViolation(f'unknown checkpoint type_objective {obj!r}')
+    if want != obj:
+        raise LockViolation(
+            f'objective mismatch: run args {want} vs checkpoint {obj}')
+    model = fz.DHGCMDA(nm, nd, C, a)
+    apply_type_objective(model, a)
+    model.load_state_dict(ck['state_dict'])
+    model.eval()
+    return model, ck
+
+
 def _val_predictions(model, X, G, ei, val_pairs):
     model.eval()
     with torch.no_grad():
@@ -575,6 +597,11 @@ def save_run_artifacts(outdir, res, model, resolved, diag=None, graph=None):
                'selected_epoch': res.get('selected_epoch'),
                'thresholds': res.get('thresholds'),
                'threshold_source': res.get('threshold_source'),
+               # predictor semantics + amendment are part of the checkpoint
+               # contract: restore_checkpoint must reproduce them exactly.
+               'type_objective': getattr(model.a, 'type_objective',
+                                         'softmax_ce'),
+               'amendment': resolved.get('amendment'),
                'graph_state': ('selected' if res.get('outcome') == 'completed'
                                else 'final_unselected')}
     if graph is not None:
@@ -629,13 +656,15 @@ def main(argv=None):
                                 overrides={'hidden': 32, 'proj': 16,
                                            'epochs': 3, 'eval_every': 1,
                                            'patience': 3, 'update_every': 2,
-                                           'K': 4, 'seed': a.seed})
+                                           'K': 4, 'seed': a.seed},
+                                amendment=a.amendment)
             D = synthetic_fixture(seed=a.seed)
             fold = synthetic_fold(D['Y'], seed=a.seed)
             diag = dg.Diagnostics()
             manifest = {'resolved_args': vars(ar),
                         'threshold_grid': THRESHOLD_GRID,
                         'aggregation_policy': AGGREGATION_POLICY,
+                        'amendment': a.amendment,
                         'context': 'synthetic', 'seed': a.seed}
             outdir = a.out or os.path.join(_HERE, 'runs', 'synthetic_once')
             try:
