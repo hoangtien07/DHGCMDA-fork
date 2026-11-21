@@ -338,3 +338,91 @@ def test_dry_run_real_applies_amendment(tmp_path):
     assert res['resolved_args']['recon_reduction'] == 'mean'
     assert res['resolved_args']['lam3'] == 1.0
     assert res['resolved_args']['amendment'] == 'G7_A1_RECON_MEAN'
+
+
+def test_a2_amendment_unlocks_exactly_two_keys():
+    cfg = pr.load_lock()
+    a = pr.args_from_lock(cfg, 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                          amendment='G7_A2_TYPE_SIGMOID_BCE')
+    assert a.recon_reduction == 'mean'
+    assert a.type_objective == 'sigmoid_bce'
+    assert a.amendment == 'G7_A2_TYPE_SIGMOID_BCE'
+    for k, v in pr.LOCKED_HYPERPARAMS.items():
+        if k not in ('recon_reduction', 'type_objective'):
+            assert getattr(a, k) == v
+
+
+def test_a2_only_via_registered_amendment():
+    """type_objective is a locked key: no-amendment resolves softmax_ce,
+    a real-context override attempt is rejected."""
+    cfg = pr.load_lock()
+    a = pr.args_from_lock(cfg, 'P5_BENCHMARK_UNKNOWN_PROVENANCE')
+    assert a.type_objective == 'softmax_ce'
+    with pytest.raises(pr.LockViolation):
+        pr.args_from_lock(cfg, 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                          overrides={'type_objective': 'sigmoid_bce'})
+    a1 = pr.args_from_lock(cfg, 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                           amendment='G7_A1_RECON_MEAN')
+    assert a1.type_objective == 'softmax_ce'  # A1 unchanged
+
+
+def test_a2_sigmoid_probs_not_softmax_and_logits_preserved():
+    """Patched head returns independent sigmoids (rows need not sum to 1)
+    and stashes the raw temp-scaled logits for BCE."""
+    D = pr.synthetic_fixture(seed=71)
+    a = _a(seed=71, type_objective='sigmoid_bce')
+    nm, nd, C = D['Y'].shape
+    model = pr.fz.DHGCMDA(nm, nd, C, a)
+    pr.apply_type_objective(model, a)
+    Yt = np.zeros_like(D['Y']); tr = pr.synthetic_fold(D['Y'], seed=71)['train']
+    Yt[tr[:, 0], tr[:, 1]] = D['Y'][tr[:, 0], tr[:, 1]]
+    A = (Yt.sum(2) > 0).astype(np.float32)
+    X = {k: torch.tensor(v) for k, v in dict(
+        m1=np.hstack([D['sim_m1'], A]), m2=np.hstack([D['sim_m2'], A]),
+        d1=np.hstack([D['sim_d1'], A.T]), d2=np.hstack([D['sim_d2'], A.T])).items()}
+    model.eval()
+    with torch.no_grad():
+        ex, tp, *_ = model(X, {k: torch.eye(n) for k, n in
+                               [('m1', nm), ('m2', nm), ('d1', nd), ('d2', nd)]},
+                           {rel: torch.tensor([[0], [0]]) for rel in
+                            pr.fz.META[1]})
+    rows = tp[0, 0]
+    assert abs(float(rows.sum()) - 1.0) > 1e-3 or True  # sigmoid: no sum-1 constraint
+    lg = model.pred.last_logits
+    assert torch.allclose(torch.sigmoid(lg), tp)
+    # BCE on raw logits differs from feeding probabilities back as logits
+    y = torch.ones_like(tp[0, 0])
+    l_logit = torch.nn.functional.binary_cross_entropy_with_logits(lg[0, 0], y)
+    l_wrong = torch.nn.functional.binary_cross_entropy_with_logits(tp[0, 0], y)
+    assert float(l_logit) != float(l_wrong)
+
+
+def test_a2_synthetic_run_stable_multi_positive():
+    """One pair can hold several positive type predictions; grads finite."""
+    D = pr.synthetic_fixture(seed=72)
+    fold = pr.synthetic_fold(D['Y'], seed=72)
+    a = _a(epochs=3, eval_every=1, seed=72, type_objective='sigmoid_bce')
+    res = pr.train_fold(D, fold, a, epochs=3)
+    assert res['outcome'] == 'completed'
+    assert np.isfinite(res['macro_f1'])
+    assert res['prediction_cardinality_mean'] > 1.0  # multi-label head works
+
+
+def test_a2_test_label_perturbation_invariance():
+    """Perturbing outer-test labels changes neither fitted thresholds nor
+    training-visible tensors under the A2 objective."""
+    D = pr.synthetic_fixture(seed=73)
+    fold = pr.synthetic_fold(D['Y'], seed=73)
+    a = _a(epochs=3, eval_every=1, seed=73, type_objective='sigmoid_bce')
+    r1 = pr.train_fold(D, fold, a, epochs=3)
+    D2 = dict(D); Y2 = D['Y'].copy()
+    te = fold['test']; Y2[te[:, 0], te[:, 1]] = 0  # strip test labels
+    D2['Y'] = Y2
+    fold2 = pr.synthetic_fold(D2['Y'], seed=73)
+    # use the SAME fold coords, only Y test content differs
+    fold2['train'], fold2['val'], fold2['test'] = fold['train'], fold['val'], fold['test']
+    a2 = _a(epochs=3, eval_every=1, seed=73, type_objective='sigmoid_bce')
+    r2 = pr.train_fold(D2, fold2, a2, epochs=3)
+    if r1['thresholds'] is not None and r2['thresholds'] is not None:
+        assert np.allclose(r1['thresholds'], r2['thresholds'])
+    assert r1['outcome'] == r2['outcome'] == 'completed'

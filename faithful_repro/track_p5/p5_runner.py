@@ -38,6 +38,7 @@ LOCKED_HYPERPARAMS = {
     'update_every': 5, 'theta': 0.5, 'val_frac': 0.1,
     'eval_every': 10, 'patience': 10, 'epochs': 650, 'n_neg_draws': 10,
     'predictor': 'diag', 'recon_reduction': 'sum',
+    'type_objective': 'softmax_ce',
 }
 REJECT = {'diag_leak': 1}          # hard reject in the P5 runner
 SUPPORTED_PROFILES = {'P5_BENCHMARK_UNKNOWN_PROVENANCE',
@@ -70,6 +71,7 @@ SYNTHETIC_OVERRIDABLE = {'hidden', 'proj', 'heads', 'nlayer', 'dropout', 'K',
                          'lam2', 'lam3', 'exist_w', 'neg_w', 'beta', 't',
                          'margin', 'margin_w', 'theta', 'val_frac',
                          'predictor', 'recon_reduction', 'ablation',
+                         'type_objective',
                          'protocol', 'folds', 'only_fold', 'early_stop'}
 
 THRESHOLD_GRID = [round(0.05 + 0.05 * i, 2) for i in range(19)]  # pinned
@@ -80,6 +82,10 @@ AGGREGATION_POLICY = 'mean_of_fold_macro_f1 primary; pooled TP/FP/FN variant als
 # run context; every other locked value still fails closed.
 REGISTERED_AMENDMENTS = {
     'G7_A1_RECON_MEAN': {'recon_reduction': 'mean'},
+    # G7-A2 = A1 (mean recon) + independent sigmoid type heads with BCE;
+    # both locked keys are changed by ONE registered amendment.
+    'G7_A2_TYPE_SIGMOID_BCE': {'recon_reduction': 'mean',
+                               'type_objective': 'sigmoid_bce'},
 }
 
 
@@ -183,6 +189,7 @@ def args_from_lock(cfg, profile, overrides=None, synthetic=False,
         'n_neg_draws': e['cv_triplet']['n_neg_draws'],
         'predictor': 'diag' if m['predictor'] == 'diag_bilinear' else m['predictor'],
         'recon_reduction': l['l_recon']['reduction'],
+        'type_objective': 'softmax_ce',
         'diag_leak': 0, 'ablation': 'none', 'protocol': 'type',
         'folds': 5, 'only_fold': -1, 'cap_threads': 0, 'threads': 2,
         'seed': 1234,
@@ -333,6 +340,33 @@ def _score_diagnostics(y, p, taus):
     return out
 
 
+def apply_type_objective(model, a):
+    """G7-A2 amendment: replace the 5-way softmax type head's OUTPUT
+    SEMANTICS with 5 independent sigmoid probabilities, keeping raw
+    (temperature-scaled) logits for BCE training. faithful.py is NOT
+    modified — the patch is applied on the model instance here.
+    Temperature handling (predefined): the same learnable, clamped
+    `s.temp` scales the logits exactly as the softmax path does;
+    probabilities = sigmoid(logits / temp)."""
+    if getattr(a, 'type_objective', 'softmax_ce') != 'sigmoid_bce':
+        return model
+
+    def _sigmoid_forward(s, zm, zd):
+        m, d = s.pm(zm), s.pd(zd)
+        if s.mode == 'full':
+            logits = torch.einsum('ih,ohk,jk->ijo', m, s.w, d)
+            ex = torch.sigmoid(logits[:, :, 0]); logits = logits[:, :, 1:]
+        else:
+            ex = torch.sigmoid((m * s.re) @ d.T)
+            logits = torch.einsum('ih,kh,jh->ijk', m, s.rt, d)
+        scaled = logits / torch.clamp(s.temp, 0.5, 5.0)
+        s.last_logits = scaled
+        return ex, torch.sigmoid(scaled)
+
+    model.pred.forward = types.MethodType(_sigmoid_forward, model.pred)
+    return model
+
+
 def _val_predictions(model, X, G, ei, val_pairs):
     model.eval()
     with torch.no_grad():
@@ -381,6 +415,7 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
     n_k = Ytr.sum((0, 1)); w = (1 - a.beta) / (1 - a.beta ** np.maximum(n_k, 1))
     w = torch.tensor((w * C / w.sum()), dtype=torch.float32)
     model = fz.DHGCMDA(nm, nd, C, a)
+    apply_type_objective(model, a)
     opt = torch.optim.Adam(model.parameters(), lr=a.lr, weight_decay=a.wd)
     best, best_state, best_epoch, bad, hist = -1, None, None, 0, []
     opt_steps = 0
@@ -391,8 +426,17 @@ def train_fold(D, fold, a, diag=None, epochs=None, return_state=False,
         p_s, n_s = ex[pos[:, 0], pos[:, 1]], ex[neg[:, 0], neg[:, 1]]
         l_ex = ((-(1 - p_s) ** 2 * torch.log(p_s + 1e-7)).sum()
                 + a.neg_w * (-(n_s ** 2) * torch.log(1 - n_s + 1e-7)).sum()) / (len(p_s) + len(n_s))
-        yp = Yt[pos[:, 0], pos[:, 1]]; tpp = tp[pos[:, 0], pos[:, 1]]
-        l_type = -(w * yp * torch.log(tpp + 1e-9)).sum(1).mean()
+        yp = Yt[pos[:, 0], pos[:, 1]]
+        if getattr(a, 'type_objective', 'softmax_ce') == 'sigmoid_bce':
+            # A2: BCE-with-logits on the stashed pre-sigmoid logits of
+            # TRAIN-positive pairs; pos_weight = same smoothed class
+            # weights w (predefined, no search).
+            lg = model.pred.last_logits[pos[:, 0], pos[:, 1]]
+            l_type = torch.nn.functional.binary_cross_entropy_with_logits(
+                lg, yp, pos_weight=w, reduction='none').mean()
+        else:
+            tpp = tp[pos[:, 0], pos[:, 1]]
+            l_type = -(w * yp * torch.log(tpp + 1e-9)).sum(1).mean()
         l_inter = fz.inter_loss(zm, zd, At, a.t, a.margin, a.margin_w)
         l_rec = ((S_M - Sm) ** 2).sum() + ((S_D - Sd) ** 2).sum() if a.recon_reduction == 'sum' \
             else ((S_M - Sm) ** 2).mean() + ((S_D - Sd) ** 2).mean()

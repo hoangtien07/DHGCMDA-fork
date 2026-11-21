@@ -1,0 +1,21 @@
+{
+  "lock": "G7_A2_PREREGISTRATION_LOCK",
+  "base_commit": "c4126d9cf0ba09c08f7f9f7ef9eeb73228adcc18",
+  "hypothesis": "H3: softmax multi-hot type objective mismatched with multilabel prediction",
+  "amendment_id": "G7_A2_TYPE_SIGMOID_BCE",
+  "intervention": {"type_objective": "sigmoid_bce", "recon_reduction": "mean",
+    "formula": "mean over train-positive pairs of BCEWithLogits(sigmoid-scaled logits, y_multihot, pos_weight=w)",
+    "eval_semantics": "sigmoid probabilities through the same 19-point threshold grid"},
+  "unchanged": "data, fold manifests, seed 1234, encoder/HGCN/HGT/diag-bilinear, lam3=1.0, optimizer, refresh schedule, early stopping, threshold grid, primary metric, existence head",
+  "comparator": "G7-A1 checkpoints + results on folds 1-4",
+  "evaluation": {"folds": [1,2,3,4], "primary": "delta MULTIHOT_MACRO_F1 vs A1",
+    "secondary": ["per-class AUROC/AP", "decision collapse (pos-pred rates)", "cardinality",
+                  "type/intra/recon gradient attribution", "graph stability"]},
+  "predefined_interpretation": {
+    "improvement": "descriptive evidence sigmoid-BCE suits the task better under this setup",
+    "deterioration": "evidence against H3 under this setup",
+    "mixed": "objective-mismatch not the dominant residual factor",
+    "no_claims": "no significance or causal claims; folds are exposed"} ,
+  "forbidden": ["alternative losses", "hyperparameter search", "fold-0 rerun", "extra seeds", "rescue arms"],
+  "budget": {"max_wall_s_per_fold": 1800}
+}

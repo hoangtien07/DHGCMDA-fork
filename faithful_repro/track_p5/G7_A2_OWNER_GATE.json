@@ -1,0 +1,20 @@
+{
+  "gate": "G7_A2_OWNER_GATE",
+  "base_commit": "c4126d9cf0ba09c08f7f9f7ef9eeb73228adcc18",
+  "verdict": "READY_FOR_G7_A2_OWNER_AUTHORIZATION",
+  "real_data_optimizer_steps": 0,
+  "wp0": "G7_A1_ERRATA_REV1.md \u2014 clip range 74.3-84.2%, intra>type on 3/4 folds, 3/4 at epoch ceiling",
+  "wp1": "amendment G7_A2_TYPE_SIGMOID_BCE registered; semantics frozen in G7_A2_SPEC_AND_OBJECTIVE_LOCK.md",
+  "wp2": "94/94 tests; 6 new A2 tests incl. logits-vs-probs, multi-positive, test-perturbation invariance",
+  "wp3": "folds 1-4 seed 1234 vs A1, delta macro-F1 primary, interpretation predefined",
+  "code_sha256_p5_runner": "02c221253dc0157c2071c6a2569fea3c271781e5227b9d8ca9fc10f2b71009e4",
+  "proposed_command": "p5_runner.py --once --fold F --seed 1234 --profile P5_BENCHMARK_UNKNOWN_PROVENANCE --amendment G7_A2_TYPE_SIGMOID_BCE --out runs/g7a2_foldF_s1234 --max-wall-s 1800 (F=1..4)",
+  "deliverables": [
+    "G7_A1_ERRATA_REV1.md",
+    "G7_A2_SPEC_AND_OBJECTIVE_LOCK.md",
+    "G7_A2_SYNTHETIC_PREFLIGHT.md",
+    "G7_A2_PREREGISTRATION_LOCK.json",
+    "G7_A2_OWNER_GATE.json"
+  ],
+  "holds": "no real-data A2 execution until owner authorizes"
+}
