@@ -1,0 +1,22 @@
+{
+  "gate": "G7_0_OWNER_GATE",
+  "base": "c015345cf0fe1a4d676c197260212264a82f5577",
+  "verdict": "G7_0_ANALYSIS_COMPLETE",
+  "optimizer_steps": 0,
+  "training": 0,
+  "author_contact": 0,
+  "wp0": "G6_REPORTING_ERRATA_REV1.md \u2014 steps/epochs/wall corrected, ddof=0 declared",
+  "wp1": "4/4 sha verified, graph_state=selected, replay EXACT on TP/FP/FN",
+  "wp2_key": "recon grad 8.8k\u201316k vs type ~0.06 \u2014 dominates direction after clipping too; cos\u22480 (orthogonal, not opposing)",
+  "wp3_key": "selected graphs span 6%\u2192>100% density; S mass hugs \u03b8=0.5 boundary (mechanistically consistent, not causal)",
+  "wp4": "H1>H3>H2 ranked; 3 ablation designs preregistered-only, none launched",
+  "deliverables": [
+    "G6_REPORTING_ERRATA_REV1.md",
+    "G7_0_CHECKPOINT_GRADIENT_ATTRIBUTION.md",
+    "G7_0_GRAPH_MECHANISM_REPORT.md",
+    "G7_HYPOTHESIS_AND_ABLATION_DESIGN.md",
+    "G7_0_ATTRIBUTION_RAW.json",
+    "g7_analysis.py"
+  ],
+  "holds": "G7 interventions await owner decision"
+}
