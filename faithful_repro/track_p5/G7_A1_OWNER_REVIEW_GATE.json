@@ -1,0 +1,71 @@
+{
+  "gate": "G7_A1_OWNER_REVIEW_GATE",
+  "base_commit": "b5c637d15336d51a7d16e50a862c5068a4225872",
+  "verdict": "G7_A1_COMPLETED_VALID_EXPLORATORY",
+  "runs": {
+    "amendment": "G7_A1_RECON_MEAN",
+    "folds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "seed": 1234,
+    "outcomes": {
+      "1": "completed",
+      "2": "completed",
+      "3": "completed",
+      "4": "completed"
+    },
+    "checkpoint_shas": {
+      "1": "0ca689bdb9f5c5884a0bd1e51c91a476de067fcf551d99bc8d76bc258d0b0c70",
+      "2": "54cf1735fe9f361d82526218722110cb4ce0e826b8261d55327400d6388b8632",
+      "3": "209801edf1ed06467d247be3d6eb628e1e9e9990547061e0cc1852e0e6f736ab",
+      "4": "eca05f03afb818ff3a8469cb826c1a507297cb293c47d279f59878685a9114f2"
+    },
+    "steps_epochs": {
+      "1": [
+        650,
+        600
+      ],
+      "2": [
+        490,
+        390
+      ],
+      "3": [
+        650,
+        650
+      ],
+      "4": [
+        650,
+        640
+      ]
+    }
+  },
+  "paired_delta": {
+    "mean": 0.0395,
+    "sd_ddof0": 0.0141,
+    "positive_folds": 4,
+    "per_fold": [
+      0.0165,
+      0.0395,
+      0.0521,
+      0.05
+    ]
+  },
+  "mechanism": "mean restores gradient balance: recon/type ~0.01-0.27 vs ~1e5 under sum; preclip norms 0.4-5.3 vs 1e3-1e5",
+  "interpretation_limits": [
+    "exploratory only (exposed folds)",
+    "descriptive, not causal",
+    "mean also reweights miRNA vs disease recon blocks",
+    "Adam direction not reconstructed"
+  ],
+  "deliverables": [
+    "G7_A1_RUN_RESULTS.md",
+    "G7_A1_PAIRED_COMPARISON.json",
+    "G7_A1_GRADIENT_MECHANISM.md",
+    "G7_A1_ATTRIBUTION_RAW.json",
+    "g7a1_analysis.py"
+  ],
+  "holds": "G7-A2/A3 not authorized"
+}

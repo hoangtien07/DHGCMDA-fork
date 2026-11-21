@@ -324,3 +324,17 @@ def test_mean_reduction_isolated_to_recon_term():
     assert s_sum['l_type'] == s_mean['l_type']          # same forward
     assert s_sum['l_intra_w'] == s_mean['l_intra_w']
     assert s_mean['l_rec_w'] < s_sum['l_rec_w'] * 0.01  # mean shrinks recon
+
+
+def test_dry_run_real_applies_amendment(tmp_path):
+    """--dry-run must show the EXACT resolved args the real run would use —
+    including the amendment (previously it silently showed 'sum')."""
+    out = str(tmp_path / 'dry_a1.json')
+    rc = pr.main(['--dry-run', '--data', DATA, '--fold-dir', FOLDS,
+                  '--profile', 'P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                  '--amendment', 'G7_A1_RECON_MEAN', '--out', out])
+    assert rc == 0
+    res = json.load(open(out))
+    assert res['resolved_args']['recon_reduction'] == 'mean'
+    assert res['resolved_args']['lam3'] == 1.0
+    assert res['resolved_args']['amendment'] == 'G7_A1_RECON_MEAN'

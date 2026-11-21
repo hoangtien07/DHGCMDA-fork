@@ -263,12 +263,15 @@ def bind_context(profile, seed=1234, data_path=None, fold_dir=None):
     }
 
 
-def resolve_run(data_path=None, fold_dir=None, profile='P5_BENCHMARK_UNKNOWN_PROVENANCE'):
+def resolve_run(data_path=None, fold_dir=None, profile='P5_BENCHMARK_UNKNOWN_PROVENANCE',
+                amendment=None):
     """Produce the full resolved configuration + all hashes for a
-    proposed run — NO training. Safe entrypoint for the gate."""
+    proposed run — NO training. Safe entrypoint for the gate.
+    `amendment` is applied so the dry-run reflects the exact resolved
+    arguments the real run would use."""
     ctx = bind_context(profile, data_path=data_path, fold_dir=fold_dir)
     cfg = ctx['cfg']
-    a = args_from_lock(cfg, profile)
+    a = args_from_lock(cfg, profile, amendment=amendment)
     split_shas = {}
     for f, fo in enumerate(ctx['folds']):
         h = hashlib.sha256()
@@ -569,7 +572,8 @@ def main(argv=None):
                    'aggregation_policy': AGGREGATION_POLICY,
                    'note': 'synthetic dry-run: no SHAs to bind'}
         else:
-            res = resolve_run(a.data, a.fold_dir, a.profile)
+            res = resolve_run(a.data, a.fold_dir, a.profile,
+                              amendment=a.amendment)
         out = a.out or os.path.join(_HERE, 'runs', 'dry_run.json')
         atomic_json(out, res)
         print(json.dumps({'dry_run': True, 'optimizer_steps': 0, 'out': out}))
