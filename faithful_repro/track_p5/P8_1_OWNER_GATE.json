@@ -1,0 +1,21 @@
+{
+  "gate": "P8_1_OWNER_GATE",
+  "base_commit": "ad9f22799b8ff3732144651e668f4c910b4b107a",
+  "verdict": "P8_1_SOURCE_AUDIT_COMPLETE",
+  "new_optimizer_steps": 0,
+  "new_evaluations": 0,
+  "wp0": "G7_CLOSURE_ERRATA_REV1.md \u2014 P5 c3 AUROC 0.5621\u20130.6471 / c4 0.4151\u20130.4656 verified; A2 c3 AP improves all 4 folds (0.5862\u20130.6789 vs A1 0.5070\u20130.5435); pos_weight = positive term only",
+  "wp1": "sim_m1/sim_d1 = own deterministic rebuilds (label-free); sim_m2 = EXACT passthrough of shipped M_MISIM; sim_d2 = EXACT passthrough of shipped D_MESH, NON-MATCH vs mtrees2019 rebuild (28.9% cells)",
+  "wp2": "sim_m2 BLOCKED_FOR_CLEAN_EVALUATION \u2014 MISIM association-derived upstream; source snapshot unverifiable; overlap unmeasured; train-masked rebuild feasible but not the bundled matrix",
+  "wp3": "P8_EVALUATION_PROTOCOL_REV1.md \u2014 pair/miRNA-cold/disease-cold axes; feature permissions; fresh-split\u2260independent; config freeze before confirmatory access; dependent-measurement stats",
+  "wp4": "A: benchmark-behavior only; B: defensible as declared variant (needs train-masked m2 + certified d2); C: cleanest (3-view label-free, new variant not reproduction); D: not yet actionable",
+  "deliverables": [
+    "G7_CLOSURE_ERRATA_REV1.md",
+    "P8_1_BUNDLED_FEATURE_LINEAGE.md",
+    "P8_1_MISIM_DEPENDENCY_AUDIT.md",
+    "P8_EVALUATION_PROTOCOL_REV1.md",
+    "P8_1_FEASIBILITY_DECISION_MATRIX.md",
+    "P8_1_OWNER_GATE.json"
+  ],
+  "holds": "no P8.2/P8.3 progression without owner authorization"
+}
