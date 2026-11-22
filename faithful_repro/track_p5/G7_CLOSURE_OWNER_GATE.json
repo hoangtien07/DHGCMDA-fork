@@ -1,0 +1,18 @@
+{
+  "gate": "G7_CLOSURE_OWNER_GATE",
+  "base_commit": "0d14f4a6b4415ca3d700ddd0ff3df7fd03d6d19a",
+  "verdict": "G7_CLOSED_EXPLORATORY__P8_READY_FOR_OWNER_REVIEW",
+  "new_real_data_optimizer_steps": 0,
+  "wp1": "G7_A2_ERRATA_REV1.md \u2014 class-4 (not 3) sub-0.5 AUROC in P5; A2 ranking gains non-uniform (class3 up, class1 down); calibration not established; A2 = link+normalization+weighting change; result is vs-A1-negative not universal refutation",
+  "wp2": "P5_G7_SCIENTIFIC_SYNTHESIS.md \u2014 3-config matrix, ddof=0 stated, observations vs interpretations vs unproven separated",
+  "wp3": "P8_FEATURE_PROVENANCE_READINESS.md \u2014 sim_m1/d1/d2 LABEL_FREE, sim_m2 label-dependent-pending, bundled UNKNOWN; GIP-on-full-A flagged; lineage graph with shas",
+  "wp4": "P8_EVALUATION_PROTOCOL_DRAFT.md \u2014 T1/T2/T3 claim tiers, leakage axes, fresh-fold statistics; design only",
+  "deliverables": [
+    "G7_A2_ERRATA_REV1.md",
+    "P5_G7_SCIENTIFIC_SYNTHESIS.md",
+    "P8_FEATURE_PROVENANCE_READINESS.md",
+    "P8_EVALUATION_PROTOCOL_DRAFT.md",
+    "G7_CLOSURE_OWNER_GATE.json"
+  ],
+  "holds": "P8 execution and all further experiments await owner decision"
+}
