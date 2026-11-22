@@ -1,0 +1,278 @@
+{
+  "1": {
+    "ckp_sha256": "9f2e45b88e869f5f511b95de48c9e2bdc24a7cb043b024d7a0a478af7646ef9d",
+    "graph_state": "selected",
+    "selected_epoch": 200,
+    "replay_exact": true,
+    "meta_consistent": true,
+    "grad": {
+      "type": {
+        "total": 0.10869987734529545,
+        "by_group": {
+          "encoder": 0.009494487380262468,
+          "graph_layers": 0.004506404580642249,
+          "predictor": 0.10819062049005855,
+          "recon_heads": 0.0
+        }
+      },
+      "recon": {
+        "total": 0.022411130676097585,
+        "by_group": {
+          "encoder": 0.01352608331844393,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.017869075192735492
+        }
+      },
+      "intra": {
+        "total": 0.9313590032202883,
+        "by_group": {
+          "encoder": 0.9313590032202883,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "inter": {
+        "total": 0.05510735327668127,
+        "by_group": {
+          "encoder": 0.05510735327668127,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "exist": {
+        "total": 0.05761648053913278,
+        "by_group": {
+          "encoder": 0.013509886691556408,
+          "graph_layers": 0.0070959047466318415,
+          "predictor": 0.055558887022008466,
+          "recon_heads": 0.0
+        }
+      }
+    },
+    "cos_type_recon": -0.057178578272399624,
+    "ei_edges": {
+      "('miRNA', 'associates', 'disease')": {
+        "edges": 6289
+      },
+      "('disease', 'associates', 'miRNA')": {
+        "edges": 6289
+      },
+      "('miRNA', 'similar', 'miRNA')": {
+        "edges": 55438
+      },
+      "('disease', 'similar', 'disease')": {
+        "edges": 398
+      }
+    }
+  },
+  "2": {
+    "ckp_sha256": "b74f59df1c0aa44e0a4d8de983c2173e1d2aed75bc857ff458cea911509c76a0",
+    "graph_state": "selected",
+    "selected_epoch": 180,
+    "replay_exact": true,
+    "meta_consistent": true,
+    "grad": {
+      "type": {
+        "total": 0.15743106684878555,
+        "by_group": {
+          "encoder": 0.011846646532240813,
+          "graph_layers": 0.005690770296663419,
+          "predictor": 0.15688152507072828,
+          "recon_heads": 0.0
+        }
+      },
+      "recon": {
+        "total": 0.026407071135043644,
+        "by_group": {
+          "encoder": 0.014216812952792665,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.022253440978791617
+        }
+      },
+      "intra": {
+        "total": 1.2771519025095517,
+        "by_group": {
+          "encoder": 1.2771519025095517,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "inter": {
+        "total": 0.050770700452694655,
+        "by_group": {
+          "encoder": 0.050770700452694655,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "exist": {
+        "total": 0.06667905807125829,
+        "by_group": {
+          "encoder": 0.014141097027156985,
+          "graph_layers": 0.007990264889956368,
+          "predictor": 0.06467056383801752,
+          "recon_heads": 0.0
+        }
+      }
+    },
+    "cos_type_recon": 0.0595918287804309,
+    "ei_edges": {
+      "('miRNA', 'associates', 'disease')": {
+        "edges": 6289
+      },
+      "('disease', 'associates', 'miRNA')": {
+        "edges": 6289
+      },
+      "('miRNA', 'similar', 'miRNA')": {
+        "edges": 57286
+      },
+      "('disease', 'similar', 'disease')": {
+        "edges": 402
+      }
+    }
+  },
+  "3": {
+    "ckp_sha256": "0bda1623c8a4d7b03b50e62a10291cebfb14ed074c33bc80b063c76482ade048",
+    "graph_state": "selected",
+    "selected_epoch": 650,
+    "replay_exact": true,
+    "meta_consistent": true,
+    "grad": {
+      "type": {
+        "total": 0.0699230924732313,
+        "by_group": {
+          "encoder": 0.04843234372025089,
+          "graph_layers": 0.030611997220590475,
+          "predictor": 0.040080575955817925,
+          "recon_heads": 0.0
+        }
+      },
+      "recon": {
+        "total": 0.08066640504087273,
+        "by_group": {
+          "encoder": 0.04399900538438598,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0676103278161178
+        }
+      },
+      "intra": {
+        "total": 1.064361432155308,
+        "by_group": {
+          "encoder": 1.064361432155308,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "inter": {
+        "total": 0.016713735656845436,
+        "by_group": {
+          "encoder": 0.016713735656845436,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "exist": {
+        "total": 0.05496183813145072,
+        "by_group": {
+          "encoder": 0.02490005689450892,
+          "graph_layers": 0.012311177875622602,
+          "predictor": 0.04742600253819406,
+          "recon_heads": 0.0
+        }
+      }
+    },
+    "cos_type_recon": -0.026397546803917104,
+    "ei_edges": {
+      "('miRNA', 'associates', 'disease')": {
+        "edges": 6289
+      },
+      "('disease', 'associates', 'miRNA')": {
+        "edges": 6289
+      },
+      "('miRNA', 'similar', 'miRNA')": {
+        "edges": 57690
+      },
+      "('disease', 'similar', 'disease')": {
+        "edges": 6014
+      }
+    }
+  },
+  "4": {
+    "ckp_sha256": "f1b45f976e0f8c13c6db3968ff610c6ac735c2115be593fa622d832d98f62a58",
+    "graph_state": "selected",
+    "selected_epoch": 360,
+    "replay_exact": true,
+    "meta_consistent": true,
+    "grad": {
+      "type": {
+        "total": 0.06893742310386199,
+        "by_group": {
+          "encoder": 0.029656112166073702,
+          "graph_layers": 0.01357891094188097,
+          "predictor": 0.060732993446944515,
+          "recon_heads": 0.0
+        }
+      },
+      "recon": {
+        "total": 0.05862912936911269,
+        "by_group": {
+          "encoder": 0.0316016455737724,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.04938330494822945
+        }
+      },
+      "intra": {
+        "total": 1.2130245421411634,
+        "by_group": {
+          "encoder": 1.2130245421411634,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "inter": {
+        "total": 0.029739490293431353,
+        "by_group": {
+          "encoder": 0.029739490293431353,
+          "graph_layers": 0.0,
+          "predictor": 0.0,
+          "recon_heads": 0.0
+        }
+      },
+      "exist": {
+        "total": 0.03174825753989948,
+        "by_group": {
+          "encoder": 0.012604608341360497,
+          "graph_layers": 0.004919921801177106,
+          "predictor": 0.028720551437097997,
+          "recon_heads": 0.0
+        }
+      }
+    },
+    "cos_type_recon": 0.21133578307829154,
+    "ei_edges": {
+      "('miRNA', 'associates', 'disease')": {
+        "edges": 6289
+      },
+      "('disease', 'associates', 'miRNA')": {
+        "edges": 6289
+      },
+      "('miRNA', 'similar', 'miRNA')": {
+        "edges": 60688
+      },
+      "('disease', 'similar', 'disease')": {
+        "edges": 888
+      }
+    }
+  }
+}

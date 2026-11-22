@@ -1,0 +1,73 @@
+{
+  "gate": "G7_A2_OWNER_REVIEW_GATE",
+  "base_commit": "26545837b4d66a33ee9d46aabf52e67eed61ef8e",
+  "verdict": "G7_A2_COMPLETED_VALID_EXPLORATORY",
+  "runs": {
+    "amendment": "G7_A2_TYPE_SIGMOID_BCE",
+    "folds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "seed": 1234,
+    "outcomes": {
+      "1": "completed",
+      "2": "completed",
+      "3": "completed",
+      "4": "completed"
+    },
+    "checkpoint_shas": {
+      "1": "9f2e45b88e869f5f511b95de48c9e2bdc24a7cb043b024d7a0a478af7646ef9d",
+      "2": "b74f59df1c0aa44e0a4d8de983c2173e1d2aed75bc857ff458cea911509c76a0",
+      "3": "0bda1623c8a4d7b03b50e62a10291cebfb14ed074c33bc80b063c76482ade048",
+      "4": "f1b45f976e0f8c13c6db3968ff610c6ac735c2115be593fa622d832d98f62a58"
+    },
+    "steps_epochs": {
+      "1": [
+        300,
+        200
+      ],
+      "2": [
+        280,
+        180
+      ],
+      "3": [
+        650,
+        650
+      ],
+      "4": [
+        460,
+        360
+      ]
+    }
+  },
+  "paired_delta_vs_a1": {
+    "mean": -0.0352,
+    "sd_ddof0": 0.0145,
+    "negative_folds": 4,
+    "per_fold": [
+      -0.0247,
+      -0.0401,
+      -0.0194,
+      -0.0567
+    ]
+  },
+  "paradox": "class-3 AUROC 0.64-0.68 (better ranking) but decision collapse returned; type grad < intra all folds",
+  "interpretation_limits": [
+    "exploratory only (exposed folds)",
+    "descriptive not causal",
+    "no rescue runs per directive",
+    "no author-metric comparison"
+  ],
+  "integrity": "4/4 replay_exact via restore_checkpoint; metadata consistent with manifests",
+  "deliverables": [
+    "G7_A2_RUN_RESULTS.md",
+    "G7_A2_PAIRED_COMPARISON.json",
+    "G7_A2_GRADIENT_MECHANISM.md",
+    "G7_A2_ATTRIBUTION_RAW.json",
+    "g7a2_analysis.py",
+    "G7_A2_OWNER_REVIEW_GATE.json"
+  ],
+  "holds": "G7-A3 and further experiments on HOLD"
+}
