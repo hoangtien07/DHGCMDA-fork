@@ -2,6 +2,8 @@
 
 Ngày: 2026-11-23 · Trạng thái: **CHỜ DUYỆT** (chưa cài đặt, chưa chạy gì)
 
+> **ĐÃ ĐƯỢC THAY THẾ** bởi `docs/strategy_thesis_dhgcmda.md` (bổ sung hiệu chuẩn v2.0 và phần cải tiến). Giữ lại để tham khảo.
+
 ---
 
 ## 1. Mục tiêu
