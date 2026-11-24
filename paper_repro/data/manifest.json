@@ -1,0 +1,67 @@
+{
+  "release": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "data": {
+    "shape": [
+      411,
+      271,
+      5
+    ],
+    "triplets": 11748,
+    "positive_pairs": 8735,
+    "positive_pair_density": 0.07842450687280596,
+    "release_types": [
+      "circulation",
+      "epigenetics",
+      "target",
+      "genetics",
+      "tissue"
+    ],
+    "collapsed_counts": [
+      1311,
+      155,
+      2613,
+      756,
+      3900
+    ],
+    "mirna_gamma": 0.04705208929593589,
+    "disease_second_view": "D_MESH duplicated for standard, GIP reserved for G3 diagnostic",
+    "source_sha256": {
+      "triplets.csv": "dcfac85287470d8bc008e28a4949bf014405514f039a7944a3143c8ff80c69ac",
+      "Y_multilabel.npy": "49b47f1bbe056b324f3bc261b2bac6cdd27064a5f96688eb1b62df9ca84a806b",
+      "M_MISIM.npy": "3fdae4f5b77aee12e0a11d825c76880bc0e3722ef66d9a48fcd07442d326b02d",
+      "D_MESH.npy": "ff7e43995d7f7ab61c436315f0b9fbe967e48cd94dd622947fd45c043a8eb844"
+    },
+    "variants": {
+      "standard": {
+        "D_SSM1.txt": "74dfe93791883de4cba71529700935bee56e9ed0347119281d52e697a078933a",
+        "D_SSM2.txt": "74dfe93791883de4cba71529700935bee56e9ed0347119281d52e697a078933a",
+        "M_FSM.txt": "2e4e307da7b0ee2d1f2b5404b1e8a014d2d3dcbc48da1a8e11452fdc3e4e4e26",
+        "M_GSM.txt": "c734094ce1c50683c762a41884d6488dda4c89412b93fcab97f908afeaef3b36",
+        "multi_all_mirna_disease_pairs_without_negative.csv": "80d8e1ab5d27194c404cd97d6956fad0316e373d0ef748fd5154e16192c9efff"
+      },
+      "diagnostic-disease-gip": {
+        "D_SSM1.txt": "74dfe93791883de4cba71529700935bee56e9ed0347119281d52e697a078933a",
+        "D_SSM2.txt": "10500d77d9ef6248757b3e93dc6f783b55352b936b85b0b94fd9f994f0266fe5",
+        "M_FSM.txt": "2e4e307da7b0ee2d1f2b5404b1e8a014d2d3dcbc48da1a8e11452fdc3e4e4e26",
+        "M_GSM.txt": "c734094ce1c50683c762a41884d6488dda4c89412b93fcab97f908afeaef3b36",
+        "multi_all_mirna_disease_pairs_without_negative.csv": "80d8e1ab5d27194c404cd97d6956fad0316e373d0ef748fd5154e16192c9efff"
+      }
+    }
+  },
+  "code_sha256": {
+    "Calculate_Metrics.py": "b034aa568b7fc19dfdb2ff70334155c96dac42538af6ce56db4021c72c081d68",
+    "ConstructHW.py": "1d402697eb630fbf3fe13b16f19244e8f58d86365c446908dc1df0a9da048e35",
+    "check_v2.0_495m383D.py": "7cfd5cc7ac780365651dbae291cd2a9c0a58950b53572334ba1086d9640ec1e9",
+    "create_hetero_data.py": "20b1436d4128ca6713f802a8e803d47ffef21d0af01adcdab722981922b28685",
+    "hetero_model.py": "73c0ce085dd763cf471ff199ef05d9e6a382597ab80005d5c4320e2a79cb8bc5",
+    "hypergraph_construct_KNN.py": "e746c9cdef4d4a9d9a0c709dd7ab00a307d03d646b951840cc98fb1c69bcfcaf",
+    "hypergraph_construct_kmeans.py": "feb951fc8afe57d82c02098bfae9ea3d988f7e1025ef5d6253f10e5efded5167",
+    "layers.py": "637bac6958f912fd7617607a65b15bf3e08f095ea994286c92d7c504e03ccd0c",
+    "main_experiments_hetero1.py": "43ddcfd17bc7a8dfd5d32b4c0fd73660a2cc389be8dd9c2fedfd6e16bbb11b04",
+    "param.py": "55c324e9c1e018a51608d350e7751a93e1df28a070c3659bc2ac7370b1a7ada2",
+    "prepareData.py": "10228435bb55c1dbeb5ff5efdd354b33ad9c87c89d12d84bfcc0bdf68d7e4544",
+    "trainData.py": "ae40078cbac0e6e5e452feab0f6e0f112e25060b95c5ad2b6445b544c2569899",
+    "utils.py": "d428baab161364a65f195bc540019bad07f4e1e76b39fac32cb7ee0e8be8f7a5",
+    "wieghts.py": "1dbec243739d5a2305ef009fe4fff0b706b2ff137b58106638013351736d3e53"
+  }
+}

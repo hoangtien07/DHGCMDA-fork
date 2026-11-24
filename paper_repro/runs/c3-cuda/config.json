@@ -1,0 +1,57 @@
+{
+  "release": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "args": {
+    "dataset": "v2.0_495m383D",
+    "data_path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-24\\c\\DHGCMDA-fork\\paper_repro\\release",
+    "epoch": 650,
+    "nlayer": 2,
+    "n_head": 8,
+    "alpha": 0.5,
+    "validation": 5,
+    "dropout": 0.3,
+    "lr": 0.0001,
+    "mi_num": 495,
+    "dis_num": 383,
+    "K_neigs": [
+      13
+    ],
+    "clusters": [
+      9
+    ],
+    "cl_temperature": 0.5,
+    "cl_weight": 1.0,
+    "enable_type_prediction": true,
+    "num_association_types": 4,
+    "enable_inter_view_cl": true,
+    "inter_view_weight": 0.3,
+    "inter_view_temperature": 0.5,
+    "inter_view_margin": 0.5,
+    "use_scheduler": true,
+    "weight_decay": 5e-05,
+    "device": "cuda",
+    "seed": 42,
+    "eval_metric": "AUPR",
+    "update_graph_frequency": 50,
+    "similarity_threshold": 0.5,
+    "use_focal_loss": true,
+    "focal_gamma": 2.5,
+    "class_weights": [
+      0.7798711044930251,
+      1.823010798400893,
+      0.9768351377096935,
+      0.420282959396388
+    ],
+    "verbose": true,
+    "save_dir": "./results/",
+    "log_dir": "./logs/"
+  },
+  "exist_weight": 0.3,
+  "type_weight": 0.7,
+  "input_manifest": null,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.5.1+cu118",
+  "cuda": "11.8",
+  "pyg": "2.6.1",
+  "numpy": "1.26.4",
+  "gpu": "NVIDIA GeForce GTX 1660 SUPER"
+}

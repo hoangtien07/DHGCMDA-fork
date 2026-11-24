@@ -1,0 +1,54 @@
+{
+  "release": "06f9ba3eed92e334d9a2b8003fc06d83596e5614",
+  "device": "cuda",
+  "g2": {
+    "passed": true,
+    "paper": {
+      "auc": 0.9738,
+      "aupr": 0.9669,
+      "f1": 0.9278
+    },
+    "delta": {
+      "auc": 0.0002866562708843112,
+      "aupr": 0.0006109755479416501,
+      "f1": 0.0006179275855431321
+    },
+    "c1_sha256": "91ea810d3f165eddaa52e6307451cd545c9a03cad2763b063267bfe74fba5447"
+  },
+  "K_star": {
+    "source": "c1",
+    "exist_weight": 0.3,
+    "type_weight": 0.7,
+    "n_head": 8
+  },
+  "T_star": {
+    "source": "c2",
+    "exist_weight": 0.1,
+    "type_weight": 0.7,
+    "n_head": 8
+  },
+  "c2_table3_delta": {
+    "top1_precision": -0.01255820895522397,
+    "top1_recall": 0.009036768782602844,
+    "top1_f1": 0.007891976057332606
+  },
+  "c3_minus_c1_binary": {
+    "auc": 0.0018974159055469286,
+    "aupr": 0.0013005530787153496,
+    "f1": 0.005894405049219009,
+    "accuracy": 0.006044776118275141,
+    "recall": 0.006567164176654039,
+    "specificity": 0.005522388057641048,
+    "precision": 0.005388295756097339
+  },
+  "c3_minus_c1_top1": {
+    "top1_precision": 0.014925373134328401,
+    "top1_recall": 0.006401549315057764,
+    "top1_f1": 0.011819035353394458
+  },
+  "completion_sha256": {
+    "c1": "91ea810d3f165eddaa52e6307451cd545c9a03cad2763b063267bfe74fba5447",
+    "c2": "d33090da872c7cc5772872f35f8d3810b08da525cde54218e1f9085f38a48977",
+    "c3": "5f5fe49bfad89103aebca5a1fb3e66e915d13b5f8b6c489d8f4e80ac78a15470"
+  }
+}
