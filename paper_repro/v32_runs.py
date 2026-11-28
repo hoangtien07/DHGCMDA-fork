@@ -6,10 +6,9 @@ from pathlib import Path
 
 import numpy as np
 
-from calibration import calibration_run, read_json
+from calibration import RUNS, calibration_run, read_json
 from prepare_v32 import DATA, DATASET, HERE, PORT, sha
 
-RUNS = HERE / "runs"
 TABLE4 = {"auc": (0.9271, 0.02), "aupr": (0.9181, 0.02), "f1": (0.8674, 0.02)}
 TABLE3 = {"precision": (0.7915, 0.03), "recall": (0.9421, 0.03), "f1": (0.8600, 0.02)}
 

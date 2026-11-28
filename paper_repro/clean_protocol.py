@@ -9,12 +9,12 @@ from pathlib import Path
 import numpy as np
 from sklearn.model_selection import KFold
 
+from calibration import RUNS
 from prepare_v32 import DATA, DATASET, HERE, ROOT, RELEASE, gip, sha
 from score_predictions import load_labels
 
 SEEDS = (1234, 42, 2025)
 DATASETS = ("v2.0_495m383D", DATASET)
-RUNS = HERE / "runs"
 
 
 def load_module(path, module_name):

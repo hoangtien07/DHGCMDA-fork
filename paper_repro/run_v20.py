@@ -13,6 +13,7 @@ sys.dont_write_bytecode = True
 
 import numpy as np
 import torch
+from calibration import RUNS
 
 HERE = Path(__file__).resolve().parent
 RELEASE = HERE / "release"
@@ -79,7 +80,7 @@ def main():
     from param import parameter_parser
 
     name = port["name"] if port else f"{options.mode}-{options.device}"
-    run = HERE / "runs" / name
+    run = RUNS / name
     run.mkdir(parents=True, exist_ok=False)
     os.chdir(run)
     sys.argv = [sys.argv[0], "--data_path", str(port["data"] if port else RELEASE), "--device", options.device]

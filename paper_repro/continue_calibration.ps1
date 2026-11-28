@@ -9,7 +9,7 @@ Set-Location -LiteralPath $repoRoot
 $trackPython = Join-Path $repoRoot '.venv/Scripts/python.exe'
 $env:PYTHONUTF8 = '1'
 if ($Device -eq 'cpu') { $env:CUDA_VISIBLE_DEVICES = '-1' }
-$runRoot = Join-Path $PSScriptRoot 'runs'
+$runRoot = if ($env:DHGCMDA_RUN_ROOT) { $env:DHGCMDA_RUN_ROOT } else { Join-Path $PSScriptRoot 'runs' }
 if ($C1ProcessId -gt 0 -and (Get-Process -Id $C1ProcessId -ErrorAction SilentlyContinue)) {
     Write-Output "Waiting for C1 process $C1ProcessId"
     Wait-Process -Id $C1ProcessId -ErrorAction SilentlyContinue

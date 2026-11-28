@@ -1,0 +1,22 @@
+{
+  "status": "far",
+  "table4_K_star": {
+    "delta": {
+      "auc": -0.040976171425029184,
+      "aupr": -0.028841573153275624,
+      "f1": -0.057722818969007994
+    },
+    "distance_in_tolerances": 2.8861409484503997,
+    "matched": false
+  },
+  "table3_T_star": {
+    "delta": {
+      "precision": -0.03067706446823082,
+      "recall": -0.10782883518995989,
+      "f1": -0.06478338885895452
+    },
+    "distance_in_tolerances": 3.5942945063319964,
+    "matched": false
+  },
+  "closer_profile": "K_star"
+}

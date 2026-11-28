@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import f1_score
 
+from calibration import RUNS
 from prepare_v32 import ASSOCIATIONS, HERE, ROOT, RELEASE, RELEASE_TYPES, SOURCE_TYPES
 from v32_runs import top1_five_types
 
@@ -68,7 +69,7 @@ def score_run(run, dataset, completion):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--device", choices=("cuda", "cpu"), default="cuda")
-    parser.add_argument("--runs", type=Path, default=HERE / "runs")
+    parser.add_argument("--runs", type=Path, default=RUNS)
     options = parser.parse_args()
     output = {}
     prefixes = ("c1-", "c2-", "c3-", "v32-")

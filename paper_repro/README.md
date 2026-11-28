@@ -34,3 +34,21 @@ pwsh -NoProfile -File paper_repro/continue_calibration.ps1
 pwsh -NoProfile -File paper_repro/continue_reproduction.ps1
 pwsh -NoProfile -File paper_repro/continue_thesis.ps1
 ```
+
+Trên máy chỉ có CPU, dùng Python 3.12 và cùng bộ phiên bản trong
+`windows-cu118-lock.txt`, với `torch==2.5.1` lấy từ PyPI cho Windows.
+Chuẩn bị lại mã gốc và bản port bằng `audit_release.py` và `prepare_v32.py`
+trước khi chạy:
+
+```powershell
+pwsh -NoProfile -File paper_repro/continue_cpu.ps1
+```
+
+Chuỗi CPU chạy C1–C3 rồi K* và T* để giữ điều kiện cùng thiết bị của khóa
+hiệu chuẩn. K* và T* chạy đồng thời, mỗi lượt vẫn dùng hai luồng PyTorch.
+G3 chờ cả hai lượt thành công. Log riêng nằm ở
+`runs/cpu/v32-K_star-1234-cpu.log` và `runs/cpu/v32-T_star-1234-cpu.log`.
+Kết quả và các cổng CPU nằm ở `runs/cpu/`. Sau G3, script chấm
+lại dự đoán, chạy Giai đoạn 4–5 và lưu báo cáo vào
+`runs/cpu/THESIS_RESULTS.md`. Nếu có thư mục chạy dở, script dừng để giữ
+bằng chứng của lượt đó.

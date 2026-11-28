@@ -3,9 +3,11 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+RUNS = Path(os.environ.get("DHGCMDA_RUN_ROOT", HERE / "runs")).resolve()
 TABLE3 = {"top1_precision": 0.5842, "top1_recall": 0.6341, "top1_f1": 0.5970}
 TABLE4 = {"auc": 0.9738, "aupr": 0.9669, "f1": 0.9278}
 
@@ -44,7 +46,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("stage", choices=("g2", "freeze"))
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
-    parser.add_argument("--runs", type=Path, default=HERE / "runs")
+    parser.add_argument("--runs", type=Path, default=RUNS)
     options = parser.parse_args()
     c1 = calibration_run(options.runs, "c1", options.device)
     delta4 = differences(c1[1]["binary"], TABLE4)

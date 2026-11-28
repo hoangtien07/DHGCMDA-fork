@@ -1,3 +1,4 @@
 /runs/** -text
 /data/manifest.json -text
 /release_manifest.json -text
+/evidence/cpu-plan/** -text
